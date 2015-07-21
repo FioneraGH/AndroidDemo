@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WeChatDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+    <string name="title_activity_handler">HandlerActivity</string>
+    <string name="title_activity_extra">ExtraActivity</string>
+    <string name="title_activity_matrix">MatrixActivity</string>
+</resources>
