@@ -112,8 +112,8 @@ public class MainActivity extends Activity implements OnClickListener {
             public void onRefresh(String data) {
                 try {
                     Thread.sleep(3000);
-
-                } catch (InterruptedException e) {
+                    System.out.println(data);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 refreshableChatEntity.finishRefreshing();

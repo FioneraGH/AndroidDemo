@@ -174,7 +174,6 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
             hideHeaderHeight = -header.getHeight();
             headerLayoutParams = (MarginLayoutParams) header.getLayoutParams();
             headerLayoutParams.topMargin = hideHeaderHeight;
-            header.setLayoutParams(headerLayoutParams);
             listView = (ListView) getChildAt(1);
             listView.setOnTouchListener(this);
             loadOnce = true;
@@ -335,7 +334,7 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
             toDegrees = 180f;
         }
         RotateAnimation animation = new RotateAnimation(fromDegrees, toDegrees, pivotX, pivotY);
-        animation.setDuration(500);
+        animation.setDuration(100);
         animation.setFillAfter(true);
         arrow.startAnimation(animation);
     }
@@ -381,27 +380,25 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
 
     /**
      * 正在刷新的任务，在此任务中会去回调注册进来的下拉刷新监听器。
-     *
-     * @author guolin
      */
     class RefreshingTask extends AsyncTask<Void, Integer, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             int topMargin = headerLayoutParams.topMargin;
             while (true) {
+                // 如果进入刷新状态，高度topMargin=0，退出循环进入刷新状态
+                if (0 == topMargin) {
+                    publishProgress(topMargin);
+                    break;
+                }
                 topMargin = topMargin + SCROLL_SPEED;
                 if (topMargin < 0) {
                     // 如果进入刷新状态，高度返回导致topMargin<0，将其置0
                     topMargin = 0;
-                } else if (0 == topMargin) {
-                    // 如果进入刷新状态，高度topMargin=0，退出循环进入刷新状态
-                    publishProgress(topMargin);
-                    break;
                 }
                 // 送到UI线程设置刷新布局
                 publishProgress(topMargin);
 
-                //sleep(10);
             }
             currentStatus = STATUS_REFRESHING;
 
@@ -425,7 +422,6 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
     /**
      * 隐藏下拉头的任务，当未进行下拉刷新或下拉刷新完成后，此任务将会使下拉头重新隐藏。
      *
-     * @author guolin
      */
     class HideHeaderTask extends AsyncTask<Void, Integer, Integer> {
         @Override
@@ -438,7 +434,6 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
                     break;
                 }
                 publishProgress(topMargin);
-                //sleep(10);
             }
             return topMargin;
         }
@@ -458,23 +453,10 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
         }
     }
 
-    /**
-     * 使当前线程睡眠指定的毫秒数。
-     *
-     * @param time 指定当前线程睡眠多久，以毫秒为单位
-     */
-    private void sleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 下拉刷新的监听器，使用下拉刷新的地方应该注册此监听器来获取刷新回调。
      *
-     * @author guolin
      */
     public interface PullToRefreshListener {
         /**
