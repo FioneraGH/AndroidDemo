@@ -2,13 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#f0f0f0" >
+    android:background="#f0f0f0">
 
     <RelativeLayout
         android:id="@+id/rl_layout"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#555555" >
+        android:background="#555555">
 
         <Button
             android:id="@+id/btn_back"
@@ -16,9 +17,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:gravity="center_vertical"
             android:text="back"
             android:textColor="#FFFFFF"
             android:textSize="16.0sp" />
@@ -47,7 +48,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff" >
+        android:background="#ffffff">
 
         <Button
             android:id="@+id/btn_send"
@@ -79,19 +80,20 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+
+    <com.fionera.wechatdemo.view.RefreshableView
+        android:id="@+id/refreshable_chat_entity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@id/rl_bottom"
-        android:layout_below="@id/rl_layout"
-        android:layout_marginLeft="10.0dp"
-        android:layout_marginRight="10.0dp"
-        android:layout_marginTop="10.0dp"
-        android:cacheColorHint="#00000000"
-        android:dividerHeight="5px"
-        android:scrollbars="none"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll" />
+        android:layout_below="@id/rl_layout">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="2px"
+            android:scrollbars="none" />
+    </com.fionera.wechatdemo.view.RefreshableView>
 
 </RelativeLayout>

@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fionera.wechatdemo.view.RefreshableView;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,6 +31,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button mBtnExtra;
     private ImageView mIvHead;
     private TextView mTvHead;
+    private RefreshableView refreshableChatEntity;
     private ListView mListView;
     private EditText mEditTextContent;
 
@@ -61,10 +64,12 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        registerRefreshListener();
     }
 
 
     private void initView() {
+        refreshableChatEntity = (RefreshableView) findViewById(R.id.refreshable_chat_entity);
         mListView = (ListView) findViewById(R.id.listview);
         mBtnBack = (Button) findViewById(R.id.btn_back);
         mBtnBack.setOnClickListener(this);
@@ -96,6 +101,24 @@ public class MainActivity extends Activity implements OnClickListener {
         }
         mAdapter = new ChatMsgViewAdapter(MainActivity.this, mDataArrays);
         mListView.setAdapter(mAdapter);
+    }
+
+    private void registerRefreshListener() {
+
+        refreshableChatEntity= (RefreshableView) findViewById(R.id.refreshable_chat_entity);
+        refreshableChatEntity.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+
+            @Override
+            public void onRefresh(String data) {
+                try {
+                    Thread.sleep(3000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableChatEntity.finishRefreshing();
+            }
+        }, 1);
     }
 
     public void onClick(View view) {

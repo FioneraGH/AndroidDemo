@@ -13,7 +13,6 @@ public class PullToRefreshActivity extends Activity {
     private RefreshableView refreshableView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
-    private static int CURRENTID = 0;
     private String[] data = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
 
     @Override
@@ -30,7 +29,7 @@ public class PullToRefreshActivity extends Activity {
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
 
             @Override
-            public void onRefresh() {
+            public void onRefresh(String data) {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -38,6 +37,6 @@ public class PullToRefreshActivity extends Activity {
                 }
                 refreshableView.finishRefreshing();
             }
-        }, CURRENTID);
+        }, 0);
     }
 }
