@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void initView() {
         refreshableChatEntity = (RefreshableView) findViewById(R.id.refreshable_chat_entity);
-        mListView = (ListView) findViewById(R.id.listview);
+        mListView = (ListView) findViewById(R.id.list_view_chat);
         mBtnBack = (Button) findViewById(R.id.btn_back);
         mBtnBack.setOnClickListener(this);
         mBtnSend = (Button) findViewById(R.id.btn_send);
@@ -119,6 +119,8 @@ public class MainActivity extends Activity implements OnClickListener {
                 refreshableChatEntity.finishRefreshing();
             }
         }, 1);
+        // 让ListView默认滚到最后
+        mListView.setSelection(mListView.getCount() - 1);
     }
 
     public void onClick(View view) {
@@ -130,7 +132,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 send();
                 break;
             case R.id.btn_extra:
-                Toast.makeText(MainActivity.this, "Extra Function", Toast.LENGTH_SHORT).show();
                 Intent extraIntent = new Intent(MainActivity.this, ExtraActivity.class);
                 startActivity(extraIntent);
                 break;

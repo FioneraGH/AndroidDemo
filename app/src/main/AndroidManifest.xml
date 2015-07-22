@@ -41,6 +41,10 @@
             android:name=".extra.PullToRefreshActivity"
             android:label="@string/title_activity_pull_to_refresh" >
         </activity>
+        <activity
+            android:name=".extra.SplitPageActivity"
+            android:label="@string/title_activity_split_page" >
+        </activity>
     </application>
 
 </manifest>
