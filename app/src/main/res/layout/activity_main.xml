@@ -63,7 +63,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@mipmap/extra" />
 
         <EditText
             android:id="@+id/et_sendmessage"

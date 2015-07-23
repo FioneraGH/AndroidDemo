@@ -17,6 +17,7 @@ public class ExtraActivity extends Activity {
     private Button matrix;
     private Button fresh;
     private Button split;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

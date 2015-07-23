@@ -41,7 +41,7 @@ public class MatrixActivity extends Activity {
                 0, 0, 1
         });
         matrix.setRotate(30);
-        matrix.postTranslate(10,0);
+        matrix.postTranslate(10, 0);
         canvas.drawBitmap(bitmap, matrix, paint);
 
         imageView2.setImageBitmap(newBitmap);

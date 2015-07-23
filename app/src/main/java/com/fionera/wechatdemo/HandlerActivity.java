@@ -82,8 +82,8 @@ public class HandlerActivity extends Activity {
             HttpResponse httpResponse = null;
             try {
                 httpResponse = httpClient.execute(httpGet);
-                if(200 == httpResponse.getStatusLine().getStatusCode()){
-                    byte [] data = EntityUtils.toByteArray(httpResponse.getEntity());
+                if (200 == httpResponse.getStatusLine().getStatusCode()) {
+                    byte[] data = EntityUtils.toByteArray(httpResponse.getEntity());
 
                     final Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                     handler.post(new Runnable() {
@@ -99,7 +99,6 @@ public class HandlerActivity extends Activity {
             }
         }
     }
-
 
 
 }

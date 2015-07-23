@@ -26,7 +26,7 @@ public class InfoLoadableView extends LinearLayout implements View.OnTouchListen
         btnLoad = (Button) footer.findViewById(R.id.bt_load);
         progressBar = (ProgressBar) footer.findViewById(R.id.pg);
         setOrientation(VERTICAL);
-        addView(footer,1);
+        addView(footer, 1);
     }
 
     @Override
