@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.fionera.wechatdemo.ChatMsgEntry;
 
+import java.util.ArrayList;
+
 /**
  * Created by fionera on 15-7-23.
  */
@@ -34,8 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
         this.DatabaseName = name;
     }
 
-    public void CloseDb(){
-        if (db != null){
+    public void CloseDb() {
+        if (db != null) {
             db.close();
         }
     }
@@ -58,10 +60,52 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] columns = {"id", "name", "content", "date", "flag"};
         cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id");
 
+        // 不能关闭数据库
         return cursor;
     }
 
-    public void insertChatEntity(ChatMsgEntry entry){
+    /**
+     * 返回数据库聊天记录总数
+     * @return 总数
+     */
+    public int getCount() {
+        int count = 0;
+        Cursor cursor = this.queryAllChatEntity();
+        while (cursor.moveToNext()) {
+
+            count++;
+        }
+        cursor.close();
+        this.CloseDb();
+
+        return count;
+    }
+
+    /**
+     * 分页查询聊天记录内容
+     * @param currentPage 当前页
+     * @param pageSize    每页显示的记录
+     * @return 当前页的记录
+     */
+    public ArrayList getAllItems(int currentPage, int pageSize) {
+        int firstResult = (currentPage - 1) * pageSize;
+        int maxResult = currentPage * pageSize;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor;
+        String[] columns = {"id", "name", "content", "date", "flag"};
+        cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id",firstResult+","+pageSize);
+
+        ArrayList items = new ArrayList();
+        while (cursor.moveToNext()) {
+            String item = cursor.getString(2);
+            items.add(item);
+
+        }
+        //不要关闭数据库
+        return items;
+    }
+
+    public void insertChatEntity(ChatMsgEntry entry) {
         SQLiteDatabase db = getWritableDatabase();
         String name = entry.getName();
         String content = entry.getText();
@@ -69,10 +113,10 @@ public class DBHelper extends SQLiteOpenHelper {
         boolean flag = entry.getMsgType();
 
         ContentValues values = new ContentValues();
-        values.put("name",name);
-        values.put("content",content);
-        values.put("date",date);
-        values.put("flag",flag?new Integer(1):new Integer(0));
+        values.put("name", name);
+        values.put("content", content);
+        values.put("date", date);
+        values.put("flag", flag ? new Integer(1) : new Integer(0));
         db.insert("Tbl_ChatEntity", null, values);
         db.close();
     }

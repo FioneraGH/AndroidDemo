@@ -33,15 +33,20 @@ public class MatrixActivity extends Activity {
         Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
         Canvas canvas = new Canvas(newBitmap);
         Paint paint = new Paint(Color.BLACK);
+        // 设置变换抗锯齿
         paint.setAntiAlias(true);
         Matrix matrix = new Matrix();
+        // 通过矩阵设置图形变换
         matrix.setValues(new float[]{
                 0.5f, 0, 0,
                 0, 0.8f, 0,
                 0, 0, 1
         });
+        // 设置旋转角度
         matrix.setRotate(30);
+        // 设置平移
         matrix.postTranslate(10, 0);
+        // 绘制Bitmap
         canvas.drawBitmap(bitmap, matrix, paint);
 
         imageView2.setImageBitmap(newBitmap);

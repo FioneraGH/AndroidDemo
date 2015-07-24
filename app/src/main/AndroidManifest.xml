@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fionera.wechatdemo">
+    package="com.fionera.wechatdemo" >
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -10,11 +10,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,22 +23,26 @@
         </activity>
         <activity
             android:name=".BluetoothActivity"
-            android:label="@string/title_activity_bluetooth"></activity>
+            android:label="@string/title_activity_bluetooth" />
         <activity
             android:name=".HandlerActivity"
-            android:label="@string/title_activity_handler"></activity>
+            android:label="@string/title_activity_handler" />
         <activity
             android:name=".ExtraActivity"
-            android:label="@string/title_activity_extra"></activity>
+            android:label="@string/title_activity_extra" />
         <activity
             android:name=".extra.MatrixActivity"
-            android:label="@string/title_activity_matrix"></activity>
+            android:label="@string/title_activity_matrix" />
         <activity
             android:name=".extra.PullToRefreshActivity"
-            android:label="@string/title_activity_pull_to_refresh"></activity>
+            android:label="@string/title_activity_pull_to_refresh" />
         <activity
             android:name=".extra.SplitPageActivity"
-            android:label="@string/title_activity_split_page"></activity>
+            android:label="@string/title_activity_split_page" />
+        <activity
+            android:name=".extra.PullToLoadActivity"
+            android:label="@string/title_activity_pull_to_load" >
+        </activity>
     </application>
 
 </manifest>
