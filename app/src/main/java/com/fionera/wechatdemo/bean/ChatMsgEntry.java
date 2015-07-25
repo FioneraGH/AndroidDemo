@@ -1,4 +1,4 @@
-package com.fionera.wechatdemo;
+package com.fionera.wechatdemo.bean;
 
 public class ChatMsgEntry {
 

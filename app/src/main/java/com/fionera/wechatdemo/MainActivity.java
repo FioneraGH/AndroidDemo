@@ -4,29 +4,29 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.util.DBHelper;
 import com.fionera.wechatdemo.view.RefreshableView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, AbsListView.OnScrollListener {
 
     private Button mBtnSend;
     private Button mBtnBack;
@@ -34,9 +34,19 @@ public class MainActivity extends Activity implements OnClickListener {
     private ImageView mIvHead;
     private TextView mTvHead;
     private RefreshableView refreshableChatEntity;
-    private ListView mListView;
+    private ListView listView;
+    private View header;
+    private Button btn;
+    private ProgressBar pg;
     private EditText mEditTextContent;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
+    private Handler handler = new Handler();
+
+    // to adjust the content
+    private int currentPage = 1; //默认在第一页
+    private static final int lineSize = 20;    //每次显示数
+    private int allRecorders = 0;  //全部记录数
+    private int pageSize = 1;  //默认共一页
 
     // content adapter
     private ChatMsgViewAdapter mAdapter;
@@ -51,13 +61,11 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
         initView();
         initData();
-        registerRefreshListener();
     }
 
 
     private void initView() {
-        refreshableChatEntity = (RefreshableView) findViewById(R.id.refreshable_chat_entity);
-        mListView = (ListView) findViewById(R.id.list_view_chat);
+        listView = (ListView) findViewById(R.id.list_view_chat);
         mBtnBack = (Button) findViewById(R.id.btn_back);
         mBtnBack.setOnClickListener(this);
         mBtnSend = (Button) findViewById(R.id.btn_send);
@@ -74,48 +82,37 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void initData() {
 
-        Cursor cursor = dbHelper.queryAllChatEntity();
-        while (cursor.moveToNext()) {
+        header = getLayoutInflater().inflate(R.layout.more_info_foot, null);
+        btn = (Button) header.findViewById(R.id.bt_load);
+        btn.setVisibility(View.GONE);
+        pg = (ProgressBar) header.findViewById(R.id.pg);
+        pg.setVisibility(View.VISIBLE);
 
-            ChatMsgEntry entry = new ChatMsgEntry();
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String content = cursor.getString(2);
-            String date = cursor.getString(3);
-            int flag = cursor.getInt(4);
-            System.out.println(name + content + date);
-            entry.setName(name);
-            entry.setText(content);
-            entry.setDate(date);
-            entry.setMsgType(flag == 1 ? true : false);
-            mDataArrays.add(entry);
+        listView.addHeaderView(header);
+        listView.setOnScrollListener(this);
+        showAllData();
+    }
+
+    /**
+     * 读取显示数据
+     */
+    public void showAllData() {
+
+        // 获取总记录数
+        allRecorders = dbHelper.getCount();
+        // 如果数据少于20，则不需要出现加载提示
+        if (allRecorders < lineSize){
+            listView.removeHeaderView(header);
         }
-        cursor.close();
-        dbHelper.close();
-
-        mAdapter = new ChatMsgViewAdapter(MainActivity.this, mDataArrays);
-        mListView.setAdapter(mAdapter);
+        // 计算总页数
+        pageSize = (allRecorders + lineSize - 1) / lineSize;
+        mDataArrays = dbHelper.getAllItems(currentPage, lineSize);
+        mAdapter = new ChatMsgViewAdapter(MainActivity.this, mDataArrays, lineSize);
+        listView.setAdapter(mAdapter);
+        listView.setSelection(mDataArrays.size() - 1);//直接定位到最底部
+        dbHelper.CloseDb();
     }
 
-    private void registerRefreshListener() {
-
-        refreshableChatEntity = (RefreshableView) findViewById(R.id.refreshable_chat_entity);
-        refreshableChatEntity.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
-
-            @Override
-            public void onRefresh(String data) {
-                try {
-                    Thread.sleep(3000);
-                    System.out.println(data);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                refreshableChatEntity.finishRefreshing();
-            }
-        }, 1);
-        // 让ListView默认滚到最后
-        mListView.setSelection(mListView.getCount() - 1);
-    }
 
     public void onClick(View view) {
         switch (view.getId()) {
@@ -140,6 +137,48 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
+    int firstItem = -1;
+
+    @Override
+    public void onScroll(AbsListView absView, int firstVisibleItem,
+                         int visibleItemCount, int totalItemCount) {
+        firstItem = firstVisibleItem;
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scorllState) {
+        if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
+            currentPage++;
+            // 增加数据
+            handler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    appendDate();
+                }
+
+            }, 2000);
+
+        }
+    }
+
+    /**
+     * 增加数据
+     */
+    private void appendDate() {
+        final ArrayList addItems = dbHelper.getAllItems(currentPage, lineSize);
+        mAdapter.setCount(mAdapter.getCount() + addItems.size());
+        //判断，如果到了最末尾则去掉进度圈
+        if (allRecorders == mAdapter.getCount()) {
+            listView.removeHeaderView(header);
+        }
+        mDataArrays.addAll(0, addItems);
+
+        mAdapter.notifyDataSetChanged();
+        listView.setSelection(addItems.size() - 1);
+        dbHelper.CloseDb();
+    }
+
 
     private void send() {
         String contString = mEditTextContent.getText().toString();
@@ -151,23 +190,23 @@ public class MainActivity extends Activity implements OnClickListener {
             entry.setText(contString);
             mDataArrays.add(entry);
             mAdapter.notifyDataSetChanged();
-            mEditTextContent.setText("");
-            mListView.setSelection(mListView.getCount() - 1);
+            listView.setSelection(listView.getCount() - 1);
             dbHelper.insertChatEntity(entry);
             autoReply();
+            mEditTextContent.setText("");
         }
     }
 
-    private void autoReply(){
+    private void autoReply() {
         ChatMsgEntry entry = new ChatMsgEntry();
         entry.setDate(getDate());
         entry.setName("hello");
         entry.setMsgType(true);
-        entry.setText("请稍候联系！");
+        entry.setText("请稍候联系！ " + mEditTextContent.getText().toString());
         mDataArrays.add(entry);
         mAdapter.notifyDataSetChanged();
         mEditTextContent.setText("");
-        mListView.setSelection(mListView.getCount() - 1);
+        listView.setSelection(listView.getCount() - 1);
         dbHelper.insertChatEntity(entry);
     }
 
@@ -194,7 +233,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 }).show();
     }
 
-    private String getDate() {
+    public static String getDate() {
         Calendar c = Calendar.getInstance();
         String year = String.valueOf(c.get(Calendar.YEAR));
         String month = String.valueOf(c.get(Calendar.MONTH));

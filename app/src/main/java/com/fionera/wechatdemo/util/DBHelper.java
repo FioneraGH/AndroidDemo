@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.fionera.wechatdemo.ChatMsgEntry;
+import com.fionera.wechatdemo.MainActivity;
+import com.fionera.wechatdemo.bean.ChatMsgEntry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by fionera on 15-7-23.
@@ -52,6 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "content char(100)," +
                 "date char(30)," +
                 "flag INTEGER );");
+
     }
 
     public Cursor queryAllChatEntity() {
@@ -87,20 +90,31 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param pageSize    每页显示的记录
      * @return 当前页的记录
      */
-    public ArrayList getAllItems(int currentPage, int pageSize) {
+    public ArrayList<ChatMsgEntry> getAllItems(int currentPage, int pageSize) {
         int firstResult = (currentPage - 1) * pageSize;
-        int maxResult = currentPage * pageSize;
-        SQLiteDatabase db = getReadableDatabase();
+        db = getReadableDatabase();
         Cursor cursor;
         String[] columns = {"id", "name", "content", "date", "flag"};
-        cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id",firstResult+","+pageSize);
+        cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id desc",firstResult+","+pageSize);
 
-        ArrayList items = new ArrayList();
+        ArrayList<ChatMsgEntry> items = new ArrayList<ChatMsgEntry>();
         while (cursor.moveToNext()) {
-            String item = cursor.getString(2);
-            items.add(item);
 
+            ChatMsgEntry entry = new ChatMsgEntry();
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String content = cursor.getString(2);
+            String date = cursor.getString(3);
+            int flag = cursor.getInt(4);
+            System.out.println(name + content + date);
+            entry.setName(name);
+            entry.setText(content);
+            entry.setDate(date);
+            entry.setMsgType(flag == 1 ? true : false);
+            items.add(entry);
         }
+        Collections.reverse(items);
+        cursor.close();
         //不要关闭数据库
         return items;
     }

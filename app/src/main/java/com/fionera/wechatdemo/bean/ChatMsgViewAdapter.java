@@ -1,4 +1,4 @@
-package com.fionera.wechatdemo;
+package com.fionera.wechatdemo.bean;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,23 +7,31 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.fionera.wechatdemo.R;
+
 import java.util.List;
 
 public class ChatMsgViewAdapter extends BaseAdapter {
 
     private List<ChatMsgEntry> data;
-    private Context context;
+    private int count;
     private LayoutInflater mInflater;
 
-    public ChatMsgViewAdapter(Context context, List<ChatMsgEntry> data) {
-        this.context = context;
+    public ChatMsgViewAdapter(Context context, List<ChatMsgEntry> data,int count) {
         this.data = data;
+        this.count = count;
         mInflater = LayoutInflater.from(context);
     }
 
     // 获取ListView的项个数
     public int getCount() {
+        // 如果数量不足一页（20行） 则返回真是数量，否则返回一页的数量
+        if (count > 20)
+            return count;
         return data.size();
+    }
+    public void setCount(int count) {
+        this.count = count;
     }
 
     // 获取项
