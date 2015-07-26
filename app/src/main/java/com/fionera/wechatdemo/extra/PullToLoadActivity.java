@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.util.DBHelper;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
     private Button btn;
     private ProgressBar pg;
     private View header;
-    private ArrayList items;
+    private ArrayList<ChatMsgEntry> items;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
     private int currentPage = 1; //默认在第一页
     private static final int lineSize = 20;    //每次显示数
@@ -58,6 +59,9 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
 
         // 获取总记录数
         allRecorders = dbHelper.getCount();
+        if (allRecorders < lineSize) {
+            listView.removeHeaderView(header);
+        }
         // 计算总页数
         pageSize = (allRecorders + lineSize - 1) / lineSize;
         items = dbHelper.getAllItems(currentPage, lineSize);
@@ -97,7 +101,6 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
      */
     private void appendDate() {
         final ArrayList addItems = dbHelper.getAllItems(currentPage, lineSize);
-        Collections.reverse(addItems);
         baseAdapter.setCount(baseAdapter.getCount() + addItems.size());
         //判断，如果到了最末尾则去掉进度圈
         if (allRecorders == baseAdapter.getCount()) {
@@ -114,10 +117,14 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
         int count = lineSize;
 
         public int getCount() {
-            return count;
+            if (items.size() < lineSize) {
+                return items.size();
+            } else {
+                return count;
+            }
         }
 
-        public void setCount(int count){
+        public void setCount(int count) {
             this.count = count;
         }
 
@@ -132,9 +139,9 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
         public View getView(int pos, View v, ViewGroup p) {
             TextView view = new TextView(PullToLoadActivity.this);
             view.setTextSize(25);
-            if(items != null){
-                view.setText((String)items.get(pos));
-            }else{
+            if (items != null) {
+                view.setText(items.get(pos).getText());
+            } else {
                 view.setText(pos);
             }
             return view;
