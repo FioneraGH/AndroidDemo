@@ -43,6 +43,10 @@
             android:name=".extra.PullToLoadActivity"
             android:label="@string/title_activity_pull_to_load" >
         </activity>
+        <activity
+            android:name=".extra.JSONActivity"
+            android:label="@string/title_activity_json" >
+        </activity>
     </application>
 
 </manifest>
