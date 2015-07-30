@@ -10,6 +10,7 @@ import com.fionera.wechatdemo.extra.JSONActivity;
 import com.fionera.wechatdemo.extra.MatrixActivity;
 import com.fionera.wechatdemo.extra.PullToLoadActivity;
 import com.fionera.wechatdemo.extra.PullToRefreshActivity;
+import com.fionera.wechatdemo.extra.RecycleActivity;
 import com.fionera.wechatdemo.extra.SplitPageActivity;
 
 public class ExtraActivity extends Activity {
@@ -19,6 +20,7 @@ public class ExtraActivity extends Activity {
     private Button split;
     private Button load;
     private Button json;
+    private Button recycle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,16 @@ public class ExtraActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExtraActivity.this, JSONActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+        // 设定REC测试跳转
+        recycle = (Button) findViewById(R.id.button6);
+        recycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, RecycleActivity.class);
                 ExtraActivity.this.startActivity(intent);
                 ExtraActivity.this.finish();
             }
