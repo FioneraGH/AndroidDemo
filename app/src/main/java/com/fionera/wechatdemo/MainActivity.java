@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -78,6 +79,7 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
         mTvHead.setOnClickListener(this);
 
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
+
     }
 
     private void initData() {
