@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table Tbl_ChatEntity (" +
                 "id INTEGER primary key autoincrement ," +
                 "name char(10)," +
-                "content char(100)," +
+                "content varchar(100)," +
                 "date char(30)," +
                 "flag INTEGER );");
 
