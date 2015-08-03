@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.fionera.wechatdemo.extra.GenericAdapterActivity;
 import com.fionera.wechatdemo.extra.JSONActivity;
 import com.fionera.wechatdemo.extra.MatrixActivity;
 import com.fionera.wechatdemo.extra.PullToLoadActivity;
 import com.fionera.wechatdemo.extra.PullToRefreshActivity;
+import com.fionera.wechatdemo.extra.QRCodeActivity;
 import com.fionera.wechatdemo.extra.RecycleActivity;
 import com.fionera.wechatdemo.extra.SplitPageActivity;
 
@@ -21,6 +23,8 @@ public class ExtraActivity extends Activity {
     private Button load;
     private Button json;
     private Button recycle;
+    private Button generic;
+    private Button qrcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +81,32 @@ public class ExtraActivity extends Activity {
                 ExtraActivity.this.finish();
             }
         });
-        // 设定REC测试跳转
+        // 设定RecyclerView测试跳转
         recycle = (Button) findViewById(R.id.button6);
         recycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExtraActivity.this, RecycleActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+        // 设定Generic测试跳转
+        generic = (Button) findViewById(R.id.button7);
+        generic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, GenericAdapterActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+        // 设定Generic测试跳转
+        qrcode = (Button) findViewById(R.id.button8);
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, QRCodeActivity.class);
                 ExtraActivity.this.startActivity(intent);
                 ExtraActivity.this.finish();
             }

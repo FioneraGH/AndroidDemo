@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeChatDemo</string>
+    <string name="app_name">AndroidDemo</string>
     <string name="hello_world">Hello world</string>
     <string name="action_settings">Settings</string>
 
@@ -21,4 +21,6 @@
     <string name="title_activity_json">JSONActivity</string>
     <string name="title_activity_recycle">RecycleActivity</string>
     <string name="title_activity_action_bar">ActionBarActivity</string>
+    <string name="title_activity_generic_adapter">GenericAdapterActivity</string>
+    <string name="title_activity_qrcode">QRCodeActivity</string>
 </resources>
