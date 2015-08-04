@@ -40,136 +40,133 @@ import com.google.zxing.common.BitMatrix;
  */
 final class QRCodeEncoder {
 
-  private static final String TAG = QRCodeEncoder.class.getSimpleName();
+    private static final String TAG = QRCodeEncoder.class.getSimpleName();
 
-  private static final int WHITE = 0xFFFFFFFF;
-  private static final int BLACK = 0xFF000000;
+    private static final int WHITE = 0xFFFFFFFF;
+    private static final int BLACK = 0xFF000000;
 
-  private final Activity activity;
-  private String contents;
-  private String displayContents;
-  private String title;
-  private BarcodeFormat format;
-  private final int dimension;
-  private final boolean useVCard;
+    private final Activity activity;
+    private String contents;
+    private String displayContents;
+    private String title;
+    private BarcodeFormat format;
+    private final int dimension;
+    private final boolean useVCard;
 
-  QRCodeEncoder(Activity activity, Intent intent, int dimension, boolean useVCard) throws WriterException {
-    this.activity = activity;
-    this.dimension = dimension;
-    this.useVCard = useVCard;
-    String action = intent.getAction();
-    if (action.equals(Intents.Encode.ACTION)) {
-      encodeContentsFromZXingIntent(intent);
-    } else if (action.equals(Intent.ACTION_SEND)) {
+    QRCodeEncoder(Activity activity, Intent intent, int dimension, boolean useVCard) throws WriterException {
+        this.activity = activity;
+        this.dimension = dimension;
+        this.useVCard = useVCard;
+        String action = intent.getAction();
+        if (action.equals(Intents.Encode.ACTION)) {
+            encodeContentsFromZXingIntent(intent);
+        } else if (action.equals(Intent.ACTION_SEND)) {
 //      encodeContentsFromShareIntent(intent);
-    }
-  }
-
-  String getContents() {
-    return contents;
-  }
-
-  String getDisplayContents() {
-    return displayContents;
-  }
-
-  String getTitle() {
-    return title;
-  }
-
-  boolean isUseVCard() {
-    return useVCard;
-  }
-
-  // It would be nice if the string encoding lived in the core ZXing library,
-  // but we use platform specific code like PhoneNumberUtils, so it can't.
-  private boolean encodeContentsFromZXingIntent(Intent intent) {
-     // Default to QR_CODE if no format given.
-    String formatString = intent.getStringExtra(Intents.Encode.FORMAT);
-    format = null;
-    if (formatString != null) {
-      try {
-        format = BarcodeFormat.valueOf(formatString);
-      } catch (IllegalArgumentException iae) {
-        // Ignore it then
-      }
-    }
-    if (format == null || format == BarcodeFormat.QR_CODE) {
-      String type = intent.getStringExtra(Intents.Encode.TYPE);
-      if (type == null || type.length() == 0) {
-        return false;
-      }
-      this.format = BarcodeFormat.QR_CODE;
-      encodeQRCodeContents(intent, type);
-    } else {
-      String data = intent.getStringExtra(Intents.Encode.DATA);
-      if (data != null && data.length() > 0) {
-        contents = data;
-        displayContents = data;
-        title = activity.getString(R.string.contents_text);
-      }
-    }
-    return contents != null && contents.length() > 0;
-  }
-
-
-
-
-  private void encodeQRCodeContents(Intent intent, String type) {
-    if (type.equals(Contents.Type.TEXT)) {
-      String data = intent.getStringExtra(Intents.Encode.DATA);
-      if (data != null && data.length() > 0) {
-        contents = data;
-        displayContents = data;
-        title = activity.getString(R.string.contents_text);
-      }
-    } 
-  }
-
-
-
-  Bitmap encodeAsBitmap() throws WriterException {
-    String contentsToEncode = contents;
-    if (contentsToEncode == null) {
-      return null;
-    }
-    Map<EncodeHintType,Object> hints = null;
-    String encoding = guessAppropriateEncoding(contentsToEncode);
-    if (encoding != null) {
-      hints = new EnumMap<EncodeHintType,Object>(EncodeHintType.class);
-      hints.put(EncodeHintType.CHARACTER_SET, encoding);
-    }
-    MultiFormatWriter writer = new MultiFormatWriter();
-    BitMatrix result;
-    try {
-      result = writer.encode(contentsToEncode, format, dimension, dimension, hints);
-    } catch (IllegalArgumentException iae) {
-      // Unsupported format
-      return null;
-    }
-    int width = result.getWidth();
-    int height = result.getHeight();
-    int[] pixels = new int[width * height];
-    for (int y = 0; y < height; y++) {
-      int offset = y * width;
-      for (int x = 0; x < width; x++) {
-        pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
-      }
+        }
     }
 
-    Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-    bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-    return bitmap;
-  }
-
-  private static String guessAppropriateEncoding(CharSequence contents) {
-    // Very crude at the moment
-    for (int i = 0; i < contents.length(); i++) {
-      if (contents.charAt(i) > 0xFF) {
-        return "UTF-8";
-      }
+    String getContents() {
+        return contents;
     }
-    return null;
-  }
+
+    String getDisplayContents() {
+        return displayContents;
+    }
+
+    String getTitle() {
+        return title;
+    }
+
+    boolean isUseVCard() {
+        return useVCard;
+    }
+
+    // It would be nice if the string encoding lived in the core ZXing library,
+    // but we use platform specific code like PhoneNumberUtils, so it can't.
+    private boolean encodeContentsFromZXingIntent(Intent intent) {
+        // Default to QR_CODE if no format given.
+        String formatString = intent.getStringExtra(Intents.Encode.FORMAT);
+        format = null;
+        if (formatString != null) {
+            try {
+                format = BarcodeFormat.valueOf(formatString);
+            } catch (IllegalArgumentException iae) {
+                // Ignore it then
+            }
+        }
+        if (format == null || format == BarcodeFormat.QR_CODE) {
+            String type = intent.getStringExtra(Intents.Encode.TYPE);
+            if (type == null || type.length() == 0) {
+                return false;
+            }
+            this.format = BarcodeFormat.QR_CODE;
+            encodeQRCodeContents(intent, type);
+        } else {
+            String data = intent.getStringExtra(Intents.Encode.DATA);
+            if (data != null && data.length() > 0) {
+                contents = data;
+                displayContents = data;
+                title = activity.getString(R.string.contents_text);
+            }
+        }
+        return contents != null && contents.length() > 0;
+    }
+
+
+    private void encodeQRCodeContents(Intent intent, String type) {
+        if (type.equals(Contents.Type.TEXT)) {
+            String data = intent.getStringExtra(Intents.Encode.DATA);
+            if (data != null && data.length() > 0) {
+                contents = data;
+                displayContents = data;
+                title = activity.getString(R.string.contents_text);
+            }
+        }
+    }
+
+
+    Bitmap encodeAsBitmap() throws WriterException {
+        String contentsToEncode = contents;
+        if (contentsToEncode == null) {
+            return null;
+        }
+        Map<EncodeHintType, Object> hints = null;
+        String encoding = guessAppropriateEncoding(contentsToEncode);
+        if (encoding != null) {
+            hints = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
+            hints.put(EncodeHintType.CHARACTER_SET, encoding);
+        }
+        MultiFormatWriter writer = new MultiFormatWriter();
+        BitMatrix result;
+        try {
+            result = writer.encode(contentsToEncode, format, dimension, dimension, hints);
+        } catch (IllegalArgumentException iae) {
+            // Unsupported format
+            return null;
+        }
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+            }
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
+    }
+
+    private static String guessAppropriateEncoding(CharSequence contents) {
+        // Very crude at the moment
+        for (int i = 0; i < contents.length(); i++) {
+            if (contents.charAt(i) > 0xFF) {
+                return "UTF-8";
+            }
+        }
+        return null;
+    }
 
 }

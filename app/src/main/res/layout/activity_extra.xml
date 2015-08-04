@@ -69,4 +69,5 @@
         android:text="New Button"
         android:id="@+id/button9"
         android:layout_gravity="right" />
+
 </LinearLayout>

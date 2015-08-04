@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#f0f0f0">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_layout"
@@ -14,7 +13,7 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -35,10 +34,11 @@
             android:id="@+id/iv_head"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_marginEnd="5dp"
+            android:background="@mipmap/barcode" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,17 +52,18 @@
             android:id="@+id/btn_send"
             android:layout_width="80dp"
             android:layout_height="48dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="send" />
 
         <Button
             android:id="@+id/btn_extra"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentLeft="true"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
             android:background="@mipmap/extra" />
 
         <EditText
@@ -70,10 +71,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/btn_send"
-            android:layout_toRightOf="@id/btn_extra"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/btn_extra"
+            android:layout_toStartOf="@id/btn_send"
             android:singleLine="true"
             android:textSize="18sp" />
     </RelativeLayout>

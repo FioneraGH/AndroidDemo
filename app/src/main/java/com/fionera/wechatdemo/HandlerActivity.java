@@ -9,7 +9,9 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class HandlerActivity extends Activity {
     private Button btnStart2;
     private ImageView ivShow;
     private ProgressDialog dialog;
+    private DatePicker datePicker;
 
     private static Handler handler = new Handler();
 
@@ -40,6 +43,10 @@ public class HandlerActivity extends Activity {
         btnStart1 = (Button) findViewById(R.id.btnStart);
         btnStart2 = (Button) findViewById(R.id.btnStart2);
         ivShow = (ImageView) findViewById(R.id.ivShow);
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
+        ViewGroup group = (ViewGroup) datePicker.getChildAt(0);
+        group = (ViewGroup) group.getChildAt(1);
+        group.setVisibility(View.GONE);
 
         dialog = new ProgressDialog(HandlerActivity.this);
         dialog.setTitle("Tips");
