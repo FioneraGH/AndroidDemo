@@ -16,13 +16,6 @@
 
 package com.google.zxing.client.android.camera;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,6 +27,12 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.fionera.wechatdemo.util.PreferenceConfig;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 final class CameraConfigurationManager {
 

@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.fionera.wechatdemo.MainActivity;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
 
 import java.util.ArrayList;

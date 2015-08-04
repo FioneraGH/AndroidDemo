@@ -16,9 +16,6 @@
 
 package com.google.zxing.client.android.encode;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,6 +28,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.android.Contents;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.common.BitMatrix;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * This class does the work of decoding the user's request and extracting all the data

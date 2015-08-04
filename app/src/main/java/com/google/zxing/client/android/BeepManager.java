@@ -16,8 +16,6 @@
 
 package com.google.zxing.client.android;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -28,6 +26,8 @@ import android.util.Log;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.util.PreferenceConfig;
+
+import java.io.IOException;
 
 final class BeepManager {
 

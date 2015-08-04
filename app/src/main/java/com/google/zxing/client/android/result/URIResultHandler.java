@@ -16,14 +16,14 @@
 
 package com.google.zxing.client.android.result;
 
-import java.util.Locale;
-
 import android.app.Activity;
 import android.util.Log;
 
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ParsedResultType;
 import com.google.zxing.client.result.URIParsedResult;
+
+import java.util.Locale;
 
 /**
  * Offers appropriate actions for URLS.

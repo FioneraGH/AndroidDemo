@@ -16,20 +16,18 @@
 
 package com.google.zxing.client.android.camera;
 
-import java.io.IOException;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.fionera.wechatdemo.util.PreferenceConfig;
 import com.google.zxing.client.android.PlanarYUVLuminanceSource;
+
+import java.io.IOException;
 
 public final class CameraManager {
 

@@ -16,11 +16,6 @@
 
 package com.google.zxing.client.android.share;
 
-import android.provider.ContactsContract;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.client.android.Contents;
-import com.google.zxing.client.android.Intents;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -29,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.Browser;
+import android.provider.ContactsContract;
 import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -39,6 +35,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.android.Contents;
+import com.google.zxing.client.android.Intents;
 
 /**
  * Barcode Scanner can share data like contacts and bookmarks by displaying a QR Code on screen,

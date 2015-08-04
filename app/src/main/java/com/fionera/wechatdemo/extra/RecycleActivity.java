@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.fionera.wechatdemo.MainActivity;
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.util.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RecycleActivity extends Activity {
 

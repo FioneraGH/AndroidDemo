@@ -1,8 +1,5 @@
 package com.fionera.wechatdemo.extra;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,10 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SplitPageActivity extends Activity implements OnScrollListener {
 

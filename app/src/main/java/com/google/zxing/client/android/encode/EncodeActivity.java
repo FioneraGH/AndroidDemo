@@ -16,8 +16,6 @@
 
 package com.google.zxing.client.android.encode;
 
-import java.util.regex.Pattern;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -35,6 +33,8 @@ import android.widget.TextView;
 import com.fionera.wechatdemo.R;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.android.Intents;
+
+import java.util.regex.Pattern;
 
 /**
  * This class encodes data from an Intent into a QR code, and then displays it full screen so that
