@@ -92,8 +92,6 @@ final class CameraConfigurationManager {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        initializeTorch(parameters, prefs, safeMode);
-
         String focusMode = null;
         if (PreferenceConfig.KEY_AUTO_FOCUS_ENABLE) {
             if (safeMode || PreferenceConfig.KEY_DISABLE_CONTINUOUS_FOCUS_ENABLE) {
@@ -129,54 +127,7 @@ final class CameraConfigurationManager {
         return screenResolution;
     }
 
-    boolean getTorchState(Camera camera) {
-        if (camera != null) {
-            Camera.Parameters parameters = camera.getParameters();
-            if (parameters != null) {
-                String flashMode = camera.getParameters().getFlashMode();
-                return flashMode != null &&
-                        (Camera.Parameters.FLASH_MODE_ON.equals(flashMode) ||
-                                Camera.Parameters.FLASH_MODE_TORCH.equals(flashMode));
-            }
-        }
-        return false;
-    }
 
-    void setTorch(Camera camera, boolean newSetting) {
-        Camera.Parameters parameters = camera.getParameters();
-        doSetTorch(parameters, newSetting, false);
-        camera.setParameters(parameters);
-    }
-
-    private void initializeTorch(Camera.Parameters parameters, SharedPreferences prefs, boolean safeMode) {
-        boolean currentSetting = false;
-        doSetTorch(parameters, currentSetting, safeMode);
-    }
-
-    private void doSetTorch(Camera.Parameters parameters, boolean newSetting, boolean safeMode) {
-        String flashMode;
-        if (newSetting) {
-            flashMode = findSettableValue(parameters.getSupportedFlashModes(),
-                    Camera.Parameters.FLASH_MODE_TORCH,
-                    Camera.Parameters.FLASH_MODE_ON);
-        } else {
-            flashMode = findSettableValue(parameters.getSupportedFlashModes(),
-                    Camera.Parameters.FLASH_MODE_OFF);
-        }
-        if (flashMode != null) {
-            parameters.setFlashMode(flashMode);
-        }
-
-    /*
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    if (!prefs.getBoolean(PreferencesActivity.KEY_DISABLE_EXPOSURE, false)) {
-      if (!safeMode) {
-        ExposureInterface exposure = new ExposureManager().build();
-        exposure.setExposure(parameters, newSetting);
-      }
-    }
-     */
-    }
 
     private Point findBestPreviewSizeValue(Camera.Parameters parameters, Point screenResolution) {
 

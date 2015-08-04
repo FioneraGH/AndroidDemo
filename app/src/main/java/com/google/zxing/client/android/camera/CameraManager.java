@@ -72,26 +72,25 @@ public final class CameraManager {
      * @throws IOException Indicates the camera driver failed to open.
      */
     public void openDriver(SurfaceHolder holder) throws IOException {
-        Camera theCamera = camera;
-        if (theCamera == null) {
-            theCamera = Camera.open();
-            if (theCamera == null) {
+
+        if (camera == null) {
+            camera = Camera.open();
+            if (camera == null) {
                 throw new IOException();
             }
-            camera = theCamera;
         }
-        theCamera.setPreviewDisplay(holder);
+        camera.setPreviewDisplay(holder);
 
         if (!initialized) {
             initialized = true;
-            configManager.initFromCameraParameters(theCamera);
+            configManager.initFromCameraParameters(camera);
             if (requestedFramingRectWidth > 0 && requestedFramingRectHeight > 0) {
                 setManualFramingRect(requestedFramingRectWidth, requestedFramingRectHeight);
                 requestedFramingRectWidth = 0;
                 requestedFramingRectHeight = 0;
             }
         }
-        configManager.setDesiredCameraParameters(theCamera, false);
+        configManager.setDesiredCameraParameters(camera, false);
 
         reverseImage = PreferenceConfig.KEY_REVERSE_IMAGE_ENABLE;
     }
