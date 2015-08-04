@@ -1,6 +1,5 @@
 package com.google.zxing.client.android;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -17,14 +16,13 @@ import com.google.zxing.client.android.camera.CameraManager;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressLint("DrawAllocation")
 public final class ViewfinderView extends View {
 
-    private static final int[] SCANNER_ALPHA = {0, 64, 128, 192, 255, 192, 128, 64};
-    private static final long ANIMATION_DELAY = 80L;
+    private static final int[] SCANNER_ALPHA = {0, 32, 64, 96, 128, 160, 192, 224, 192, 160, 128, 96, 64, 32};
+    private static final long ANIMATION_DELAY = 100L;
     private static final int CURRENT_POINT_OPACITY = 0xA0;
-    private static final int MAX_RESULT_POINTS = 20;
-    private static final int POINT_SIZE = 6;
+    private static final int MAX_RESULT_POINTS = 15;
+    private static final int POINT_SIZE = 8;
 
     private CameraManager cameraManager;
     private final Paint paint;
@@ -51,7 +49,7 @@ public final class ViewfinderView extends View {
         laserColor = resources.getColor(R.color.viewfinder_laser);
         resultPointColor = resources.getColor(R.color.possible_result_points);
         scannerAlpha = 0;
-        possibleResultPoints = new ArrayList<ResultPoint>(5);
+        possibleResultPoints = new ArrayList<ResultPoint>(7);
         lastPossibleResultPoints = null;
     }
 
@@ -70,32 +68,37 @@ public final class ViewfinderView extends View {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
-        // Draw the exterior (i.e. outside the framing rect) darkened
-        paint.setColor(resultBitmap != null ? resultColor : maskColor);
+        // 绘制中央取景器，四个矩形包围
+        paint.setColor(resultBitmap != null ? resultColor : maskColor/*30%透明度纯黑*/);
         canvas.drawRect(0, 0, width, frame.top, paint);
         canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
         canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);
         canvas.drawRect(0, frame.bottom + 1, width, height, paint);
 
         if (resultBitmap != null) {
-            // Draw the opaque result bitmap over the scanning rectangle
             paint.setAlpha(CURRENT_POINT_OPACITY);
             canvas.drawBitmap(resultBitmap, null, frame, paint);
         } else {
 
-            // Draw a two pixel solid black border inside the framing rect
+            // 绘制边框用于表示扫描区，实际是8个矩形包围
             paint.setColor(frameColor);
-            canvas.drawRect(frame.left, frame.top, frame.right + 1, frame.top + 2, paint);
-            canvas.drawRect(frame.left, frame.top + 2, frame.left + 2, frame.bottom - 1, paint);
-            canvas.drawRect(frame.right - 1, frame.top, frame.right + 1, frame.bottom - 1, paint);
-            canvas.drawRect(frame.left, frame.bottom - 1, frame.right + 1, frame.bottom + 1, paint);
+            canvas.drawRect(frame.left - 15, frame.top - 15, frame.right / 2, frame.top, paint);//ul
+            canvas.drawRect(frame.right / 4 * 3, frame.top - 15, frame.right + 15, frame.top, paint);//ur
+            canvas.drawRect(frame.left - 15, frame.top, frame.left, frame.bottom / 3 * 2, paint);//lu
+            canvas.drawRect(frame.right, frame.top, frame.right + 15, frame.bottom / 3 * 2, paint);//ru
+            canvas.drawRect(frame.left - 15, frame.bottom / 5 * 4, frame.left, frame.bottom, paint);//ld
+            canvas.drawRect(frame.right, frame.bottom / 5 * 4, frame.right + 15, frame.bottom, paint);//rd
+            canvas.drawRect(frame.left - 15, frame.bottom, frame.right / 2, frame.bottom + 15, paint);//dl
+            canvas.drawRect(frame.right / 4 * 3, frame.bottom, frame.right + 15, frame.bottom + 15, paint);//dr
 
-            // Draw a red "laser scanner" line through the middle to show decoding is active
+            // 绘制中央扫描线
             paint.setColor(laserColor);
             paint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
             scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
             int middle = frame.height() / 2 + frame.top;
-            canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);
+            canvas.drawRect(frame.left + 25, middle - 2 - 200, frame.right - 25, middle + 2 - 200, paint);
+            canvas.drawRect(frame.left + 25, middle - 2 + 0, frame.right - 25, middle + 2 + 0, paint);
+            canvas.drawRect(frame.left + 25, middle - 2 + 200, frame.right - 25, middle + 2 + 200, paint);
 
             Rect previewFrame = cameraManager.getFramingRectInPreview();
             float scaleX = frame.width() / (float) previewFrame.width();
@@ -108,7 +111,7 @@ public final class ViewfinderView extends View {
             if (currentPossible.isEmpty()) {
                 lastPossibleResultPoints = null;
             } else {
-                possibleResultPoints = new ArrayList<ResultPoint>(5);
+                possibleResultPoints = new ArrayList<ResultPoint>(7);
                 lastPossibleResultPoints = currentPossible;
                 paint.setAlpha(CURRENT_POINT_OPACITY);
                 paint.setColor(resultPointColor);
