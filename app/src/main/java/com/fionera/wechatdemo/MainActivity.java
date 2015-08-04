@@ -20,6 +20,7 @@ import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.bean.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.util.DBHelper;
 import com.fionera.wechatdemo.view.RefreshableView;
+import com.google.zxing.client.android.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +33,6 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
     private Button mBtnExtra;
     private ImageView mIvHead;
     private TextView mTvHead;
-    private RefreshableView refreshableChatEntity;
     private ListView listView;
     private View header;
     private Button btn;
@@ -126,13 +126,13 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
                 Intent extraIntent = new Intent(MainActivity.this, ExtraActivity.class);
                 startActivity(extraIntent);
                 break;
-            case R.id.iv_head:
-                Intent blueIntent = new Intent(MainActivity.this, BluetoothActivity.class);
-                startActivity(blueIntent);
-                break;
             case R.id.tv_head:
-                Intent handlerIntent = new Intent(MainActivity.this, HandlerActivity.class);
-                startActivity(handlerIntent);
+            Intent handlerIntent = new Intent(MainActivity.this, HandlerActivity.class);
+            startActivity(handlerIntent);
+            break;
+            case R.id.iv_head:
+                Intent capIntent = new Intent(MainActivity.this, CaptureActivity.class);
+                startActivity(capIntent);
                 break;
         }
     }

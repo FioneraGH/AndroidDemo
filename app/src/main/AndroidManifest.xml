@@ -39,10 +39,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BluetoothActivity"
-            android:label="Choose one"
-            android:theme="@android:style/Theme.Dialog"/>
-        <activity
             android:name=".HandlerActivity"
             android:label="@string/title_activity_handler" />
         <activity
@@ -108,31 +104,6 @@
                     android:host="scan"
                     android:path="/"
                     android:scheme="barcode" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.google.zxing.client.android.encode.EncodeActivity"
-            android:label="@string/share_name"
-            android:stateNotNeeded="true">
-            <intent-filter>
-                <action android:name="com.google.zxing.client.android.ENCODE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <!-- This allows us to handle sharing any plain text . -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.google.zxing.client.android.share.ShareActivity"
-            android:label="@string/share_name"
-            android:screenOrientation="user"
-            android:stateNotNeeded="true">
-            <intent-filter>
-                <action android:name="com.google.zxing.client.android.SHARE" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
