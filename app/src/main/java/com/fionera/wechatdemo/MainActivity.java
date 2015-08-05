@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
+import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.util.DBHelper;
 import com.google.zxing.client.android.CaptureActivity;
 

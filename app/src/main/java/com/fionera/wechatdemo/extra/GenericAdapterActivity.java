@@ -2,7 +2,6 @@ package com.fionera.wechatdemo.extra;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.widget.ListView;
 
 import com.fionera.wechatdemo.R;

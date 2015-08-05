@@ -1,9 +1,6 @@
 package com.fionera.wechatdemo.adapter;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
@@ -14,6 +11,10 @@ import java.util.List;
 /**
  * Created by fionera on 15-8-5.
  */
+
+/**
+ * 示例适配器
+ */
 public class GenAdapter extends GenCommonAdapter<ChatMsgEntry> {
 
 
@@ -23,16 +24,9 @@ public class GenAdapter extends GenCommonAdapter<ChatMsgEntry> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        GenViewHolder genViewHolder = GenViewHolder.getViewHolder(context,
-                convertView, R.layout.chat_msg_left_item, position, parent);
-        ChatMsgEntry entry = data.get(position);
-        ((TextView) genViewHolder.getView(R.id.tv_sendtime)).setText(entry.getDate());
-        ((TextView) genViewHolder.getView(R.id.tv_username)).setText(entry.getName());
-        ((TextView) genViewHolder.getView(R.id.tv_chatcontent)).setText(entry.getText());
-
-        // 返回处理过的convertView
-        return genViewHolder.getConvertView();
+    public void convert(GenViewHolder genViewHolder, ChatMsgEntry chatMsgEntry) {
+        genViewHolder.setText(R.id.tv_sendtime,chatMsgEntry.getDate()).
+                setText(R.id.tv_username,chatMsgEntry.getName()).
+                setText(R.id.tv_chatcontent, chatMsgEntry.getText());
     }
 }

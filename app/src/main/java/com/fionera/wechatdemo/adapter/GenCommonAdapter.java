@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.util.GenViewHolder;
+
 import java.util.List;
 
 /**
@@ -30,7 +33,7 @@ public abstract class GenCommonAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public T getItem(int position) {
         return data.get(position);
     }
 
@@ -40,5 +43,13 @@ public abstract class GenCommonAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public abstract View getView(int position, View convertView, ViewGroup parent);
+    public View getView(int position, View convertView, ViewGroup parent){
+        GenViewHolder genViewHolder = GenViewHolder.getViewHolder(context,
+                convertView, R.layout.chat_msg_left_item, position, parent);
+        convert(genViewHolder,data.get(position));
+        return genViewHolder.getConvertView();
+    }
+
+    // 抽象方法 ，让实现类去实现数据绑定
+    public abstract void convert(GenViewHolder genViewHolder,T t);
 }
