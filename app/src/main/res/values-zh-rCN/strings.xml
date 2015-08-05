@@ -90,7 +90,7 @@
     <string name="menu_share">分享</string>
     <string name="msg_about">基于ZXing开源条码引擎</string>
     <string name="msg_bulk_mode_scanned">批量扫描：找到条码，已保存</string>
-    <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
+    <string name="msg_camera_framework_bug">抱歉，您的Android相机出现问题。请确定拥有权限或可尝试重启设备。</string>
     <string name="msg_default_format">格式</string>
     <string name="msg_default_meta">元数据</string>
     <string name="msg_default_mms_subject">Hi</string>

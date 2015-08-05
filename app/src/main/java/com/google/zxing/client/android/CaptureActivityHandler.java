@@ -111,6 +111,7 @@ public final class CaptureActivityHandler extends Handler {
         }
     }
 
+    // 退出同步！！！！
     public void quitSynchronously() {
         state = State.DONE;
         cameraManager.stopPreview();

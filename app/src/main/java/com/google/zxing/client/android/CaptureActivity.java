@@ -7,9 +7,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,7 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -25,25 +21,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.MainActivity;
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.util.PreferenceConfig;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.google.zxing.ResultMetadataType;
-import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.camera.CameraManager;
 import com.google.zxing.client.android.result.URIResultHandler;
 import com.google.zxing.client.result.ResultParser;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
 
 /**
  * This activity opens the camera and does the actual scanning on a background thread. It draws a
@@ -88,17 +75,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        // 获取窗口并保持常亮
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.capture);
-
-        closeScanner = (ImageView) findViewById(R.id.iv_close_scanner);
-        closeScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         hasSurface = false;
         beepManager = new BeepManager(this);
@@ -119,27 +99,31 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         viewfinderView.setCameraManager(cameraManager);
 
         statusView = (TextView) findViewById(R.id.status_view);
+        closeScanner = (ImageView) findViewById(R.id.iv_close_scanner);
+        closeScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         handler = null;
         lastResult = null;
 
         resetStatusView();
 
+        //SurfaceView和SurfaceHolder
         SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
         if (hasSurface) {
-            // The activity was paused but not stopped, so the surface still exists. Therefore
-            // surfaceCreated() won't be called, so init the camera here.
+            // Activity 处于暂停但未关闭状态，尽管surfaceview的onSurfaceCreate方法未调用，因此适合初始化相机
             initCamera(surfaceHolder);
         } else {
-            // Install the callback and wait for surfaceCreated() to init the camera.
             surfaceHolder.addCallback(this);
-            surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+            //surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
 
         beepManager.updatePrefs(); //设置震动
-
-        Intent intent = getIntent();
 
         decodeFormats = null;
         characterSet = null;
@@ -227,59 +211,49 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             handleDecodeInternally(rawResult, resultHandler, null);
         } else {
             beepManager.playBeepSoundAndVibrate();
-            drawResultPoints(barcode, rawResult);
-            if (PreferenceConfig.KEY_BULK_MODE_ENABLE) {
-                Toast.makeText(this, R.string.msg_bulk_mode_scanned, Toast.LENGTH_SHORT).show();
-                // Wait a moment or else it will scan the same barcode continuously about 3 times
-                restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
-            } else {
-                handleDecodeInternally(rawResult, resultHandler, barcode);
-            }
+            handleDecodeInternally(rawResult, resultHandler, barcode);
         }
     }
+
 
     /**
-     * Superimpose a line for 1D or dots for 2D to highlight the key features of the barcode.
+     * Put up our own UI for how to handle the decoded contents. 处理扫描结果
      *
-     * @param barcode   A bitmap of the captured image.
-     * @param rawResult The decoded results which contains the points to draw.
+     * @param rawResult     原始结果
+     * @param resultHandler 扫描结果载体
+     * @param barcode       条码截图
      */
-    private void drawResultPoints(Bitmap barcode, Result rawResult) {
-        ResultPoint[] points = rawResult.getResultPoints();
-        if (points != null && points.length > 0) {
-            Canvas canvas = new Canvas(barcode);
-            Paint paint = new Paint();
-            paint.setColor(getResources().getColor(R.color.result_image_border));
-            paint.setStrokeWidth(3.0f);
-            paint.setStyle(Paint.Style.STROKE);
-            Rect border = new Rect(2, 2, barcode.getWidth() - 2, barcode.getHeight() - 2);
-            canvas.drawRect(border, paint);
+    private void handleDecodeInternally(Result rawResult, URIResultHandler resultHandler, Bitmap barcode) {
+        statusView.setVisibility(View.GONE);
+        viewfinderView.setVisibility(View.GONE);
+        closeScanner.setVisibility(View.GONE);
+        findViewById(R.id.tv_status_view).setVisibility(View.GONE);
 
-            paint.setColor(getResources().getColor(R.color.result_points));
-            if (points.length == 2) {
-                paint.setStrokeWidth(4.0f);
-                drawLine(canvas, paint, points[0], points[1]);
-            } else if (points.length == 4 &&
-                    (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A ||
-                            rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
-                // Hacky special case -- draw two lines, for the barcode and metadata
-                drawLine(canvas, paint, points[0], points[1]);
-                drawLine(canvas, paint, points[2], points[3]);
-            } else {
-                paint.setStrokeWidth(10.0f);
-                for (ResultPoint point : points) {
-                    canvas.drawPoint(point.getX(), point.getY(), paint);
-                }
-            }
-        }
-    }
+        //dialog展示简要信息
+        showResult(rawResult, resultHandler, barcode);
 
-    private static void drawLine(Canvas canvas, Paint paint, ResultPoint a, ResultPoint b) {
-        canvas.drawLine(a.getX(), a.getY(), b.getX(), b.getY(), paint);
+        /*处理结果*/
+
+        /*//二维码格式  例：QR_CODE
+        String format = rawResult.getBarcodeFormat().toString();
+
+        //二维码扫描结果类型 例： URL
+        String type = resultHandler.getType().toString();
+
+        //time
+        DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+        String formattedTime = formatter.format(new Date(rawResult.getTimestamp()));
+
+        //url
+        CharSequence displayContents = resultHandler.getDisplayContents();
+
+        Log.d(TAG, String.format("formatText=%s typeText=%s timeText=%s displayContents=%s",
+                format, type, formattedTime, displayContents));*/
+
     }
 
     private void showResult(Result rawResult, URIResultHandler resultHandler, Bitmap barcode) {
-        Log.d(TAG,rawResult.toString());
+        Log.d(TAG, rawResult.toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         CharSequence displayContents = resultHandler.getDisplayContents();
         if (barcode == null) {
@@ -308,42 +282,16 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                 CaptureActivity.this.finish();
             }
         });
+        builder.setOnCancelListener(new OnCancelListener() {
+
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
         builder.show();
 
     }
-
-
-    /**
-     * Put up our own UI for how to handle the decoded contents. 处理扫描结果
-     *
-     * @param rawResult
-     * @param resultHandler
-     * @param barcode       条码截图
-     */
-    private void handleDecodeInternally(Result rawResult, URIResultHandler resultHandler, Bitmap barcode) {
-        statusView.setVisibility(View.GONE);
-        viewfinderView.setVisibility(View.GONE);
-        showResult(rawResult, resultHandler, barcode);//dialog展示简要信息
-
-        //二维码格式  例：QR_CODE
-        String format = rawResult.getBarcodeFormat().toString();
-
-        //二维码扫描结果类型 例： URL
-        String type = resultHandler.getType().toString();
-
-        //time
-        DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-        String formattedTime = formatter.format(new Date(rawResult.getTimestamp()));
-
-        //url
-        CharSequence displayContents = resultHandler.getDisplayContents();
-
-        Log.d(TAG, String.format(
-                "formatText=%s typeText=%s timeText=%s displayContents=%s",
-                format, type, formattedTime, displayContents));
-
-    }
-
 
     private void initCamera(SurfaceHolder surfaceHolder) {
         try {
@@ -353,13 +301,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                 handler = new CaptureActivityHandler(this, decodeFormats, characterSet, cameraManager);
             }
             decodeOrStoreSavedBitmap(null, null);
-        } catch (IOException ioe) {
-            Log.w(TAG, ioe);
-            displayFrameworkBugMessageAndExit();
-        } catch (RuntimeException e) {
-            // Barcode Scanner has seen crashes in the wild of this variety:
-            // java.?lang.?RuntimeException: Fail to connect to camera service
-            Log.w(TAG, "Unexpected error initializing camera", e);
+        } catch (Exception e) {
+            e.printStackTrace();
             displayFrameworkBugMessageAndExit();
         }
     }
@@ -388,17 +331,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         builder.show();
     }
 
-    public void restartPreviewAfterDelay(long delayMS) {
-        if (handler != null) {
-            handler.sendEmptyMessageDelayed(R.id.restart_preview, delayMS);
-        }
-        resetStatusView();
-    }
-
     private void resetStatusView() {
         statusView.setText(R.string.msg_default_status);
         statusView.setVisibility(View.VISIBLE);
         viewfinderView.setVisibility(View.VISIBLE);
+        closeScanner.setVisibility(View.VISIBLE);
         lastResult = null;
     }
 
