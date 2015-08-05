@@ -1,4 +1,4 @@
-package com.fionera.wechatdemo.bean;
+package com.fionera.wechatdemo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.bean.ChatMsgEntry;
 
 import java.util.List;
 
@@ -78,7 +79,6 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         if (isComMsg == viewHolder.isComMsg) {
 
         } else {
-            System.out.println("new instance");
             if (isComMsg) {
                 convertView = mInflater.inflate(R.layout.chat_msg_left_item,
                         null);

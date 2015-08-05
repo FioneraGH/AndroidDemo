@@ -105,7 +105,6 @@ public class DBHelper extends SQLiteOpenHelper {
             String content = cursor.getString(2);
             String date = cursor.getString(3);
             int flag = cursor.getInt(4);
-            System.out.println(name + content + date);
             entry.setName(name);
             entry.setText(content);
             entry.setDate(date);

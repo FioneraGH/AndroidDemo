@@ -28,7 +28,6 @@ public class RecycleActivity extends Activity {
     private RecyclerView recyclerView;
     private List<ChatMsgEntry> data;
     private MyAdapter myAdapter;
-    private SimpleAdapter simpleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
