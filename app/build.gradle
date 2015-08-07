@@ -21,6 +21,6 @@ android {
 
 dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile files('libs/core.jar')
+    compile files('libs/zxing.jar')
     compile files('libs/gson-2.3.1.jar')
 }

@@ -44,7 +44,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private Result savedResultToShow;
     private ViewfinderView viewfinderView;
     private TextView statusView;
-    private ImageView closeScanner;
     private Result lastResult;
     private boolean hasSurface;
     private Collection<BarcodeFormat> decodeFormats;
@@ -92,13 +91,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         viewfinderView.setCameraManager(cameraManager);
 
         statusView = (TextView) findViewById(R.id.status_view);
-        closeScanner = (ImageView) findViewById(R.id.iv_close_scanner);
-        closeScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         handler = null;
         lastResult = null;
@@ -219,8 +211,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private void handleDecodeInternally(Result rawResult, ParsedResult result, Bitmap barcode) {
         statusView.setVisibility(View.GONE);
         viewfinderView.setVisibility(View.GONE);
-        closeScanner.setVisibility(View.GONE);
-        findViewById(R.id.tv_status_view).setVisibility(View.GONE);
 
         //dialog展示简要信息
         showResult(rawResult, result, barcode);
@@ -327,10 +317,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
 
     private void resetStatusView() {
-        statusView.setText(R.string.msg_default_status);
         statusView.setVisibility(View.VISIBLE);
         viewfinderView.setVisibility(View.VISIBLE);
-        closeScanner.setVisibility(View.VISIBLE);
         lastResult = null;
     }
 
