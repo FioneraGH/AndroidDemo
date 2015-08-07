@@ -5,25 +5,84 @@
     android:layout_height="match_parent">
 
     <SurfaceView
-        android:id="@+id/preview_view"
+        android:id="@+id/capture_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.fionera.wechatdemo.view.ViewfinderView
-        android:id="@+id/viewfinder_view"
+    <RelativeLayout
+        android:id="@+id/capture_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/status_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:layout_marginTop="50dp"
-        android:background="@color/transparent"
-        android:textColor="@color/status_text"
-        android:text="QRCODE"
-        android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/capture_mask_top"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:background="@mipmap/shadow" />
+
+        <RelativeLayout
+            android:id="@+id/capture_crop_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/capture_mask_top"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/scan_corners">
+
+            <ImageView
+                android:id="@+id/capture_scan_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/scan_line" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/capture_mask_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/capture_crop_view"
+            android:background="@mipmap/shadow"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="请将二维码置于取景框\n进行扫描"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/capture_mask_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/capture_mask_bottom"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/capture_mask_top"
+            android:layout_toStartOf="@id/capture_crop_view"
+            android:background="@mipmap/shadow" />
+
+        <ImageView
+            android:id="@+id/capture_mask_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/capture_mask_bottom"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/capture_mask_top"
+            android:layout_toEndOf="@id/capture_crop_view"
+            android:background="@mipmap/shadow" />
+
+
+    </RelativeLayout>
 
 </FrameLayout>

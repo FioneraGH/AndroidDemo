@@ -3,57 +3,46 @@ package com.fionera.wechatdemo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import com.fionera.wechatdemo.handler.CaptureActivityHandler;
-import com.fionera.wechatdemo.view.ViewfinderView;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
 import com.fionera.wechatdemo.camera.CameraManager;
+import com.fionera.wechatdemo.decode.DecodeThread;
+import com.fionera.wechatdemo.util.CaptureActivityHandler;
 import com.fionera.wechatdemo.util.BeepManager;
-import com.google.zxing.client.result.ParsedResult;
-import com.google.zxing.client.result.ResultParser;
+import com.google.zxing.Result;
 
-import java.util.Collection;
+import java.io.IOException;
 
-public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
+public final class CaptureActivity extends Activity implements
+        SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
 
-    private static final long BULK_MODE_SCAN_DELAY_MS = 1000L;
-
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
-    private Result savedResultToShow;
-    private ViewfinderView viewfinderView;
-    private TextView statusView;
-    private Result lastResult;
-    private boolean hasSurface;
-    private Collection<BarcodeFormat> decodeFormats;
-    private String characterSet;
     private BeepManager beepManager;
 
+    private SurfaceView scanPreview = null;
+    private RelativeLayout scanContainer;
+    private RelativeLayout scanCropView;
+    private ImageView scanLine;
 
-    public ViewfinderView getViewfinderView() {
-        return viewfinderView;
-    }
+    private Rect mCropRect = null;
 
     public Handler getHandler() {
         return handler;
@@ -63,57 +52,68 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         return cameraManager;
     }
 
+    private boolean isHasSurface = false;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // 获取窗口并保持常亮
+        /**
+         * 设置窗口常亮
+         */
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.capture);
 
-        hasSurface = false;
+        scanPreview = (SurfaceView) findViewById(R.id.capture_preview);//全屏取景
+        scanContainer = (RelativeLayout) findViewById(R.id.capture_container);//全屏取景器容器
+        scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);//中央取景器
+        scanLine = (ImageView) findViewById(R.id.capture_scan_line);//扫描线
+
+        //声音控制器
         beepManager = new BeepManager(this);
 
+
+        TranslateAnimation animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.2f,
+                Animation.RELATIVE_TO_PARENT, 0.8f);
+        animation.setDuration(2500);
+        animation.setRepeatCount(-1);
+        animation.setRepeatMode(Animation.REVERSE);
+        scanLine.startAnimation(animation);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // CameraManager must be initialized here, not in onCreate(). This is necessary because we don't
-        // want to open the camera driver and measure the screen size if we're going to show the help on
-        // first launch. That led to bugs where the scanning rectangle was the wrong size and partially
+        // CameraManager must be initialized here, not in onCreate(). This is
+        // necessary because we don't
+        // want to open the camera driver and measure the screen size if we're
+        // going to show the help on
+        // first launch. That led to bugs where the scanning rectangle was the
+        // wrong size and partially
         // off screen.
-        cameraManager = new CameraManager(getApplication());
-
-        viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-        viewfinderView.setCameraManager(cameraManager);
-
-        statusView = (TextView) findViewById(R.id.status_view);
-
-        handler = null;
-        lastResult = null;
-
-        resetStatusView();
-
-        //SurfaceView和SurfaceHolder
-        SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
-        SurfaceHolder surfaceHolder = surfaceView.getHolder();
-        if (hasSurface) {
-            // Activity 处于暂停但未关闭状态，尽管surfaceview的onSurfaceCreate方法未调用，因此适合初始化相机
-            initCamera(surfaceHolder);
-        } else {
-            surfaceHolder.addCallback(this);
-            //surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        if (cameraManager == null) {
+            cameraManager = new CameraManager(getApplicationContext());
         }
 
-        beepManager.updatePrefs(); //设置震动
+        handler = null;
 
-        decodeFormats = null;
-        characterSet = null;
+        if (isHasSurface) {
+            // The activity was paused but not stopped, so the surface still
+            // exists. Therefore
+            // surfaceCreated() won't be called, so init the camera here.
+            initCamera(scanPreview.getHolder());
+        } else {
+            // Install the callback and wait for surfaceCreated() to init the
+            // camera.
+            scanPreview.getHolder().addCallback(this);
+        }
+
     }
-
 
     @Override
     protected void onPause() {
@@ -122,152 +122,64 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             handler = null;
         }
         cameraManager.closeDriver();
-        if (!hasSurface) {
-            SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
-            SurfaceHolder surfaceHolder = surfaceView.getHolder();
-            surfaceHolder.removeCallback(this);
+        if (!isHasSurface) {
+            scanPreview.getHolder().removeCallback(this);
         }
         super.onPause();
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (lastResult != null) {
-                //restartPreviewAfterDelay(0L);
-                finish();
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void decodeOrStoreSavedBitmap(Bitmap bitmap, Result result) {
-        // Bitmap isn't used yet -- will be used soon
-        if (handler == null) {
-            savedResultToShow = result;
-        } else {
-            if (result != null) {
-                savedResultToShow = result;
-            }
-            if (savedResultToShow != null) {
-                Message message = Message.obtain(handler, R.id.decode_succeeded, savedResultToShow);
-                handler.sendMessage(message);
-            }
-            savedResultToShow = null;
-        }
-    }
-
-    @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (holder == null) {
-            Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
+            Log.e(TAG, "surfaceCreated() gave us a null surface!");
         }
-        if (!hasSurface) {
-            hasSurface = true;
+        if (!isHasSurface) {
+            isHasSurface = true;
             initCamera(holder);
         }
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        hasSurface = false;
+        isHasSurface = false;
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                               int height) {
 
     }
 
     /**
-     * A valid barcode has been found, so give an indication of success and show the results.
+     * 扫描结果处理
      *
      * @param rawResult The contents of the barcode.
-     * @param barcode   A greyscale bitmap of the camera data which was decoded.
      */
-    public void handleDecode(Result rawResult, Bitmap barcode) {
-        lastResult = rawResult;
+    public void handleDecode(Result rawResult) {
+        beepManager.playBeepSoundAndVibrate();
 
-        ParsedResult result = ResultParser.parseResult(rawResult);
-
-
-        if (barcode == null) {
-            // This is from history -- no saved barcode
-            handleDecodeInternally(rawResult, result, null);
-        } else {
-            beepManager.playBeepSoundAndVibrate();
-            handleDecodeInternally(rawResult, result, barcode);
-        }
-    }
-
-
-    /**
-     * Put up our own UI for how to handle the decoded contents. 处理扫描结果
-     *
-     * @param rawResult     原始结果
-     * @param result 扫描结果载体
-     * @param barcode       条码截图
-     */
-    private void handleDecodeInternally(Result rawResult, ParsedResult result, Bitmap barcode) {
-        statusView.setVisibility(View.GONE);
-        viewfinderView.setVisibility(View.GONE);
-
-        //dialog展示简要信息
-        showResult(rawResult, result, barcode);
-
-        /*处理结果*/
-
-        /*//二维码格式  例：QR_CODE
-        String format = rawResult.getBarcodeFormat().toString();
-
-        //二维码扫描结果类型 例： URL
-        String type = resultHandler.getType().toString();
-
-        //time
-        DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-        String formattedTime = formatter.format(new Date(rawResult.getTimestamp()));
-
-        //url
-        CharSequence displayContents = resultHandler.getDisplayContents();
-
-        Log.d(TAG, String.format("formatText=%s typeText=%s timeText=%s displayContents=%s",
-                format, type, formattedTime, displayContents));*/
-
-    }
-
-
-
-    private void showResult(Result rawResult, ParsedResult result, Bitmap barcode) {
-        Log.d(TAG, rawResult.toString());
+        String scanResult = rawResult.getText();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        CharSequence displayContents = result.getDisplayResult();
-        if (barcode == null) {
-            builder.setIcon(R.mipmap.barcode);
-        } else {
-
-            Drawable drawable = new BitmapDrawable(barcode);
-            builder.setIcon(drawable);
-        }
-
-        builder.setTitle("扫描结果");
-        builder.setMessage(displayContents);
-        builder.setPositiveButton("OK", new OnClickListener() {
+        builder.setTitle(getString(R.string.app_name));
+        builder.setMessage(scanResult);
+        ;
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(CaptureActivity.this, MainActivity.class);
-                startActivity(intent);
-                CaptureActivity.this.finish();
+                finish();
             }
+
         });
-        builder.setNegativeButton(R.string.button_cancel, new OnClickListener() {
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CaptureActivity.this.finish();
+                finish();
             }
+
         });
-        builder.setOnCancelListener(new OnCancelListener() {
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
             public void onCancel(DialogInterface dialog) {
@@ -275,54 +187,112 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             }
         });
         builder.show();
-
     }
 
+
     private void initCamera(SurfaceHolder surfaceHolder) {
+        if (surfaceHolder == null) {
+            throw new IllegalStateException("No SurfaceHolder provided");
+        }
+        if (cameraManager.isOpen()) {
+            Log.w(TAG,
+                    "initCamera() while already open -- late SurfaceView callback?");
+            return;
+        }
         try {
             cameraManager.openDriver(surfaceHolder);
-            // Creating the handler starts the preview, which can also throw a RuntimeException.
+
             if (handler == null) {
-                handler = new CaptureActivityHandler(this, decodeFormats, characterSet, cameraManager);
+                handler = new CaptureActivityHandler(this, cameraManager,
+                        DecodeThread.ALL_MODE);
             }
-            decodeOrStoreSavedBitmap(null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            initCrop();
+        } catch (IOException ioe) {
+            Log.w(TAG, ioe);
+            displayFrameworkBugMessageAndExit();
+        } catch (RuntimeException e) {
+            // Barcode Scanner has seen crashes in the wild of this variety:
+            // java.?lang.?RuntimeException: Fail to connect to camera service
+            Log.w(TAG, "Unexpected error initializing camera", e);
             displayFrameworkBugMessageAndExit();
         }
     }
 
-    /**
-     * 相机不能使用时 弹出提示
-     */
     private void displayFrameworkBugMessageAndExit() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.app_name));
-        builder.setMessage(getString(R.string.msg_camera_framework_bug));
-        builder.setPositiveButton(R.string.button_ok, new OnClickListener() {
+        builder.setMessage("相机打开出错，请稍后重试");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
+
         });
-        builder.setOnCancelListener(new OnCancelListener() {
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
             public void onCancel(DialogInterface dialog) {
                 finish();
             }
         });
+
         builder.show();
     }
 
-    private void resetStatusView() {
-        statusView.setVisibility(View.VISIBLE);
-        viewfinderView.setVisibility(View.VISIBLE);
-        lastResult = null;
+    public Rect getCropRect() {
+        return mCropRect;
     }
 
-    public void drawViewfinder() {
-        viewfinderView.drawViewfinder();
+    /**
+     * 初始化截取的矩形区域
+     */
+    private void initCrop() {
+        int cameraWidth = cameraManager.getCameraResolution().y;
+        int cameraHeight = cameraManager.getCameraResolution().x;
+
+        /** 获取布局中扫描框的位置信息 */
+        int[] location = new int[2];
+        scanCropView.getLocationInWindow(location);
+
+        int cropLeft = location[0];
+        int cropTop = location[1];
+//        int cropTop = location[1] - getStatusBarHeight();
+
+        int cropWidth = scanCropView.getWidth();
+        int cropHeight = scanCropView.getHeight();
+
+        /** 获取布局容器的宽高 */
+        int containerWidth = scanContainer.getWidth();
+        int containerHeight = scanContainer.getHeight();
+
+        /** 计算最终截取的矩形的左上角顶点x坐标 */
+        int x = cropLeft * cameraWidth / containerWidth;
+        /** 计算最终截取的矩形的左上角顶点y坐标 */
+        int y = cropTop * cameraHeight / containerHeight;
+
+        /** 计算最终截取的矩形的宽度 */
+        int width = cropWidth * cameraWidth / containerWidth;
+        /** 计算最终截取的矩形的高度 */
+        int height = cropHeight * cameraHeight / containerHeight;
+
+        /** 生成最终的截取的矩形 */
+        mCropRect = new Rect(x, y, width + x, height + y);
     }
+
+    /*private int getStatusBarHeight() {
+        try {
+            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Object obj = c.newInstance();
+            Field field = c.getField("status_bar_height");
+            int x = Integer.parseInt(field.get(obj).toString());
+            return getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }*/
 }
