@@ -1,19 +1,22 @@
 package com.fionera.wechatdemo.extra;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.application.DemoApplication;
+import com.fionera.wechatdemo.util.BitmapCache;
 
 import org.json.JSONObject;
 
@@ -23,16 +26,34 @@ import java.util.Map;
 
 public class VolleyActivity extends Activity {
 
+    private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volley);
 
+        imageView = (ImageView) findViewById(R.id.iv_volley);
+
         VolleyGET();
-        VolleyPOST();;
+        VolleyPOST();
+        VolleyLoader();
+        DemoApplication.getRequestQueue().start();
     }
 
-    private void VolleyGET(){
+    @Override
+    protected void onDestroy() {
+
+        DemoApplication.getRequestQueue().stop();
+        DemoApplication.getRequestQueue().cancelAll("testStringGET");
+        DemoApplication.getRequestQueue().cancelAll("testStringPOST");
+        DemoApplication.getRequestQueue().cancelAll("testJsonGET");
+        DemoApplication.getRequestQueue().cancelAll("testJsonPOST");
+        DemoApplication.getRequestQueue().cancelAll("testImageRequest");
+        super.onDestroy();
+    }
+
+    private void VolleyGET() {
         /**
          * 普通请求GET方式
          */
@@ -46,7 +67,7 @@ public class VolleyActivity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.d("Volley",volleyError.getCause().toString());
+                Log.d("Volley", volleyError.getCause().toString());
             }
         });
         stringRequest.setTag("testStringGET");
@@ -70,7 +91,7 @@ public class VolleyActivity extends Activity {
         DemoApplication.getRequestQueue().add(jsonObjectRequest);
     }
 
-    private void VolleyPOST(){
+    private void VolleyPOST() {
         /**
          * 普通请求POST方式
          */
@@ -86,11 +107,11 @@ public class VolleyActivity extends Activity {
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("Volley", volleyError.getCause().toString());
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<String, String>();
-                map.put("phone","123456");
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("phone", "123456");
                 return map;
             }
         };
@@ -100,8 +121,8 @@ public class VolleyActivity extends Activity {
         /**
          * Json请求POST方式
          */
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("phone","123456");
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("phone", "123456");
         JSONObject jsonObject = new JSONObject(map);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -118,5 +139,27 @@ public class VolleyActivity extends Activity {
         DemoApplication.getRequestQueue().add(jsonObjectRequest);
     }
 
+    public void VolleyLoader() {
+
+        String url = "http://www.baidu.com/img/bd_logo.png";
+        ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+            }
+        }, 0, 0, Bitmap.Config.ALPHA_8, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                imageView.setImageResource(R.mipmap.ic_launcher);
+            }
+        });
+        imageRequest.setTag("testImageRequest");
+        DemoApplication.getRequestQueue().add(imageRequest);
+
+        ImageLoader imageLoader = new ImageLoader(DemoApplication.getRequestQueue(), new BitmapCache());
+        ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView,
+                R.mipmap.ic_launcher, R.mipmap.ic_launcher);
+        imageLoader.get(url,imageListener);
+    }
 
 }
