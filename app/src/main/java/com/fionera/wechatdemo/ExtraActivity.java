@@ -13,6 +13,7 @@ import com.fionera.wechatdemo.extra.PullToLoadActivity;
 import com.fionera.wechatdemo.extra.PullToRefreshActivity;
 import com.fionera.wechatdemo.extra.RecycleActivity;
 import com.fionera.wechatdemo.extra.SplitPageActivity;
+import com.fionera.wechatdemo.extra.VolleyActivity;
 import com.fionera.wechatdemo.extra.WifiBlueNFCActivity;
 
 public class ExtraActivity extends Activity {
@@ -25,6 +26,7 @@ public class ExtraActivity extends Activity {
     private Button recycle;
     private Button generic;
     private Button wbn;
+    private Button volley;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,16 @@ public class ExtraActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExtraActivity.this, WifiBlueNFCActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+        // 设定Volley测试跳转
+        wbn = (Button) findViewById(R.id.button9);
+        wbn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, VolleyActivity.class);
                 ExtraActivity.this.startActivity(intent);
                 ExtraActivity.this.finish();
             }
