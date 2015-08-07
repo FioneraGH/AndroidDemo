@@ -1,11 +1,11 @@
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo.decode;
 
 import com.google.zxing.BarcodeFormat;
 
 import java.util.Collection;
 import java.util.EnumSet;
 
-final class DecodeFormatManager {
+public final class DecodeFormatManager {
 
 
   static final Collection<BarcodeFormat> PRODUCT_FORMATS;

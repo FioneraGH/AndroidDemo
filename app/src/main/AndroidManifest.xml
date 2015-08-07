@@ -69,7 +69,7 @@
 
         <!-- 第三方ZXing的二维码扫描相关Activity -->
         <activity
-            android:name="com.google.zxing.client.android.CaptureActivity"
+            android:name=".CaptureActivity"
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"

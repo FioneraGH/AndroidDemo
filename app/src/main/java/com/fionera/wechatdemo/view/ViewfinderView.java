@@ -1,4 +1,4 @@
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.fionera.wechatdemo.R;
 import com.google.zxing.ResultPoint;
-import com.google.zxing.client.android.camera.CameraManager;
+import com.fionera.wechatdemo.camera.CameraManager;
 
 import java.util.ArrayList;
 import java.util.List;

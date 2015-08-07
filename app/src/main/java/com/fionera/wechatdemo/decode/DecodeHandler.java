@@ -1,4 +1,4 @@
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo.decode;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -6,6 +6,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.fionera.wechatdemo.CaptureActivity;
+import com.fionera.wechatdemo.util.PlanarYUVLuminanceSource;
 import com.fionera.wechatdemo.R;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -16,7 +18,7 @@ import com.google.zxing.common.HybridBinarizer;
 
 import java.util.Map;
 
-final class DecodeHandler extends Handler {
+public final class DecodeHandler extends Handler {
 
     private static final String TAG = DecodeHandler.class.getSimpleName();
 

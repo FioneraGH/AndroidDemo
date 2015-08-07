@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo.handler;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,18 +25,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.fionera.wechatdemo.CaptureActivity;
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.decode.DecodeThread;
+import com.fionera.wechatdemo.util.ViewfinderResultPointCallback;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.google.zxing.client.android.camera.CameraManager;
+import com.fionera.wechatdemo.camera.CameraManager;
 
 import java.util.Collection;
 
-/**
- * This class handles all the messaging which comprises the state machine for capture.
- *
- * @author dswitkin@google.com (Daniel Switkin)
- */
 public final class CaptureActivityHandler extends Handler {
 
     private static final String TAG = CaptureActivityHandler.class.getSimpleName();
@@ -52,7 +50,7 @@ public final class CaptureActivityHandler extends Handler {
         DONE
     }
 
-    CaptureActivityHandler(CaptureActivity activity,
+    public CaptureActivityHandler(CaptureActivity activity,
                            Collection<BarcodeFormat> decodeFormats,
                            String characterSet,
                            CameraManager cameraManager) {

@@ -1,9 +1,9 @@
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo.decode;
 
 import android.os.Handler;
 import android.os.Looper;
 
-import com.fionera.wechatdemo.util.PreferenceConfig;
+import com.fionera.wechatdemo.CaptureActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
@@ -14,12 +14,7 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * This thread does all the heavy lifting of decoding the images.
- *
- * @author dswitkin@google.com (Daniel Switkin)
- */
-final class DecodeThread extends Thread {
+public final class DecodeThread extends Thread {
 
     public static final String BARCODE_BITMAP = "barcode_bitmap";
 
@@ -30,7 +25,7 @@ final class DecodeThread extends Thread {
     private Handler handler;
     private final CountDownLatch handlerInitLatch;
 
-    DecodeThread(CaptureActivity activity,
+    public DecodeThread(CaptureActivity activity,
                  Collection<BarcodeFormat> decodeFormats,
                  String characterSet,
                  ResultPointCallback resultPointCallback) {
@@ -43,13 +38,13 @@ final class DecodeThread extends Thread {
         // The prefs can't change while the thread is running, so pick them up once here.
         if (decodeFormats == null || decodeFormats.isEmpty()) {
             decodeFormats = EnumSet.noneOf(BarcodeFormat.class);
-            if (PreferenceConfig.KEY_DECODE_1D_ENABLE) {
+            if (false) {
                 decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS); //一维码
             }
-            if (PreferenceConfig.KEY_DECODE_QR_ENABLE) {
+            if (true) {
                 decodeFormats.addAll(DecodeFormatManager.QR_CODE_FORMATS);//QR码
             }
-            if (PreferenceConfig.KEY_DECODE_DATA_MATRIX_ENABLE) {
+            if (false) {
                 decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);//DM码
             }
         }
@@ -61,7 +56,7 @@ final class DecodeThread extends Thread {
         hints.put(DecodeHintType.NEED_RESULT_POINT_CALLBACK, resultPointCallback);
     }
 
-    Handler getHandler() {
+    public Handler getHandler() {
         try {
             handlerInitLatch.await();
         } catch (InterruptedException ie) {

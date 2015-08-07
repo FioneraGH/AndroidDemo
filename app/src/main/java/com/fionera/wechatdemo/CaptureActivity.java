@@ -1,4 +1,4 @@
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,24 +22,17 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fionera.wechatdemo.MainActivity;
-import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.handler.CaptureActivityHandler;
+import com.fionera.wechatdemo.view.ViewfinderView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.google.zxing.client.android.camera.CameraManager;
-import com.google.zxing.client.android.result.URIResultHandler;
+import com.fionera.wechatdemo.camera.CameraManager;
+import com.fionera.wechatdemo.util.BeepManager;
+import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ResultParser;
 
 import java.util.Collection;
 
-/**
- * This activity opens the camera and does the actual scanning on a background thread. It draws a
- * viewfinder to help the user place the barcode correctly, shows feedback as the image processing
- * is happening, and then overlays the results when a scan is successful.
- *
- * @author dswitkin@google.com (Daniel Switkin)
- * @author Sean Owen
- */
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
@@ -59,7 +52,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private BeepManager beepManager;
 
 
-    ViewfinderView getViewfinderView() {
+    public ViewfinderView getViewfinderView() {
         return viewfinderView;
     }
 
@@ -67,7 +60,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         return handler;
     }
 
-    CameraManager getCameraManager() {
+    public CameraManager getCameraManager() {
         return cameraManager;
     }
 
@@ -203,15 +196,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     public void handleDecode(Result rawResult, Bitmap barcode) {
         lastResult = rawResult;
 
-        URIResultHandler resultHandler = new URIResultHandler(this, ResultParser.parseResult(rawResult));
+        ParsedResult result = ResultParser.parseResult(rawResult);
 
 
         if (barcode == null) {
             // This is from history -- no saved barcode
-            handleDecodeInternally(rawResult, resultHandler, null);
+            handleDecodeInternally(rawResult, result, null);
         } else {
             beepManager.playBeepSoundAndVibrate();
-            handleDecodeInternally(rawResult, resultHandler, barcode);
+            handleDecodeInternally(rawResult, result, barcode);
         }
     }
 
@@ -220,17 +213,17 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
      * Put up our own UI for how to handle the decoded contents. 处理扫描结果
      *
      * @param rawResult     原始结果
-     * @param resultHandler 扫描结果载体
+     * @param result 扫描结果载体
      * @param barcode       条码截图
      */
-    private void handleDecodeInternally(Result rawResult, URIResultHandler resultHandler, Bitmap barcode) {
+    private void handleDecodeInternally(Result rawResult, ParsedResult result, Bitmap barcode) {
         statusView.setVisibility(View.GONE);
         viewfinderView.setVisibility(View.GONE);
         closeScanner.setVisibility(View.GONE);
         findViewById(R.id.tv_status_view).setVisibility(View.GONE);
 
         //dialog展示简要信息
-        showResult(rawResult, resultHandler, barcode);
+        showResult(rawResult, result, barcode);
 
         /*处理结果*/
 
@@ -252,10 +245,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     }
 
-    private void showResult(Result rawResult, URIResultHandler resultHandler, Bitmap barcode) {
+
+
+    private void showResult(Result rawResult, ParsedResult result, Bitmap barcode) {
         Log.d(TAG, rawResult.toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        CharSequence displayContents = resultHandler.getDisplayContents();
+        CharSequence displayContents = result.getDisplayResult();
         if (barcode == null) {
             builder.setIcon(R.mipmap.barcode);
         } else {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android;
+package com.fionera.wechatdemo.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,11 +24,10 @@ import android.media.MediaPlayer;
 import android.os.Vibrator;
 
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.util.PreferenceConfig;
 
 import java.io.IOException;
 
-final class BeepManager {
+public final class BeepManager {
 
     private static final String TAG = BeepManager.class.getSimpleName();
 
@@ -40,15 +39,15 @@ final class BeepManager {
     private boolean playBeep;
     private boolean vibrate;
 
-    BeepManager(Activity activity) {
+    public BeepManager(Activity activity) {
         this.activity = activity;
         this.mediaPlayer = null;
         updatePrefs();
     }
 
-    void updatePrefs() {
+    public void updatePrefs() {
         playBeep = shouldBeep(activity);
-        vibrate = PreferenceConfig.KEY_VIBRATE_ENABLE;
+        vibrate = true;
 
         if (playBeep && mediaPlayer == null) {
             // The volume on STREAM_SYSTEM is not adjustable, and users found it too loud,
@@ -58,7 +57,7 @@ final class BeepManager {
         }
     }
 
-    void playBeepSoundAndVibrate() {
+    public void playBeepSoundAndVibrate() {
         if (playBeep && mediaPlayer != null) {
             mediaPlayer.start();
         }
@@ -69,7 +68,7 @@ final class BeepManager {
     }
 
     private static boolean shouldBeep(Context activity) {
-        boolean shouldPlayBeep = PreferenceConfig.KEY_PLAY_BEEP_ENABLE;
+        boolean shouldPlayBeep = true;
         if (shouldPlayBeep) {
             // See if sound settings overrides this
             AudioManager audioService = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);

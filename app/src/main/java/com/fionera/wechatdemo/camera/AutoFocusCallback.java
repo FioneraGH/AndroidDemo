@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android.camera;
+package com.fionera.wechatdemo.camera;
 
 import android.hardware.Camera;
 import android.os.Handler;

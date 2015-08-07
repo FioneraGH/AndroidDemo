@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android.camera;
+package com.fionera.wechatdemo.camera;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-
-import com.fionera.wechatdemo.util.PreferenceConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,8 +37,11 @@ final class CameraConfigurationManager {
     // This is bigger than the size of a small screen, which is still supported. The routine
     // below will still select the default (presumably 320x240) size for these. This prevents
     // accidental selection of very low resolution on some devices.
-    private static final int MIN_PREVIEW_PIXELS = 470 * 320; // normal screen
+    private static final int MIN_PREVIEW_PIXELS = 480 * 320; // normal screen
     private static final int MAX_PREVIEW_PIXELS = 1280 * 720;
+
+    public static final boolean KEY_AUTO_FOCUS_ENABLE = true;
+    public static final boolean KEY_DISABLE_CONTINUOUS_FOCUS_ENABLE = false;
 
     private final Context context;
     private Point screenResolution;
@@ -90,11 +89,10 @@ final class CameraConfigurationManager {
             Log.w(TAG, "In camera config safe mode -- most settings will not be honored");
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         String focusMode = null;
-        if (PreferenceConfig.KEY_AUTO_FOCUS_ENABLE) {
-            if (safeMode || PreferenceConfig.KEY_DISABLE_CONTINUOUS_FOCUS_ENABLE) {
+        if (KEY_AUTO_FOCUS_ENABLE) {
+            if (safeMode || KEY_DISABLE_CONTINUOUS_FOCUS_ENABLE) {
                 focusMode = findSettableValue(parameters.getSupportedFocusModes(),
                         Camera.Parameters.FOCUS_MODE_AUTO);
             } else {

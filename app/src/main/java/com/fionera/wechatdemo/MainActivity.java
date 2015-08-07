@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.util.DBHelper;
-import com.google.zxing.client.android.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

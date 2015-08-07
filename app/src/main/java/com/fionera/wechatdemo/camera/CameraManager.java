@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android.camera;
+package com.fionera.wechatdemo.camera;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -24,8 +24,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import com.fionera.wechatdemo.util.PreferenceConfig;
-import com.google.zxing.client.android.PlanarYUVLuminanceSource;
+import com.fionera.wechatdemo.util.PlanarYUVLuminanceSource;
 
 import java.io.IOException;
 
@@ -92,7 +91,7 @@ public final class CameraManager {
         }
         configManager.setDesiredCameraParameters(camera, false);
 
-        reverseImage = PreferenceConfig.KEY_REVERSE_IMAGE_ENABLE;
+        reverseImage = false;// 反转图片
     }
 
     /**
