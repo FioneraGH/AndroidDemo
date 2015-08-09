@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_wifi_state"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="当前没有扫描到Wifi网络" />
     <Button
         android:id="@+id/btn_wifi_scan"
         android:layout_width="wrap_content"
@@ -29,10 +34,11 @@
         android:layout_height="wrap_content"
         android:text="Wifi状态" />
 
-    <TextView
-        android:id="@+id/tv_wifi_state"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="当前没有扫描到Wifi网络" />
+        android:text="选择程序"
+        android:id="@+id/btn_choose_app" />
+
 
 </LinearLayout>

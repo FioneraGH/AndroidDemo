@@ -58,13 +58,14 @@ public class VolleyActivity extends Activity {
          * 普通请求GET方式
          */
         String url = "http://www.baidu.com";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
 
-                Log.d("Volley", s);
-            }
-        }, new Response.ErrorListener() {
+                        Log.d("Volley", s);
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("Volley", volleyError.getCause().toString());
@@ -76,12 +77,13 @@ public class VolleyActivity extends Activity {
         /**
          * Json请求GET方式
          */
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                Log.d("Volley", jsonObject.toString());
-            }
-        }, new Response.ErrorListener() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        Log.d("Volley", jsonObject.toString());
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("Volley", volleyError.getCause().toString());
@@ -96,13 +98,14 @@ public class VolleyActivity extends Activity {
          * 普通请求POST方式
          */
         String url = "http://www.baidu.com";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
 
-                Log.d("Volley", s);
-            }
-        }, new Response.ErrorListener() {
+                        Log.d("Volley", s);
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("Volley", volleyError.getCause().toString());
@@ -124,7 +127,8 @@ public class VolleyActivity extends Activity {
         Map<String, String> map = new HashMap<String, String>();
         map.put("phone", "123456");
         JSONObject jsonObject = new JSONObject(map);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url,
+                jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 Log.d("Volley", jsonObject.toString());
@@ -156,10 +160,12 @@ public class VolleyActivity extends Activity {
         imageRequest.setTag("testImageRequest");
         DemoApplication.getRequestQueue().add(imageRequest);
 
-        ImageLoader imageLoader = new ImageLoader(DemoApplication.getRequestQueue(), new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(DemoApplication.getRequestQueue(),
+                new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView,
                 R.mipmap.ic_launcher, R.mipmap.ic_launcher);
-        imageLoader.get(url,imageListener);
+        imageLoader.get("http://news.baidu.com/resource/img/logo_news_276_88.png?date=20150104",
+                imageListener);
     }
 
 }
