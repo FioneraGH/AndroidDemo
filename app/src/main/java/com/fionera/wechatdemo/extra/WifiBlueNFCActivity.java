@@ -3,12 +3,14 @@ package com.fionera.wechatdemo.extra;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
+import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -70,14 +72,16 @@ public class WifiBlueNFCActivity extends Activity {
         super.onNewIntent(intent);
 
         Log.d("NFC", "接收到新的Intent");
+        //获取tag
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (packageName != null) {
-            //获取tag
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             writeAppNfcTag(tag);
+        }else{
+            readNfcTagAndParseNdef(tag);
         }
     }
 
-    
+
 
     /**
      * 写操作，tag为之前拿到的标签抽象实例
@@ -91,6 +95,9 @@ public class WifiBlueNFCActivity extends Activity {
              */
             NdefMessage ndefMessage = new NdefMessage(
                     new NdefRecord[]{NdefRecord.createApplicationRecord(packageName)});
+            // 创建一个用于打开URL的NdefMessage并写入
+            // NdefMessage ndefMessage = new NdefMessage(
+            //        new NdefRecord[]{NdefRecord.createUri(Uri.parse("http://www.baidu.com"))});
             int size = ndefMessage.getByteArrayLength();
             try {
                 Ndef ndef = Ndef.get(tag);
@@ -107,13 +114,30 @@ public class WifiBlueNFCActivity extends Activity {
                         Toast.makeText(this, "NFC标签不可写", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(this, "Tag非NDEF格式", Toast.LENGTH_SHORT).show();
+                    /**
+                     * 可以进行NDEF格式化操作
+                     */
+                    NdefFormatable format = NdefFormatable.get(tag);
+                    if(format != null){
+                        //可以格式化
+                        format.connect();
+                        format.format(ndefMessage);
+                        Toast.makeText(this, "Tag格式化成功", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(this, "Tag非NDEF格式且无法格式化", Toast.LENGTH_SHORT).show();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
     }
+
+    private void readNfcTagAndParseNdef(Tag tag){
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
