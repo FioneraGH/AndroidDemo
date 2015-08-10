@@ -14,8 +14,8 @@ import android.widget.TextView;
 public class GenViewHolder {
 
     private SparseArray<View> viewsSparseArray;
-    private int position;
     private View convertView;
+    private int position;
 
     /**
      * 获取ViewHolder

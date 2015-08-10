@@ -12,6 +12,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.util.TextNfcRecord;
 import com.fionera.wechatdemo.util.WifiAdmin;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Locale;
 
 public class WifiBlueNFCActivity extends Activity {
 
@@ -36,6 +40,7 @@ public class WifiBlueNFCActivity extends Activity {
     private String packageName;
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
+    private String plainText;
 
 
     // 扫描结果列表
@@ -76,15 +81,15 @@ public class WifiBlueNFCActivity extends Activity {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (packageName != null) {
             writeAppNfcTag(tag);
-        }else{
-            readNfcTagAndParseNdef(tag);
+        } else {
+            readNfcTagAndParseNdef(tag, intent);
+            //writeNfcTagAndParseNdef(tag);
         }
     }
 
 
-
     /**
-     * 写操作，tag为之前拿到的标签抽象实例
+     * 原生格式写操作，tag为之前拿到的标签抽象实例
      *
      * @param tag
      */
@@ -113,17 +118,17 @@ public class WifiBlueNFCActivity extends Activity {
                     } else {
                         Toast.makeText(this, "NFC标签不可写", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     /**
                      * 可以进行NDEF格式化操作
                      */
                     NdefFormatable format = NdefFormatable.get(tag);
-                    if(format != null){
+                    if (format != null) {
                         //可以格式化
                         format.connect();
                         format.format(ndefMessage);
                         Toast.makeText(this, "Tag格式化成功", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(this, "Tag非NDEF格式且无法格式化", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -134,7 +139,80 @@ public class WifiBlueNFCActivity extends Activity {
 
     }
 
-    private void readNfcTagAndParseNdef(Tag tag){
+    /**
+     * 读取纯文本标签内容并解析
+     *
+     * @param tag
+     */
+    private void readNfcTagAndParseNdef(Tag tag, Intent intent) {
+
+        Ndef ndef = Ndef.get(tag);
+        if (ndef != null) {
+
+            String type = ndef.getType();
+            int maxSize = ndef.getMaxSize();
+
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+            int contentSize = 0;
+            if (rawMsgs != null) {
+                NdefMessage[] ndefMessage = new NdefMessage[rawMsgs.length];
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    ndefMessage[i] = (NdefMessage) rawMsgs[i];
+                    contentSize += ndefMessage[i].getByteArrayLength();
+                }
+
+                NdefRecord ndefRecord = ndefMessage[0].getRecords()[0];
+                TextNfcRecord textNfcRecord = TextNfcRecord.parse(ndefRecord);
+                plainText = textNfcRecord.getText();
+
+                if (plainText != null) {
+                    networkResult.setText(
+                            type + "\n" + maxSize + "\n" + plainText + "\n" + contentSize);
+                }
+            } else {
+                networkResult.setText("Tag内容为空");
+            }
+        } else {
+            Toast.makeText(this, "Tag非NDEF格式", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * 向标签写入纯文本内容
+     *
+     * @param tag
+     */
+    private void writeNfcTagAndParseNdef(Tag tag) {
+
+        /**
+         * 生成符合格式的纯文本NdefRecord，应放到静态方法中
+         */
+        byte[] langBytes = Locale.CHINA.getLanguage().getBytes(Charset.forName("US-ASCII"));
+        Charset textEncoding = Charset.forName("UTF-8");
+        byte[] textBytes = "qwerty123456".getBytes(textEncoding);
+        char statusByte = (char) (0 + langBytes.length);
+
+        byte[] ndefData = new byte[1 + langBytes.length + textBytes.length];
+        ndefData[0] = (byte) statusByte;
+        System.arraycopy(langBytes, 0, ndefData, 1, langBytes.length);
+        System.arraycopy(textBytes, 0, ndefData, langBytes.length + 1, textBytes.length);
+
+        NdefRecord ndefRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT,
+                new byte[0], ndefData);
+
+        Ndef ndef = Ndef.get(tag);
+        try {
+            if (ndef != null) {
+
+                ndef.connect();
+                ndef.writeNdefMessage(new NdefMessage(ndefRecord));
+            } else {
+                Toast.makeText(this, "Tag非NDEF格式不能写入", Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

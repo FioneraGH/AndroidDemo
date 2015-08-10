@@ -37,7 +37,7 @@ public class TextNfcRecord {
                 textEncoding = "utf-8";
             }
             int langCodeLength = payload[0] & 0x3f;
-            String langEncoding = new String(payload, 1, langCodeLength, "US-ASCII");
+//            String langEncoding = new String(payload, 1, langCodeLength, "US-ASCII");
             String text = new String(payload, langCodeLength + 1,
                     payload.length - langCodeLength - 1/*编码*/, textEncoding);
             return new TextNfcRecord(text);
