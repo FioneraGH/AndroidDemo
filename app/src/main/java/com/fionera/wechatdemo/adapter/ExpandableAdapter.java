@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +24,18 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
     private String[][] child;
     private LayoutInflater layoutInflater;
 
-    public ExpandableAdapter(Context context, String[] group, String[][] child) {
+    private ExpandableListView expandableListView;
+    private int lastExpandedGroupPosition = 0;
+
+    public ExpandableAdapter(Context context, String[] group, String[][] child,
+            ExpandableListView expandableListView) {
 
         this.context = context;
         this.group = group;
         this.child = child;
         this.layoutInflater = LayoutInflater.from(context);
+
+        this.expandableListView = expandableListView;
     }
 
     @Override
@@ -94,6 +101,15 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             }
         });
         return convertView;
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+        if (groupPosition != lastExpandedGroupPosition) {
+            expandableListView.collapseGroup(lastExpandedGroupPosition);
+        }
+        lastExpandedGroupPosition = groupPosition;
     }
 
     @Override

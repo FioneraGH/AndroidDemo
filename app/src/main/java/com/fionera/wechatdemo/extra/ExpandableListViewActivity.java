@@ -33,7 +33,7 @@ public class ExpandableListViewActivity extends Activity {
                 {"777",},
         };
 
-        expandableListAdapter = new ExpandableAdapter(this, group, child);
+        expandableListAdapter = new ExpandableAdapter(this, group, child,expandableListView);
         expandableListView.setAdapter(expandableListAdapter);
 
 
