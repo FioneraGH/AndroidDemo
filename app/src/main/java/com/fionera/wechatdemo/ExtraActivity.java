@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.fionera.wechatdemo.extra.ExpandableListViewActivity;
 import com.fionera.wechatdemo.extra.GenericAdapterActivity;
 import com.fionera.wechatdemo.extra.JSONActivity;
 import com.fionera.wechatdemo.extra.MatrixActivity;
@@ -27,6 +28,7 @@ public class ExtraActivity extends Activity {
     private Button generic;
     private Button wbn;
     private Button volley;
+    private Button expand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +116,8 @@ public class ExtraActivity extends Activity {
             }
         });
         // 设定Volley测试跳转
-        wbn = (Button) findViewById(R.id.button9);
-        wbn.setOnClickListener(new View.OnClickListener() {
+        volley = (Button) findViewById(R.id.button9);
+        volley.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExtraActivity.this, VolleyActivity.class);
@@ -123,5 +125,16 @@ public class ExtraActivity extends Activity {
                 ExtraActivity.this.finish();
             }
         });
+        // 设定ExpandableListView测试跳转
+        expand = (Button) findViewById(R.id.button10);
+        expand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, ExpandableListViewActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+
     }
 }
