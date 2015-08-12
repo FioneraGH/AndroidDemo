@@ -144,4 +144,5 @@
     <string name="title_activity_wifi_blue_nfc">WifiBlueNFCActivity</string>
     <string name="title_activity_volley">VolleyActivity</string>
     <string name="title_activity_expandable_list_view">ExpandableListViewActivity</string>
+    <string name="title_activity_edit_in_list">EditInListActivity</string>
 </resources>

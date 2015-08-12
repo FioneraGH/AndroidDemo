@@ -101,6 +101,11 @@
             android:name=".extra.ExpandableListViewActivity"
             android:label="@string/title_activity_expandable_list_view" >
         </activity>
+        <activity
+            android:name=".extra.EditInListActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:label="@string/title_activity_edit_in_list" >
+        </activity>
     </application>
 
 </manifest>

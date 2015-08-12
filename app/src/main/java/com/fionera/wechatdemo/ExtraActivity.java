@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.fionera.wechatdemo.extra.EditInListActivity;
 import com.fionera.wechatdemo.extra.ExpandableListViewActivity;
 import com.fionera.wechatdemo.extra.GenericAdapterActivity;
 import com.fionera.wechatdemo.extra.JSONActivity;
@@ -29,6 +30,7 @@ public class ExtraActivity extends Activity {
     private Button wbn;
     private Button volley;
     private Button expand;
+    private Button etinlv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +133,16 @@ public class ExtraActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExtraActivity.this, ExpandableListViewActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+        // 设定EditTextInListView测试跳转
+        etinlv = (Button) findViewById(R.id.button11);
+        etinlv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, EditInListActivity.class);
                 ExtraActivity.this.startActivity(intent);
                 ExtraActivity.this.finish();
             }

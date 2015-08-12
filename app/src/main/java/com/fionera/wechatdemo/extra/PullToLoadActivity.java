@@ -75,13 +75,14 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
 
     @Override
     public void onScroll(AbsListView absView, int firstVisibleItem,
-                         int visibleItemCount, int totalItemCount) {
+            int visibleItemCount, int totalItemCount) {
         firstItem = firstVisibleItem;
     }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scorllState) {
-        if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
+        if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView
+                .OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
             currentPage++;
             // 增加数据
             handler.postDelayed(new Runnable() {
