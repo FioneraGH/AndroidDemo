@@ -1,10 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:myattr="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
     >
 
     <com.fionera.wechatdemo.view.SlidingMenu
+        android:id="@+id/sm_horizontal"
         android:scrollbars="none"
+        myattr:rightPadding="120dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,6 +22,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@mipmap/ic_launcher">
+
+                <Button
+                    android:id="@+id/btn_toogle_menu"
+                    android:background="@mipmap/ic_launcher"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"/>
 
             </LinearLayout>
 
