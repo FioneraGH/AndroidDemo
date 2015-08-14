@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.fionera.wechatdemo.extra.EditInListActivity;
 import com.fionera.wechatdemo.extra.ExpandableListViewActivity;
 import com.fionera.wechatdemo.extra.GenericAdapterActivity;
+import com.fionera.wechatdemo.extra.HorizontalActivity;
 import com.fionera.wechatdemo.extra.JSONActivity;
 import com.fionera.wechatdemo.extra.MatrixActivity;
 import com.fionera.wechatdemo.extra.PullToLoadActivity;
@@ -31,6 +32,7 @@ public class ExtraActivity extends Activity {
     private Button volley;
     private Button expand;
     private Button etinlv;
+    private Button horizontal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +145,16 @@ public class ExtraActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExtraActivity.this, EditInListActivity.class);
+                ExtraActivity.this.startActivity(intent);
+                ExtraActivity.this.finish();
+            }
+        });
+        // 设定EditTextInListView测试跳转
+        horizontal = (Button) findViewById(R.id.button12);
+        horizontal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, HorizontalActivity.class);
                 ExtraActivity.this.startActivity(intent);
                 ExtraActivity.this.finish();
             }

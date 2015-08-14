@@ -12,11 +12,12 @@
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:clickable="false"
-            android:text="Extra" />
+            android:text="Extra"
+            android:textSize="14sp"/>
 
         <Button
             android:id="@+id/button1"
@@ -45,13 +46,6 @@
             android:text="PullToLoad" />
 
         <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="JSON" />
-
-        <Button
             android:id="@+id/button6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,6 +65,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="WifiBlueNFC" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="JSON" />
 
         <Button
             android:id="@+id/button9"
@@ -98,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="New Button" />
+            android:text="HorizontalScrollView" />
 
     </LinearLayout>
 
