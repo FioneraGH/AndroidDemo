@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -23,13 +22,12 @@ public class SlidingMenu extends HorizontalScrollView {
     private LinearLayout mWrapper;
     private ViewGroup mMenu;
     private ViewGroup mContent;
-    private int mWidthScreen;
-
     private int mMenuRightPadding;
-    private boolean once = false;
 
+    private int mWidthScreen;
     private int mMenuWidth;
 
+    private boolean once;
     private boolean isOpen;
 
     public SlidingMenu(Context context) {
@@ -49,6 +47,9 @@ public class SlidingMenu extends HorizontalScrollView {
     public SlidingMenu(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        /**
+         * 获取自定义参数
+         */
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SlidingMenu,
                 defStyle, 0);
         int n = a.getIndexCount();
@@ -70,9 +71,6 @@ public class SlidingMenu extends HorizontalScrollView {
         wm.getDefaultDisplay().getMetrics(outMetrics);
         mWidthScreen = outMetrics.widthPixels;
 
-        //把150dp转换为像素值
-//        mMenuRightPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
-//                context.getResources().getDisplayMetrics());
     }
 
     /**
@@ -140,25 +138,53 @@ public class SlidingMenu extends HorizontalScrollView {
         return super.onTouchEvent(ev);
     }
 
-    public void OpenMenu(){
-        if(!isOpen){
+    public void OpenMenu() {
+        if (!isOpen) {
             this.smoothScrollTo(0, 0);
             isOpen = true;
         }
     }
 
-    public void CloseMenu(){
-        if(isOpen){
+    public void CloseMenu() {
+        if (isOpen) {
             this.smoothScrollTo(mMenuWidth, 0);
             isOpen = false;
         }
     }
 
-    public void ToogleMenu(){
-        if(isOpen){
+    public void ToogleMenu() {
+        if (isOpen) {
             CloseMenu();
-        }else{
+        } else {
             OpenMenu();
         }
+    }
+
+    /**
+     * 滚动时设置
+     *
+     * @param l
+     * @param t
+     * @param oldl
+     * @param oldt
+     */
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+
+        //l即是当前getScrollX的值，初值为mMenuWidth -> 0
+        float scale = l * 1.0f / mMenuWidth;
+
+        mContent.setScaleX(0.9f + 0.1f * scale);
+        mContent.setScaleY(0.9f + 0.1f * scale);
+        mContent.setPivotX(0);
+        mContent.setPivotY(mContent.getHeight() / 2);
+
+        mMenu.setScaleX(1.0f - 0.3f * scale);
+        mMenu.setScaleY(1.0f - 0.3f * scale);
+
+        //调用属性动画，设置TransactionX
+        mMenu.setTranslationX(mMenuWidth * scale * 0.7f);
+        mMenu.setAlpha(1.0f - 0.9f * scale);
     }
 }
