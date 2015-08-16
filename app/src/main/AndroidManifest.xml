@@ -110,6 +110,10 @@
             android:name=".extra.HorizontalActivity"
             android:label="@string/title_activity_horizontal" >
         </activity>
+        <activity
+            android:name=".extra.ArcViewActivity"
+            android:label="@string/title_activity_arc_view" >
+        </activity>
     </application>
 
 </manifest>

@@ -16,7 +16,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <include layout="@layout/left_menu"/>
+            <include layout="@layout/left_menu"
+                android:id="@+id/left_menu"/>
 
             <RelativeLayout
                 android:background="#cccccc"

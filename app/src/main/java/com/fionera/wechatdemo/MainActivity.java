@@ -14,17 +14,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.util.DBHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends Activity implements OnClickListener, AbsListView.OnScrollListener {
+public class MainActivity extends Activity implements OnClickListener, AbsListView
+        .OnScrollListener {
 
     private Button mBtnSend;
     private Button mBtnBack;
@@ -38,6 +41,9 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
     private EditText mEditTextContent;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
     private Handler handler = new Handler();
+
+    private RelativeLayout rlLeftMenu;
+    private RelativeLayout arcview;
 
     // to adjust the content
     private int currentPage = 1; //默认在第一页
@@ -75,6 +81,8 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
         mTvHead.setOnClickListener(this);
 
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
+        rlLeftMenu = (RelativeLayout) findViewById(R.id.left_menu);
+        arcview = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_arc_view);
 
     }
 
@@ -99,7 +107,7 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
         // 获取总记录数
         allRecorders = dbHelper.getCount();
         // 如果数据少于20，则不需要出现加载提示
-        if (allRecorders < lineSize){
+        if (allRecorders < lineSize) {
             listView.removeHeaderView(header);
         }
         // 计算总页数
@@ -125,12 +133,16 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
                 startActivity(extraIntent);
                 break;
             case R.id.tv_head:
-            Intent handlerIntent = new Intent(MainActivity.this, HandlerActivity.class);
-            startActivity(handlerIntent);
-            break;
+                Intent handlerIntent = new Intent(MainActivity.this, HandlerActivity.class);
+                startActivity(handlerIntent);
+                break;
             case R.id.iv_head:
                 Intent capIntent = new Intent(MainActivity.this, CaptureActivity.class);
                 startActivity(capIntent);
+                break;
+            case R.id.rl_arc_view:
+                Intent arcViewIntent = new Intent(MainActivity.this, ArcViewActivity.class);
+                startActivity(arcViewIntent);
                 break;
         }
     }
@@ -139,13 +151,14 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
 
     @Override
     public void onScroll(AbsListView absView, int firstVisibleItem,
-                         int visibleItemCount, int totalItemCount) {
+            int visibleItemCount, int totalItemCount) {
         firstItem = firstVisibleItem;
     }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scorllState) {
-        if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
+        if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView
+                .OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
             currentPage++;
             // 增加数据
             handler.postDelayed(new Runnable() {
@@ -218,7 +231,7 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
 
                             @Override
                             public void onClick(DialogInterface dialog,
-                                                int which) {
+                                    int which) {
                                 MainActivity.this.finish();
                             }
                         })
