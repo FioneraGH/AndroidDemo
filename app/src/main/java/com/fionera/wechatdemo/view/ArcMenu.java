@@ -7,6 +7,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 
 import com.fionera.wechatdemo.R;
 
@@ -93,10 +99,6 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
                 switch (position) {
                     case LEFT_TOP:
-                        cl = (int) (radius * Math.sin(
-                                Math.PI / 2 / (getChildCount() - 2) * (i - 1)));
-                        ct = (int) (radius * Math.cos(
-                                Math.PI / 2 / (getChildCount() - 2) * (i - 1)));
                         break;
                     case LEFT_BOTTOM:
                         ct = getMeasuredHeight() - (ct + ch);
@@ -129,8 +131,6 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         int width = mainButton.getMeasuredWidth();
         switch (position) {
             case LEFT_TOP:
-                l = 0;
-                t = 0;
                 break;
             case LEFT_BOTTOM:
                 l = 0;
@@ -153,9 +153,163 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        mainButton = findViewById(R.id.iv_arc_menu);
 
+        RotateButton(v, 0f, 360f, 300);
+        ToggleMenu(300);
     }
 
+    private void RotateButton(View v, float start, float end, int time) {
+
+        RotateAnimation rotateAnimation = new RotateAnimation(start, end,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(time);
+        rotateAnimation.setFillAfter(true);
+        v.startAnimation(rotateAnimation);
+    }
+
+    /**
+     * 主按钮开关子按钮
+     * @param time
+     */
+    public void ToggleMenu(int time) {
+        /**
+         * 平移动画和旋转动画
+         */
+
+        for (int i = 1; i < getChildCount(); i++) {
+            final View child = getChildAt(i);
+            //点击即显示子按钮
+            child.setVisibility(View.VISIBLE);
+
+            int cl = (int) (radius * Math.sin(Math.PI / 2 / (getChildCount() - 2) * (i - 1)));
+            int ct = (int) (radius * Math.cos(Math.PI / 2 / (getChildCount() - 2) * (i - 1)));
+            int xflag = 1;
+            int yflag = 1;
+
+            switch (position) {
+                case LEFT_TOP:
+                    xflag = -1;
+                    yflag = -1;
+                    break;
+                case LEFT_BOTTOM:
+                    xflag = -1;
+                    break;
+                case RIGHT_TOP:
+                    yflag = -1;
+                    break;
+                case RIGHT_BOTTOM:
+                    break;
+            }
+
+            AnimationSet animationSet = new AnimationSet(true);
+            TranslateAnimation translateAnimation;
+            RotateAnimation rotateAnimation = new RotateAnimation(0f, 720f,
+                    Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            rotateAnimation.setDuration(time);
+            rotateAnimation.setFillAfter(true);
+
+            if (!menuIsOpen) {
+                translateAnimation = new TranslateAnimation(xflag * cl, 0, yflag * ct, 0);
+                child.setClickable(true);
+                child.setFocusable(true);
+            } else {
+                translateAnimation = new TranslateAnimation(0, xflag * cl, 0, yflag * ct);
+                child.setClickable(false);
+                child.setFocusable(false);
+            }
+
+            translateAnimation.setDuration(time);
+            translateAnimation.setStartOffset(i * 100 / getChildCount());
+            translateAnimation.setFillAfter(true);
+
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                    /**
+                     * 动画结束若是关闭状态隐藏子按钮
+                     */
+                    if (!menuIsOpen) {
+                        child.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            animationSet.addAnimation(rotateAnimation);
+            animationSet.addAnimation(translateAnimation);
+
+            child.startAnimation(animationSet);
+            final int no = i;
+            child.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onMenuItemClickListener != null) {
+                        onMenuItemClickListener.onClick(child, no);
+                    } else {
+                        Log.d("ArcMenu", "listener is null");
+                    }
+                    menuIsOpen = menuIsOpen ? false : true;
+                    FoldItem(no);
+                }
+            });
+        }
+        menuIsOpen = menuIsOpen ? false : true;
+    }
+
+    private void FoldItem(int pos) {
+        for (int i = 1; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            if (i == pos) {
+                child.startAnimation(ScaleBig(300));
+            } else {
+                child.startAnimation(ScaleSmall(300));
+            }
+            child.setClickable(false);
+            child.setFocusable(false);
+            child.setVisibility(View.GONE);
+        }
+    }
+
+    private Animation ScaleBig(int time) {
+        AnimationSet animationSet = new AnimationSet(true);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 2.0f, 1.0f, 2.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(time);
+        scaleAnimation.setFillAfter(true);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+        alphaAnimation.setDuration(time);
+        alphaAnimation.setFillAfter(true);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(alphaAnimation);
+
+        return animationSet;
+    }
+
+    private Animation ScaleSmall(int time) {
+        AnimationSet animationSet = new AnimationSet(true);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(time);
+        scaleAnimation.setFillAfter(true);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+        alphaAnimation.setDuration(time);
+        alphaAnimation.setFillAfter(true);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(alphaAnimation);
+
+        return animationSet;
+    }
 
     public void setOnMenuItemClickListener(
             OnMenuItemClickListener onMenuItemClickListener) {

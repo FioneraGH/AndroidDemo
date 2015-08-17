@@ -6,6 +6,7 @@
 
 
     <com.fionera.wechatdemo.view.ArcMenu
+        android:id="@+id/arc_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         myattr:position="right_bottom"
