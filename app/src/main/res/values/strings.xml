@@ -147,4 +147,5 @@
     <string name="title_activity_edit_in_list">EditInListActivity</string>
     <string name="title_activity_horizontal">HorizontalActivity</string>
     <string name="title_activity_arc_view">ArcViewActivity</string>
+    <string name="title_activity_flow_layout">FlowLayoutActivity</string>
 </resources>

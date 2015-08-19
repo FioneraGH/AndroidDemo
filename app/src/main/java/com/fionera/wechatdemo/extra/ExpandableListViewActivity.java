@@ -1,14 +1,9 @@
 package com.fionera.wechatdemo.extra;
 
 import android.app.Activity;
-import android.app.ExpandableListActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.SimpleExpandableListAdapter;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.adapter.ExpandableAdapter;

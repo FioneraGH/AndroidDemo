@@ -3,10 +3,7 @@ package com.fionera.wechatdemo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,12 +15,11 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.camera.CameraManager;
 import com.fionera.wechatdemo.decode.DecodeThread;
-import com.fionera.wechatdemo.util.CaptureActivityHandler;
 import com.fionera.wechatdemo.util.BeepManager;
+import com.fionera.wechatdemo.util.CaptureActivityHandler;
 import com.google.zxing.Result;
 
 import java.io.IOException;

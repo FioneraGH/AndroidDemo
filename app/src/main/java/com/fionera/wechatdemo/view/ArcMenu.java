@@ -78,7 +78,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         for (int i = 0; i < getChildCount(); i++) {
-            //测量childs
+            //测量childs!!!!!
             measureChild(getChildAt(i), widthMeasureSpec, heightMeasureSpec);
         }
     }

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.extra.ArcViewActivity;
+import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
 
 import java.util.ArrayList;
@@ -44,10 +45,11 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
 
     private RelativeLayout rlLeftMenu;
     private RelativeLayout arcview;
+    private RelativeLayout flowlayout;
 
+    private static final int lineSize = 20;    //每次显示数
     // to adjust the content
     private int currentPage = 1; //默认在第一页
-    private static final int lineSize = 20;    //每次显示数
     private int allRecorders = 0;  //全部记录数
     private int pageSize = 1;  //默认共一页
 
@@ -83,7 +85,9 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
         rlLeftMenu = (RelativeLayout) findViewById(R.id.left_menu);
         arcview = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_arc_view);
-
+        arcview.setOnClickListener(this);
+        flowlayout = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_flow_layout);
+        flowlayout.setOnClickListener(this);
     }
 
     private void initData() {
@@ -143,6 +147,10 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
             case R.id.rl_arc_view:
                 Intent arcViewIntent = new Intent(MainActivity.this, ArcViewActivity.class);
                 startActivity(arcViewIntent);
+                break;
+            case R.id.rl_flow_layout:
+                Intent flowLayoutIntent = new Intent(MainActivity.this, FlowLayoutActivity.class);
+                startActivity(flowLayoutIntent);
                 break;
         }
     }

@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-
 import com.fionera.wechatdemo.camera.open.OpenCameraInterface;
 
 import java.io.IOException;

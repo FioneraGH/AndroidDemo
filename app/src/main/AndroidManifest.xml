@@ -114,6 +114,10 @@
             android:name=".extra.ArcViewActivity"
             android:label="@string/title_activity_arc_view" >
         </activity>
+        <activity
+            android:name=".extra.FlowLayoutActivity"
+            android:label="@string/title_activity_flow_layout" >
+        </activity>
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package com.fionera.wechatdemo.extra;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
