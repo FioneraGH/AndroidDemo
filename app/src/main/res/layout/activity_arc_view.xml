@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         myattr:position="right_bottom"
-        myattr:radius="150dp">
+        myattr:radiu="150dp">
 
         <ImageView
             android:id="@+id/iv_arc_menu"

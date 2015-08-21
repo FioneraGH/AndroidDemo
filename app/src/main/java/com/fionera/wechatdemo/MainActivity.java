@@ -22,6 +22,7 @@ import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
+import com.fionera.wechatdemo.view.SampleTabsDefault;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
     private RelativeLayout rlLeftMenu;
     private RelativeLayout arcview;
     private RelativeLayout flowlayout;
+    private RelativeLayout tabsViewPager;
 
     private static final int lineSize = 20;    //每次显示数
     // to adjust the content
@@ -88,6 +90,8 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
         arcview.setOnClickListener(this);
         flowlayout = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_flow_layout);
         flowlayout.setOnClickListener(this);
+        tabsViewPager = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_tabs_viewpager);
+        tabsViewPager.setOnClickListener(this);
     }
 
     private void initData() {
@@ -151,6 +155,10 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
             case R.id.rl_flow_layout:
                 Intent flowLayoutIntent = new Intent(MainActivity.this, FlowLayoutActivity.class);
                 startActivity(flowLayoutIntent);
+                break;
+            case R.id.rl_tabs_viewpager:
+                Intent tabsVPIntent = new Intent(MainActivity.this, SampleTabsDefault.class);
+                startActivity(tabsVPIntent);
                 break;
         }
     }

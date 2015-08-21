@@ -64,7 +64,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                 position = Position.RIGHT_BOTTOM;
                 break;
         }
-        radius = (int) a.getDimension(R.styleable.ArcMenu_radius,
+        radius = (int) a.getDimension(R.styleable.ArcMenu_radiu,
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
                         context.getResources().getDisplayMetrics()));
 
@@ -87,7 +87,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
         if (changed) {
-            LayoutMainButton();
+            layoutMainButton();
 
             for (int i = 1; i < getChildCount(); i++) {
                 View child = getChildAt(i);
@@ -121,7 +121,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     /**
      * 定位主菜单按钮
      */
-    public void LayoutMainButton() {
+    public void layoutMainButton() {
         mainButton = getChildAt(0);
         mainButton.setOnClickListener(this);
 
@@ -155,11 +155,11 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     public void onClick(View v) {
         mainButton = findViewById(R.id.iv_arc_menu);
 
-        RotateButton(v, 0f, 360f, 300);
-        ToggleMenu(300);
+        rotateButton(v, 0f, 360f, 300);
+        toggleMenu(300);
     }
 
-    private void RotateButton(View v, float start, float end, int time) {
+    private void rotateButton(View v, float start, float end, int time) {
 
         RotateAnimation rotateAnimation = new RotateAnimation(start, end,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -172,7 +172,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
      * 主按钮开关子按钮
      * @param time
      */
-    public void ToggleMenu(int time) {
+    public void toggleMenu(int time) {
         /**
          * 平移动画和旋转动画
          */
@@ -260,20 +260,20 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                         Log.d("ArcMenu", "listener is null");
                     }
                     menuIsOpen = menuIsOpen ? false : true;
-                    FoldItem(no);
+                    foldItem(no);
                 }
             });
         }
         menuIsOpen = menuIsOpen ? false : true;
     }
 
-    private void FoldItem(int pos) {
+    private void foldItem(int pos) {
         for (int i = 1; i < getChildCount(); i++) {
             View child = getChildAt(i);
             if (i == pos) {
-                child.startAnimation(ScaleBig(300));
+                child.startAnimation(scaleBig(300));
             } else {
-                child.startAnimation(ScaleSmall(300));
+                child.startAnimation(scaleSmall(300));
             }
             child.setClickable(false);
             child.setFocusable(false);
@@ -281,7 +281,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         }
     }
 
-    private Animation ScaleBig(int time) {
+    private Animation scaleBig(int time) {
         AnimationSet animationSet = new AnimationSet(true);
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 2.0f, 1.0f, 2.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -296,7 +296,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         return animationSet;
     }
 
-    private Animation ScaleSmall(int time) {
+    private Animation scaleSmall(int time) {
         AnimationSet animationSet = new AnimationSet(true);
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

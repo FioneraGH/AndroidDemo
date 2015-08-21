@@ -59,6 +59,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_tabs_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -77,7 +78,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/iv_hor_menu_3"
-                android:text="item 3"
+                android:text="TabsViewPager"
                 android:textSize="20sp"/>
         </RelativeLayout>
 

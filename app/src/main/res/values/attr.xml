@@ -8,7 +8,7 @@
         <enum name="right_top" value="2"/>
         <enum name="right_bottom" value="3"/>
     </attr>
-    <attr name="radius" format="dimension"/>
+    <attr name="radiu" format="dimension"/>
 
     <declare-styleable name="SlidingMenu" >
         <attr name="rightPadding" />
@@ -16,7 +16,7 @@
     
     <declare-styleable name="ArcMenu" >
         <attr name="position" />
-        <attr name="radius" />
+        <attr name="radiu" />
     </declare-styleable>
     
 </resources>
