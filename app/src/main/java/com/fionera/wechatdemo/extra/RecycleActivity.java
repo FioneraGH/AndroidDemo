@@ -63,6 +63,10 @@ public class RecycleActivity extends Activity {
         private LayoutInflater layoutInflater;
         private List<ChatMsgEntry> data;
 
+        private final int TYPE_HEADER = 0;
+        private final int TYPE_ITEM = 1;
+
+
         /**
          * Adapter 适配器构造方法
          *
@@ -76,6 +80,15 @@ public class RecycleActivity extends Activity {
 
         }
 
+        private boolean isHeader(int postion){
+            return postion == 0;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return isHeader(position)?TYPE_HEADER:TYPE_ITEM;
+        }
+
         /**
          * 绑定适配器时创建ViewHolder
          *
@@ -85,9 +98,13 @@ public class RecycleActivity extends Activity {
          */
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = layoutInflater.inflate(R.layout.chat_msg_right_item, parent, false);
-            MyViewHolder myViewHolder = new MyViewHolder(view);
-            return myViewHolder;
+            if(viewType == TYPE_HEADER){
+                View view = layoutInflater.inflate(R.layout.chat_msg_right_item, parent, false);
+                return new MyViewHolder(view);
+            }else{
+                View view = layoutInflater.inflate(R.layout.chat_msg_left_item, parent, false);
+                return new MyViewHolder(view);
+            }
         }
 
         /**
@@ -99,14 +116,17 @@ public class RecycleActivity extends Activity {
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
 
-            holder.tvUserName.setText(data.get(position).getName());
-            holder.tvSendTime.setText(data.get(position).getDate());
-            holder.tvContent.setText(data.get(position).getText());
+            if(isHeader(position)){
+                return;
+            }
+            holder.tvUserName.setText(data.get(position - 1).getName());
+            holder.tvSendTime.setText(data.get(position - 1).getDate());
+            holder.tvContent.setText(data.get(position - 1).getText());
         }
 
         @Override
         public int getItemCount() {
-            return data.size();
+            return data.size() + 1;
         }
     }
 
