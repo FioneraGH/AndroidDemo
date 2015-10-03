@@ -12,12 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -82,26 +77,7 @@ public class HandlerActivity extends Activity {
 
         @Override
         public void run() {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet("http://ww4.sinaimg.cn/bmiddle/786013a5jw1e7akotp4bcj20c80i3aao.jpg");
-            HttpResponse httpResponse = null;
-            try {
-                httpResponse = httpClient.execute(httpGet);
-                if (200 == httpResponse.getStatusLine().getStatusCode()) {
-                    byte[] data = EntityUtils.toByteArray(httpResponse.getEntity());
-
-                    final Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ivShow.setImageBitmap(bitmap);
-                        }
-                    });
-                    dialog.dismiss();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Toast.makeText(HandlerActivity.this, "Run", Toast.LENGTH_SHORT).show();
         }
     }
 
