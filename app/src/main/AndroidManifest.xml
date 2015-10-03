@@ -119,9 +119,8 @@
             android:label="@string/title_activity_flow_layout" >
         </activity>
         <activity
-            android:name=".view.SampleTabsDefault"
-            android:theme="@style/Theme.PageIndicatorDefaults"
-            android:label="@string/title_activity_flow_layout" >
+            android:name=".extra.TabLayoutActivity"
+            android:label="@string/title_activity_tab_layout" >
         </activity>
     </application>
 

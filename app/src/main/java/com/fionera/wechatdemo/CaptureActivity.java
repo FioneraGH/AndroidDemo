@@ -24,7 +24,7 @@ import com.google.zxing.Result;
 
 import java.io.IOException;
 
-public final class CaptureActivity extends Activity implements
+public class CaptureActivity extends Activity implements
         SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();

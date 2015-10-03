@@ -21,8 +21,8 @@ import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
+import com.fionera.wechatdemo.extra.TabLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
-import com.fionera.wechatdemo.view.SampleTabsDefault;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
         arcview.setOnClickListener(this);
         flowlayout = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_flow_layout);
         flowlayout.setOnClickListener(this);
-        tabsViewPager = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_tabs_viewpager);
+        tabsViewPager = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_tab_layout);
         tabsViewPager.setOnClickListener(this);
     }
 
@@ -156,9 +156,9 @@ public class MainActivity extends Activity implements OnClickListener, AbsListVi
                 Intent flowLayoutIntent = new Intent(MainActivity.this, FlowLayoutActivity.class);
                 startActivity(flowLayoutIntent);
                 break;
-            case R.id.rl_tabs_viewpager:
-                Intent tabsVPIntent = new Intent(MainActivity.this, SampleTabsDefault.class);
-                startActivity(tabsVPIntent);
+            case R.id.rl_tab_layout:
+                Intent tabLayoutIntent = new Intent(MainActivity.this, TabLayoutActivity.class);
+                startActivity(tabLayoutIntent);
                 break;
         }
     }
