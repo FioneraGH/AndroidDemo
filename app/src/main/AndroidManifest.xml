@@ -120,7 +120,8 @@
         </activity>
         <activity
             android:name=".extra.TabLayoutActivity"
-            android:label="@string/title_activity_tab_layout" >
+            android:label="@string/title_activity_tab_layout"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 

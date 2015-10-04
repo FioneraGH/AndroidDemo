@@ -1,19 +1,22 @@
 package com.fionera.wechatdemo.extra;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 
-public class TabLayoutActivity extends FragmentActivity {
+public class TabLayoutActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    private FloatingActionButton floatingActionButton;
 
     private String [] title = new String[]{"hello","world"};
 
@@ -24,6 +27,8 @@ public class TabLayoutActivity extends FragmentActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tl_tab_layout);
         viewPager = (ViewPager) findViewById(R.id.vp_tab_layout);
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_tab_layout);
 
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
