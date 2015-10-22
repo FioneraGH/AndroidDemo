@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <attr name="rightPadding" format="dimension"/>
 
     <attr name="position" >
@@ -10,6 +11,11 @@
     </attr>
     <attr name="radiu" format="dimension"/>
 
+    <attr name="ctab_icon" format="reference"/>
+    <attr name="ctab_color" format="color"/>
+    <attr name="ctab_text" format="string"/>
+    <attr name="ctab_size" format="dimension"/>
+
     <declare-styleable name="SlidingMenu" >
         <attr name="rightPadding" />
     </declare-styleable>
@@ -17,6 +23,13 @@
     <declare-styleable name="ArcMenu" >
         <attr name="position" />
         <attr name="radiu" />
+    </declare-styleable>
+
+    <declare-styleable name="ChangableTabView">
+        <attr name="ctab_icon"/>
+        <attr name="ctab_color"/>
+        <attr name="ctab_text"/>
+        <attr name="ctab_size"/>
     </declare-styleable>
     
 </resources>

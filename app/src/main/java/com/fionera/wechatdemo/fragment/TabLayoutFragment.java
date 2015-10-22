@@ -12,11 +12,16 @@ import android.widget.TextView;
  */
 public class TabLayoutFragment extends Fragment {
 
+    public final static String TITLE = "TITLE";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         TextView view = new TextView(getActivity());
-        view.setText("Hello World");
+        if (getArguments() != null) {
+
+            view.setText(getArguments().getString(TITLE));
+        }
         return view;
     }
 }

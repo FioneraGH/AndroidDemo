@@ -1,37 +1,38 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="Add" />
+        android:title="Add"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_delete"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="Delete" />
+        android:title="Delete"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_listview"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="ListView" />
+        android:title="ListView"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_gridview"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="GridView" />
+        android:title="GridView"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_hori_listview"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Hori_ListView" />
+        android:title="Hori_ListView"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_hori_gridview"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Hori_GridView" />
+        android:title="Hori_GridView"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_staggerd_gridview"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Stagerd_GridView" />
+        android:title="Stagerd_GridView"
+        app:showAsAction="never"/>
 </menu>

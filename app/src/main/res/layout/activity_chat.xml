@@ -59,7 +59,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="5dp"
-                        android:background="@mipmap/barcode"/>
+                        android:background="@android:drawable/ic_menu_compass"/>
 
                 </RelativeLayout>
 
@@ -86,7 +86,7 @@
                         android:layout_centerVertical="true"
                         android:layout_margin="5dp"
                         android:layout_marginStart="5dp"
-                        android:background="@mipmap/extra"/>
+                        android:background="@android:drawable/ic_menu_add"/>
 
                     <EditText
                         android:id="@+id/et_sendmessage"

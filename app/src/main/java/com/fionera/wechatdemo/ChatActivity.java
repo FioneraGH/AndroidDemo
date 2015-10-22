@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
+import android.os.*;
+import android.os.Process;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -59,7 +59,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private ChatMsgViewAdapter mAdapter;
 
     // content body
-    private List<ChatMsgEntry> mDataArrays = new ArrayList<ChatMsgEntry>();
+    private List<ChatMsgEntry> mDataArrays = new ArrayList<>();
 
 
     @Override
@@ -248,7 +248,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                             @Override
                             public void onClick(DialogInterface dialog,
                                     int which) {
-                                ChatActivity.this.finish();
+                                android.os.Process.killProcess(Process.myPid());
                             }
                         })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
