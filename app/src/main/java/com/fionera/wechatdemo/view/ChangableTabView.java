@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -109,7 +110,7 @@ public class ChangableTabView extends View {
         int tempAlpha = (int) Math.ceil(255 * alpha);
         setupTargetBitmap(tempAlpha);
 
-        drawSourceText(canvas);
+        drawSourceText(canvas, tempAlpha);
         drawTargetText(canvas, tempAlpha);
 
         /**
@@ -118,19 +119,20 @@ public class ChangableTabView extends View {
         canvas.drawBitmap(bg, 0, 0, null);
     }
 
-    private void drawSourceText(Canvas canvas) {
+    private void drawSourceText(Canvas canvas, int alpha) {
 
         textPaint.setColor(0xeeeeee);
+        textPaint.setAlpha(255 - alpha);
         canvas.drawText(text, getMeasuredWidth() / 2 - textRect.width() / 2,
-                iconRect.bottom + textRect.height(), textPaint);
+                iconRect.bottom + textRect.height() / 2, textPaint);
     }
 
     private void drawTargetText(Canvas canvas, int alpha) {
 
-        textPaint.setColor(0xeeeeee);
+        textPaint.setColor(color);
         textPaint.setAlpha(alpha);
         canvas.drawText(text, getMeasuredWidth() / 2 - textRect.width() / 2,
-                iconRect.bottom + textRect.height(), textPaint);
+                iconRect.bottom + textRect.height() / 2, textPaint);
     }
 
     /**
@@ -164,5 +166,23 @@ public class ChangableTabView extends View {
         bgPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         bgPaint.setAlpha(255);
         bgCanvas.drawBitmap(bitmap, null, iconRect, bgPaint);
+    }
+
+    public void setTabAlpha(float alpha) {
+
+        this.alpha = alpha;
+        invalidateView();
+    }
+
+    /**
+     * 重绘
+     */
+    private void invalidateView() {
+
+        if(Looper.getMainLooper() == Looper.myLooper()){
+            invalidate();
+        }else{
+            postInvalidate();
+        }
     }
 }
