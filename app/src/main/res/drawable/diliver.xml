@@ -7,6 +7,6 @@
         android:endColor="#ff0000ff"
         android:centerColor="#ff666666"
         android:startColor="#ffffffff"
-        android:type="linear"></gradient>
+        android:type="linear"/>
 
 </shape>

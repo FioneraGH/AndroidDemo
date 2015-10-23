@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="left"
-    android:orientation="vertical"
-    android:padding="6dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="left"
+              android:orientation="vertical"
+              android:padding="6dp">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_sendtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/date_background"
             android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="12sp"/>
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/iv_userhead"
-            android:src="@mipmap/avatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:focusable="false" />
+            android:focusable="false"
+            android:src="@mipmap/avatar"/>
 
         <TextView
             android:id="@+id/tv_chatcontent"
-            android:text="你好"
-            android:background="@drawable/chatfrom"
-            android:maxWidth="240dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_userhead" />
+            android:layout_toRightOf="@id/iv_userhead"
+            android:background="@drawable/chatfrom"
+            android:maxWidth="240dp"
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/tv_username"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_userhead"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/iv_userhead"
-            android:layout_alignLeft="@id/iv_userhead"  />
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
     </RelativeLayout>
 
 </LinearLayout>
