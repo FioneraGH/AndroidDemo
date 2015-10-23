@@ -14,25 +14,28 @@ import java.util.List;
 
 public class ChatMsgViewAdapter extends BaseAdapter {
 
+    private final int IS_COMING_MSG = 0;
+    private final int IS_NOT_COMING_MSG = 1;
+
     private List<ChatMsgEntry> data;
     private int count;
     private LayoutInflater mInflater;
 
-    public ChatMsgViewAdapter(Context context, List<ChatMsgEntry> data,int count) {
+    public ChatMsgViewAdapter(Context context, List<ChatMsgEntry> data, int count) {
         this.data = data;
         this.count = count;
         mInflater = LayoutInflater.from(context);
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     // 获取ListView的项个数
     public int getCount() {
         // 如果数量不足一页（20行） 则返回真是数量，否则返回一页的数量
-        if (count > 20)
-            return count;
+        if (count > 20) return count;
         return data.size();
-    }
-    public void setCount(int count) {
-        this.count = count;
     }
 
     // 获取项
@@ -45,58 +48,45 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         return position;
     }
 
+    // 判定左右回收类型
+    @Override
+    public int getItemViewType(int position) {
+        if (data.get(position).getMsgType() == true) {
+            return IS_COMING_MSG;
+        }
+        return IS_NOT_COMING_MSG;
+    }
+
+    // 类型总数
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
     // 获取View
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ChatMsgEntry entry = (ChatMsgEntry) getItem(position);
-        boolean isComMsg = entry.getMsgType();
 
 
         ViewHolder viewHolder = null;
         if (convertView == null) {
 
-            if (isComMsg) {
-                convertView = mInflater.inflate(R.layout.chat_msg_left_item,
-                        null);
-            } else {
-                convertView = mInflater.inflate(R.layout.chat_msg_right_item,
-                        null);
+            if (getItemViewType(position) == IS_COMING_MSG) {
+                convertView = mInflater.inflate(R.layout.chat_msg_left_item, null);
+            } else if (getItemViewType(position) == IS_NOT_COMING_MSG) {
+                convertView = mInflater.inflate(R.layout.chat_msg_right_item, null);
             }
 
             viewHolder = new ViewHolder();
-            viewHolder.tvSendTime = (TextView) convertView
-                    .findViewById(R.id.tv_sendtime);
-            viewHolder.tvUserName = (TextView) convertView
-                    .findViewById(R.id.tv_username);
-            viewHolder.tvContent = (TextView) convertView
-                    .findViewById(R.id.tv_chatcontent);
-            viewHolder.isComMsg = isComMsg;
+            viewHolder.tvSendTime = (TextView) convertView.findViewById(R.id.tv_sendtime);
+            viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
+            viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_chatcontent);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        if (isComMsg == viewHolder.isComMsg) {
-
-        } else {
-            if (isComMsg) {
-                convertView = mInflater.inflate(R.layout.chat_msg_left_item,
-                        null);
-            } else {
-                convertView = mInflater.inflate(R.layout.chat_msg_right_item,
-                        null);
-            }
-            viewHolder = new ViewHolder();
-            viewHolder.tvSendTime = (TextView) convertView
-                    .findViewById(R.id.tv_sendtime);
-            viewHolder.tvUserName = (TextView) convertView
-                    .findViewById(R.id.tv_username);
-            viewHolder.tvContent = (TextView) convertView
-                    .findViewById(R.id.tv_chatcontent);
-            viewHolder.isComMsg = isComMsg;
-            convertView.setTag(viewHolder);
-        }
-
 
         viewHolder.tvSendTime.setText(entry.getDate());
         viewHolder.tvUserName.setText(entry.getName());
@@ -107,11 +97,9 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
 
     class ViewHolder {
+
         public TextView tvSendTime;
         public TextView tvUserName;
         public TextView tvContent;
-
-        public boolean isComMsg;
     }
-
 }
