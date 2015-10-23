@@ -74,7 +74,6 @@ public class ChangableTabView extends View {
         textPaint.setColor(0x66666);
         textPaint.getTextBounds(text, 0, text.length(), textRect);
 
-        alpha = 1.0f;
     }
 
     private Bitmap bg;
@@ -121,7 +120,7 @@ public class ChangableTabView extends View {
 
     private void drawSourceText(Canvas canvas, int alpha) {
 
-        textPaint.setColor(0xeeeeee);
+        textPaint.setColor(0x666666);
         textPaint.setAlpha(255 - alpha);
         canvas.drawText(text, getMeasuredWidth() / 2 - textRect.width() / 2,
                 iconRect.bottom + textRect.height() / 2, textPaint);

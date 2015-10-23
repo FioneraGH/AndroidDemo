@@ -20,6 +20,7 @@
         android:orientation="horizontal">
 
         <com.fionera.wechatdemo.view.ChangableTabView
+            android:id="@+id/ctv_one"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -29,6 +30,7 @@
             app:ctab_size="12sp"/>
 
         <com.fionera.wechatdemo.view.ChangableTabView
+            android:id="@+id/ctv_two"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -38,6 +40,7 @@
             app:ctab_size="12sp"/>
 
         <com.fionera.wechatdemo.view.ChangableTabView
+            android:id="@+id/ctv_three"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -47,6 +50,7 @@
             app:ctab_size="12sp"/>
 
         <com.fionera.wechatdemo.view.ChangableTabView
+            android:id="@+id/ctv_four"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
