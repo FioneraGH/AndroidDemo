@@ -122,7 +122,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         }
         // 计算总页数
         pageSize = (allRecorders + lineSize - 1) / lineSize;
-        mDataArrays = dbHelper.getAllItems(currentPage, lineSize);
+        mDataArrays = dbHelper.getSomeItems(currentPage, lineSize);
         mAdapter = new ChatMsgViewAdapter(ChatActivity.this, mDataArrays, lineSize);
         listView.setAdapter(mAdapter);
         listView.setSelection(mDataArrays.size() - 1);//直接定位到最底部
@@ -194,7 +194,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
      * 增加数据
      */
     private void appendDate() {
-        final ArrayList addItems = dbHelper.getAllItems(currentPage, lineSize);
+        final ArrayList addItems = dbHelper.getSomeItems(currentPage, lineSize);
         mAdapter.setCount(mAdapter.getCount() + addItems.size());
         //判断，如果到了最末尾则去掉进度圈
         if (allRecorders == mAdapter.getCount()) {
@@ -203,7 +203,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         mDataArrays.addAll(0, addItems);
 
         mAdapter.notifyDataSetChanged();
-        listView.setSelection(addItems.size() - 1);
+        listView.setSelection(addItems.size());
         dbHelper.CloseDb();
     }
 

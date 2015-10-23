@@ -20,17 +20,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class PullToLoadActivity extends Activity implements AbsListView.OnScrollListener {
+
+    private static final int ITEM_SIZE = 20;
+
     private ListView listView;
     private Button btn;
     private ProgressBar pg;
     private View header;
     private ArrayList<ChatMsgEntry> items;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
-    private int currentPage = 1; //默认在第一页
-    private static final int lineSize = 20;    //每次显示数
     private int allRecorders = 0;  //全部记录数
+    private int currentPage = 1; //默认在第一页
     private int pageSize = 1;  //默认共一页
-    // TestAdapter Interval Class
+
     private TestAdapter baseAdapter;
     private Handler handler = new Handler();
 
@@ -59,13 +61,13 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
 
         // 获取总记录数
         allRecorders = dbHelper.getCount();
-        if (allRecorders < lineSize) {
+        if (allRecorders < ITEM_SIZE) {
             listView.removeHeaderView(header);
         }
         // 计算总页数
-        pageSize = (allRecorders + lineSize - 1) / lineSize;
-        items = dbHelper.getAllItems(currentPage, lineSize);
-        Collections.reverse(items);  //倒序
+        pageSize = (allRecorders + ITEM_SIZE - 1) / ITEM_SIZE;
+        items = dbHelper.getSomeItems(currentPage, ITEM_SIZE);
+        Collections.reverse(items);
         baseAdapter = new TestAdapter();
         listView.setAdapter(baseAdapter);
         listView.setSelection(items.size());//直接定位到最底部
@@ -74,8 +76,8 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
     int firstItem = -1;
 
     @Override
-    public void onScroll(AbsListView absView, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+    public void onScroll(AbsListView absView, int firstVisibleItem, int visibleItemCount,
+            int totalItemCount) {
         firstItem = firstVisibleItem;
     }
 
@@ -101,12 +103,13 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
      * 增加数据
      */
     private void appendDate() {
-        final ArrayList addItems = dbHelper.getAllItems(currentPage, lineSize);
+        ArrayList addItems = dbHelper.getSomeItems(currentPage, ITEM_SIZE);
         baseAdapter.setCount(baseAdapter.getCount() + addItems.size());
         //判断，如果到了最末尾则去掉进度圈
         if (allRecorders == baseAdapter.getCount()) {
             listView.removeHeaderView(header);
         }
+//        Collections.reverse(addItems);
         items.addAll(0, addItems);
 
         baseAdapter.notifyDataSetChanged();
@@ -115,10 +118,10 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
     }
 
     class TestAdapter extends BaseAdapter {
-        int count = lineSize;
+        int count = ITEM_SIZE;
 
         public int getCount() {
-            if (items.size() < lineSize) {
+            if (items.size() < ITEM_SIZE) {
                 return items.size();
             } else {
                 return count;
@@ -130,7 +133,7 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
         }
 
         public Object getItem(int pos) {
-            return pos;
+            return items.get(pos);
         }
 
         public long getItemId(int pos) {
@@ -138,8 +141,10 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
         }
 
         public View getView(int pos, View v, ViewGroup p) {
+
             TextView view = new TextView(PullToLoadActivity.this);
             view.setTextSize(25);
+
             if (items != null) {
                 view.setText(items.get(pos).getText());
             } else {

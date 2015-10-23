@@ -32,7 +32,8 @@ public class DBHelper extends SQLiteOpenHelper {
         this(context, name, factory, 1);
     }
 
-    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
+            int version) {
         super(context, name, factory, version);
         this.DatabaseName = name;
     }
@@ -47,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // 创建数据表Tbl_ChatEntity用于存放聊天信息
-        db.execSQL("create table Tbl_ChatEntity (" +
+        db.execSQL("create table Tbl_" + DatabaseName + "(" +
                 "id INTEGER primary key autoincrement ," +
                 "name char(10)," +
                 "content varchar(100)," +
@@ -68,6 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * 返回数据库聊天记录总数
+     *
      * @return 总数
      */
     public int getCount() {
@@ -85,16 +87,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * 分页查询聊天记录内容
+     *
      * @param currentPage 当前页
      * @param pageSize    每页显示的记录
      * @return 当前页的记录
      */
-    public ArrayList<ChatMsgEntry> getAllItems(int currentPage, int pageSize) {
+    public ArrayList<ChatMsgEntry> getSomeItems(int currentPage, int pageSize) {
         int firstResult = (currentPage - 1) * pageSize;
         db = getReadableDatabase();
         Cursor cursor;
         String[] columns = {"id", "name", "content", "date", "flag"};
-        cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id desc",firstResult+","+pageSize);
+        cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id desc",
+                firstResult + "," + pageSize);
 
         ArrayList<ChatMsgEntry> items = new ArrayList<ChatMsgEntry>();
         while (cursor.moveToNext()) {
