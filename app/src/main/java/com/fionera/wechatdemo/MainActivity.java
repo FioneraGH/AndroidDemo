@@ -106,6 +106,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (item.getItemId() == R.id.action_chat) {
             startActivity(new Intent(MainActivity.this, ChatActivity.class));
         }
+        if (item.getItemId() == R.id.action_scan) {
+            startActivity(new Intent(MainActivity.this, CaptureActivity.class));
+        }
+        if (item.getItemId() == R.id.action_view) {
+            startActivity(new Intent(MainActivity.this, ChatActivity.class));
+        }
         return super.onMenuItemSelected(featureId, item);
     }
 

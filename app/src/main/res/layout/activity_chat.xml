@@ -58,7 +58,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="5dp"
-                        android:background="@android:drawable/ic_menu_compass"/>
+                        android:background="@android:drawable/ic_menu_manage"/>
 
                 </RelativeLayout>
 

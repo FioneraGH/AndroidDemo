@@ -11,7 +11,8 @@
     </style>
 
     <style name="ActionBarTheme" parent="android:Theme.Material.Light.DarkActionBar">
-        <item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>
+        <!--修改三点菜单图标-->
+        <!--<item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>-->
     </style>
 
     <style name="OverFlowButton">

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
@@ -145,8 +146,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 startActivity(handlerIntent);
                 break;
             case R.id.iv_head:
-                Intent capIntent = new Intent(ChatActivity.this, CaptureActivity.class);
-                startActivity(capIntent);
+                Toast.makeText(getApplicationContext(),"设置",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl_arc_view:
                 Intent arcViewIntent = new Intent(ChatActivity.this, ArcViewActivity.class);

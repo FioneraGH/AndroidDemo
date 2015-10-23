@@ -24,8 +24,8 @@
         android:title="Scan"/>
 
     <item
-        android:id="@+id/action_feed"
+        android:id="@+id/action_view"
         android:icon="@android:drawable/ic_menu_view"
-        android:title="Feed"/>
+        android:title="View"/>
 
 </menu>
