@@ -41,7 +41,7 @@ public class SlidingMenu extends HorizontalScrollView {
      * @param attrs
      */
     public SlidingMenu(Context context, AttributeSet attrs) {
-        this(context, attrs, -1);
+        this(context, attrs, 0);
     }
 
     public SlidingMenu(Context context, AttributeSet attrs, int defStyle) {
@@ -66,6 +66,9 @@ public class SlidingMenu extends HorizontalScrollView {
         }
         a.recycle();
 
+        /**
+         * 获取屏幕宽度通过DisplayMetrics
+         */
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
@@ -82,6 +85,8 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
         if (!once) {
             mWrapper = (LinearLayout) getChildAt(0);
             mMenu = (ViewGroup) mWrapper.getChildAt(0);
@@ -92,7 +97,6 @@ public class SlidingMenu extends HorizontalScrollView {
 //            mWrapper.getLayoutParams().width = mWidthScreen+ mMenuRightPadding;
             once = true;
         }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     /**

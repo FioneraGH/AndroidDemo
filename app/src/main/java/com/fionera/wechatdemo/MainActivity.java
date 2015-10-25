@@ -1,11 +1,15 @@
 package com.fionera.wechatdemo;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,12 +28,15 @@ import java.util.List;
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
 
+    private static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
     private ViewPager viewPager;
     private List<Fragment> views = new ArrayList<>();
     private String[] titles = new String[]{"One", "Two", "Three", "Four"};
 
     private LinearLayout linearLayout;
     private List<ChangableTabView> tabs = new ArrayList<>();
+
+    private ClickReceiver clickReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             }
         });
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(CLICK_TO_CHANGE);
+        clickReceiver = new ClickReceiver();
+        registerReceiver(clickReceiver, intentFilter);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (clickReceiver != null) {
+            unregisterReceiver(clickReceiver);
+        }
     }
 
     @Override
@@ -161,20 +183,36 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
         ((ChangableTabView) v).setTabAlpha(1.0f);
 
+        Intent intent = new Intent(CLICK_TO_CHANGE);
         switch (v.getId()) {
             case R.id.ctv_one:
-                viewPager.setCurrentItem(0, false);
+                //                viewPager.setCurrentItem(0, false);
+                intent.putExtra("which_click",0);
                 break;
             case R.id.ctv_two:
-                viewPager.setCurrentItem(1, false);
+                //                viewPager.setCurrentItem(1, false);
+                intent.putExtra("which_click",1);
                 break;
             case R.id.ctv_three:
-                viewPager.setCurrentItem(2, false);
+                //                viewPager.setCurrentItem(2, false);
+                intent.putExtra("which_click",2);
                 break;
             case R.id.ctv_four:
-                viewPager.setCurrentItem(3, false);
+                //                viewPager.setCurrentItem(3, false);
+                intent.putExtra("which_click",3);
                 break;
         }
 
+        sendBroadcast(intent);
+
+    }
+
+    private class ClickReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("MainActivity", intent.getAction());
+            viewPager.setCurrentItem(intent.getIntExtra("which_click", 0), false);
+        }
     }
 }

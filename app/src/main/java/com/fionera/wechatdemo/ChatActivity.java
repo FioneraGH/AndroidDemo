@@ -262,6 +262,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     }
 
     public static String getDate() {
+
         Calendar c = Calendar.getInstance();
         String year = String.valueOf(c.get(Calendar.YEAR));
         String month = String.valueOf(c.get(Calendar.MONTH));
@@ -272,7 +273,6 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         sbBuffer.append(year + "-" + month + "-" + day + " " + hour + ":"
                 + mins);
         return sbBuffer.toString();
-
     }
 
 }

@@ -1,118 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<com.fionera.wechatdemo.view.SlidingMenu
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:myattr="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    app:rightPadding="150dp">
 
-    <com.fionera.wechatdemo.view.SlidingMenu
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        myattr:rightPadding="150dp"
-        android:scrollbars="none">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/left_menu"
+            layout="@layout/left_menu"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:background="#cccccc">
 
-            <include layout="@layout/left_menu"
-                android:id="@+id/left_menu"/>
 
             <RelativeLayout
-                android:background="#cccccc"
+                android:id="@+id/rl_header"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:background="#555555">
 
-
-                <RelativeLayout
-                    android:id="@+id/rl_layout"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:background="#555555">
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="back"
+                    android:textSize="14sp"/>
 
-                    <Button
-                        android:id="@+id/btn_back"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="back"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_head"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Handler"
-                        android:textColor="#ffffff"
-                        android:textSize="22.0sp"/>
-
-                    <ImageView
-                        android:id="@+id/iv_head"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="5dp"
-                        android:background="@android:drawable/ic_menu_manage"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl_bottom"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_head"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="#ffffff">
+                    android:layout_centerInParent="true"
+                    android:text="Handler"
+                    android:textColor="#ffffff"
+                    android:textSize="22.0sp"/>
 
-                    <Button
-                        android:id="@+id/btn_send"
-                        android:layout_width="80dp"
-                        android:layout_height="48dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:text="send"/>
-
-                    <Button
-                        android:id="@+id/btn_extra"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:layout_marginStart="5dp"
-                        android:background="@android:drawable/ic_menu_add"/>
-
-                    <EditText
-                        android:id="@+id/et_sendmessage"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_toEndOf="@id/btn_extra"
-                        android:layout_toStartOf="@id/btn_send"
-                        android:singleLine="true"
-                        android:textSize="18sp"/>
-                </RelativeLayout>
-
-
-                <ListView
-                    android:id="@+id/list_view_chat"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@id/rl_bottom"
-                    android:layout_below="@id/rl_layout"
-                    android:dividerHeight="2px"
-                    android:scrollbars="none"/>
+                <ImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:background="@android:drawable/ic_menu_manage"/>
 
             </RelativeLayout>
 
-        </LinearLayout>
-    </com.fionera.wechatdemo.view.SlidingMenu>
+            <RelativeLayout
+                android:id="@+id/rl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#ffffff">
 
-</RelativeLayout>
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="发送"/>
+
+                <Button
+                    android:id="@+id/btn_extra"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="1dp"
+                    android:background="@android:drawable/ic_menu_add"/>
+
+                <EditText
+                    android:id="@+id/et_sendmessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/btn_extra"
+                    android:layout_toStartOf="@id/btn_send"
+                    android:singleLine="true"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+
+
+            <ListView
+                android:id="@+id/list_view_chat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/rl_bottom"
+                android:layout_below="@id/rl_header"
+                android:dividerHeight="1px"
+                android:scrollbars="none"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</com.fionera.wechatdemo.view.SlidingMenu>
