@@ -28,7 +28,9 @@ import java.util.List;
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
 
-    private static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
+    public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
+    public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" +
+            ".CLICK_TO_CHANGE_FROM_OTHER";
     private ViewPager viewPager;
     private List<Fragment> views = new ArrayList<>();
     private String[] titles = new String[]{"One", "Two", "Three", "Four"};
@@ -102,6 +104,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(CLICK_TO_CHANGE);
+        intentFilter.addAction(CLICK_TO_CHANGE_FROM_OTHER);
         clickReceiver = new ClickReceiver();
         registerReceiver(clickReceiver, intentFilter);
 
@@ -187,19 +190,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.ctv_one:
                 //                viewPager.setCurrentItem(0, false);
-                intent.putExtra("which_click",0);
+                intent.putExtra("which_click", 0);
                 break;
             case R.id.ctv_two:
                 //                viewPager.setCurrentItem(1, false);
-                intent.putExtra("which_click",1);
+                intent.putExtra("which_click", 1);
                 break;
             case R.id.ctv_three:
                 //                viewPager.setCurrentItem(2, false);
-                intent.putExtra("which_click",2);
+                intent.putExtra("which_click", 2);
                 break;
             case R.id.ctv_four:
                 //                viewPager.setCurrentItem(3, false);
-                intent.putExtra("which_click",3);
+                intent.putExtra("which_click", 3);
                 break;
         }
 
@@ -212,7 +215,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("MainActivity", intent.getAction());
-            viewPager.setCurrentItem(intent.getIntExtra("which_click", 0), false);
+            if (intent.getAction().equals(CLICK_TO_CHANGE)) {
+
+                viewPager.setCurrentItem(intent.getIntExtra("which_click", 0), false);
+            } else if (intent.getAction().equals(CLICK_TO_CHANGE_FROM_OTHER)) {
+
+                tabs.get(intent.getIntExtra("which_click", 0)).performClick();
+            }
         }
     }
 }

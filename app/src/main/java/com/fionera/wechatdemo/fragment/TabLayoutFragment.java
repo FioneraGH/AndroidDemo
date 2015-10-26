@@ -21,6 +21,7 @@ public class TabLayoutFragment extends Fragment {
         if (getArguments() != null) {
 
             view.setText(getArguments().getString(TITLE));
+            view.setTextSize(30);
         }
         return view;
     }
