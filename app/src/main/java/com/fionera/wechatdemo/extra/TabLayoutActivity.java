@@ -2,11 +2,14 @@ package com.fionera.wechatdemo.extra;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
@@ -29,6 +32,18 @@ public class TabLayoutActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.vp_tab_layout);
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_tab_layout);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "该方法待添加！", Snackbar.LENGTH_SHORT).setAction("撤销",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(TabLayoutActivity.this, "别点！！", Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+            }
+        });
 
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

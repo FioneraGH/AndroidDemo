@@ -1,11 +1,13 @@
 package com.fionera.wechatdemo.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by fionera on 15-10-3.
@@ -21,6 +23,9 @@ public class TabLayoutFragment extends Fragment {
         if (getArguments() != null) {
 
             view.setText(getArguments().getString(TITLE));
+            view.setTextSize(30);
+        } else {
+            view.setText(TITLE);
             view.setTextSize(30);
         }
         return view;

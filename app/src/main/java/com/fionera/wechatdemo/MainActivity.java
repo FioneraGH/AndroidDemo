@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;
@@ -29,7 +31,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
-    public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" +
+    public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" + "" +
             ".CLICK_TO_CHANGE_FROM_OTHER";
     private ViewPager viewPager;
     private List<Fragment> views = new ArrayList<>();
@@ -130,11 +132,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (item.getItemId() == R.id.action_chat) {
             startActivity(new Intent(MainActivity.this, ChatActivity.class));
         }
+        if (item.getItemId() == R.id.action_friend) {
+
+        }
         if (item.getItemId() == R.id.action_scan) {
             startActivity(new Intent(MainActivity.this, CaptureActivity.class));
         }
         if (item.getItemId() == R.id.action_view) {
-            startActivity(new Intent(MainActivity.this, ChatActivity.class));
+
         }
         return super.onMenuItemSelected(featureId, item);
     }
@@ -189,19 +194,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Intent intent = new Intent(CLICK_TO_CHANGE);
         switch (v.getId()) {
             case R.id.ctv_one:
-                //                viewPager.setCurrentItem(0, false);
                 intent.putExtra("which_click", 0);
                 break;
             case R.id.ctv_two:
-                //                viewPager.setCurrentItem(1, false);
                 intent.putExtra("which_click", 1);
                 break;
             case R.id.ctv_three:
-                //                viewPager.setCurrentItem(2, false);
                 intent.putExtra("which_click", 2);
                 break;
             case R.id.ctv_four:
-                //                viewPager.setCurrentItem(3, false);
                 intent.putExtra("which_click", 3);
                 break;
         }
