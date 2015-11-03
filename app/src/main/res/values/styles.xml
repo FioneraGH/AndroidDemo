@@ -7,7 +7,7 @@
 
     <style name="DividerTheme" parent="android:Theme.Material.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:listDivider">@drawable/diliver</item>
+        <item name="android:listDivider">@drawable/rv_diliver</item>
     </style>
 
     <style name="ActionBarTheme" parent="android:Theme.Material.Light.DarkActionBar">

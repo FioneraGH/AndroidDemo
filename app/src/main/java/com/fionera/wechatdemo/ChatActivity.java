@@ -147,7 +147,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 startActivity(handlerIntent);
                 break;
             case R.id.iv_head:
-                Toast.makeText(getApplicationContext(),"设置",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl_arc_view:
                 Intent arcViewIntent = new Intent(ChatActivity.this, ArcViewActivity.class);
@@ -167,8 +167,8 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     int firstItem = -1;
 
     @Override
-    public void onScroll(AbsListView absView, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+    public void onScroll(AbsListView absView, int firstVisibleItem, int visibleItemCount,
+            int totalItemCount) {
         firstItem = firstVisibleItem;
     }
 
@@ -220,7 +220,12 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
             mAdapter.notifyDataSetChanged();
             listView.setSelection(listView.getCount() - 1);
             dbHelper.insertChatEntity(entry);
-            autoReply();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    autoReply();
+                }
+            },2000);
             mEditTextContent.setText("");
         }
     }
@@ -240,25 +245,20 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     private void back() {
 
-        (new AlertDialog.Builder(ChatActivity.this))
-                .setTitle("Wow")
-                .setMessage("Are you sure to exit?")
-                .setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
-                                android.os.Process.killProcess(Process.myPid());
-                            }
-                        })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+        (new AlertDialog.Builder(ChatActivity.this)).setMessage("退出？").setPositiveButton("是",
+                new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        finish();
                     }
-                }).show();
+                }).setNegativeButton("否", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
     }
 
     public static String getDate() {
@@ -270,8 +270,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
         String mins = String.valueOf(c.get(Calendar.MINUTE));
         StringBuffer sbBuffer = new StringBuffer();
-        sbBuffer.append(year + "-" + month + "-" + day + " " + hour + ":"
-                + mins);
+        sbBuffer.append(year + "-" + month + "-" + day + " " + hour + ":" + mins);
         return sbBuffer.toString();
     }
 
