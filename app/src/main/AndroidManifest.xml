@@ -64,8 +64,8 @@
             android:label="@string/title_activity_json"/>
         <activity
             android:name=".extra.RecycleActivity"
-            android:theme="@style/DividerTheme"
-            android:label="@string/title_activity_recycle"/>
+            android:label="@string/title_activity_recycle"
+            android:theme="@style/DividerTheme"/>
         <activity
             android:name=".extra.GenericAdapterActivity"
             android:label="@string/title_activity_generic_adapter"/>
@@ -84,7 +84,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".extra.WifiBlueNFCActivity"
             android:label="@string/title_activity_wifi_blue_nfc"
@@ -129,7 +128,10 @@
             android:label="@string/title_activity_tab_layout"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-
+        <activity
+            android:name=".extra.PropertyAnimActivity"
+            android:label="@string/title_activity_property_anim">
+        </activity>
     </application>
 
 </manifest>

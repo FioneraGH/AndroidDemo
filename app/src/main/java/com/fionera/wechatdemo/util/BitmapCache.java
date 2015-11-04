@@ -15,7 +15,7 @@ public class BitmapCache implements ImageLoader.ImageCache {
 
     public BitmapCache() {
 
-        cache = new LruCache<String, Bitmap>(max);
+        cache = new LruCache<>(max);
     }
 
     @Override

@@ -1,13 +1,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scrollbars="none"
-            android:layout_height="match_parent">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
         <TextView
@@ -16,8 +17,8 @@
             android:layout_height="55dp"
             android:gravity="center"
             android:text="Extra"
-            android:textStyle="bold"
-            android:textSize="22sp"/>
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/button1"
@@ -100,6 +101,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="HorizontalScrollView"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
 
     </LinearLayout>
 

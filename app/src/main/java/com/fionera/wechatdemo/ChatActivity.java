@@ -23,6 +23,7 @@ import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgEntry;
 import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
+import com.fionera.wechatdemo.extra.PropertyAnimActivity;
 import com.fionera.wechatdemo.extra.TabLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
 
@@ -47,9 +48,11 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private Handler handler = new Handler();
 
     private RelativeLayout rlLeftMenu;
+
     private RelativeLayout arcview;
     private RelativeLayout flowlayout;
     private RelativeLayout tabsViewPager;
+    private RelativeLayout propertyAnim;
 
     private static final int lineSize = 20;    //每次显示数
     // to adjust the content
@@ -88,12 +91,15 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
         rlLeftMenu = (RelativeLayout) findViewById(R.id.left_menu);
+
         arcview = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_arc_view);
         arcview.setOnClickListener(this);
         flowlayout = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_flow_layout);
         flowlayout.setOnClickListener(this);
         tabsViewPager = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_tab_layout);
         tabsViewPager.setOnClickListener(this);
+        propertyAnim = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_property_anim);
+        propertyAnim.setOnClickListener(this);
     }
 
     private void initData() {
@@ -129,7 +135,6 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         dbHelper.CloseDb();
     }
 
-
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -160,6 +165,11 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
             case R.id.rl_tab_layout:
                 Intent tabLayoutIntent = new Intent(ChatActivity.this, TabLayoutActivity.class);
                 startActivity(tabLayoutIntent);
+                break;
+            case R.id.rl_property_anim:
+                Intent propertyAnimIntent = new Intent(ChatActivity.this,
+                        PropertyAnimActivity.class);
+                startActivity(propertyAnimIntent);
                 break;
         }
     }
@@ -225,7 +235,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 public void run() {
                     autoReply();
                 }
-            },2000);
+            }, 2000);
             mEditTextContent.setText("");
         }
     }
