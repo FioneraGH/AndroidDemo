@@ -2,6 +2,7 @@ package com.fionera.wechatdemo.application;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -11,17 +12,22 @@ import com.android.volley.toolbox.Volley;
  */
 public class DemoApplication extends Application {
 
-    public static RequestQueue requestQueue;
+    private static RequestQueue requestQueue;
+    private static WindowManager.LayoutParams wmLayoutParams;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        Log.d("Volley",requestQueue.toString());
+        wmLayoutParams = new WindowManager.LayoutParams();
     }
 
-    public static RequestQueue getRequestQueue(){
+    public static RequestQueue getRequestQueue() {
         return requestQueue;
+    }
+
+    public static WindowManager.LayoutParams getWmLayoutParams() {
+        return wmLayoutParams;
     }
 }

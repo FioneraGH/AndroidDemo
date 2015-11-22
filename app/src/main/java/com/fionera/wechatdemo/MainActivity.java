@@ -4,22 +4,27 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.fionera.wechatdemo.application.DemoApplication;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;
+import com.fionera.wechatdemo.view.FloatView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -28,10 +33,14 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
-
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
     public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" + "" +
             ".CLICK_TO_CHANGE_FROM_OTHER";
+
+    private WindowManager wm;
+    private WindowManager.LayoutParams wmLayoutParams;
+    private FloatView floatView;
+
     private ViewPager viewPager;
     private List<Fragment> views = new ArrayList<>();
     private String[] titles = new String[]{"One", "Two", "Three", "Four"};
@@ -46,6 +55,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setOverFlowAlwaysShow();
+        createFloatView();
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
         linearLayout = (LinearLayout) findViewById(R.id.ll_main_page);
@@ -111,6 +121,39 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    private void createFloatView() {
+
+        floatView = new FloatView(getApplicationContext());
+        floatView.setImageResource(R.mipmap.ic_launcher);
+
+        wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        wmLayoutParams = DemoApplication.getWmLayoutParams();
+        /**
+         * 设置类型为TYPE_PHONE，拥有最高顶层的权限
+         */
+        wmLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        /**
+         * 设置图片背景透明
+         */
+        wmLayoutParams.format = PixelFormat.RGBA_8888;
+        /**
+         * 初始位置在左上角
+         */
+        wmLayoutParams.gravity = Gravity.LEFT | Gravity.TOP;
+        /**
+         * 设定原点为(0,0)
+         */
+        wmLayoutParams.x = 0;
+        wmLayoutParams.y = 0;
+        /**
+         * 设定长宽
+         */
+        wmLayoutParams.width = 256;
+        wmLayoutParams.height = 256;
+
+        wm.addView(floatView,wmLayoutParams);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -118,6 +161,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (clickReceiver != null) {
             unregisterReceiver(clickReceiver);
         }
+
+        wm.removeView(floatView);
     }
 
     @Override
@@ -135,7 +180,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         }
         if (item.getItemId() == R.id.action_scan) {
-            Toast.makeText(MainActivity.this,"空",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "空", Toast.LENGTH_SHORT).show();
         }
         if (item.getItemId() == R.id.action_view) {
 
