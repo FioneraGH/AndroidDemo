@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setOverFlowAlwaysShow();
-        createFloatView();
+//        createFloatView();
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
         linearLayout = (LinearLayout) findViewById(R.id.ll_main_page);
@@ -162,7 +162,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             unregisterReceiver(clickReceiver);
         }
 
-        wm.removeView(floatView);
+        try {
+            wm.removeView(floatView);
+        }catch (Exception e){
+
+        }
     }
 
     @Override
