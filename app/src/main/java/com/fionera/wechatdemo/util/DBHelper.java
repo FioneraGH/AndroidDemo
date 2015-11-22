@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgBean;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param pageSize    每页显示的记录
      * @return 当前页的记录
      */
-    public ArrayList<ChatMsgEntry> getSomeItems(int currentPage, int pageSize) {
+    public ArrayList<ChatMsgBean> getSomeItems(int currentPage, int pageSize) {
         int firstResult = (currentPage - 1) * pageSize;
         db = getReadableDatabase();
         Cursor cursor;
@@ -100,10 +100,10 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id desc",
                 firstResult + "," + pageSize);
 
-        ArrayList<ChatMsgEntry> items = new ArrayList<ChatMsgEntry>();
+        ArrayList<ChatMsgBean> items = new ArrayList<ChatMsgBean>();
         while (cursor.moveToNext()) {
 
-            ChatMsgEntry entry = new ChatMsgEntry();
+            ChatMsgBean entry = new ChatMsgBean();
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             String content = cursor.getString(2);
@@ -121,7 +121,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return items;
     }
 
-    public void insertChatEntity(ChatMsgEntry entry) {
+    public void insertChatEntity(ChatMsgBean entry) {
         SQLiteDatabase db = getWritableDatabase();
         String name = entry.getName();
         String content = entry.getText();

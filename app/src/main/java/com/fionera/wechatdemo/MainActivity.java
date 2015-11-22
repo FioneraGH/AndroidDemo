@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;
@@ -134,7 +135,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         }
         if (item.getItemId() == R.id.action_scan) {
-            startActivity(new Intent(MainActivity.this, CaptureActivity.class));
+            Toast.makeText(MainActivity.this,"空",Toast.LENGTH_SHORT).show();
         }
         if (item.getItemId() == R.id.action_view) {
 

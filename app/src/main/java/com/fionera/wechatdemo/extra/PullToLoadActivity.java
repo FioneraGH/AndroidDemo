@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgBean;
 import com.fionera.wechatdemo.util.DBHelper;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
     private Button btn;
     private ProgressBar pg;
     private View header;
-    private ArrayList<ChatMsgEntry> items;
+    private ArrayList<ChatMsgBean> items;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
     private int allRecorders = 0;  //全部记录数
     private int currentPage = 1; //默认在第一页

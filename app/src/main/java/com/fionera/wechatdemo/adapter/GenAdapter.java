@@ -3,7 +3,7 @@ package com.fionera.wechatdemo.adapter;
 import android.content.Context;
 
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgBean;
 import com.fionera.wechatdemo.util.GenViewHolder;
 
 import java.util.List;
@@ -15,18 +15,18 @@ import java.util.List;
 /**
  * 示例适配器
  */
-public class GenAdapter extends GenCommonAdapter<ChatMsgEntry> {
+public class GenAdapter extends GenCommonAdapter<ChatMsgBean> {
 
 
-    public GenAdapter(Context context, List<ChatMsgEntry> data) {
+    public GenAdapter(Context context, List<ChatMsgBean> data) {
 
         super(context, data);
     }
 
     @Override
-    public void convert(GenViewHolder genViewHolder, ChatMsgEntry chatMsgEntry) {
-        genViewHolder.setText(R.id.tv_sendtime,chatMsgEntry.getDate()).
-                setText(R.id.tv_username,chatMsgEntry.getName()).
-                setText(R.id.tv_chatcontent, chatMsgEntry.getText());
+    public void convert(GenViewHolder genViewHolder, ChatMsgBean chatMsgBean) {
+        genViewHolder.setText(R.id.tv_sendtime, chatMsgBean.getDate()).
+                setText(R.id.tv_username, chatMsgBean.getName()).
+                setText(R.id.tv_chatcontent, chatMsgBean.getText());
     }
 }

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Process;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgBean;
 import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.extra.PropertyAnimActivity;
@@ -64,7 +63,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private ChatMsgViewAdapter mAdapter;
 
     // content body
-    private List<ChatMsgEntry> mDataArrays = new ArrayList<>();
+    private List<ChatMsgBean> mDataArrays = new ArrayList<>();
 
 
     @Override
@@ -221,7 +220,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private void send() {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
-            ChatMsgEntry entry = new ChatMsgEntry();
+            ChatMsgBean entry = new ChatMsgBean();
             entry.setDate(getDate());
             entry.setName("world");
             entry.setMsgType(false);
@@ -241,7 +240,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     }
 
     private void autoReply() {
-        ChatMsgEntry entry = new ChatMsgEntry();
+        ChatMsgBean entry = new ChatMsgBean();
         entry.setDate(getDate());
         entry.setName("hello");
         entry.setMsgType(true);

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgBean;
 
 import java.util.List;
 
@@ -17,11 +17,11 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     private final int IS_COMING_MSG = 0;
     private final int IS_NOT_COMING_MSG = 1;
 
-    private List<ChatMsgEntry> data;
+    private List<ChatMsgBean> data;
     private int count;
     private LayoutInflater mInflater;
 
-    public ChatMsgViewAdapter(Context context, List<ChatMsgEntry> data, int count) {
+    public ChatMsgViewAdapter(Context context, List<ChatMsgBean> data, int count) {
         this.data = data;
         this.count = count;
         mInflater = LayoutInflater.from(context);
@@ -66,7 +66,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     // 获取View
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ChatMsgEntry entry = (ChatMsgEntry) getItem(position);
+        ChatMsgBean entry = (ChatMsgBean) getItem(position);
 
 
         ViewHolder viewHolder = null;

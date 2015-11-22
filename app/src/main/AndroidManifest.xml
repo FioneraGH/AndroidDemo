@@ -71,20 +71,6 @@
             android:name=".extra.GenericAdapterActivity"
             android:label="@string/title_activity_generic_adapter"/>
 
-        <!-- 第三方Barcode的二维码扫描相关Activity -->
-        <activity
-            android:name=".CaptureActivity"
-            android:clearTaskOnLaunch="true"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="com.google.zxing.client.android.SCAN"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
         <activity
             android:name=".extra.WifiBlueNFCActivity"
             android:label="@string/title_activity_wifi_blue_nfc"

@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.bean.ChatMsgEntry;
+import com.fionera.wechatdemo.bean.ChatMsgBean;
 import com.fionera.wechatdemo.util.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 public class RecycleActivity extends Activity {
 
     private RecyclerView recyclerView;
-    private List<ChatMsgEntry> data;
+    private List<ChatMsgBean> data;
     private MyAdapter myAdapter;
 
     @Override
@@ -34,10 +34,10 @@ public class RecycleActivity extends Activity {
         setContentView(R.layout.activity_recycle);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        data = new ArrayList<ChatMsgEntry>();
+        data = new ArrayList<ChatMsgBean>();
 
         for (int i = 0; i < 10; i++) {
-            ChatMsgEntry entry = new ChatMsgEntry();
+            ChatMsgBean entry = new ChatMsgBean();
             entry.setDate("0000-00-00");
             entry.setName("hello");
             entry.setMsgType(false);
@@ -61,7 +61,7 @@ public class RecycleActivity extends Activity {
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         private LayoutInflater layoutInflater;
-        private List<ChatMsgEntry> data;
+        private List<ChatMsgBean> data;
 
         private final int TYPE_HEADER = 0;
         private final int TYPE_ITEM = 1;
@@ -73,7 +73,7 @@ public class RecycleActivity extends Activity {
          * @param context 上下文
          * @param data    数据载体
          */
-        MyAdapter(Context context, List<ChatMsgEntry> data) {
+        MyAdapter(Context context, List<ChatMsgBean> data) {
 
             this.data = data;
             layoutInflater = LayoutInflater.from(context);
@@ -169,7 +169,7 @@ public class RecycleActivity extends Activity {
 
             case R.id.action_add:
 
-                data.add(new ChatMsgEntry("hello", "1111-11-11", "hello !", false));
+                data.add(new ChatMsgBean("hello", "1111-11-11", "hello !", false));
                 //myAdapter.notifyItemChanged(data.size());
                 myAdapter.notifyItemInserted(1);
 

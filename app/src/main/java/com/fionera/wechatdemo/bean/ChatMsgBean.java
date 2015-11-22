@@ -1,6 +1,6 @@
 package com.fionera.wechatdemo.bean;
 
-public class ChatMsgEntry {
+public class ChatMsgBean {
 
     //名字  
     private String name;
@@ -11,10 +11,10 @@ public class ChatMsgEntry {
     //是否为对方发来的信息  
     private boolean isComMeg = true;
 
-    public ChatMsgEntry() {
+    public ChatMsgBean() {
     }
 
-    public ChatMsgEntry(String name, String date, String text, boolean isComMsg) {
+    public ChatMsgBean(String name, String date, String text, boolean isComMsg) {
         this.name = name;
         this.date = date;
         this.text = text;
