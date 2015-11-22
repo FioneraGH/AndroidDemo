@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:background="#cccccc">
 
-
             <RelativeLayout
                 android:id="@+id/rl_header"
                 android:layout_width="match_parent"
@@ -49,16 +48,6 @@
                     android:text="Handler"
                     android:textColor="#ffffff"
                     android:textSize="22.0sp"/>
-
-                <ImageView
-                    android:id="@+id/iv_head"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:scaleType="center"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="5dp"
-                    android:background="@android:drawable/ic_menu_manage"/>
 
             </RelativeLayout>
 
@@ -111,6 +100,51 @@
                 android:layout_below="@id/rl_header"
                 android:dividerHeight="1px"
                 android:scrollbars="none"/>
+
+            <com.fionera.wechatdemo.view.ArcMenu
+                android:id="@+id/arc_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:position="right_top"
+                app:radiu="150dp">
+
+                <ImageView
+                    android:id="@+id/iv_arc_menu"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@mipmap/ic_launcher"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/ic_launcher"
+                    android:tag="SUB1"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/ic_launcher"
+                    android:tag="SUB2"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/ic_launcher"
+                    android:tag="SUB3"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/ic_launcher"
+                    android:tag="SUB4"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@mipmap/ic_launcher"
+                    android:tag="SUB5"/>
+
+            </com.fionera.wechatdemo.view.ArcMenu>
 
         </RelativeLayout>
 

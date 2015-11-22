@@ -25,6 +25,7 @@ import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.extra.PropertyAnimActivity;
 import com.fionera.wechatdemo.extra.TabLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
+import com.fionera.wechatdemo.view.ArcMenu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,7 +37,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private Button mBtnSend;
     private Button mBtnBack;
     private Button mBtnExtra;
-    private ImageView mIvHead;
+    private ArcMenu arcMenu;
     private TextView mTvHead;
     private ListView listView;
     private View header;
@@ -83,8 +84,13 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         mBtnSend.setOnClickListener(this);
         mBtnExtra = (Button) findViewById(R.id.btn_extra);
         mBtnExtra.setOnClickListener(this);
-        mIvHead = (ImageView) findViewById(R.id.iv_head);
-        mIvHead.setOnClickListener(this);
+        arcMenu = (ArcMenu) findViewById(R.id.arc_menu);
+        arcMenu.setOnMenuItemClickListener(new ArcMenu.OnMenuItemClickListener() {
+            @Override
+            public void onClick(View view, int pos) {
+
+            }
+        });
         mTvHead = (TextView) findViewById(R.id.tv_head);
         mTvHead.setOnClickListener(this);
 
@@ -149,9 +155,6 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
             case R.id.tv_head:
                 Intent handlerIntent = new Intent(ChatActivity.this, HandlerActivity.class);
                 startActivity(handlerIntent);
-                break;
-            case R.id.iv_head:
-                Toast.makeText(getApplicationContext(), "设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl_arc_view:
                 Intent arcViewIntent = new Intent(ChatActivity.this, ArcViewActivity.class);
