@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.fionera.wechatdemo.R;
-import com.fionera.wechatdemo.util.GenViewHolder;
 
 import java.util.List;
 

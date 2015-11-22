@@ -1,4 +1,4 @@
-package com.fionera.wechatdemo.util;
+package com.fionera.wechatdemo.adapter;
 
 import android.content.Context;
 import android.util.SparseArray;

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.bean.ChatMsgBean;
-import com.fionera.wechatdemo.util.GenViewHolder;
 
 import java.util.List;
 
