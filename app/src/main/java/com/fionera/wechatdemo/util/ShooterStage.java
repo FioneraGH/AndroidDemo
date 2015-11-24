@@ -24,13 +24,25 @@ import java.util.TimerTask;
 public class ShooterStage {
 
     private Context context;
+
+    /**
+     * 弹幕显示数量，弹幕总数量
+     */
     private int count = 0;
-    private int width = 100;
+    private int danmuCount = 0;
+
+    /**
+     * Stage坐标宽高
+     */
+    private float stageX = 0;
+    private float stageY = 0;
+    private int stageWidth = 0;
+    private int stageHeight = 0;
+
     private Timer timer;
     private boolean isPause;
     private ArrayList<ObjectAnimator> objectAnimators;
     private ArrayList<String> danmuList;
-    private int danmuCount;
 
     public ShooterStage(Context context, ArrayList<String> danmuList) {
 
@@ -54,6 +66,21 @@ public class ShooterStage {
      */
     public void shootItem(final RelativeLayout rlStage) {
 
+        /**
+         * 计算stage坐标尺寸
+         */
+        rlStage.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+                        stageX = rlStage.getX();
+                        stageY = rlStage.getY();
+                        stageWidth = rlStage.getWidth();
+                        stageHeight = rlStage.getHeight();
+                        rlStage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -76,14 +103,20 @@ public class ShooterStage {
      */
     private void addDanmu(final RelativeLayout rlStage) {
 
+        Log.d("---------", stageWidth + " " + stageHeight);
+        String currentString = danmuList.get(count % danmuCount);
+        /**
+         * 生成随机种子
+         */
         Random random = new Random(System.currentTimeMillis());
         int seedHeight = random.nextInt(15);
         int seedSize = random.nextInt(5);
         final TextView textView = new TextView(context);
-        textView.setText(danmuList.get(count % danmuCount));
+        textView.setText(currentString);
         textView.setTextColor(0xffffffff);
+        textView.setSingleLine();
+        textView.setTranslationY(stageY + seedHeight * stageHeight / 20);
         textView.setTextSize(22 - seedSize * 2);
-        textView.setTranslationY(seedHeight * 100);
         textView.setBackground(new ColorDrawable(0x66ff0000));
         textView.setTag(false);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -94,29 +127,26 @@ public class ShooterStage {
                 pauseStage();
 
                 final TextView nowClick = (TextView) v;
-                new AlertDialog.Builder(context).setTitle("Test").setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                nowClick.setTextColor(0xffffffff);
-                                resumeStage(rlStage);
-                            }
-                        }).show();
+                new AlertDialog.Builder(context).setCancelable(false).setTitle(
+                        "Test").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        nowClick.setTextColor(0xffffffff);
+                        resumeStage(rlStage);
+                    }
+                }).show();
                 isPause = !isPause;
             }
         });
-        textView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
 
-                    @Override
-                    public void onGlobalLayout() {
-                        width = textView.getWidth();
-                        textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    }
-                });
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "translationX", 1080.0f,
-                -(width + 100)).setDuration(10000 - seedSize * 700);
+
+        /**
+         * TextView移动动画
+         */
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "translationX",
+                stageX + stageWidth, stageX - (currentString.length() * 100)).setDuration(
+                10000 - seedSize * 700);
         objectAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -161,6 +191,7 @@ public class ShooterStage {
 
     /**
      * 恢复所有的
+     *
      * @param rlstage
      */
     private void resumeStage(RelativeLayout rlstage) {

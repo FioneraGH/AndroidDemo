@@ -39,7 +39,7 @@ public class DanmuActivity extends Activity {
         rlShootStage = (RelativeLayout) findViewById(R.id.rl_shoot_stage);
 
         danmuList = new ArrayList<>();
-        danmuList.add("你好");
+        danmuList.add("你好-----------------------------------------");
         danmuList.add("哈喽");
         danmuList.add("nihao");
         danmuList.add("hello");
