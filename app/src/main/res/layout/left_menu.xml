@@ -107,6 +107,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_dan_mu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -125,7 +126,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/iv_hor_menu_5"
-                android:text="item 5"
+                android:text="Danmu"
                 android:textSize="20sp"/>
         </RelativeLayout>
 

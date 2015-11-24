@@ -32,5 +32,6 @@
     <string name="title_activity_tab_layout">TabLayoutActivity</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_property_anim">PropertyAnimActivity</string>
+    <string name="title_activity_danmu">DanmuActivity</string>
 
 </resources>

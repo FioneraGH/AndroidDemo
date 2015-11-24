@@ -11,16 +11,15 @@ import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgBean;
 import com.fionera.wechatdemo.extra.ArcViewActivity;
+import com.fionera.wechatdemo.extra.DanmuActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.extra.PropertyAnimActivity;
 import com.fionera.wechatdemo.extra.TabLayoutActivity;
@@ -53,6 +52,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private RelativeLayout flowlayout;
     private RelativeLayout tabsViewPager;
     private RelativeLayout propertyAnim;
+    private RelativeLayout danMu;
 
     private static final int lineSize = 20;    //每次显示数
     // to adjust the content
@@ -105,6 +105,8 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         tabsViewPager.setOnClickListener(this);
         propertyAnim = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_property_anim);
         propertyAnim.setOnClickListener(this);
+        danMu = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_dan_mu);
+        danMu.setOnClickListener(this);
     }
 
     private void initData() {
@@ -172,6 +174,11 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 Intent propertyAnimIntent = new Intent(ChatActivity.this,
                         PropertyAnimActivity.class);
                 startActivity(propertyAnimIntent);
+                break;
+            case R.id.rl_dan_mu:
+                Intent danmuIntent = new Intent(ChatActivity.this,
+                        DanmuActivity.class);
+                startActivity(danmuIntent);
                 break;
         }
     }

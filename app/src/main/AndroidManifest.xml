@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.fionera.wechatdemo"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.fionera.wechatdemo"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.NFC"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -65,7 +64,6 @@
         <activity
             android:name=".extra.GenericAdapterActivity"
             android:label="@string/title_activity_generic_adapter"/>
-
         <activity
             android:name=".extra.WifiBlueNFCActivity"
             android:label="@string/title_activity_wifi_blue_nfc"
@@ -121,11 +119,16 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider"/>
         </receiver>
 
+        <activity
+            android:name=".extra.DanmuActivity"
+            android:label="@string/title_activity_danmu">
+        </activity>
     </application>
 
 </manifest>

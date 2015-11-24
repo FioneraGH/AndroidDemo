@@ -55,17 +55,27 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setOverFlowAlwaysShow();
-//        createFloatView();
+        //        createFloatView();
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
         linearLayout = (LinearLayout) findViewById(R.id.ll_main_page);
 
+        int count = 0;
         for (String title : titles) {
-            TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(TabLayoutFragment.TITLE, title);
-            tabLayoutFragment.setArguments(bundle);
-            views.add(tabLayoutFragment);
+            if (0 == count) {
+                TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(TabLayoutFragment.TITLE, title);
+                tabLayoutFragment.setArguments(bundle);
+                views.add(tabLayoutFragment);
+            } else {
+                TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(TabLayoutFragment.TITLE, title);
+                tabLayoutFragment.setArguments(bundle);
+                views.add(tabLayoutFragment);
+            }
+            count ++;
         }
 
         tabs.add((ChangableTabView) findViewById(R.id.ctv_one));
@@ -151,7 +161,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         wmLayoutParams.width = 256;
         wmLayoutParams.height = 256;
 
-        wm.addView(floatView,wmLayoutParams);
+        wm.addView(floatView, wmLayoutParams);
     }
 
     @Override
@@ -164,7 +174,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         try {
             wm.removeView(floatView);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
