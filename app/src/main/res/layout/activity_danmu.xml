@@ -7,6 +7,9 @@
     android:orientation="vertical"
     tools:context="com.fionera.wechatdemo.extra.DanmuActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
     <RelativeLayout
         android:id="@+id/rl_shoot_stage"
         android:layout_gravity="center_horizontal"
