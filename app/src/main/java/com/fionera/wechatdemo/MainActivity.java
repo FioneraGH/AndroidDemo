@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fionera.wechatdemo.application.DemoApplication;
+import com.fionera.wechatdemo.fragment.RadioGroupFragment;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;
 import com.fionera.wechatdemo.view.FloatView;
@@ -62,12 +63,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         int count = 0;
         for (String title : titles) {
-            if (0 == count) {
-                TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString(TabLayoutFragment.TITLE, title);
-                tabLayoutFragment.setArguments(bundle);
-                views.add(tabLayoutFragment);
+            if (3 == count) {
+                RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
+                views.add(radioGroupFragment);
             } else {
                 TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
                 Bundle bundle = new Bundle();
