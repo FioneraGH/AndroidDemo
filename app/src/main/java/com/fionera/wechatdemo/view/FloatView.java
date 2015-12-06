@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.fionera.wechatdemo.application.DemoApplication;
+import com.fionera.wechatdemo.DemoApplication;
 
 /**
  * Created by fionera on 15-11-22.

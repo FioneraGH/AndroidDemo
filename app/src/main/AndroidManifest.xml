@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.fionera.wechatdemo"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.fionera.wechatdemo"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.NFC"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -17,14 +18,13 @@
         android:required="false"/>
 
     <application
-        android:name=".application.DemoApplication"
+        android:name=".DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/ActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,40 +34,20 @@
         </activity>
         <activity
             android:name=".ChatActivity"
-            android:label="@string/title_activity_chat"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-        <activity
-            android:name=".HandlerActivity"
-            android:label="@string/title_activity_handler"/>
-        <activity
-            android:name=".ExtraActivity"
-            android:label="@string/title_activity_extra"/>
-        <activity
-            android:name=".extra.MatrixActivity"
-            android:label="@string/title_activity_matrix"/>
-        <activity
-            android:name=".extra.PullToRefreshActivity"
-            android:label="@string/title_activity_pull_to_refresh"/>
-        <activity
-            android:name=".extra.SplitPageActivity"
-            android:label="@string/title_activity_split_page"/>
-        <activity
-            android:name=".extra.PullToLoadActivity"
-            android:label="@string/title_activity_pull_to_load"/>
-        <activity
-            android:name=".extra.JSONActivity"
-            android:label="@string/title_activity_json"/>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity android:name=".HandlerActivity"/>
+        <activity android:name=".ExtraActivity"/>
+        <activity android:name=".extra.MatrixActivity"/>
+        <activity android:name=".extra.PullToRefreshActivity"/>
+        <activity android:name=".extra.SplitPageActivity"/>
+        <activity android:name=".extra.PullToLoadActivity"/>
+        <activity android:name=".extra.JSONActivity"/>
         <activity
             android:name=".extra.RecycleActivity"
-            android:label="@string/title_activity_recycle"
             android:theme="@style/DividerTheme"/>
-        <activity
-            android:name=".extra.GenericAdapterActivity"
-            android:label="@string/title_activity_generic_adapter"/>
+        <activity android:name=".extra.GenericAdapterActivity"/>
         <activity
             android:name=".extra.WifiBlueNFCActivity"
-            android:label="@string/title_activity_wifi_blue_nfc"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -77,42 +57,22 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".extra.PackageInstalledActivity"
-            android:label="@string/title_activity_wifi_blue_nfc"/>
-        <activity
-            android:name=".extra.XUtils3Activity"
-            android:label="@string/title_activity_volley"/>
-        <activity
-            android:name=".extra.ExpandableListViewActivity"
-            android:label="@string/title_activity_expandable_list_view">
+        <activity android:name=".extra.PackageInstalledActivity"/>
+        <activity android:name=".extra.XUtils3Activity"/>
+        <activity android:name=".extra.ExpandableListViewActivity">
         </activity>
         <activity
             android:name=".extra.EditInListActivity"
-            android:label="@string/title_activity_edit_in_list"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity
-            android:name=".extra.HorizontalActivity"
-            android:label="@string/title_activity_horizontal">
-        </activity>
-        <activity
-            android:name=".extra.ArcViewActivity"
-            android:label="@string/title_activity_arc_view">
-        </activity>
-        <activity
-            android:name=".extra.FlowLayoutActivity"
-            android:label="@string/title_activity_flow_layout">
-        </activity>
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".extra.HorizontalActivity"/>
+        <activity android:name=".extra.ArcViewActivity"/>
+        <activity android:name=".extra.FlowLayoutActivity"/>
         <activity
             android:name=".extra.TabLayoutActivity"
-            android:label="@string/title_activity_tab_layout"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".extra.PropertyAnimActivity"
-            android:label="@string/title_activity_property_anim">
-        </activity>
+            android:name=".extra.DanmuActivity"/>
+        <activity android:name=".extra.PropertyAnimActivity"/>
 
         <service android:name=".service.WidgetService"/>
 
@@ -126,10 +86,7 @@
                 android:resource="@xml/widget_provider"/>
         </receiver>
 
-        <activity
-            android:name=".extra.DanmuActivity"
-            android:label="@string/title_activity_danmu">
-        </activity>
+
     </application>
 
 </manifest>

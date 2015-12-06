@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fionera.wechatdemo.application.DemoApplication;
+import com.fionera.wechatdemo.DemoApplication;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;

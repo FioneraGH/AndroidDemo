@@ -21,7 +21,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.fionera.wechatdemo.application.DemoApplication;
 import com.fionera.wechatdemo.fragment.RadioGroupFragment;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;

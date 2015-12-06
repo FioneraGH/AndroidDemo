@@ -3,8 +3,6 @@ package com.fionera.wechatdemo.util;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.xutils.x;
-
 /**
  * Created by fionera on 15-12-6.
  */

@@ -1,4 +1,4 @@
-package com.fionera.wechatdemo.application;
+package com.fionera.wechatdemo;
 
 import android.app.Application;
 import android.view.WindowManager;
