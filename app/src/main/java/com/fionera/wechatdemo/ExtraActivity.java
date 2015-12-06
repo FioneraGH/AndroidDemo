@@ -16,7 +16,7 @@ import com.fionera.wechatdemo.extra.PullToLoadActivity;
 import com.fionera.wechatdemo.extra.PullToRefreshActivity;
 import com.fionera.wechatdemo.extra.RecycleActivity;
 import com.fionera.wechatdemo.extra.SplitPageActivity;
-import com.fionera.wechatdemo.extra.VolleyActivity;
+import com.fionera.wechatdemo.extra.XUtils3Activity;
 import com.fionera.wechatdemo.extra.WifiBlueNFCActivity;
 
 public class ExtraActivity extends Activity {
@@ -124,7 +124,7 @@ public class ExtraActivity extends Activity {
         volley.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, VolleyActivity.class);
+                Intent intent = new Intent(ExtraActivity.this, XUtils3Activity.class);
                 ExtraActivity.this.startActivity(intent);
                 ExtraActivity.this.finish();
             }

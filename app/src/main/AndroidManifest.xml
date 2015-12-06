@@ -80,7 +80,7 @@
             android:name=".extra.PackageInstalledActivity"
             android:label="@string/title_activity_wifi_blue_nfc"/>
         <activity
-            android:name=".extra.VolleyActivity"
+            android:name=".extra.XUtils3Activity"
             android:label="@string/title_activity_volley"/>
         <activity
             android:name=".extra.ExpandableListViewActivity"
