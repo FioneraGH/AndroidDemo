@@ -11,11 +11,6 @@
         android:layout_gravity="center_horizontal"
         android:text="xUtils"/>
 
-    <MultiAutoCompleteTextView
-        android:id="@+id/mactv_xutils"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <ImageView
         android:id="@+id/iv_xutils"
         android:layout_width="match_parent"

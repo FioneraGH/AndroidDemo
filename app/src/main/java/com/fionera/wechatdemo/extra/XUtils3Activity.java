@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.util.HttpRequestCallBack;
+import com.fionera.wechatdemo.util.HttpUtil;
+import com.fionera.wechatdemo.util.LogUtils;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -28,8 +29,6 @@ public class XUtils3Activity extends Activity {
      */
     @ViewInject(R.id.btn_xutils)
     private Button btnXUtils;
-    @ViewInject(R.id.mactv_xutils)
-    private MultiAutoCompleteTextView mactvXUtils;
     @ViewInject(R.id.iv_xutils)
     private ImageView ivXUtils;
 
@@ -60,5 +59,19 @@ public class XUtils3Activity extends Activity {
                         ".com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png",
                 imageOptions);
 
+        HttpUtil.sendJsonRequest(HttpUtil.HTTP_POST, "http://console.awu.cn/api/1.html",
+                "", new HttpRequestCallBack<String>() {
+                    @Override
+                    public void onSucceed(String result) {
+
+                        LogUtils.d(result);
+                    }
+
+                    @Override
+                    public void onFailed(Throwable ex, boolean isOnCallback) {
+
+                        LogUtils.d(isOnCallback + " " + ex.toString());
+                    }
+                });
     }
 }
