@@ -2,6 +2,7 @@ package com.fionera.wechatdemo.extra;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -68,12 +69,13 @@ public class XUtils3Activity extends Activity {
          */
         LogUtils.d(XUtils3Activity.this.getFilesDir().getAbsolutePath());
         LogUtils.d(XUtils3Activity.this.getCacheDir().getAbsolutePath());
+        LogUtils.d(Environment.getExternalStorageDirectory().getAbsolutePath());
 
         /**
          * 设定关系对象映射
          */
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
-                new File("/sdcard")).setDbName("DemoDb").setDbVersion(1).setDbUpgradeListener(
+                new File("")).setDbVersion(1).setDbUpgradeListener(
                 new DbManager.DbUpgradeListener() {
 
                     @Override
