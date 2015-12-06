@@ -16,9 +16,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.util.ShowToast;
 import com.fionera.wechatdemo.util.TextNfcRecord;
 import com.fionera.wechatdemo.util.WifiAdmin;
 
@@ -112,10 +112,10 @@ public class WifiBlueNFCActivity extends Activity {
                     if (ndef.isWritable()) {
                         if (ndef.getMaxSize() >= size) {
                             ndef.writeNdefMessage(ndefMessage);
-                            Toast.makeText(this, "写入成功", Toast.LENGTH_SHORT).show();
+                            ShowToast.show("写入成功");
                         }
                     } else {
-                        Toast.makeText(this, "NFC标签不可写", Toast.LENGTH_SHORT).show();
+                        ShowToast.show("NFC标签不可写");
                     }
                 } else {
                     /**
@@ -126,9 +126,9 @@ public class WifiBlueNFCActivity extends Activity {
                         //可以格式化
                         format.connect();
                         format.format(ndefMessage);
-                        Toast.makeText(this, "Tag格式化成功", Toast.LENGTH_SHORT).show();
+                        ShowToast.show("Tag格式化成功");
                     } else {
-                        Toast.makeText(this, "Tag非NDEF格式且无法格式化", Toast.LENGTH_SHORT).show();
+                        ShowToast.show("Tag非NDEF格式且无法格式化");
                     }
                 }
             } catch (Exception e) {
@@ -173,7 +173,7 @@ public class WifiBlueNFCActivity extends Activity {
                 networkResult.setText("Tag内容为空");
             }
         } else {
-            Toast.makeText(this, "Tag非NDEF格式", Toast.LENGTH_LONG).show();
+            ShowToast.show("Tag非NDEF格式");
         }
     }
 
@@ -207,7 +207,7 @@ public class WifiBlueNFCActivity extends Activity {
                 ndef.connect();
                 ndef.writeNdefMessage(new NdefMessage(ndefRecord));
             } else {
-                Toast.makeText(this, "Tag非NDEF格式不能写入", Toast.LENGTH_LONG).show();
+                ShowToast.show("Tag非NDEF格式不能写入");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -232,7 +232,7 @@ public class WifiBlueNFCActivity extends Activity {
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         } else {
-            Toast.makeText(this, "Not support NFC", Toast.LENGTH_SHORT).show();
+            ShowToast.show("Not support NFC");
         }
     }
 
@@ -259,8 +259,6 @@ public class WifiBlueNFCActivity extends Activity {
                     wifiAdmin.closeWifi();
                     break;
                 case R.id.btn_wifi_check://Wifi状态
-                    Toast.makeText(WifiBlueNFCActivity.this, "State:" + wifiAdmin.checkState() +
-                            "\nInfo:" + wifiAdmin.getWifiInfo(), Toast.LENGTH_SHORT).show();
                     break;
 
                 case R.id.btn_choose_app:

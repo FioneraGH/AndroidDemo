@@ -8,9 +8,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.util.ShowToast;
 
 
 /**
@@ -94,9 +94,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,
-                        "This is group " + groupPosition + " child " + childPosition,
-                        Toast.LENGTH_SHORT).show();
+                ShowToast.show("This is group " + groupPosition + " child " + childPosition);
             }
         });
         return convertView;

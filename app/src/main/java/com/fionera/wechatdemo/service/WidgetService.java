@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.provider.WidgetProvider;

@@ -16,8 +16,8 @@ import com.fionera.wechatdemo.extra.PullToLoadActivity;
 import com.fionera.wechatdemo.extra.PullToRefreshActivity;
 import com.fionera.wechatdemo.extra.RecycleActivity;
 import com.fionera.wechatdemo.extra.SplitPageActivity;
-import com.fionera.wechatdemo.extra.XUtils3Activity;
 import com.fionera.wechatdemo.extra.WifiBlueNFCActivity;
+import com.fionera.wechatdemo.extra.XUtils3Activity;
 
 public class ExtraActivity extends Activity {
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.DemoApplication;
 
@@ -24,7 +23,7 @@ public class HttpUtil {
         Log.i("接口 json = ", json);
 
         if (!HttpUtil.isNetworkConnected(DemoApplication.getInstance())) {
-            Toast.makeText(DemoApplication.getInstance(), "网络未连接，请检查网络设置", Toast.LENGTH_SHORT).show();
+            ShowToast.show("网络未连接，请检查网络设置");
             return null;
         }
 

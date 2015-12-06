@@ -1,28 +1,13 @@
 package com.fionera.wechatdemo.extra;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
+import android.os.Bundle;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.util.ShooterStage;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DanmuActivity extends Activity {
 

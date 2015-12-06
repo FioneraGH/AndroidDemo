@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.fionera.wechatdemo.util.ShowToast;
 
 public class HandlerActivity extends Activity {
 
@@ -63,7 +64,7 @@ public class HandlerActivity extends Activity {
                 Intent intent = new Intent(MainActivity.CLICK_TO_CHANGE_FROM_OTHER);
                 intent.putExtra("which_click", 3);
                 sendBroadcast(intent);
-                Toast.makeText(HandlerActivity.this, "已发送", Toast.LENGTH_SHORT).show();
+                ShowToast.show("已发送");
             }
         });
     }

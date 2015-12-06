@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
 
@@ -130,7 +129,6 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         // 所有的条目已经和最大条数相等，则移除底部的View
         if (totalItemCount == MaxDateNum + 1) {
             lv.removeFooterView(footer);
-            Toast.makeText(this, "All data load finish", Toast.LENGTH_SHORT).show();
         }
 
     }

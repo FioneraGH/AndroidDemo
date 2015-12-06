@@ -9,10 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
+import com.fionera.wechatdemo.util.ShowToast;
 
 public class TabLayoutActivity extends AppCompatActivity {
 
@@ -39,7 +39,7 @@ public class TabLayoutActivity extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(TabLayoutActivity.this, "别点！！", Toast.LENGTH_SHORT).show();
+                                ShowToast.show("别点！！");
                             }
                         }).show();
             }

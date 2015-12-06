@@ -11,7 +11,7 @@
         android:id="@+id/tvShow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Hello" />
 
     <Button
         android:id="@+id/btnStart"
