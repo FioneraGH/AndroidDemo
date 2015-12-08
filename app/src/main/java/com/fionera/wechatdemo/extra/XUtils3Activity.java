@@ -65,13 +65,6 @@ public class XUtils3Activity extends Activity {
     private void dbOp() throws DbException {
 
         /**
-         * 获取用户绝对目录
-         */
-        LogUtils.d(XUtils3Activity.this.getFilesDir().getAbsolutePath());
-        LogUtils.d(XUtils3Activity.this.getCacheDir().getAbsolutePath());
-        LogUtils.d(Environment.getExternalStorageDirectory().getAbsolutePath());
-
-        /**
          * 设定关系对象映射
          */
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
@@ -117,6 +110,44 @@ public class XUtils3Activity extends Activity {
         super.onCreate(savedInstanceState);
 
         x.view().inject(this);
+
+        /**
+         * 获取用户绝对目录
+         */
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_ALARMS).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_MOVIES).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_MUSIC).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_NOTIFICATIONS).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PODCASTS).getAbsolutePath());
+        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_RINGTONES).getAbsolutePath());
+
+        LogUtils.d(Environment.getExternalStorageDirectory().getAbsolutePath());
+        LogUtils.d(Environment.getDataDirectory().getAbsolutePath());
+        LogUtils.d(Environment.getDownloadCacheDirectory().getAbsolutePath());
+        LogUtils.d(Environment.getRootDirectory().getAbsolutePath());
+
+        LogUtils.d(XUtils3Activity.this.getExternalFilesDir(Environment.DIRECTORY_ALARMS).getAbsolutePath());
+        LogUtils.d(XUtils3Activity.this.getExternalCacheDir().getAbsolutePath());
+
+        LogUtils.d(XUtils3Activity.this.getFilesDir().getAbsolutePath());
+        LogUtils.d(XUtils3Activity.this.getCacheDir().getAbsolutePath());
+        LogUtils.d(XUtils3Activity.this.getNoBackupFilesDir().getAbsolutePath());
+
+        LogUtils.d(XUtils3Activity.this.getObbDir().getAbsolutePath());
 
         btnClick(null);
         /**
