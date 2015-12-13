@@ -54,10 +54,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "content varchar(100)," +
                 "date char(30)," +
                 "flag INTEGER );");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
     public Cursor queryAllChatEntity() {
+
         Cursor cursor;
         db = getReadableDatabase();
         String[] columns = {"id", "name", "content", "date", "flag"};
@@ -100,7 +105,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor = db.query("Tbl_ChatEntity", columns, null, null, null, null, "id desc",
                 firstResult + "," + pageSize);
 
-        ArrayList<ChatMsgBean> items = new ArrayList<ChatMsgBean>();
+        ArrayList<ChatMsgBean> items = new ArrayList<>();
         while (cursor.moveToNext()) {
 
             ChatMsgBean entry = new ChatMsgBean();
@@ -112,7 +117,7 @@ public class DBHelper extends SQLiteOpenHelper {
             entry.setName(name);
             entry.setText(content);
             entry.setDate(date);
-            entry.setMsgType(flag == 1 ? true : false);
+            entry.setMsgType(flag == 1);
             items.add(entry);
         }
         Collections.reverse(items);
@@ -135,9 +140,5 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("flag", flag ? new Integer(1) : new Integer(0));
         db.insert("Tbl_ChatEntity", null, values);
         db.close();
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 }
