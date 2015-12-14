@@ -9,7 +9,10 @@ import org.xutils.db.annotation.Table;
 @Table(name = "demoTbl")
 public class DemoDbBean {
 
-    @Column(name = "id", isId = true)
+    /**
+     * 这个属性是id，但id不是自动生成的
+     */
+    @Column(name = "id", isId = true, autoGen = false)
     private int id;
     @Column(name = "name")
     private String name;
@@ -42,6 +45,6 @@ public class DemoDbBean {
 
     @Override
     public String toString() {
-        return name + " " + age;
+        return id + " " + name + " " + age;
     }
 }

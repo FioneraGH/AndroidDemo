@@ -61,14 +61,18 @@ public class XUtils3Activity extends Activity {
     }
 
     private List<DemoDbBean> demoDbBeanList;
+    private String temp = "";
 
     private void dbOp() throws DbException {
+
+        demoDbBeanList.clear();
+        temp = "";
 
         /**
          * 设定关系对象映射
          */
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
-                new File("")).setDbVersion(1).setDbUpgradeListener(
+                new File(XUtils3Activity.this.getFilesDir().getAbsolutePath() + "/")).setDbName("demo.db").setDbVersion(1).setDbUpgradeListener(
                 new DbManager.DbUpgradeListener() {
 
                     @Override
@@ -84,20 +88,20 @@ public class XUtils3Activity extends Activity {
         DbManager db = x.getDb(daoConfig);
         DemoDbBean demoDbBean = new DemoDbBean();
         demoDbBean.setId(1);
-        demoDbBean.setName("hello");
+        demoDbBean.setName("hah");
         demoDbBean.setAge(10);
-        db.save(demoDbBean);
+        db.saveOrUpdate(demoDbBean);
 
-        demoDbBeanList = new ArrayList<>();
-        demoDbBeanList = db.selector(DemoDbBean.class).findAll();
-        demoDbBean.setName("world");
         demoDbBean = db.selector(DemoDbBean.class).findFirst();
         demoDbBeanList.add(demoDbBean);
+
+        demoDbBean.setName("world");
+        demoDbBeanList.add(demoDbBean);
+
         db.saveOrUpdate(demoDbBean);
         demoDbBean = db.selector(DemoDbBean.class).findFirst();
         demoDbBeanList.add(demoDbBean);
 
-        String temp = "";
         for (DemoDbBean dbBean : demoDbBeanList) {
             temp += dbBean.toString() + "\n";
         }
@@ -110,6 +114,7 @@ public class XUtils3Activity extends Activity {
         super.onCreate(savedInstanceState);
 
         x.view().inject(this);
+        demoDbBeanList = new ArrayList<>();
 
         /**
          * 获取用户绝对目录
