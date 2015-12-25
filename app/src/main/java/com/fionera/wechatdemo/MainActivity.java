@@ -65,7 +65,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (3 == count) {
                 RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
                 views.add(radioGroupFragment);
-            } else {
+            } else if(2 == count){
+                RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
+                views.add(radioGroupFragment);
                 TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString(TabLayoutFragment.TITLE, title);
