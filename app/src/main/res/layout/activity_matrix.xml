@@ -20,8 +20,22 @@
 
     <com.fionera.wechatdemo.view.TopCropImageView
         android:id="@+id/ivTest3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/iv_test"/>
+
+    <com.fionera.wechatdemo.view.TopCropImageView
+        android:id="@+id/ivTest4"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/iv_test"/>
+
+    <com.fionera.wechatdemo.view.TopCropImageView
+        android:id="@+id/ivTest5"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:src="@mipmap/iv_test"/>
 

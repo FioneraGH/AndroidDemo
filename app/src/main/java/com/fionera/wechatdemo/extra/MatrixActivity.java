@@ -16,6 +16,9 @@ public class MatrixActivity extends Activity {
 
     private ImageView imageView1;
     private ImageView imageView2;
+    private ImageView imageView3;
+    private ImageView imageView4;
+    private ImageView imageView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,9 @@ public class MatrixActivity extends Activity {
 
         imageView1 = (ImageView) findViewById(R.id.ivTest1);
         imageView2 = (ImageView) findViewById(R.id.ivTest2);
+        imageView3 = (ImageView) findViewById(R.id.ivTest3);
+        imageView4 = (ImageView) findViewById(R.id.ivTest4);
+        imageView5 = (ImageView) findViewById(R.id.ivTest5);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         imageView1.setImageBitmap(bitmap);
@@ -48,7 +54,6 @@ public class MatrixActivity extends Activity {
         canvas.drawBitmap(bitmap, matrix, paint);
 
         imageView2.setImageBitmap(newBitmap);
-
 
     }
 }

@@ -24,6 +24,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.google.code.gson:gson:2.5'
-//    此处必须使用3.1.+
-    compile 'org.xutils:xutils:3.1.+'
+    compile 'org.xutils:xutils:3.1.22'
 }

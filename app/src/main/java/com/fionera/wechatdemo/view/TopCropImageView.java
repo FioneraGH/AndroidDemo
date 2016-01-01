@@ -34,8 +34,8 @@ public class TopCropImageView extends ImageView {
         float scaleFactor = (scaleWidth > scaleHeight) ? scaleWidth : scaleHeight;
         matrix.setScale(scaleFactor, scaleFactor, 0, 0);
         if (scaleFactor == scaleHeight) {
-            float tanslateX = ((getDrawable().getIntrinsicWidth() * scaleFactor) - getWidth()) / 2;
-            matrix.postTranslate(-tanslateX, 0);
+            float translateX = ((getDrawable().getIntrinsicWidth() * scaleFactor) - getWidth()) / 2;
+            matrix.postTranslate(-translateX, 0);
         }
         setImageMatrix(matrix);
         return super.setFrame(l, t, r, b);

@@ -65,16 +65,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (3 == count) {
                 RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
                 views.add(radioGroupFragment);
-            } else if(2 == count){
+            } else if (2 == count) {
                 RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
                 views.add(radioGroupFragment);
+            } else {
                 TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString(TabLayoutFragment.TITLE, title);
                 tabLayoutFragment.setArguments(bundle);
                 views.add(tabLayoutFragment);
             }
-            count ++;
+            count++;
         }
 
         tabs.add((ChangableTabView) findViewById(R.id.ctv_one));
