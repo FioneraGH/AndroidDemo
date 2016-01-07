@@ -78,7 +78,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/iv_hor_menu_3"
-                android:text="TabLayout"
+                android:text="SmartTabLayout"
                 android:textSize="20sp"/>
         </RelativeLayout>
 

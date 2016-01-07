@@ -99,10 +99,10 @@ public class RecycleActivity extends Activity {
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if(viewType == TYPE_HEADER){
-                View view = layoutInflater.inflate(R.layout.chat_msg_right_item, parent, false);
+                View view = layoutInflater.inflate(R.layout.lv_chat_msg_right_item, parent, false);
                 return new MyViewHolder(view);
             }else{
-                View view = layoutInflater.inflate(R.layout.chat_msg_left_item, parent, false);
+                View view = layoutInflater.inflate(R.layout.lv_chat_msg_left_item, parent, false);
                 return new MyViewHolder(view);
             }
         }

@@ -68,7 +68,7 @@
         <activity android:name=".extra.ArcViewActivity"/>
         <activity android:name=".extra.FlowLayoutActivity"/>
         <activity
-            android:name=".extra.TabLayoutActivity"
+            android:name=".extra.SmartTabLayoutActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".extra.DanmuActivity"/>

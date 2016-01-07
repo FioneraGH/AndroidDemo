@@ -73,9 +73,9 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         if (convertView == null) {
 
             if (getItemViewType(position) == IS_COMING_MSG) {
-                convertView = mInflater.inflate(R.layout.chat_msg_left_item, null);
+                convertView = mInflater.inflate(R.layout.lv_chat_msg_left_item, null);
             } else if (getItemViewType(position) == IS_NOT_COMING_MSG) {
-                convertView = mInflater.inflate(R.layout.chat_msg_right_item, null);
+                convertView = mInflater.inflate(R.layout.lv_chat_msg_right_item, null);
             }
 
             viewHolder = new ViewHolder();

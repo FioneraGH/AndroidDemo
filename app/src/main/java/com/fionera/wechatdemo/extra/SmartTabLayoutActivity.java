@@ -13,38 +13,22 @@ import android.view.View;
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.util.ShowToast;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
-public class TabLayoutActivity extends AppCompatActivity {
+public class SmartTabLayoutActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private TabLayout tabLayout;
+    private SmartTabLayout tabLayout;
 
-    private FloatingActionButton floatingActionButton;
-
-    private String [] title = new String[]{"hello","world"};
+    private String[] title = new String[]{"你好", "我并不好", "我真的很不好", "你", "你好", "我并不好", "我真的很不好", "你"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout);
+        setContentView(R.layout.activity_smart_tab_layout);
 
-        tabLayout = (TabLayout) findViewById(R.id.tl_tab_layout);
+        tabLayout = (SmartTabLayout) findViewById(R.id.tl_tab_layout);
         viewPager = (ViewPager) findViewById(R.id.vp_tab_layout);
-
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_tab_layout);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "该方法待添加！", Snackbar.LENGTH_SHORT).setAction("撤销",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ShowToast.show("别点！！");
-                            }
-                        }).show();
-            }
-        });
-
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -64,7 +48,7 @@ public class TabLayoutActivity extends AppCompatActivity {
             }
         });
 
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setViewPager(viewPager);
     }
 
 }

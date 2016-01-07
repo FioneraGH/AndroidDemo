@@ -150,7 +150,7 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
     public RefreshableView(Context context, AttributeSet attrs) {
         super(context, attrs);
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        header = LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_head, null, true);
+        header = LayoutInflater.from(context).inflate(R.layout.lv_pull_to_refresh_header, null, true);
 
         progressBar = (ProgressBar) header.findViewById(R.id.progress_bar);
         arrow = (ImageView) header.findViewById(R.id.arrow);

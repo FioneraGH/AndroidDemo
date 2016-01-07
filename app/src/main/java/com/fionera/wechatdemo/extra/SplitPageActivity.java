@@ -45,7 +45,7 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         lv = (ListView) findViewById(R.id.list_view_split);
 
         // 实例化底部布局
-        footer = getLayoutInflater().inflate(R.layout.more_info_foot, null);
+        footer = getLayoutInflater().inflate(R.layout.lv_more_info_footer, null);
 
         btn = (Button) footer.findViewById(R.id.bt_load);
         pg = (ProgressBar) footer.findViewById(R.id.pg);
@@ -59,7 +59,7 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
             list.add(map);
         }
         // 实例化SimpleAdapter
-        mSimpleAdapter = new SimpleAdapter(this, list, R.layout.split_page_item,
+        mSimpleAdapter = new SimpleAdapter(this, list, R.layout.lv_split_page_item,
                 new String[]{"ItemTitle", "ItemText"},
                 new int[]{R.id.tv_title_split, R.id.tv_content_split});
 

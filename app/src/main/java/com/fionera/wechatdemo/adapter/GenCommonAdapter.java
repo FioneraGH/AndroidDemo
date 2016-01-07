@@ -44,7 +44,7 @@ public abstract class GenCommonAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         GenViewHolder genViewHolder = GenViewHolder.getViewHolder(context,
-                convertView, R.layout.chat_msg_left_item, position, parent);
+                convertView, R.layout.lv_chat_msg_left_item, position, parent);
         convert(genViewHolder,data.get(position));
         return genViewHolder.getConvertView();
     }

@@ -74,7 +74,7 @@ public class EditInListActivity extends Activity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            convertView = layoutInflater.inflate(R.layout.man_choose_phone_item, null);
+            convertView = layoutInflater.inflate(R.layout.lv_choose_phone_item, null);
             final EditText et = (EditText) convertView.findViewById(R.id.et_edit_phone_num);
             et.setText(data.get(position));
             et.requestFocus();

@@ -22,7 +22,7 @@ import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.extra.DanmuActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.extra.PropertyAnimActivity;
-import com.fionera.wechatdemo.extra.TabLayoutActivity;
+import com.fionera.wechatdemo.extra.SmartTabLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
 import com.fionera.wechatdemo.view.ArcMenu;
 
@@ -111,7 +111,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     private void initData() {
 
-        header = getLayoutInflater().inflate(R.layout.more_info_foot, null);
+        header = getLayoutInflater().inflate(R.layout.lv_more_info_footer, null);
         btn = (Button) header.findViewById(R.id.bt_load);
         btn.setVisibility(View.GONE);
         pg = (ProgressBar) header.findViewById(R.id.pg);
@@ -167,7 +167,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 startActivity(flowLayoutIntent);
                 break;
             case R.id.rl_tab_layout:
-                Intent tabLayoutIntent = new Intent(ChatActivity.this, TabLayoutActivity.class);
+                Intent tabLayoutIntent = new Intent(ChatActivity.this, SmartTabLayoutActivity.class);
                 startActivity(tabLayoutIntent);
                 break;
             case R.id.rl_property_anim:
