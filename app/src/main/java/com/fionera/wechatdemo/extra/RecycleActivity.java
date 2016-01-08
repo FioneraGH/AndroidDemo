@@ -49,12 +49,14 @@ public class RecycleActivity extends Activity {
         recyclerView.setAdapter(myAdapter);
 
         // 设定RecyclerView的布局方式
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecycleActivity.this,
+                LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // 设定分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
     }
 
@@ -80,13 +82,13 @@ public class RecycleActivity extends Activity {
 
         }
 
-        private boolean isHeader(int postion){
+        private boolean isHeader(int postion) {
             return postion == 0;
         }
 
         @Override
         public int getItemViewType(int position) {
-            return isHeader(position)?TYPE_HEADER:TYPE_ITEM;
+            return isHeader(position) ? TYPE_HEADER : TYPE_ITEM;
         }
 
         /**
@@ -98,10 +100,10 @@ public class RecycleActivity extends Activity {
          */
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if(viewType == TYPE_HEADER){
+            if (viewType == TYPE_HEADER) {
                 View view = layoutInflater.inflate(R.layout.lv_chat_msg_right_item, parent, false);
                 return new MyViewHolder(view);
-            }else{
+            } else {
                 View view = layoutInflater.inflate(R.layout.lv_chat_msg_left_item, parent, false);
                 return new MyViewHolder(view);
             }
@@ -116,7 +118,7 @@ public class RecycleActivity extends Activity {
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
 
-            if(isHeader(position)){
+            if (isHeader(position)) {
                 return;
             }
             holder.tvUserName.setText(data.get(position - 1).getName());
@@ -179,18 +181,34 @@ public class RecycleActivity extends Activity {
                 myAdapter.notifyItemRemoved(1);
                 break;
             case R.id.action_listview:
-                recyclerView.setLayoutManager(new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL, false));
+                recyclerView.setLayoutManager(
+                        new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL,
+                                false));
                 break;
             case R.id.action_gridview:
                 recyclerView.setLayoutManager(new GridLayoutManager(RecycleActivity.this, 2));
                 break;
             case R.id.action_hori_listview:
-                recyclerView.setLayoutManager(new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                recyclerView.setLayoutManager(new LinearLayoutManager(RecycleActivity.this,
+                        LinearLayoutManager.HORIZONTAL, false));
                 break;
             case R.id.action_hori_gridview:
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL));
+                recyclerView.setLayoutManager(
+                        new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL));
                 break;
             case R.id.action_staggerd_gridview:
+                ChatMsgBean entryTemp = data.get(1);
+                data.get(2).setName(data.get(1).getName());
+                data.get(2).setText(data.get(1).getText());
+                data.get(2).setDate(data.get(1).getDate());
+                data.get(2).setMsgType(data.get(1).getMsgType());
+
+                data.get(1).setName(entryTemp.getName());
+                data.get(1).setText(entryTemp.getText());
+                data.get(1).setDate(entryTemp.getDate());
+                data.get(1).setMsgType(entryTemp.getMsgType());
+
+                myAdapter.notifyItemMoved(2, 3);
                 break;
         }
 

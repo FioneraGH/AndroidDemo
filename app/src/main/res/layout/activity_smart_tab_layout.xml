@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout
-        android:id="@+id/tl_tab_layout"
+        android:id="@id/tl_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         app:stl_customTabTextLayoutId="@layout/tab_margin8_layout"

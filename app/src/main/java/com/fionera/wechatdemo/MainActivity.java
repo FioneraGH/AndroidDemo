@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.fionera.wechatdemo.fragment.BitmapUtilFragment;
 import com.fionera.wechatdemo.fragment.RadioGroupFragment;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;
@@ -66,8 +67,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
                 views.add(radioGroupFragment);
             } else if (2 == count) {
-                RadioGroupFragment radioGroupFragment = new RadioGroupFragment();
-                views.add(radioGroupFragment);
+                BitmapUtilFragment bitmapUtilFragment = new BitmapUtilFragment();
+                views.add(bitmapUtilFragment);
             } else {
                 TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
                 Bundle bundle = new Bundle();
