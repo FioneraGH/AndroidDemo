@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fionera.wechatdemo.fragment.BitmapUtilFragment;
+import com.fionera.wechatdemo.fragment.HomePageFragment;
 import com.fionera.wechatdemo.fragment.RadioGroupFragment;
 import com.fionera.wechatdemo.fragment.TabLayoutFragment;
 import com.fionera.wechatdemo.view.ChangableTabView;
@@ -69,12 +70,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             } else if (2 == count) {
                 BitmapUtilFragment bitmapUtilFragment = new BitmapUtilFragment();
                 views.add(bitmapUtilFragment);
-            } else {
+            } else if (1 == count) {
                 TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString(TabLayoutFragment.TITLE, title);
                 tabLayoutFragment.setArguments(bundle);
                 views.add(tabLayoutFragment);
+            } else {
+                HomePageFragment homePageFragment = new HomePageFragment();
+                views.add(homePageFragment);
             }
             count++;
         }

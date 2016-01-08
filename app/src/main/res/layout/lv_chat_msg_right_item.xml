@@ -35,7 +35,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:focusable="false"
-            android:src="@mipmap/ic_chat_head"/>
+            android:src="@drawable/ic_chat_head"/>
 
         <TextView
             android:id="@+id/tv_chatcontent"
