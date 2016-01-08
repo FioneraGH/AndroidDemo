@@ -199,7 +199,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         }
         if (item.getItemId() == R.id.action_scan) {
-            Toast.makeText(MainActivity.this, "空", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, CaptureActivity.class));
         }
         if (item.getItemId() == R.id.action_view) {
 
