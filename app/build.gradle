@@ -6,11 +6,11 @@ android {
     buildToolsVersion '23.0.2'
 
     defaultConfig {
-        applicationId "com.fionera.wechatdemo"
+        applicationId "com.fionera.demo"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {

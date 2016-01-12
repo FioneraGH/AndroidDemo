@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.fionera.wechatdemo.extra.DanmuActivity">
+    tools:context="com.fionera.demo.activity.DanmuActivity">
 
     <View
         android:layout_width="match_parent"

@@ -12,6 +12,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey1"/>
+
     <LinearLayout
         android:id="@+id/ll_main_page"
         android:layout_width="match_parent"
@@ -19,43 +24,43 @@
         android:background="#eeeeee"
         android:orientation="horizontal">
 
-        <com.fionera.wechatdemo.view.ChangableTabView
+        <com.fionera.demo.view.ChangableTabView
             android:id="@+id/ctv_one"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:ctab_color="#0066ff"
-            app:ctab_icon="@android:drawable/ic_menu_my_calendar"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_recent"
             app:ctab_text="One"
             app:ctab_size="12sp"/>
 
-        <com.fionera.wechatdemo.view.ChangableTabView
+        <com.fionera.demo.view.ChangableTabView
             android:id="@+id/ctv_two"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:ctab_color="#0066ff"
-            app:ctab_icon="@android:drawable/ic_menu_view"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_contact"
             app:ctab_text="Two"
             app:ctab_size="12sp"/>
 
-        <com.fionera.wechatdemo.view.ChangableTabView
+        <com.fionera.demo.view.ChangableTabView
             android:id="@+id/ctv_three"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:ctab_color="#0066ff"
-            app:ctab_icon="@android:drawable/ic_menu_compass"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_comment"
             app:ctab_text="Three"
             app:ctab_size="12sp"/>
 
-        <com.fionera.wechatdemo.view.ChangableTabView
+        <com.fionera.demo.view.ChangableTabView
             android:id="@+id/ctv_four"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:ctab_color="#0066ff"
-            app:ctab_icon="@android:drawable/ic_menu_gallery"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_mine"
             app:ctab_text="Four"
             app:ctab_size="12sp"/>
 

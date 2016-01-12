@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.fionera.wechatdemo"
+<manifest package="com.fionera.demo"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.NFC"/>
@@ -33,24 +33,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChatActivity"
+            android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".ExtraActivity"/>
-        <activity android:name=".extra.MatrixActivity"/>
-        <activity android:name=".extra.PullToRefreshActivity"/>
-        <activity android:name=".extra.SplitPageActivity"/>
-        <activity android:name=".extra.PullToLoadActivity"/>
+        <activity android:name=".activity.MatrixActivity"/>
+        <activity android:name=".activity.PullToRefreshActivity"/>
+        <activity android:name=".activity.SplitPageActivity"/>
+        <activity android:name=".activity.PullToLoadActivity"/>
         <activity
-            android:name=".extra.RecycleActivity"
+            android:name=".activity.RecycleActivity"
             android:theme="@style/DividerTheme"/>
-        <activity android:name=".extra.PackageInstalledActivity"/>
-        <activity android:name=".extra.XUtils3Activity"/>
-        <activity android:name=".extra.FlowLayoutActivity"/>
+        <activity android:name=".activity.XUtils3Activity"/>
+        <activity android:name=".activity.FlowLayoutActivity"/>
         <activity
-            android:name=".extra.SmartTabLayoutActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".extra.DanmuActivity"/>
-        <activity android:name=".extra.PropertyAnimActivity"/>
+            android:name=".activity.SmartTabLayoutActivity"
+            android:theme="@android:style/Theme.Holo.Light"/>
+        <activity android:name=".activity.DanmuActivity"/>
+        <activity android:name=".activity.PropertyAnimActivity"/>
 
         <service android:name=".service.WidgetService"/>
 
@@ -64,7 +62,7 @@
                 android:resource="@xml/widget_provider"/>
         </receiver>
 
-        <activity android:name=".CaptureActivity">
+        <activity android:name=".activity.CaptureActivity">
         </activity>
     </application>
 

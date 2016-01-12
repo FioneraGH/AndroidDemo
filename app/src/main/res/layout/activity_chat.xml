@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.fionera.wechatdemo.view.SlidingMenu
+<com.fionera.demo.view.SlidingMenu
     android:id="@+id/sm_chat"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue2"
     android:scrollbars="none"
     app:rightPadding="150dp">
 
@@ -16,23 +17,23 @@
 
         <include
             android:id="@+id/left_menu"
-            layout="@layout/left_menu"/>
+            layout="@layout/left_menu_layout"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#cccccc">
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/rl_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#555555">
+                android:layout_height="55dp"
+                android:background="@color/grey2">
 
                 <ImageView
                     android:id="@+id/iv_toggle_menu"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:layout_centerVertical="true"
                     android:src="@mipmap/ic_launcher"/>
 
                 <TextView
@@ -41,8 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="标题"
-                    android:textColor="#ffffff"
-                    android:textSize="22.0sp"/>
+                    android:textSize="18sp"/>
 
             </RelativeLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="#ffffff">
+                android:background="@color/black2">
 
                 <Button
                     android:id="@+id/btn_send"
@@ -90,20 +90,23 @@
                     android:textSize="18sp"/>
             </RelativeLayout>
 
-
             <ListView
                 android:id="@+id/list_view_chat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/rl_bottom"
                 android:layout_below="@id/rl_header"
+                android:background="@color/white1"
                 android:dividerHeight="1px"
                 android:scrollbars="none"/>
 
-            <com.fionera.wechatdemo.view.ArcMenu
+            <com.fionera.demo.view.ArcMenu
                 android:id="@+id/arc_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
                 app:position="right_top"
                 app:radiu="150dp">
 
@@ -143,9 +146,9 @@
                     android:background="@mipmap/ic_launcher"
                     android:tag="SUB5"/>
 
-            </com.fionera.wechatdemo.view.ArcMenu>
+            </com.fionera.demo.view.ArcMenu>
 
         </RelativeLayout>
 
     </LinearLayout>
-</com.fionera.wechatdemo.view.SlidingMenu>
+</com.fionera.demo.view.SlidingMenu>

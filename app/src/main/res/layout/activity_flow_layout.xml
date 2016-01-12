@@ -3,12 +3,12 @@
                 android:layout_height="match_parent"
     >
 
-    <com.fionera.wechatdemo.view.FlowLayout
+    <com.fionera.demo.view.FlowLayout
         android:id="@+id/fl_hot_tag"
         android:background="#666666"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    </com.fionera.wechatdemo.view.FlowLayout>
+    </com.fionera.demo.view.FlowLayout>
 
 </RelativeLayout>
