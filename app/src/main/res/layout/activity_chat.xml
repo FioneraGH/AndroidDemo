@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.fionera.wechatdemo.view.SlidingMenu
+    android:id="@+id/sm_chat"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -28,24 +29,18 @@
                 android:layout_height="wrap_content"
                 android:background="#555555">
 
-                <Button
-                    android:id="@+id/btn_back"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="退出"
-                    android:background="#00000000"
-                    android:textColor="#ffffffff"
-                    android:textSize="14sp"/>
+                <ImageView
+                    android:id="@+id/iv_toggle_menu"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:id="@+id/tv_head"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Handler"
+                    android:text="标题"
                     android:textColor="#ffffff"
                     android:textSize="22.0sp"/>
 
@@ -62,30 +57,34 @@
                     android:id="@+id/btn_send"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/sl_chat_btn_send"
-                    android:textColor="@color/sl_chat_btn_send_font"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="发送"/>
+                    android:text="发送"
+                    android:textColor="@color/sl_chat_btn_send_font"/>
 
                 <Button
                     android:id="@+id/btn_extra"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="8dp"
                     android:background="@mipmap/ic_launcher"/>
 
-                <EditText
-                    android:id="@+id/et_sendmessage"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_send_message"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/btn_extra"
+                    android:layout_toLeftOf="@id/btn_send"
+                    android:layout_toRightOf="@id/btn_extra"
                     android:layout_toStartOf="@id/btn_send"
                     android:singleLine="true"
                     android:textSize="18sp"/>

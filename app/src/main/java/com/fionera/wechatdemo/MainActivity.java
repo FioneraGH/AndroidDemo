@@ -56,7 +56,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setOverFlowAlwaysShow();
+        setNeverHasMenuKey();
         //        createFloatView();
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
@@ -179,38 +179,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         try {
             wm.removeView(floatView);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if (item.getItemId() == R.id.action_chat) {
-            startActivity(new Intent(MainActivity.this, ChatActivity.class));
-        }
-        if (item.getItemId() == R.id.action_friend) {
-
-        }
-        if (item.getItemId() == R.id.action_scan) {
-            startActivity(new Intent(MainActivity.this, CaptureActivity.class));
-        }
-        if (item.getItemId() == R.id.action_view) {
-
-        }
-        return super.onMenuItemSelected(featureId, item);
     }
 
     /**
      * 设置在有键盘的手机可见
      */
-    private void setOverFlowAlwaysShow() {
+    private void setNeverHasMenuKey() {
 
         try {
             ViewConfiguration vc = ViewConfiguration.get(MainActivity.this);

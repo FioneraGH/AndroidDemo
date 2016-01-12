@@ -35,37 +35,16 @@
         <activity
             android:name=".ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".HandlerActivity"/>
         <activity android:name=".ExtraActivity"/>
         <activity android:name=".extra.MatrixActivity"/>
         <activity android:name=".extra.PullToRefreshActivity"/>
         <activity android:name=".extra.SplitPageActivity"/>
         <activity android:name=".extra.PullToLoadActivity"/>
-        <activity android:name=".extra.JSONActivity"/>
         <activity
             android:name=".extra.RecycleActivity"
             android:theme="@style/DividerTheme"/>
-        <activity android:name=".extra.GenericAdapterActivity"/>
-        <activity
-            android:name=".extra.WifiBlueNFCActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="text/plain"/>
-            </intent-filter>
-        </activity>
         <activity android:name=".extra.PackageInstalledActivity"/>
         <activity android:name=".extra.XUtils3Activity"/>
-        <activity android:name=".extra.ExpandableListViewActivity">
-        </activity>
-        <activity
-            android:name=".extra.EditInListActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".extra.HorizontalActivity"/>
-        <activity android:name=".extra.ArcViewActivity"/>
         <activity android:name=".extra.FlowLayoutActivity"/>
         <activity
             android:name=".extra.SmartTabLayoutActivity"

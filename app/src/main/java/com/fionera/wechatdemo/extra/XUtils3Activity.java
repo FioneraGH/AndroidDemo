@@ -1,6 +1,8 @@
 package com.fionera.wechatdemo.extra;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -9,13 +11,14 @@ import android.widget.ImageView;
 import com.fionera.wechatdemo.R;
 import com.fionera.wechatdemo.bean.DemoDbBean;
 import com.fionera.wechatdemo.util.HttpRequestCallBack;
-import com.fionera.wechatdemo.util.HttpUtil;
+import com.fionera.wechatdemo.util.HttpUtils;
 import com.fionera.wechatdemo.util.LogUtils;
 import com.fionera.wechatdemo.util.ShowToast;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.ex.HttpException;
+import org.xutils.http.HttpMethod;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -32,6 +35,7 @@ import java.util.List;
 @ContentView(R.layout.activity_xutils)
 public class XUtils3Activity extends Activity {
 
+    private Context mContext = this;
     /**
      * View绑定控制反转
      */
@@ -72,15 +76,11 @@ public class XUtils3Activity extends Activity {
          * 设定关系对象映射
          */
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
-                new File(XUtils3Activity.this.getFilesDir().getAbsolutePath() + "/")).setDbName("demo.db").setDbVersion(1).setDbUpgradeListener(
-                new DbManager.DbUpgradeListener() {
-
-                    @Override
-                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
-                        ShowToast.show(
-                                String.format("upgrade from %d to %d", oldVersion, newVersion));
-                    }
-                }).setAllowTransaction(true);
+                new File(mContext.getFilesDir().getAbsolutePath() + "/")).setDbName(
+                "demo.db").setDbVersion(1).setDbUpgradeListener(
+                (db, oldVersion, newVersion) -> ShowToast.show(
+                        String.format("upgrade from %d to %d", oldVersion,
+                                newVersion))).setAllowTransaction(true);
 
         /**
          * 获取数据库管理器
@@ -124,8 +124,6 @@ public class XUtils3Activity extends Activity {
         LogUtils.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM).getAbsolutePath());
         LogUtils.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         LogUtils.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES).getAbsolutePath());
@@ -145,14 +143,17 @@ public class XUtils3Activity extends Activity {
         LogUtils.d(Environment.getDownloadCacheDirectory().getAbsolutePath());
         LogUtils.d(Environment.getRootDirectory().getAbsolutePath());
 
-        LogUtils.d(XUtils3Activity.this.getExternalFilesDir(Environment.DIRECTORY_ALARMS).getAbsolutePath());
-        LogUtils.d(XUtils3Activity.this.getExternalCacheDir().getAbsolutePath());
+        LogUtils.d(mContext.getExternalFilesDir(
+                Environment.DIRECTORY_ALARMS).getAbsolutePath());
+        LogUtils.d(mContext.getExternalCacheDir().getAbsolutePath());
 
-        LogUtils.d(XUtils3Activity.this.getFilesDir().getAbsolutePath());
-        LogUtils.d(XUtils3Activity.this.getCacheDir().getAbsolutePath());
-        LogUtils.d(XUtils3Activity.this.getNoBackupFilesDir().getAbsolutePath());
+        LogUtils.d(mContext.getFilesDir().getAbsolutePath());
+        LogUtils.d(mContext.getCacheDir().getAbsolutePath());
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            LogUtils.d(mContext.getNoBackupFilesDir().getAbsolutePath());
+        }
 
-        LogUtils.d(XUtils3Activity.this.getObbDir().getAbsolutePath());
+        LogUtils.d(mContext.getObbDir().getAbsolutePath());
 
         btnClick(null);
         /**
@@ -165,7 +166,7 @@ public class XUtils3Activity extends Activity {
                         ".com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png",
                 imageOptions);
 
-        HttpUtil.sendJsonRequest(HttpUtil.HTTP_POST, "", "", new HttpRequestCallBack<String>() {
+        HttpUtils.request(HttpMethod.POST, "", null, new HttpRequestCallBack<String>() {
             @Override
             public void onSucceed(String result) {
 
@@ -173,12 +174,15 @@ public class XUtils3Activity extends Activity {
             }
 
             @Override
-            public void onFailed(Throwable ex, boolean isOnCallback) {
+            public void onFailed(String reason) {
 
-                if (ex instanceof HttpException) {
-                    LogUtils.d(((HttpException) ex).getCode() + " " + ex.getMessage());
-                }
             }
+
+            @Override
+            public void onNoNetwork() {
+
+            }
+
         });
     }
 }

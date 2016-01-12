@@ -11,35 +11,29 @@ import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+import com.fionera.wechatdemo.DemoApplication;
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.util.LogUtils;
 
 /**
  * Created by fionera on 15-8-14.
  */
 public class SlidingMenu extends HorizontalScrollView {
 
-
-    private LinearLayout mWrapper;
     private ViewGroup mMenu;
     private ViewGroup mContent;
     private int mMenuRightPadding;
 
-    private int mWidthScreen;
+    private int mWidthScreen = DemoApplication.screenWidth;
     private int mMenuWidth;
 
-    private boolean once;
+    private boolean firstMeasure;
     private boolean isOpen;
 
     public SlidingMenu(Context context) {
         this(context, null);
     }
 
-    /**
-     * 未使用自定义属性时，调用
-     *
-     * @param context
-     * @param attrs
-     */
     public SlidingMenu(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -66,14 +60,6 @@ public class SlidingMenu extends HorizontalScrollView {
         }
         a.recycle();
 
-        /**
-         * 获取屏幕宽度通过DisplayMetrics
-         */
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        mWidthScreen = outMetrics.widthPixels;
-
     }
 
     /**
@@ -87,15 +73,14 @@ public class SlidingMenu extends HorizontalScrollView {
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        if (!once) {
-            mWrapper = (LinearLayout) getChildAt(0);
+        if (!firstMeasure) {
+            LinearLayout mWrapper = (LinearLayout) getChildAt(0);
             mMenu = (ViewGroup) mWrapper.getChildAt(0);
             mContent = (ViewGroup) mWrapper.getChildAt(1);
 
             mMenuWidth = mMenu.getLayoutParams().width = mWidthScreen - mMenuRightPadding;
             mContent.getLayoutParams().width = mWidthScreen;
-//            mWrapper.getLayoutParams().width = mWidthScreen+ mMenuRightPadding;
-            once = true;
+            firstMeasure = true;
         }
     }
 
@@ -113,8 +98,9 @@ public class SlidingMenu extends HorizontalScrollView {
 
         super.onLayout(changed, l, t, r, b);
 
+        LogUtils.d(mMenuWidth + "");
         if (changed) {
-            this.scrollTo(mMenuWidth, 0);
+            postDelayed(() -> this.scrollTo(mMenuWidth, 0), 100);
         }
     }
 
@@ -124,17 +110,9 @@ public class SlidingMenu extends HorizontalScrollView {
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_UP:
-
                 //隐藏在左边的宽度
-                int x = getScrollX();
-                if (x > mMenuWidth / 2) {
-                    this.smoothScrollTo(mMenuWidth, 0);
-                    isOpen = false;
-                } else {
-                    this.smoothScrollTo(0, 0);
-                    isOpen = true;
-                }
-
+                this.smoothScrollTo(getScrollX() > mMenuWidth / 2 ? mMenuWidth : 0, 0);
+                isOpen = !isOpen;
                 return true;
         }
 
@@ -142,26 +120,9 @@ public class SlidingMenu extends HorizontalScrollView {
         return super.onTouchEvent(ev);
     }
 
-    public void OpenMenu() {
-        if (!isOpen) {
-            this.smoothScrollTo(0, 0);
-            isOpen = true;
-        }
-    }
-
-    public void CloseMenu() {
-        if (isOpen) {
-            this.smoothScrollTo(mMenuWidth, 0);
-            isOpen = false;
-        }
-    }
-
-    public void ToogleMenu() {
-        if (isOpen) {
-            CloseMenu();
-        } else {
-            OpenMenu();
-        }
+    public void toggleMenu() {
+        this.smoothScrollTo(isOpen ? mMenuWidth : 0, 0);
+        isOpen = !isOpen;
     }
 
     /**
@@ -176,7 +137,9 @@ public class SlidingMenu extends HorizontalScrollView {
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
 
-        //l即是当前getScrollX的值，初值为mMenuWidth -> 0
+        /**
+         * l即是当前getScrollX的值，初值为mMenuWidth -> 0
+         */
         float scale = l * 1.0f / mMenuWidth;
 
         mContent.setScaleX(0.9f + 0.1f * scale);
@@ -187,7 +150,9 @@ public class SlidingMenu extends HorizontalScrollView {
         mMenu.setScaleX(1.0f - 0.3f * scale);
         mMenu.setScaleY(1.0f - 0.3f * scale);
 
-        //调用属性动画，设置TransactionX
+        /**
+         * 调用属性动画，设置TransactionX
+         */
         mMenu.setTranslationX(mMenuWidth * scale * 0.7f);
         mMenu.setAlpha(1.0f - 0.9f * scale);
     }

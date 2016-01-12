@@ -69,7 +69,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         ChatMsgBean entry = (ChatMsgBean) getItem(position);
 
 
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
 
             if (getItemViewType(position) == IS_COMING_MSG) {

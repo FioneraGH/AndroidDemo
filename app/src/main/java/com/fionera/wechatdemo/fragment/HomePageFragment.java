@@ -1,21 +1,23 @@
 package com.fionera.wechatdemo.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.fionera.wechatdemo.ChatActivity;
 import com.fionera.wechatdemo.R;
+import com.fionera.wechatdemo.adapter.RecentSessionAdapter;
 import com.fionera.wechatdemo.util.PageTransformer;
-import com.fionera.wechatdemo.view.ClipViewPager;
 
-import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -23,56 +25,27 @@ import org.xutils.x;
 /**
  * Created by fionera on 15-10-3.
  */
-@ContentView(R.layout.fragment_home_page)
-public class HomePageFragment extends Fragment {
+public class HomePageFragment extends BaseFragment {
 
-    @ViewInject(R.id.lv_home_root)
-    private LinearLayout llHomeRoot;
-    @ViewInject(R.id.vp_home_circle)
-    private ClipViewPager vpHomeCircle;
+    @ViewInject(R.id.rv_recent_session)
+    private RecyclerView recyclerView;
 
-    private int[] imgRes = new int[]{R.drawable.iv_test, R.drawable.iv_test, R.drawable.iv_test,
-            R.drawable.iv_test, R.drawable.iv_test, R.drawable.iv_test, R.drawable.iv_test};
+    private RecentSessionAdapter recentSessionAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = x.view().inject(this, inflater, container);
+    public int setLayoutResource() {
+        return R.layout.fragment_home_page;
+    }
 
-        /**
-         * no use
-         */
-        llHomeRoot.setOnTouchListener((v, event) -> vpHomeCircle.dispatchTouchEvent(event));
-        //        vpHomeCircle.setPageMargin(20);
-        vpHomeCircle.setPageTransformer(true, new PageTransformer());
-        vpHomeCircle.setOffscreenPageLimit(imgRes.length);
-        vpHomeCircle.setAdapter(new PagerAdapter() {
+    @Override
+    public void findViewInThisFunction(View rootView) {
 
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                View pageView = inflater.inflate(R.layout.vp_post_pager_item, null);
-                ImageView imageView = (ImageView) pageView.findViewById(R.id.iv_post_preview);
-                imageView.setImageResource(imgRes[position]);
-                vpHomeCircle.addView(pageView);
-                return pageView;
-            }
+        setTitleBarText("最近");
 
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                vpHomeCircle.removeView((View) object);
-            }
-
-            @Override
-            public boolean isViewFromObject(View arg0, Object arg1) {
-                return arg0 == arg1;
-            }
-
-            @Override
-            public int getCount() {
-                return imgRes.length;
-            }
-        });
-        vpHomeCircle.setCurrentItem(3, false);
-        return view;
+        recentSessionAdapter = new RecentSessionAdapter(mContext);
+        recyclerView.setAdapter(recentSessionAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
+        recentSessionAdapter.setRvItemTouchListener(
+                (v, pos) -> startActivity(new Intent(mContext, ChatActivity.class)));
     }
 }

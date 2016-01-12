@@ -1,8 +1,6 @@
 package com.fionera.wechatdemo;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,20 +9,21 @@ import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.fionera.wechatdemo.adapter.ChatMsgViewAdapter;
 import com.fionera.wechatdemo.bean.ChatMsgBean;
-import com.fionera.wechatdemo.extra.ArcViewActivity;
 import com.fionera.wechatdemo.extra.DanmuActivity;
 import com.fionera.wechatdemo.extra.FlowLayoutActivity;
 import com.fionera.wechatdemo.extra.PropertyAnimActivity;
 import com.fionera.wechatdemo.extra.SmartTabLayoutActivity;
 import com.fionera.wechatdemo.util.DBHelper;
+import com.fionera.wechatdemo.util.ShowToast;
 import com.fionera.wechatdemo.view.ArcMenu;
+import com.fionera.wechatdemo.view.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,37 +32,31 @@ import java.util.List;
 public class ChatActivity extends Activity implements OnClickListener, AbsListView
         .OnScrollListener {
 
-    private Button mBtnSend;
-    private Button mBtnBack;
+    private ImageView ivToggleMenu;
     private Button mBtnExtra;
+    private Button mBtnSend;
     private ArcMenu arcMenu;
-    private TextView mTvHead;
     private ListView listView;
     private View header;
     private Button btn;
     private ProgressBar pg;
     private EditText mEditTextContent;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
-    private Handler handler = new Handler();
 
     private RelativeLayout rlLeftMenu;
+    private SlidingMenu slidingMenu;
 
-    private RelativeLayout arcview;
     private RelativeLayout flowlayout;
     private RelativeLayout tabsViewPager;
     private RelativeLayout propertyAnim;
     private RelativeLayout danMu;
 
     private static final int lineSize = 20;    //每次显示数
-    // to adjust the content
     private int currentPage = 1; //默认在第一页
     private int allRecorders = 0;  //全部记录数
     private int pageSize = 1;  //默认共一页
 
-    // content adapter
     private ChatMsgViewAdapter mAdapter;
-
-    // content body
     private List<ChatMsgBean> mDataArrays = new ArrayList<>();
 
 
@@ -77,28 +70,24 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
 
     private void initView() {
+
         listView = (ListView) findViewById(R.id.list_view_chat);
-        mBtnBack = (Button) findViewById(R.id.btn_back);
-        mBtnBack.setOnClickListener(this);
+        ivToggleMenu = (ImageView) findViewById(R.id.iv_toggle_menu);
+        ivToggleMenu.setOnClickListener(this);
         mBtnSend = (Button) findViewById(R.id.btn_send);
         mBtnSend.setOnClickListener(this);
         mBtnExtra = (Button) findViewById(R.id.btn_extra);
         mBtnExtra.setOnClickListener(this);
         arcMenu = (ArcMenu) findViewById(R.id.arc_menu);
-        arcMenu.setOnMenuItemClickListener(new ArcMenu.OnMenuItemClickListener() {
-            @Override
-            public void onClick(View view, int pos) {
+        arcMenu.setOnMenuItemClickListener((view, pos) -> {
 
-            }
+            ShowToast.show(pos + "");
         });
-        mTvHead = (TextView) findViewById(R.id.tv_head);
-        mTvHead.setOnClickListener(this);
 
-        mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
+        mEditTextContent = (EditText) findViewById(R.id.et_send_message);
         rlLeftMenu = (RelativeLayout) findViewById(R.id.left_menu);
+        slidingMenu = (SlidingMenu) findViewById(R.id.sm_chat);
 
-        arcview = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_arc_view);
-        arcview.setOnClickListener(this);
         flowlayout = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_flow_layout);
         flowlayout.setOnClickListener(this);
         tabsViewPager = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_tab_layout);
@@ -144,8 +133,8 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_back:
-                back();
+            case R.id.iv_toggle_menu:
+                slidingMenu.toggleMenu();
                 break;
             case R.id.btn_send:
                 send();
@@ -154,20 +143,13 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 Intent extraIntent = new Intent(ChatActivity.this, ExtraActivity.class);
                 startActivity(extraIntent);
                 break;
-            case R.id.tv_head:
-                Intent handlerIntent = new Intent(ChatActivity.this, HandlerActivity.class);
-                startActivity(handlerIntent);
-                break;
-            case R.id.rl_arc_view:
-                Intent arcViewIntent = new Intent(ChatActivity.this, ArcViewActivity.class);
-                startActivity(arcViewIntent);
-                break;
             case R.id.rl_flow_layout:
                 Intent flowLayoutIntent = new Intent(ChatActivity.this, FlowLayoutActivity.class);
                 startActivity(flowLayoutIntent);
                 break;
             case R.id.rl_tab_layout:
-                Intent tabLayoutIntent = new Intent(ChatActivity.this, SmartTabLayoutActivity.class);
+                Intent tabLayoutIntent = new Intent(ChatActivity.this,
+                        SmartTabLayoutActivity.class);
                 startActivity(tabLayoutIntent);
                 break;
             case R.id.rl_property_anim:
@@ -176,8 +158,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
                 startActivity(propertyAnimIntent);
                 break;
             case R.id.rl_dan_mu:
-                Intent danmuIntent = new Intent(ChatActivity.this,
-                        DanmuActivity.class);
+                Intent danmuIntent = new Intent(ChatActivity.this, DanmuActivity.class);
                 startActivity(danmuIntent);
                 break;
         }
@@ -194,18 +175,9 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     @Override
     public void onScrollStateChanged(AbsListView view, int scorllState) {
         if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView
-                .OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
+                .OnScrollListener.SCROLL_STATE_IDLE) {
             currentPage++;
-            // 增加数据
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    appendDate();
-                }
-
-            }, 2000);
-
+            new Handler().postDelayed(this::appendDate, 1000);
         }
     }
 
@@ -213,7 +185,8 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
      * 增加数据
      */
     private void appendDate() {
-        final ArrayList addItems = dbHelper.getSomeItems(currentPage, lineSize);
+
+        ArrayList addItems = dbHelper.getSomeItems(currentPage, lineSize);
         mAdapter.setCount(mAdapter.getCount() + addItems.size());
         //判断，如果到了最末尾则去掉进度圈
         if (allRecorders == mAdapter.getCount()) {
@@ -239,12 +212,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
             mAdapter.notifyDataSetChanged();
             listView.setSelection(listView.getCount() - 1);
             dbHelper.insertChatEntity(entry);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    autoReply();
-                }
-            }, 2000);
+            new Handler().postDelayed(this::autoReply, 1000);
             mEditTextContent.setText("");
         }
     }
@@ -262,24 +230,6 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         dbHelper.insertChatEntity(entry);
     }
 
-    private void back() {
-
-        (new AlertDialog.Builder(ChatActivity.this)).setMessage("退出？").setPositiveButton("是",
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                }).setNegativeButton("否", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).show();
-    }
-
     public static String getDate() {
 
         Calendar c = Calendar.getInstance();
@@ -288,9 +238,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + 1);
         String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
         String mins = String.valueOf(c.get(Calendar.MINUTE));
-        StringBuffer sbBuffer = new StringBuffer();
-        sbBuffer.append(year + "-" + month + "-" + day + " " + hour + ":" + mins);
-        return sbBuffer.toString();
+        return (year + "-" + month + "-" + day + " " + hour + ":" + mins);
     }
 
 }

@@ -1,16 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
 
-    <style name="DividerTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="DividerTheme" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="android:listDivider">@drawable/rv_diliver</item>
     </style>
 
-    <style name="ActionBarTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="ActionBarTheme" parent="AppTheme">
         <!--修改三点菜单图标-->
         <!--<item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>-->
     </style>

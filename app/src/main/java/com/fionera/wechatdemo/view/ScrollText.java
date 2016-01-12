@@ -214,8 +214,6 @@ public class ScrollText extends SurfaceView {
                 } catch (InterruptedException e) {
                     Log.e(LOG_TAG, Log.getStackTraceString(e));
                 }
-                //                Log.e("lockCanvas Time", System.currentTimeMillis() - startTime
-                // + "");
             }
         }
 

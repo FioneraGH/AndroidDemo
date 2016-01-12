@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="rightPadding" format="dimension"/>
-
-    <attr name="position" >
-        <enum name="left_top" value="0"/>
-        <enum name="left_bottom" value="1"/>
-        <enum name="right_top" value="2"/>
-        <enum name="right_bottom" value="3"/>
-    </attr>
-    <attr name="radiu" format="dimension"/>
-
-    <attr name="ctab_icon" format="reference"/>
-    <attr name="ctab_color" format="color"/>
-    <attr name="ctab_text" format="string"/>
-    <attr name="ctab_size" format="dimension"/>
-
-    <declare-styleable name="SlidingMenu" >
-        <attr name="rightPadding" />
+    <declare-styleable name="SlidingMenu">
+        <attr name="rightPadding" format="dimension"/>
     </declare-styleable>
-    
-    <declare-styleable name="ArcMenu" >
-        <attr name="position" />
-        <attr name="radiu" />
+
+    <declare-styleable name="ArcMenu">
+        <attr name="position">
+            <enum name="left_top" value="0"/>
+            <enum name="left_bottom" value="1"/>
+            <enum name="right_top" value="2"/>
+            <enum name="right_bottom" value="3"/>
+        </attr>
+        <attr name="radiu" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="ChangableTabView">
-        <attr name="ctab_icon"/>
-        <attr name="ctab_color"/>
-        <attr name="ctab_text"/>
-        <attr name="ctab_size"/>
+        <attr name="ctab_icon" format="reference"/>
+        <attr name="ctab_color" format="color"/>
+        <attr name="ctab_text" format="string"/>
+        <attr name="ctab_size" format="dimension"/>
     </declare-styleable>
-    
+
 </resources>

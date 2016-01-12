@@ -42,6 +42,10 @@ public class TadaAnimator {
                 setDuration(1000);
     }
 
+    public static ObjectAnimator nope(View view) {
+        return nope(view, 1);
+    }
+
     public static ObjectAnimator nope(View view, int delta) {
 
         PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X,

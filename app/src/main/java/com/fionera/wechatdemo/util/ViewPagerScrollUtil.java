@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 /**
  * Created by fionera on 15-12-19.
  */
-public class ScrollUtil {
+public class ViewPagerScrollUtil {
 
     public void setSliderTransformDuration(ViewPager pager, int duration) {
         try {
@@ -19,17 +19,13 @@ public class ScrollUtil {
             FixedSpeedScroller scroller = new FixedSpeedScroller(pager.getContext(), null,
                     duration);
             mScroller.set(pager, scroller);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
 
     public class FixedSpeedScroller extends Scroller {
         private int mDuration = 1000;
-
-        public FixedSpeedScroller(Context context) {
-            super(context);
-        }
 
         public FixedSpeedScroller(Context context, Interpolator interpolator) {
             super(context, interpolator);
