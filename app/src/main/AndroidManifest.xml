@@ -46,7 +46,7 @@
         <activity android:name=".activity.FlowLayoutActivity"/>
         <activity
             android:name=".activity.SmartTabLayoutActivity"
-            android:theme="@android:style/Theme.Holo.Light"/>
+            android:theme="@style/AppTheme"/>
         <activity android:name=".activity.DanmuActivity"/>
         <activity android:name=".activity.PropertyAnimActivity"/>
 

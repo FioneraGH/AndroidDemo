@@ -4,7 +4,7 @@
 
     <size android:height="1px"></size>
     <gradient
-        android:endColor="#ff000000"
+        android:endColor="#ffffffff"
         android:centerColor="#ff666666"
         android:startColor="#ffffffff"
         android:type="linear"/>

@@ -5,7 +5,7 @@
 
     </style>
 
-    <style name="DividerTheme" parent="AppTheme">
+    <style name="DividerTheme" parent="android:Theme.Holo.Light">
         <!-- Customize your theme here. -->
         <item name="android:listDivider">@drawable/rv_diliver</item>
     </style>

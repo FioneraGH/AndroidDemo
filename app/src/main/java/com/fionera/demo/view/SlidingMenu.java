@@ -152,6 +152,6 @@ public class SlidingMenu extends HorizontalScrollView {
          * 调用属性动画，设置TransactionX
          */
         mMenu.setTranslationX(mMenuWidth * scale * 0.7f);
-        mMenu.setAlpha(1.0f - 0.9f * scale);
+        mMenu.setAlpha(1.0f - 1.0f * scale);
     }
 }

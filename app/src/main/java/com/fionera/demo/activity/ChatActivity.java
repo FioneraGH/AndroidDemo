@@ -1,6 +1,7 @@
 package com.fionera.demo.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -29,9 +29,8 @@ import java.util.List;
 public class ChatActivity extends Activity implements OnClickListener, AbsListView
         .OnScrollListener {
 
-    private ImageView ivToggleMenu;
-    private Button mBtnExtra;
-    private Button mBtnSend;
+    private Context mContext = this;
+
     private ArcMenu arcMenu;
     private ListView listView;
     private View header;
@@ -39,14 +38,6 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
     private ProgressBar pg;
     private EditText mEditTextContent;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
-
-    private RelativeLayout rlLeftMenu;
-    private SlidingMenu slidingMenu;
-
-    private RelativeLayout flowlayout;
-    private RelativeLayout tabsViewPager;
-    private RelativeLayout propertyAnim;
-    private RelativeLayout danMu;
 
     private static final int lineSize = 20;    //每次显示数
     private int currentPage = 1; //默认在第一页
@@ -68,13 +59,10 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     private void initView() {
 
-        listView = (ListView) findViewById(R.id.list_view_chat);
-        ivToggleMenu = (ImageView) findViewById(R.id.iv_toggle_menu);
-        ivToggleMenu.setOnClickListener(this);
-        mBtnSend = (Button) findViewById(R.id.btn_send);
-        mBtnSend.setOnClickListener(this);
-        mBtnExtra = (Button) findViewById(R.id.btn_extra);
-        mBtnExtra.setOnClickListener(this);
+        listView = (ListView) findViewById(R.id.lv_chat_content);
+        findViewById(R.id.iv_toggle_menu).setOnClickListener(this);
+        findViewById(R.id.tv_send_msg).setOnClickListener(this);
+        findViewById(R.id.tv_extra_function).setOnClickListener(this);
         arcMenu = (ArcMenu) findViewById(R.id.arc_menu);
         arcMenu.setOnMenuItemClickListener((view, pos) -> {
 
@@ -82,17 +70,6 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         });
 
         mEditTextContent = (EditText) findViewById(R.id.et_send_message);
-        rlLeftMenu = (RelativeLayout) findViewById(R.id.left_menu);
-        slidingMenu = (SlidingMenu) findViewById(R.id.sm_chat);
-
-        flowlayout = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_flow_layout);
-        flowlayout.setOnClickListener(this);
-        tabsViewPager = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_tab_layout);
-        tabsViewPager.setOnClickListener(this);
-        propertyAnim = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_property_anim);
-        propertyAnim.setOnClickListener(this);
-        danMu = (RelativeLayout) rlLeftMenu.findViewById(R.id.rl_dan_mu);
-        danMu.setOnClickListener(this);
     }
 
     private void initData() {
@@ -130,31 +107,11 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_toggle_menu:
-                slidingMenu.toggleMenu();
-                break;
-            case R.id.btn_send:
+            case R.id.tv_send_msg:
                 send();
                 break;
-            case R.id.btn_extra:
-                break;
-            case R.id.rl_flow_layout:
-                Intent flowLayoutIntent = new Intent(ChatActivity.this, FlowLayoutActivity.class);
-                startActivity(flowLayoutIntent);
-                break;
-            case R.id.rl_tab_layout:
-                Intent tabLayoutIntent = new Intent(ChatActivity.this,
-                        SmartTabLayoutActivity.class);
-                startActivity(tabLayoutIntent);
-                break;
-            case R.id.rl_property_anim:
-                Intent propertyAnimIntent = new Intent(ChatActivity.this,
-                        PropertyAnimActivity.class);
-                startActivity(propertyAnimIntent);
-                break;
-            case R.id.rl_dan_mu:
-                Intent danmuIntent = new Intent(ChatActivity.this, DanmuActivity.class);
-                startActivity(danmuIntent);
+            case R.id.tv_extra_function:
+                startActivity(new Intent(mContext, CaptureActivity.class));
                 break;
         }
     }
