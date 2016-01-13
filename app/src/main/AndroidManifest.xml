@@ -25,6 +25,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/ActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,7 +35,7 @@
         </activity>
         <activity
             android:name=".activity.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.MatrixActivity"/>
         <activity android:name=".activity.PullToRefreshActivity"/>
         <activity android:name=".activity.SplitPageActivity"/>
@@ -62,8 +63,9 @@
                 android:resource="@xml/widget_provider"/>
         </receiver>
 
-        <activity android:name=".activity.CaptureActivity">
-        </activity>
+        <activity android:name=".activity.CaptureActivity"/>
+        <activity android:name=".activity.NotificationActivity"/>
+
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.fionera.demo.R;
 import com.fionera.demo.activity.MatrixActivity;
+import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.PullToRefreshActivity;
 import com.fionera.demo.activity.RecycleActivity;
@@ -28,6 +29,8 @@ public class ExtrasFragment extends BaseFragment {
     private Button split;
     @ViewInject(R.id.button4)
     private Button load;
+    @ViewInject(R.id.button5)
+    private Button notify;
     @ViewInject(R.id.button6)
     private Button recycle;
     @ViewInject(R.id.button9)
@@ -45,33 +48,30 @@ public class ExtrasFragment extends BaseFragment {
 
         // 设定Matrix跳转
         matrix.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, MatrixActivity.class);
-            mContext.startActivity(intent);
+            mContext.startActivity(new Intent(mContext, MatrixActivity.class));
         });
         // 设定下拉刷新跳转
         fresh.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, PullToRefreshActivity.class);
-            mContext.startActivity(intent);
+            mContext.startActivity(new Intent(mContext, PullToRefreshActivity.class));
         });
         // 设定分页加载跳转
         split.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, SplitPageActivity.class);
-            mContext.startActivity(intent);
+            mContext.startActivity(new Intent(mContext, SplitPageActivity.class));
         });
         // 设定下拉加载跳转
         load.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, PullToLoadActivity.class);
-            mContext.startActivity(intent);
+            mContext.startActivity(new Intent(mContext, PullToLoadActivity.class));
+        });
+        notify.setOnClickListener(v -> {
+            mContext.startActivity(new Intent(mContext, NotificationActivity.class));
         });
         // 设定RecyclerView测试跳转
         recycle.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, RecycleActivity.class);
-            mContext.startActivity(intent);
+            mContext.startActivity(new Intent(mContext, RecycleActivity.class));
         });
         // 设定Volley测试跳转
         volley.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, XUtils3Activity.class);
-            mContext.startActivity(intent);
+            mContext.startActivity(new Intent(mContext, XUtils3Activity.class));
         });
     }
 }
