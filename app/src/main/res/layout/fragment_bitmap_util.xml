@@ -11,4 +11,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="#cecece"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/gif_banana"
+        android:background="#cecece"/>
 </LinearLayout>
