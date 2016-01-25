@@ -33,6 +33,8 @@ public class ExtrasFragment extends BaseFragment {
     private Button notify;
     @ViewInject(R.id.button6)
     private Button recycle;
+    @ViewInject(R.id.button7)
+    private Button clear;
     @ViewInject(R.id.button9)
     private Button volley;
 
@@ -47,31 +49,27 @@ public class ExtrasFragment extends BaseFragment {
         setTitleBarText("扩展");
 
         // 设定Matrix跳转
-        matrix.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, MatrixActivity.class));
-        });
+        matrix.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
         // 设定下拉刷新跳转
-        fresh.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, PullToRefreshActivity.class));
-        });
+        fresh.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, PullToRefreshActivity.class)));
         // 设定分页加载跳转
-        split.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, SplitPageActivity.class));
-        });
+        split.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, SplitPageActivity.class)));
         // 设定下拉加载跳转
-        load.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, PullToLoadActivity.class));
-        });
-        notify.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, NotificationActivity.class));
-        });
+        load.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));
+        notify.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, NotificationActivity.class)));
         // 设定RecyclerView测试跳转
-        recycle.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, RecycleActivity.class));
+        recycle.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, RecycleActivity.class)));
+        clear.setOnClickListener(v -> {
+
         });
         // 设定Volley测试跳转
-        volley.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, XUtils3Activity.class));
-        });
+        volley.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));
     }
 }
