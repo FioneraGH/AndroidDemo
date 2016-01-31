@@ -42,11 +42,7 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
         setContentView(R.layout.activity_pull_to_load);
         listView = (ListView) findViewById(R.id.list_view_load);
         //获取listView头部，共享分页脚部
-        header = getLayoutInflater().inflate(R.layout.lv_more_info_footer, null);
-        btn = (Button) header.findViewById(R.id.bt_load);
-        btn.setVisibility(View.GONE);
-        pg = (ProgressBar) header.findViewById(R.id.pg);
-        pg.setVisibility(View.VISIBLE);
+        header = getLayoutInflater().inflate(R.layout.layout_load_more, null);
 
         listView.addHeaderView(header);
         listView.setOnScrollListener(this);

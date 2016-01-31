@@ -22,8 +22,6 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
     // ListView的Adapter
     private SimpleAdapter mSimpleAdapter;
     private ListView lv;
-    private Button btn;
-    private ProgressBar pg;
     private ArrayList<HashMap<String, String>> list;
     // ListView底部View
     private View footer;
@@ -45,15 +43,12 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         lv = (ListView) findViewById(R.id.list_view_split);
 
         // 实例化底部布局
-        footer = getLayoutInflater().inflate(R.layout.lv_more_info_footer, null);
-
-        btn = (Button) footer.findViewById(R.id.bt_load);
-        pg = (ProgressBar) footer.findViewById(R.id.pg);
+        footer = getLayoutInflater().inflate(R.layout.layout_load_more, null);
 
         // 用map来装载数据，初始化10条数据
-        list = new ArrayList<HashMap<String, String>>();
+        list = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
-            HashMap<String, String> map = new HashMap<String, String>();
+            HashMap<String, String> map = new HashMap<>();
             map.put("ItemTitle", "No." + i + " title");
             map.put("ItemText", "No." + i + " content");
             list.add(map);
@@ -67,30 +62,6 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         //lv.addHeaderView(new ProgressBar(this));
         lv.addFooterView(footer);
         lv.setAdapter(mSimpleAdapter);
-
-        // 绑定监听器
-        btn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                pg.setVisibility(View.VISIBLE);
-                btn.setVisibility(View.GONE);
-
-                handler.postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        // 加载额外的5条数据
-                        loadMoreDate();
-                        btn.setVisibility(View.VISIBLE);
-                        pg.setVisibility(View.GONE);
-                        mSimpleAdapter.notifyDataSetChanged();// 通知listView刷新数据
-                    }
-
-                }, 2000);
-            }
-        });
-        //btn.setVisibility(View.GONE);
         lv.setOnScrollListener(this);
 
     }
@@ -103,7 +74,7 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         if (count + 5 < MaxDateNum) {
             // 每次加载5条
             for (int i = count; i < count + 5; i++) {
-                HashMap<String, String> map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<>();
                 map.put("ItemTitle", "new No." + i + " title");
                 map.put("ItemText", "new No." + i + " content");
                 list.add(map);
@@ -111,7 +82,7 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         } else {
             // 数据已经不足5条
             for (int i = count; i < MaxDateNum; i++) {
-                HashMap<String, String> map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<>();
                 map.put("ItemTitle", "new No." + i + " title");
                 map.put("ItemText", "new No." + i + " content");
                 list.add(map);
@@ -139,22 +110,10 @@ public class SplitPageActivity extends Activity implements OnScrollListener {
         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
                 && lastVisibleIndex == mSimpleAdapter.getCount()) {
             // 当滑到底部时自动加载
-            pg.setVisibility(View.VISIBLE);
-            btn.setVisibility(View.GONE);
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    loadMoreDate();
-                    btn.setVisibility(View.VISIBLE);
-                    pg.setVisibility(View.GONE);
-                    mSimpleAdapter.notifyDataSetChanged();
-                }
-
+            handler.postDelayed(() -> {
+                loadMoreDate();
+                mSimpleAdapter.notifyDataSetChanged();
             }, 2000);
-
         }
-
     }
-
 }

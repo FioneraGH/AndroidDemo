@@ -37,7 +37,6 @@
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.MatrixActivity"/>
-        <activity android:name=".activity.PullToRefreshActivity"/>
         <activity android:name=".activity.SplitPageActivity"/>
         <activity android:name=".activity.PullToLoadActivity"/>
         <activity

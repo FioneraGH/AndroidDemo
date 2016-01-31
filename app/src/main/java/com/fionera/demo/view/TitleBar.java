@@ -37,7 +37,7 @@ public class TitleBar extends LinearLayout {
         if (isInEditMode()) {
             return;
         }
-        View titleBar = LayoutInflater.from(context).inflate(R.layout.title_bar_layout, null);
+        View titleBar = LayoutInflater.from(context).inflate(R.layout.layout_title_bar, null);
         addView(titleBar, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         mLayoutLeft = (LinearLayout) titleBar.findViewById(R.id.title_bar_left);

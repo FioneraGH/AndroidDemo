@@ -8,7 +8,6 @@ import com.fionera.demo.R;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
-import com.fionera.demo.activity.PullToRefreshActivity;
 import com.fionera.demo.activity.RecycleActivity;
 import com.fionera.demo.activity.SplitPageActivity;
 import com.fionera.demo.activity.XUtils3Activity;
@@ -51,9 +50,6 @@ public class ExtrasFragment extends BaseFragment {
         // 设定Matrix跳转
         matrix.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
-        // 设定下拉刷新跳转
-        fresh.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, PullToRefreshActivity.class)));
         // 设定分页加载跳转
         split.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, SplitPageActivity.class)));

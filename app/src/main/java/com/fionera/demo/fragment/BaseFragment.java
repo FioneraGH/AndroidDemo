@@ -33,7 +33,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        mLayoutMain = inflater.inflate(R.layout.title_bar_content_layout, container, false);
+        mLayoutMain = inflater.inflate(R.layout.layout_title_bar_content, container, false);
         mLayoutContent = (LinearLayout) mLayoutMain.findViewById(R.id.title_bar_content);
         mTitleBar = (TitleBar) mLayoutMain.findViewById(R.id.title_bar);
         ViewCompat.setElevation(mTitleBar,5);

@@ -1,11 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.fionera.demo.view.PullToRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ptrl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <include layout="@layout/layout_refresh_head"/>
+    <com.fionera.demo.view.PullableRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-</LinearLayout>
+    <include layout="@layout/layout_load_more"/>
+</com.fionera.demo.view.PullToRefreshLayout>
 

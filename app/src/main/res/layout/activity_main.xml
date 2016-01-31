@@ -15,7 +15,7 @@
 
         <include
             android:id="@+id/left_menu"
-            layout="@layout/left_menu_layout"/>
+            layout="@layout/layout_left_menu"/>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"

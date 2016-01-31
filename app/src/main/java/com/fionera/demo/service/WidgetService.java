@@ -41,7 +41,7 @@ public class WidgetService extends Service{
             public void run() {
                 String time = simpleDateFormat.format(new Date());
 
-                RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget_layout);
+                RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.layout_timer_widget);
                 remoteViews.setTextViewText(R.id.tv_widget_clock, time);
 
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());

@@ -8,11 +8,8 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ChatMsgViewAdapter;
@@ -20,7 +17,6 @@ import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DBHelper;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ArcMenu;
-import com.fionera.demo.view.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,11 +27,8 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     private Context mContext = this;
 
-    private ArcMenu arcMenu;
     private ListView listView;
-    private View header;
-    private Button btn;
-    private ProgressBar pg;
+    private View footer;
     private EditText mEditTextContent;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
 
@@ -63,7 +56,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         findViewById(R.id.iv_toggle_menu).setOnClickListener(this);
         findViewById(R.id.tv_send_msg).setOnClickListener(this);
         findViewById(R.id.tv_extra_function).setOnClickListener(this);
-        arcMenu = (ArcMenu) findViewById(R.id.arc_menu);
+        ArcMenu arcMenu = (ArcMenu) findViewById(R.id.arc_menu);
         arcMenu.setOnMenuItemClickListener((view, pos) -> {
 
             ShowToast.show(pos + "");
@@ -74,13 +67,9 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     private void initData() {
 
-        header = getLayoutInflater().inflate(R.layout.lv_more_info_footer, null);
-        btn = (Button) header.findViewById(R.id.bt_load);
-        btn.setVisibility(View.GONE);
-        pg = (ProgressBar) header.findViewById(R.id.pg);
-        pg.setVisibility(View.VISIBLE);
+        footer = getLayoutInflater().inflate(R.layout.layout_load_more, null);
 
-        listView.addHeaderView(header);
+        listView.addHeaderView(footer);
         listView.setOnScrollListener(this);
         showAllData();
     }
@@ -94,7 +83,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         allRecorders = dbHelper.getCount();
         // 如果数据少于20，则不需要出现加载提示
         if (allRecorders < lineSize) {
-            listView.removeHeaderView(header);
+            listView.removeHeaderView(footer);
         }
         // 计算总页数
         pageSize = (allRecorders + lineSize - 1) / lineSize;
@@ -142,7 +131,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         mAdapter.setCount(mAdapter.getCount() + addItems.size());
         //判断，如果到了最末尾则去掉进度圈
         if (allRecorders == mAdapter.getCount()) {
-            listView.removeHeaderView(header);
+            listView.removeHeaderView(footer);
         }
         mDataArrays.addAll(0, addItems);
 
