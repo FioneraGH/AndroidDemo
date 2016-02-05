@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.fionera.demo.R;
+import com.fionera.demo.activity.DataBindingActivity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
@@ -17,7 +18,8 @@ import org.xutils.view.annotation.ViewInject;
 /**
  * Created by fionera on 15-10-3.
  */
-public class ExtrasFragment extends BaseFragment {
+public class ExtrasFragment
+        extends BaseFragment {
 
 
     @ViewInject(R.id.button1)
@@ -33,7 +35,7 @@ public class ExtrasFragment extends BaseFragment {
     @ViewInject(R.id.button6)
     private Button recycle;
     @ViewInject(R.id.button7)
-    private Button clear;
+    private Button databind;
     @ViewInject(R.id.button9)
     private Button volley;
 
@@ -61,9 +63,8 @@ public class ExtrasFragment extends BaseFragment {
         // 设定RecyclerView测试跳转
         recycle.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RecycleActivity.class)));
-        clear.setOnClickListener(v -> {
-
-        });
+        databind.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, DataBindingActivity.class)));
         // 设定Volley测试跳转
         volley.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));

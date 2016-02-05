@@ -12,6 +12,9 @@ android {
         versionCode 3
         versionName "1.2"
     }
+    dataBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled true
