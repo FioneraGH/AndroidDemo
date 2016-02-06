@@ -3,7 +3,8 @@ package com.fionera.demo.util;
 import org.xutils.common.Callback;
 import org.xutils.ex.HttpException;
 
-public abstract class HttpRequestCallBack<T> implements Callback.CommonCallback<T> {
+public abstract class HttpRequestCallBack<T>
+        implements Callback.CommonCallback<T> {
 
     public abstract void onSucceed(String json);
 
@@ -14,15 +15,12 @@ public abstract class HttpRequestCallBack<T> implements Callback.CommonCallback<
     @Override
     public void onSuccess(T result) {
         LogUtils.d("接口 RESULT " + result.toString());
-        if (HttpResponseUtils.hasGetData(result.toString())) {
-            this.onSucceed(result.toString());
-        } else {
-            if (result.toString().contains("<html>")) {
-                this.onFailed("网络未连接，请检查网络设置");
-            } else {
-                this.onFailed(HttpResponseUtils.getStatusMsg(result.toString()));
-            }
-        }
+//        if (HttpResponseUtils.hasGetData(result.toString())) {
+//            this.onSucceed(result.toString());
+//        } else {
+//            this.onFailed(HttpResponseUtils.getStatusMsg(result.toString()));
+//        }
+        this.onSucceed(result.toString());
     }
 
     @Override
@@ -40,5 +38,4 @@ public abstract class HttpRequestCallBack<T> implements Callback.CommonCallback<
     public void onFinished() {
 
     }
-
 }

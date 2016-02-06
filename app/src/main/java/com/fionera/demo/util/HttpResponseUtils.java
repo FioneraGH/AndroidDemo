@@ -5,14 +5,15 @@ import org.json.JSONObject;
 
 public class HttpResponseUtils {
 
-    /**
-     * 根据返回的JSON状态码判断请求
-     */
     public static boolean hasGetData(String result) {
         int statusCode;
         try {
             JSONObject object = new JSONObject(result);
-            statusCode = object.getInt("statusCode");
+            if (object.has("statusCode")) {
+                statusCode = object.getInt("statusCode");
+            } else {
+                statusCode = 404;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
             statusCode = 404;
@@ -25,13 +26,16 @@ public class HttpResponseUtils {
         try {
             if (result != null) {
                 JSONObject object = new JSONObject(result);
-                statusMsg = object.getString("statusMsg");
+                if (object.has("statusMsg")) {
+                    statusMsg = object.getString("statusMsg");
+                } else {
+                    statusMsg = "数据异常，服务器发生未知错误";
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
             statusMsg = "数据异常，服务器发生未知错误";
         }
-        System.out.println("--------------------");
         return statusMsg;
     }
 }

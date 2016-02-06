@@ -21,9 +21,8 @@ public class HttpUtils {
         String json = "";
         if (method.equals(HttpMethod.POST) && jsonObject != null) {
             try {
-                jsonObject.put("client", "android");
                 json = jsonObject.toString();
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
