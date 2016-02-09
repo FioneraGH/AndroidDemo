@@ -6,22 +6,4 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/iv_bitmap_util_preview"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="#cecece"/>
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/gif_banana"
-        android:background="#cecece"/>
-
-    <ImageView
-        android:id="@+id/iv_bitmap_util_gif"
-        android:layout_width="100dp"
-        android:layerType="hardware"
-        android:layout_height="100dp"
-        android:background="#cecece"/>
 </LinearLayout>

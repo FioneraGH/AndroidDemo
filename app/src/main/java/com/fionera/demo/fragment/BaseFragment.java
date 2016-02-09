@@ -17,7 +17,8 @@ import com.fionera.demo.view.TitleBar;
 import org.xutils.x;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment
+        extends Fragment {
 
     protected Context mContext;
     protected Activity mActivity;
@@ -31,15 +32,15 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         mLayoutMain = inflater.inflate(R.layout.layout_title_bar_content, container, false);
         mLayoutContent = (LinearLayout) mLayoutMain.findViewById(R.id.title_bar_content);
         mTitleBar = (TitleBar) mLayoutMain.findViewById(R.id.title_bar);
-        ViewCompat.setElevation(mTitleBar,5);
+        ViewCompat.setElevation(mTitleBar, 5);
         mContent = inflater.inflate(setLayoutResource(), null);
         mLayoutContent.addView(mContent, LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
+                               LinearLayout.LayoutParams.MATCH_PARENT);
         x.view().inject(this, mLayoutMain);
         findViewInThisFunction(mLayoutMain);
         return mLayoutMain;

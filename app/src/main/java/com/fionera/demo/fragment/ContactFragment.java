@@ -38,6 +38,8 @@ public class ContactFragment
     @Override
     public void findViewInThisFunction(View rootView) {
 
+        setTitleBarText("人脉");
+
         contactBeanList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             ContactBean bean = new ContactBean();

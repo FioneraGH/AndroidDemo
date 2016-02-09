@@ -10,6 +10,7 @@ import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.RecycleActivity;
+import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.SplitPageActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
@@ -25,7 +26,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button1)
     private Button matrix;
     @ViewInject(R.id.button2)
-    private Button fresh;
+    private Button smart;
     @ViewInject(R.id.button3)
     private Button split;
     @ViewInject(R.id.button4)
@@ -55,6 +56,8 @@ public class ExtrasFragment
         // 设定分页加载跳转
         split.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, SplitPageActivity.class)));
+        smart.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class)));
         // 设定下拉加载跳转
         load.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));

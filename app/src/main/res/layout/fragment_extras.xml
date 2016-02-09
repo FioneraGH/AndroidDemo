@@ -20,6 +20,13 @@
             android:textSize="22sp"
             android:textStyle="bold"/>
 
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/gif_banana"
+            android:background="#cecece"/>
+
         <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
@@ -30,7 +37,7 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PullRefresh"/>
+            android:text="SmartTab"/>
 
         <Button
             android:id="@+id/button3"
@@ -72,11 +79,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
             android:text="xUtils3"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
 
     </LinearLayout>
 

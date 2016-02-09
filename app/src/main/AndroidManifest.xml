@@ -35,7 +35,7 @@
         </activity>
         <activity
             android:name=".activity.ChatActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".activity.MatrixActivity"/>
         <activity android:name=".activity.SplitPageActivity"/>
         <activity android:name=".activity.PullToLoadActivity"/>
@@ -43,12 +43,9 @@
             android:name=".activity.RecycleActivity"
             android:theme="@style/DividerTheme"/>
         <activity android:name=".activity.XUtils3Activity"/>
-        <activity android:name=".activity.FlowLayoutActivity"/>
         <activity
             android:name=".activity.SmartTabLayoutActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.DanmuActivity"/>
-        <activity android:name=".activity.PropertyAnimActivity"/>
 
         <service android:name=".service.WidgetService"/>
 

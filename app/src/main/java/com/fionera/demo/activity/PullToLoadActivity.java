@@ -19,13 +19,13 @@ import com.fionera.demo.util.DBHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PullToLoadActivity extends Activity implements AbsListView.OnScrollListener {
+public class PullToLoadActivity
+        extends Activity
+        implements AbsListView.OnScrollListener {
 
     private static final int ITEM_SIZE = 20;
 
     private ListView listView;
-    private Button btn;
-    private ProgressBar pg;
     private View header;
     private ArrayList<ChatMsgBean> items;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
@@ -73,7 +73,7 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
 
     @Override
     public void onScroll(AbsListView absView, int firstVisibleItem, int visibleItemCount,
-            int totalItemCount) {
+                         int totalItemCount) {
         firstItem = firstVisibleItem;
     }
 
@@ -83,14 +83,7 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
                 .OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
             currentPage++;
             // 增加数据
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    appendDate();
-                }
-
-            }, 2000);
+            handler.postDelayed(this::appendDate, 1000);
 
         }
     }
@@ -99,21 +92,21 @@ public class PullToLoadActivity extends Activity implements AbsListView.OnScroll
      * 增加数据
      */
     private void appendDate() {
-        ArrayList addItems = dbHelper.getSomeItems(currentPage, ITEM_SIZE);
+        ArrayList<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, ITEM_SIZE);
         baseAdapter.setCount(baseAdapter.getCount() + addItems.size());
         //判断，如果到了最末尾则去掉进度圈
         if (allRecorders == baseAdapter.getCount()) {
             listView.removeHeaderView(header);
         }
-//        Collections.reverse(addItems);
+        //        Collections.reverse(addItems);
         items.addAll(0, addItems);
 
         baseAdapter.notifyDataSetChanged();
         listView.setSelection(addItems.size());
-
     }
 
-    class TestAdapter extends BaseAdapter {
+    class TestAdapter
+            extends BaseAdapter {
         int count = ITEM_SIZE;
 
         public int getCount() {

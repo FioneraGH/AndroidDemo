@@ -14,10 +14,6 @@ import org.xutils.x;
  */
 public class BitmapUtilFragment extends BaseFragment {
 
-    @ViewInject(R.id.iv_bitmap_util_preview)
-    private ImageView ivBitmapUtilPreview;
-    @ViewInject(R.id.iv_bitmap_util_gif)
-    private ImageView ivBitmapUtilGif;
 
     @Override
     public int setLayoutResource() {
@@ -28,11 +24,5 @@ public class BitmapUtilFragment extends BaseFragment {
     public void findViewInThisFunction(View rootView) {
 
         setTitleBarText("内容");
-        x.image().bind(ivBitmapUtilPreview,
-                "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman" +
-                        "/img/logo/bd_logo1_31bdc765.png",
-                ImageOptions.DEFAULT);
-        x.image().bind(ivBitmapUtilGif, "http://media.giphy.com/media/8aLQDT8BXSj7y/giphy.gif",
-                new ImageOptions.Builder().setIgnoreGif(false).build());
     }
 }

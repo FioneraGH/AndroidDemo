@@ -1,88 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fionera.demo.view.SlidingMenu
-    android:id="@+id/sm_main"
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    app:rightPadding="150dp">
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main_page"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey1"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:id="@+id/ll_main_page"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#eeeeee"
         android:orientation="horizontal">
 
-        <include
-            android:id="@+id/left_menu"
-            layout="@layout/layout_left_menu"/>
-
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
+        <com.fionera.demo.view.ChangableTabView
+            android:id="@+id/ctv_one"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_recent"
+            app:ctab_size="12sp"
+            app:ctab_text="One"/>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_main_page"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+        <com.fionera.demo.view.ChangableTabView
+            android:id="@+id/ctv_two"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_contact"
+            app:ctab_size="12sp"
+            app:ctab_text="Two"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey1"/>
+        <com.fionera.demo.view.ChangableTabView
+            android:id="@+id/ctv_three"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_comment"
+            app:ctab_size="12sp"
+            app:ctab_text="Three"/>
 
-            <LinearLayout
-                android:id="@+id/ll_main_page"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="#eeeeee"
-                android:orientation="horizontal">
+        <com.fionera.demo.view.ChangableTabView
+            android:id="@+id/ctv_four"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:ctab_color="@color/blue2"
+            app:ctab_icon="@drawable/ic_tab_mine"
+            app:ctab_size="12sp"
+            app:ctab_text="Four"/>
 
-                <com.fionera.demo.view.ChangableTabView
-                    android:id="@+id/ctv_one"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:ctab_color="@color/blue2"
-                    app:ctab_icon="@drawable/ic_tab_recent"
-                    app:ctab_size="12sp"
-                    app:ctab_text="One"/>
-
-                <com.fionera.demo.view.ChangableTabView
-                    android:id="@+id/ctv_two"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:ctab_color="@color/blue2"
-                    app:ctab_icon="@drawable/ic_tab_contact"
-                    app:ctab_size="12sp"
-                    app:ctab_text="Two"/>
-
-                <com.fionera.demo.view.ChangableTabView
-                    android:id="@+id/ctv_three"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:ctab_color="@color/blue2"
-                    app:ctab_icon="@drawable/ic_tab_comment"
-                    app:ctab_size="12sp"
-                    app:ctab_text="Three"/>
-
-                <com.fionera.demo.view.ChangableTabView
-                    android:id="@+id/ctv_four"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:ctab_color="@color/blue2"
-                    app:ctab_icon="@drawable/ic_tab_mine"
-                    app:ctab_size="12sp"
-                    app:ctab_text="Four"/>
-
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
-</com.fionera.demo.view.SlidingMenu>
+</LinearLayout>

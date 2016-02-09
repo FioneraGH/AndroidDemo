@@ -17,12 +17,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 
-import com.fionera.demo.activity.ChatActivity;
-import com.fionera.demo.activity.DanmuActivity;
-import com.fionera.demo.activity.FlowLayoutActivity;
-import com.fionera.demo.activity.PropertyAnimActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.fragment.BitmapUtilFragment;
 import com.fionera.demo.fragment.ContactFragment;
@@ -45,7 +40,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" + "" +
             ".CLICK_TO_CHANGE_FROM_OTHER";
 
-    private Context mContext = this;
     private WindowManager wm;
     private WindowManager.LayoutParams wmLayoutParams;
     private FloatView floatView;
@@ -56,26 +50,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private List<ChangableTabView> tabs = new ArrayList<>();
 
     private ClickReceiver clickReceiver;
-
-
-    @Event({R.id.rl_flow_layout, R.id.rl_tab_layout, R.id.rl_property_anim, R.id.rl_dan_mu})
-    private void onMenuClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.rl_flow_layout:
-                startActivity(new Intent(mContext, FlowLayoutActivity.class));
-                break;
-            case R.id.rl_tab_layout:
-                startActivity(new Intent(mContext, SmartTabLayoutActivity.class));
-                break;
-            case R.id.rl_property_anim:
-                startActivity(new Intent(mContext, PropertyAnimActivity.class));
-                break;
-            case R.id.rl_dan_mu:
-                startActivity(new Intent(mContext, DanmuActivity.class));
-                break;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
