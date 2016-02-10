@@ -21,7 +21,7 @@ import com.fionera.demo.R;
  */
 public class ChangableTabView extends View {
 
-    public static final int TEXT_BASE_COLOR = 0xffffff;
+    public static final int TEXT_BASE_COLOR = 0x666666;
     private Bitmap bitmap;
     private int color = 0x0066ff;
     private String text = "";

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +19,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.fragment.BitmapUtilFragment;
@@ -34,7 +38,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity
+        extends FragmentActivity
+        implements View.OnClickListener {
 
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
     public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" + "" +
@@ -45,6 +51,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private FloatView floatView;
 
     private ViewPager viewPager;
+    private PagerTabStrip pagerTabStrip;
     private List<Fragment> views = new ArrayList<>();
 
     private List<ChangableTabView> tabs = new ArrayList<>();
@@ -61,6 +68,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         x.view().inject(this);
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
+        pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
+
+        pagerTabStrip
+                .setTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.blue2));
 
         HomePageFragment homePageFragment = new HomePageFragment();
         views.add(homePageFragment);
@@ -83,6 +94,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
         }
 
+        initViewPager();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(CLICK_TO_CHANGE);
+        intentFilter.addAction(CLICK_TO_CHANGE_FROM_OTHER);
+        clickReceiver = new ClickReceiver();
+        registerReceiver(clickReceiver, intentFilter);
+
+    }
+
+    private int currIndex = 0;
+
+    private void initViewPager() {
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -93,12 +117,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public int getCount() {
                 return views.size();
             }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                String title_text = "测试 ";
+                for (int i = 0; i < position; i++) {
+                    title_text += " " + Math.pow(position, position);
+                }
+                return title_text;
+            }
         });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset,
-                    int positionOffsetPixels) {
+                                       int positionOffsetPixels) {
                 if (positionOffset > 0) {
 
                     tabs.get(position).setTabAlpha(1 - positionOffset);
@@ -109,6 +142,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onPageSelected(int position) {
 
+                Animation animation = new TranslateAnimation(100 * currIndex, 100 * position, 0, 0);
+                currIndex = position;
+                animation.setFillAfter(true);
+                animation.setDuration(300);
             }
 
             @Override
@@ -116,13 +153,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             }
         });
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(CLICK_TO_CHANGE);
-        intentFilter.addAction(CLICK_TO_CHANGE_FROM_OTHER);
-        clickReceiver = new ClickReceiver();
-        registerReceiver(clickReceiver, intentFilter);
-
     }
 
     private void createFloatView() {
@@ -201,8 +231,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
                 try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",
-                            Boolean.TYPE);
+                    Method m = menu.getClass()
+                            .getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
                     m.setAccessible(true);
                     m.invoke(menu, true);
                 } catch (Exception e) {
@@ -240,7 +270,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    private class ClickReceiver extends BroadcastReceiver {
+    private class ClickReceiver
+            extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
