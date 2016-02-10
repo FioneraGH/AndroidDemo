@@ -16,11 +16,11 @@ public class FlowLayout extends ViewGroup {
 
 
     public FlowLayout(Context context) {
-        this(context, null);
+        super(context);
     }
 
     public FlowLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
     }
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyle) {

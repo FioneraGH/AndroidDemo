@@ -13,7 +13,8 @@ import android.view.SurfaceView;
 /**
  * Created by fionera on 15-11-26.
  */
-public class ScrollText extends SurfaceView {
+public class ScrollText
+        extends SurfaceView {
 
     private static final String LOG_TAG = "ScrollTextView";
     private SurfaceHolder surfaceHolder;
@@ -31,19 +32,20 @@ public class ScrollText extends SurfaceView {
     private Paint backgroundPaint;
     private TextPaint textPaint;
 
-    public enum ScrollMode {LEFT_TO_RIGHT, RIGHT_TO_LEFT}
+    public enum ScrollMode {
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT
+    }
 
     private ScrollMode scrollMode = ScrollMode.LEFT_TO_RIGHT;
     private float scrollSpeed = 1;
 
     public ScrollText(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public ScrollText(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public ScrollText(Context context, AttributeSet attrs, int defStyle) {
@@ -119,7 +121,8 @@ public class ScrollText extends SurfaceView {
     }
 
     // 实现SurfaceHolder.Callback接口，用于监视surface状态
-    private class MySurfaceCallback implements SurfaceHolder.Callback {
+    private class MySurfaceCallback
+            implements SurfaceHolder.Callback {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             drawWorker = new DrawWorker();
@@ -139,7 +142,8 @@ public class ScrollText extends SurfaceView {
     }
 
     // 绘制工人
-    private class DrawWorker extends Thread {
+    private class DrawWorker
+            extends Thread {
 
         float x = 0;
         boolean canRun;
@@ -208,7 +212,9 @@ public class ScrollText extends SurfaceView {
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
 
-                if (!canRun) break;
+                if (!canRun) {
+                    break;
+                }
                 try {
                     sleep(2);
                 } catch (InterruptedException e) {

@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.fionera.demo.R;
 import com.fionera.demo.activity.DataBindingActivity;
+import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
@@ -37,6 +38,8 @@ public class ExtrasFragment
     private Button recycle;
     @ViewInject(R.id.button7)
     private Button databind;
+    @ViewInject(R.id.button8)
+    private Button g2048;
     @ViewInject(R.id.button9)
     private Button volley;
 
@@ -68,6 +71,8 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, RecycleActivity.class)));
         databind.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DataBindingActivity.class)));
+        g2048.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, G2048Activity.class)));
         // 设定Volley测试跳转
         volley.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));

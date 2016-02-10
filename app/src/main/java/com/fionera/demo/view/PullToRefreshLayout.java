@@ -180,14 +180,12 @@ public class PullToRefreshLayout extends RelativeLayout
 
 	public PullToRefreshLayout(Context context)
 	{
-		super(context);
-		initView(context);
+		this(context,null);
 	}
 
 	public PullToRefreshLayout(Context context, AttributeSet attrs)
 	{
-		super(context, attrs);
-		initView(context);
+		this(context, attrs,0);
 	}
 
 	public PullToRefreshLayout(Context context, AttributeSet attrs, int defStyle)

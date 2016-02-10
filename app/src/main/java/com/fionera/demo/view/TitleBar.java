@@ -29,7 +29,7 @@ public class TitleBar
     public static final int TITLE_ID = R.id.title_bar_title;
 
     public TitleBar(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public TitleBar(Context context, AttributeSet attrs) {

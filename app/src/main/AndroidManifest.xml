@@ -62,6 +62,8 @@
         <activity android:name=".activity.NotificationActivity"/>
         <activity android:name=".activity.DataBindingActivity">
         </activity>
+        <activity android:name=".activity.G2048Activity">
+        </activity>
     </application>
 
 </manifest>
