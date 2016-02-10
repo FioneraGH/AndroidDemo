@@ -1,22 +1,17 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/blue2</item>
+        <item name="colorPrimary">@color/grey2</item>
+        <item name="colorPrimaryDark">@color/grey1</item>
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
 
     </style>
 
-    <style name="DividerTheme" parent="android:Theme.Holo.Light">
-        <!-- Customize your theme here. -->
+    <style name="DividerTheme" parent="AppTheme">
         <item name="android:listDivider">@drawable/rv_diliver</item>
-    </style>
-
-    <style name="ActionBarTheme" parent="AppTheme">
-        <!--修改三点菜单图标-->
-        <!--<item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>-->
-    </style>
-
-    <style name="OverFlowButton">
-        <item name="android:src">@android:drawable/ic_menu_more</item>
     </style>
 
 </resources>

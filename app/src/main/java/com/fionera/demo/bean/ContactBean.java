@@ -2,8 +2,6 @@ package com.fionera.demo.bean;
 
 import android.databinding.ObservableField;
 
-import kotlin.properties.ObservableProperty;
-
 /**
  * Created by fionera on 16-2-6.
  */

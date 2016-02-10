@@ -246,7 +246,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
             Log.d("MainActivity", intent.getAction());
             if (intent.getAction().equals(CLICK_TO_CHANGE)) {
-
                 viewPager.setCurrentItem(intent.getIntExtra("which_click", 0), false);
             } else if (intent.getAction().equals(CLICK_TO_CHANGE_FROM_OTHER)) {
 

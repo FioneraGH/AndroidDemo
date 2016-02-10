@@ -11,14 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.DisplayUtils;
 
 
 /**
  * Created by victor on 15-9-22.
  */
-public class TitleBar extends LinearLayout {
+public class TitleBar
+        extends LinearLayout {
 
-    private Context mContext;
     public LinearLayout mLayoutLeft, mLayoutRight;
     private ImageView mIvLeft, mIvRight;
     private TextView mTvLeft, mTvRight, mTvTitle;
@@ -33,12 +34,11 @@ public class TitleBar extends LinearLayout {
 
     public TitleBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
         if (isInEditMode()) {
             return;
         }
         View titleBar = LayoutInflater.from(context).inflate(R.layout.layout_title_bar, null);
-        addView(titleBar, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        addView(titleBar, LayoutParams.MATCH_PARENT, DisplayUtils.dp2px(50));
 
         mLayoutLeft = (LinearLayout) titleBar.findViewById(R.id.title_bar_left);
         mLayoutRight = (LinearLayout) titleBar.findViewById(R.id.title_bar_right);
@@ -47,14 +47,13 @@ public class TitleBar extends LinearLayout {
         mTvLeft = (TextView) titleBar.findViewById(R.id.title_bar_left_text);
         mTvRight = (TextView) titleBar.findViewById(R.id.title_bar_right_text);
         mTvTitle = (TextView) titleBar.findViewById(R.id.title_bar_title);
-
     }
 
     public void setTitleBarText(String title) {
         mTvTitle.setText(title);
     }
 
-    public void setTitleBarColor(int id) {
+    public void setTitleBarTextColor(int id) {
         mTvTitle.setTextColor(id);
     }
 
@@ -71,11 +70,11 @@ public class TitleBar extends LinearLayout {
     }
 
     public void setLeftTextColor(int colorId) {
-        mTvLeft.setTextColor(ContextCompat.getColor(mContext, colorId));
+        mTvLeft.setTextColor(ContextCompat.getColor(getContext(), colorId));
     }
 
     public void setRightTextColor(int colorId) {
-        mTvRight.setTextColor(ContextCompat.getColor(mContext, colorId));
+        mTvRight.setTextColor(ContextCompat.getColor(getContext(), colorId));
     }
 
     public void setLeftTextSize(float size) {
@@ -140,8 +139,8 @@ public class TitleBar extends LinearLayout {
             mTvLeft.setCompoundDrawablesWithIntrinsicBounds(
                     ContextCompat.getDrawable(getContext(), iconId), null, null, null);
         } else {
-            mTvLeft.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    ContextCompat.getDrawable(getContext(), iconId), null);
+            mTvLeft.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat
+                    .getDrawable(getContext(), iconId), null);
         }
         mTvRight.setCompoundDrawablePadding(10);
     }
@@ -154,8 +153,8 @@ public class TitleBar extends LinearLayout {
             mTvRight.setCompoundDrawablesWithIntrinsicBounds(
                     ContextCompat.getDrawable(getContext(), iconId), null, null, null);
         } else {
-            mTvRight.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    ContextCompat.getDrawable(getContext(), iconId), null);
+            mTvRight.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat
+                    .getDrawable(getContext(), iconId), null);
         }
         mTvRight.setCompoundDrawablePadding(10);
     }

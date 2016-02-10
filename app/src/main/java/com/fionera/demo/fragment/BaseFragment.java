@@ -25,22 +25,22 @@ public abstract class BaseFragment
 
     protected final int TITLE_LEFT_ID = TitleBar.LEFT_ID;
     protected final int TITLE_RIGHT_ID = TitleBar.RIGHT_ID;
-    private View mLayoutMain;
+    protected final int TITLE_TEXT_ID = TitleBar.TITLE_ID;
+    private LinearLayout mLayoutMain;
     private TitleBar mTitleBar;
-    private LinearLayout mLayoutContent;
     private View mContent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mLayoutMain = inflater.inflate(R.layout.layout_title_bar_content, container, false);
-        mLayoutContent = (LinearLayout) mLayoutMain.findViewById(R.id.title_bar_content);
+        mLayoutMain = (LinearLayout) inflater
+                .inflate(R.layout.layout_title_bar_content, container, false);
         mTitleBar = (TitleBar) mLayoutMain.findViewById(R.id.title_bar);
         ViewCompat.setElevation(mTitleBar, 5);
-        mContent = inflater.inflate(setLayoutResource(), null);
-        mLayoutContent.addView(mContent, LinearLayout.LayoutParams.MATCH_PARENT,
-                               LinearLayout.LayoutParams.MATCH_PARENT);
+        mContent = inflater.inflate(setLayoutResource(), mLayoutMain, false);
+        mLayoutMain.addView(mContent, LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT);
         x.view().inject(this, mLayoutMain);
         findViewInThisFunction(mLayoutMain);
         return mLayoutMain;
@@ -58,8 +58,8 @@ public abstract class BaseFragment
         mTitleBar.setTitleBarText(title);
     }
 
-    public void setTitleBarColor(int id) {
-        mTitleBar.setTitleBarColor(ContextCompat.getColor(mContext, id));
+    public void setTitleBarTextColor(int id) {
+        mTitleBar.setTitleBarTextColor(ContextCompat.getColor(mContext, id));
     }
 
     public void setTitleBarLeft(int drawable) {
@@ -109,9 +109,9 @@ public abstract class BaseFragment
     @Override
     public void onAttach(Context context) {
 
-        setHasOptionsMenu(true);
+        super.onAttach(context);
+        setHasOptionsMenu(false);
         mContext = context;
         mActivity = (Activity) context;
-        super.onAttach(context);
     }
 }
