@@ -26,7 +26,7 @@
             android:id="@+id/ll_main_page"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:background="#eeeeee"
+            android:background="@color/grey1"
             android:orientation="horizontal">
 
             <com.fionera.demo.view.ChangableTabView

@@ -21,6 +21,7 @@ import com.fionera.demo.R;
  */
 public class ChangableTabView extends View {
 
+    public static final int TEXT_BASE_COLOR = 0xffffff;
     private Bitmap bitmap;
     private int color = 0x0066ff;
     private String text = "";
@@ -47,7 +48,10 @@ public class ChangableTabView extends View {
             int a = attr.getIndex(i);
             switch (a) {
                 case R.styleable.ChangableTabView_ctab_icon:
-                    bitmap = ((BitmapDrawable) attr.getDrawable(a)).getBitmap();
+                    BitmapDrawable bd = ((BitmapDrawable) attr.getDrawable(a));
+                    if(bd != null){
+                        bitmap = bd.getBitmap();
+                    }
                     break;
                 case R.styleable.ChangableTabView_ctab_color:
                     color = attr.getColor(a, 0x0066ff);
@@ -70,7 +74,7 @@ public class ChangableTabView extends View {
         textRect = new Rect();
         textPaint = new Paint();
         textPaint.setTextSize(size);
-        textPaint.setColor(0x666666);
+        textPaint.setColor(TEXT_BASE_COLOR);
         textPaint.getTextBounds(text, 0, text.length(), textRect);
 
     }
@@ -154,7 +158,7 @@ public class ChangableTabView extends View {
 
     private void drawSourceText(Canvas canvas, int alpha) {
 
-        textPaint.setColor(0x666666);
+        textPaint.setColor(TEXT_BASE_COLOR);
         textPaint.setAlpha(255 - alpha);
         textPaint.setAntiAlias(true);
         canvas.drawText(text, getMeasuredWidth() / 2 - textRect.width() / 2,
