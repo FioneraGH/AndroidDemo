@@ -16,7 +16,6 @@ import com.fionera.demo.view.TitleBar;
 
 import org.xutils.x;
 
-
 public abstract class BaseFragment
         extends Fragment {
 
@@ -26,24 +25,23 @@ public abstract class BaseFragment
     protected final int TITLE_LEFT_ID = TitleBar.LEFT_ID;
     protected final int TITLE_RIGHT_ID = TitleBar.RIGHT_ID;
     protected final int TITLE_TEXT_ID = TitleBar.TITLE_ID;
-    private LinearLayout mLayoutMain;
-    private TitleBar mTitleBar;
-    private View mContent;
+
+    private TitleBar titleBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mLayoutMain = (LinearLayout) inflater
+        LinearLayout rootView = (LinearLayout) inflater
                 .inflate(R.layout.layout_title_bar_content, container, false);
-        mTitleBar = (TitleBar) mLayoutMain.findViewById(R.id.title_bar);
-        ViewCompat.setElevation(mTitleBar, 5);
-        mContent = inflater.inflate(setLayoutResource(), mLayoutMain, false);
-        mLayoutMain.addView(mContent, LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.MATCH_PARENT);
-        x.view().inject(this, mLayoutMain);
-        findViewInThisFunction(mLayoutMain);
-        return mLayoutMain;
+        View contentView = inflater.inflate(setLayoutResource(), rootView, false);
+        rootView.addView(contentView, LinearLayout.LayoutParams.MATCH_PARENT,
+                         LinearLayout.LayoutParams.MATCH_PARENT);
+        titleBar = (TitleBar) rootView.getChildAt(0);
+        ViewCompat.setElevation(titleBar, 5);
+        x.view().inject(this, rootView);
+        findViewInThisFunction(rootView);
+        return rootView;
     }
 
     public abstract int setLayoutResource();
@@ -51,59 +49,59 @@ public abstract class BaseFragment
     public abstract void findViewInThisFunction(View rootView);
 
     public void setTitleBarVisibility(int visibility) {
-        mTitleBar.setVisibility(visibility);
+        titleBar.setVisibility(visibility);
     }
 
     public void setTitleBarText(String title) {
-        mTitleBar.setTitleBarText(title);
+        titleBar.setTitleBarText(title);
     }
 
     public void setTitleBarTextColor(int id) {
-        mTitleBar.setTitleBarTextColor(ContextCompat.getColor(mContext, id));
+        titleBar.setTitleBarTextColor(ContextCompat.getColor(mContext, id));
     }
 
     public void setTitleBarLeft(int drawable) {
-        mTitleBar.setLeftDrawable(drawable);
+        titleBar.setLeftDrawable(drawable);
     }
 
     public void setTitleBarRight(int drawable) {
-        mTitleBar.setRightDrawable(drawable);
+        titleBar.setRightDrawable(drawable);
     }
 
     public void setTitleBarLeft(String leftText) {
-        mTitleBar.setLeftText(leftText);
+        titleBar.setLeftText(leftText);
     }
 
     public void setTitleBarRight(String rightText) {
-        mTitleBar.setRightText(rightText);
+        titleBar.setRightText(rightText);
     }
 
     public void setTitleBarLeftVisibility(int visibility) {
-        mTitleBar.setLeftVisibility(visibility);
+        titleBar.setLeftVisibility(visibility);
     }
 
     public void setTitleBarRight(String rightText, int iconId, boolean iconAtLeft) {
-        mTitleBar.setRightTextAndIcon(rightText, iconId, iconAtLeft);
+        titleBar.setRightTextAndIcon(rightText, iconId, iconAtLeft);
     }
 
     public void setTitleBarLeft(String leftText, int iconId, boolean iconAtLeft) {
-        mTitleBar.setLeftTextAndIcon(leftText, iconId, iconAtLeft);
+        titleBar.setLeftTextAndIcon(leftText, iconId, iconAtLeft);
     }
 
     public void setTitleBarRightVisibility(int visibility) {
-        mTitleBar.setRightVisibility(visibility);
+        titleBar.setRightVisibility(visibility);
     }
 
     public void setTitleBarLeftClick(View.OnClickListener onLeftClickListener) {
-        mTitleBar.setTitleBarLeftClick(onLeftClickListener);
+        titleBar.setTitleBarLeftClick(onLeftClickListener);
     }
 
     public void setTitleBarRightClick(View.OnClickListener onRightClickListener) {
-        mTitleBar.setTitleBarRightClick(onRightClickListener);
+        titleBar.setTitleBarRightClick(onRightClickListener);
     }
 
     public void setTitleBarTitleClick(View.OnClickListener onTitleClickListener) {
-        mTitleBar.setTitleBarTitleClick(onTitleClickListener);
+        titleBar.setTitleBarTitleClick(onTitleClickListener);
     }
 
     @Override
