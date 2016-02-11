@@ -199,9 +199,9 @@ public class PullToRefreshLayout extends RelativeLayout
 		mContext = context;
 		timer = new MyTimer(updateHandler);
 		rotateAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
-				context, R.anim.pull_arrow_rotating_reverse);
+				context, R.anim.rotate_reverse_pull_arrow);
 		refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
-				context, R.anim.pull_arrow_rotating);
+				context, R.anim.rotate_pull_arrow);
 		// 添加匀速转动动画
 		LinearInterpolator lir = new LinearInterpolator();
 		rotateAnimation.setInterpolator(lir);

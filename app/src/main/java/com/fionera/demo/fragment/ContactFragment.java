@@ -2,6 +2,7 @@ package com.fionera.demo.fragment;
 
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class ContactFragment
     }
 
     @Override
-    public void findViewInThisFunction(View rootView) {
+    public void initViews(View rootView) {
 
         setTitleBarText("人脉");
 
@@ -52,8 +53,12 @@ public class ContactFragment
         recyclerView.setAdapter(contactsAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
         contactsAdapter.setRvItemTouchListener((v, pos) -> {
-            contactBeanList.get(pos).name.set(contactBeanList.get(pos).name.get() + " " + pos);
-            recyclerView.getAdapter().notifyDataSetChanged();
+            if (pos > 5) {
+                contactBeanList.get(pos).name.set(contactBeanList.get(pos).name.get() + " " + pos);
+                recyclerView.getAdapter().notifyDataSetChanged();
+            } else {
+                
+            }
         });
     }
 }

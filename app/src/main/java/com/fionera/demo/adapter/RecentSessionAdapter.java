@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import com.fionera.demo.R;
 import com.fionera.demo.util.RvItemTouchListener;
 
+import java.util.List;
+
 /**
  * Created by fionera on 16-1-12.
  */
 public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
+    private List<String> data;
 
     private RvItemTouchListener rvItemTouchListener;
 
@@ -22,8 +25,9 @@ public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.rvItemTouchListener = rvItemTouchListener;
     }
 
-    public RecentSessionAdapter(Context context) {
+    public RecentSessionAdapter(Context context,List<String> data) {
         this.context = context;
+        this.data = data;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return 5;
+        return data.size();
     }
 
     private class RecentViewHolder extends RecyclerView.ViewHolder {

@@ -110,11 +110,11 @@ public class TitleBar
         if (state) {
             mLayoutRight.setVisibility(View.VISIBLE);
             mLayoutRight.setAnimation(
-                    AnimationUtils.loadAnimation(getContext(), R.anim.anim_iv_top_visible));
+                    AnimationUtils.loadAnimation(getContext(), R.anim.set_title_ic_visible));
         } else {
             mLayoutRight.setVisibility(View.INVISIBLE);
             mLayoutRight.setAnimation(
-                    AnimationUtils.loadAnimation(getContext(), R.anim.anim_iv_top_invisible));
+                    AnimationUtils.loadAnimation(getContext(), R.anim.set_title_ic_invisible));
         }
     }
 

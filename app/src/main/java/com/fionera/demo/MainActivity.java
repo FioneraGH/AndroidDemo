@@ -153,6 +153,7 @@ public class MainActivity
 
             }
         });
+        viewPager.setOffscreenPageLimit(3);
     }
 
     private void createFloatView() {

@@ -21,7 +21,7 @@ public class BitmapUtilFragment extends BaseFragment {
     }
 
     @Override
-    public void findViewInThisFunction(View rootView) {
+    public void initViews(View rootView) {
 
         setTitleBarText("内容");
     }

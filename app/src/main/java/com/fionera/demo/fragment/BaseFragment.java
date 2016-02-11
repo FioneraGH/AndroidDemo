@@ -21,6 +21,7 @@ public abstract class BaseFragment
 
     protected Context mContext;
     protected Activity mActivity;
+    protected View rootView;
 
     protected final int TITLE_LEFT_ID = TitleBar.LEFT_ID;
     protected final int TITLE_RIGHT_ID = TitleBar.RIGHT_ID;
@@ -32,21 +33,22 @@ public abstract class BaseFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        LinearLayout rootView = (LinearLayout) inflater
-                .inflate(R.layout.layout_title_bar_content, container, false);
-        View contentView = inflater.inflate(setLayoutResource(), rootView, false);
-        rootView.addView(contentView, LinearLayout.LayoutParams.MATCH_PARENT,
-                         LinearLayout.LayoutParams.MATCH_PARENT);
-        titleBar = (TitleBar) rootView.getChildAt(0);
-        ViewCompat.setElevation(titleBar, 5);
-        x.view().inject(this, rootView);
-        findViewInThisFunction(rootView);
+        if(rootView == null) {
+            rootView = inflater.inflate(R.layout.layout_title_bar_content, container, false);
+            View contentView = inflater.inflate(setLayoutResource(), (ViewGroup) rootView, false);
+            ((LinearLayout) rootView).addView(contentView, LinearLayout.LayoutParams.MATCH_PARENT,
+                                              LinearLayout.LayoutParams.MATCH_PARENT);
+            titleBar = (TitleBar) ((LinearLayout) rootView).getChildAt(0);
+            ViewCompat.setElevation(titleBar, 5);
+            x.view().inject(this, rootView);
+            initViews(rootView);
+        }
         return rootView;
     }
 
     public abstract int setLayoutResource();
 
-    public abstract void findViewInThisFunction(View rootView);
+    public abstract void initViews(View rootView);
 
     public void setTitleBarVisibility(int visibility) {
         titleBar.setVisibility(visibility);
