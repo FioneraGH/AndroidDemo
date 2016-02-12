@@ -49,6 +49,16 @@ public class NumberContainer
      */
     private int mScore;
 
+    public interface OnScoreChangeListener {
+        void onChange(int score);
+    }
+
+    private OnScoreChangeListener onScoreChangeListener;
+
+    public void setOnScoreChangeListener(OnScoreChangeListener onScoreChangeListener) {
+        this.onScoreChangeListener = onScoreChangeListener;
+    }
+
     /**
      * 方向
      */
@@ -167,11 +177,9 @@ public class NumberContainer
 
     }
 
-    private int getIndexByAction(ACTION action, int i, int j)
-    {
+    private int getIndexByAction(ACTION action, int i, int j) {
         int index = -1;
-        switch (action)
-        {
+        switch (action) {
             case LEFT:
                 index = i * mColumn + j;
                 break;
@@ -204,10 +212,12 @@ public class NumberContainer
                 item1.setNumber(val);
 
                 /**
-                 * TODO Callback
                  * 合并总分
                  */
                 mScore += val;
+                if (onScoreChangeListener != null) {
+                    onScoreChangeListener.onChange(mScore);
+                }
 
                 for (int k = j + 1; k < row.size() - 1; k++) {
                     row.get(k).setNumber(row.get(k + 1).getNumber());
@@ -257,10 +267,8 @@ public class NumberContainer
 
                 int index = i * mColumn + j;
 
-                // 当前的Item
                 NumberItem item = numberItems[index];
 
-                // 右边
                 if ((index + 1) % mColumn != 0) {
                     LogUtils.d("RIGHT");
                     NumberItem itemRight = numberItems[index + 1];
@@ -268,7 +276,6 @@ public class NumberContainer
                         return false;
                     }
                 }
-                // 下边
                 if ((index + mColumn) < mColumn * mColumn) {
                     LogUtils.d("DOWN");
                     NumberItem itemBottom = numberItems[index + mColumn];
@@ -276,7 +283,6 @@ public class NumberContainer
                         return false;
                     }
                 }
-                // 左边
                 if (index % mColumn != 0) {
                     LogUtils.d("LEFT");
                     NumberItem itemLeft = numberItems[index - 1];
@@ -284,7 +290,6 @@ public class NumberContainer
                         return false;
                     }
                 }
-                // 上边
                 if (index + 1 > mColumn) {
                     LogUtils.d("UP");
                     NumberItem itemTop = numberItems[index - mColumn];
@@ -292,19 +297,16 @@ public class NumberContainer
                         return false;
                     }
                 }
-
             }
 
         }
+        onScoreChangeListener.onChange(-1);
         return true;
     }
 
-    private boolean isFull()
-    {
-        for (int i = 0; i < numberItems.length; i++)
-        {
-            if (numberItems[i].getNumber() == 0)
-            {
+    private boolean isFull() {
+        for (NumberItem numberItem : numberItems) {
+            if (numberItem.getNumber() == 0) {
                 return false;
             }
         }

@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btn_g2048_score"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="0分"
+        android:transitionName="testTrans"
+        tools:targetApi="lollipop"/>
+
     <com.fionera.demo.view.Game2048.NumberContainer
+        android:id="@+id/nc_g2048_game_board"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"

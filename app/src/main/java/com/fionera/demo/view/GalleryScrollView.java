@@ -34,6 +34,7 @@ public class GalleryScrollView
 
     private void init() {
         setHorizontalScrollBarEnabled(false);
+        setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
     @Override

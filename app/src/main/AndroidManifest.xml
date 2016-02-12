@@ -2,7 +2,6 @@
 <manifest package="com.fionera.demo"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.NFC"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -43,8 +42,7 @@
             android:theme="@style/DividerTheme"/>
         <activity android:name=".activity.XUtils3Activity"/>
         <activity
-            android:name=".activity.SmartTabLayoutActivity"
-            android:theme="@style/AppTheme"/>
+            android:name=".activity.SmartTabLayoutActivity"/>
 
         <service android:name=".service.WidgetService"/>
 
@@ -60,10 +58,8 @@
 
         <activity android:name=".activity.CaptureActivity"/>
         <activity android:name=".activity.NotificationActivity"/>
-        <activity android:name=".activity.DataBindingActivity">
-        </activity>
-        <activity android:name=".activity.G2048Activity">
-        </activity>
+        <activity android:name=".activity.DataBindingActivity"/>
+        <activity android:name=".activity.G2048Activity"/>
 
     </application>
 

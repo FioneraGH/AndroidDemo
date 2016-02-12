@@ -1,6 +1,8 @@
 package com.fionera.demo.fragment;
 
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
@@ -79,8 +81,12 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, RecycleActivity.class)));
         databind.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DataBindingActivity.class)));
-        g2048.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, G2048Activity.class)));
+        g2048.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), G2048Activity.class);
+            ActivityOptionsCompat options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(mActivity, g2048, "testTrans");
+            ActivityCompat.startActivity(mActivity, intent, options.toBundle());
+        });
         // 设定Volley测试跳转
         volley.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));

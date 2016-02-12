@@ -3,27 +3,38 @@ package com.fionera.demo.activity;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
+import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.util.DisplayUtils;
+import com.fionera.demo.view.Game2048.NumberContainer;
+
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 public class G2048Activity
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements NumberContainer.OnScoreChangeListener {
 
+    @ViewInject(R.id.btn_g2048_score)
+    private Button button;
+    @ViewInject(R.id.ll_image_container)
     private LinearLayout linearLayout;
+    @ViewInject(R.id.nc_g2048_game_board)
+    private NumberContainer numberContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_g2048);
+        x.view().inject(this);
 
-        linearLayout = (LinearLayout) findViewById(R.id.ll_image_container);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DisplayUtils.dp2px(240),
-                                                                         DisplayUtils.dp2px(200));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                DemoApplication.screenWidth - 2 * DisplayUtils.dp2px(60), DisplayUtils.dp2px(200));
 
         ImageView imageView1 = new ImageView(this);
         imageView1.setImageResource(R.drawable.ic_chat_head);
@@ -56,5 +67,16 @@ public class G2048Activity
         imageView5.setScaleType(ScaleType.CENTER);
         imageView5.setBackgroundColor(Color.GREEN);
         linearLayout.addView(imageView5, params);
+
+        numberContainer.setOnScoreChangeListener(this);
+    }
+
+    @Override
+    public void onChange(int score) {
+        if (-1 == score) {
+            button.setText("游戏结束");
+        } else {
+            button.setText(score + "分");
+        }
     }
 }
