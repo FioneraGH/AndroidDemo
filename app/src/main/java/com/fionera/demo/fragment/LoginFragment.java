@@ -1,12 +1,12 @@
 package com.fionera.demo.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 import com.fionera.demo.R;
 
@@ -19,8 +19,10 @@ public class LoginFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        view.findViewById(R.id.email_sign_in_button)
-                .setOnClickListener(v -> mListener.onFragmentInteraction("登录成功"));
+        view.findViewById(R.id.email_sign_in_button).setOnClickListener(v -> mListener
+                .onFragmentInteraction(("hello").equals(((AutoCompleteTextView) view
+                        .findViewById(R.id.actv_login_email)).getText()
+                                                                .toString()) ? "登录成功" : "登陆失败"));
         return view;
     }
 

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content">
 
             <AutoCompleteTextView
-                android:id="@+id/email"
+                android:id="@+id/actv_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入邮箱"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入密码"
