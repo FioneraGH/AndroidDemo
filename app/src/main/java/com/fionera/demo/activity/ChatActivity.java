@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -17,13 +18,15 @@ import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DBHelper;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ArcMenu;
+import com.fionera.demo.view.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ChatActivity extends Activity implements OnClickListener, AbsListView
-        .OnScrollListener {
+public class ChatActivity
+        extends Activity
+        implements OnClickListener, AbsListView.OnScrollListener {
 
     private Context mContext = this;
 
@@ -49,6 +52,11 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
         initData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper.CloseDb();
+    }
 
     private void initView() {
 
@@ -109,7 +117,7 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
     @Override
     public void onScroll(AbsListView absView, int firstVisibleItem, int visibleItemCount,
-            int totalItemCount) {
+                         int totalItemCount) {
         firstItem = firstVisibleItem;
     }
 
@@ -127,9 +135,9 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
      */
     private void appendDate() {
 
-        ArrayList addItems = dbHelper.getSomeItems(currentPage, lineSize);
+        ArrayList<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, lineSize);
         mAdapter.setCount(mAdapter.getCount() + addItems.size());
-        //判断，如果到了最末尾则去掉进度圈
+
         if (allRecorders == mAdapter.getCount()) {
             listView.removeHeaderView(footer);
         }
@@ -175,8 +183,8 @@ public class ChatActivity extends Activity implements OnClickListener, AbsListVi
 
         Calendar c = Calendar.getInstance();
         String year = String.valueOf(c.get(Calendar.YEAR));
-        String month = String.valueOf(c.get(Calendar.MONTH));
-        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + 1);
+        String month = String.valueOf(c.get(Calendar.MONTH) + 1);
+        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
         String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
         String mins = String.valueOf(c.get(Calendar.MINUTE));
         return (year + "-" + month + "-" + day + " " + hour + ":" + mins);

@@ -21,12 +21,9 @@ import com.fionera.demo.R;
  */
 public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
-
     private enum Position {
         LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
     }
-
-    ;
 
     private int pos;
     private Position position = Position.RIGHT_BOTTOM;

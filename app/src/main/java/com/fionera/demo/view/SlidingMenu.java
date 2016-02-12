@@ -16,7 +16,8 @@ import com.fionera.demo.util.LogUtils;
 /**
  * Created by fionera on 15-8-14.
  */
-public class SlidingMenu extends HorizontalScrollView {
+public class SlidingMenu
+        extends HorizontalScrollView {
 
     private ViewGroup mMenu;
     private ViewGroup mContent;
@@ -42,17 +43,17 @@ public class SlidingMenu extends HorizontalScrollView {
         /**
          * 获取自定义参数
          */
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SlidingMenu,
-                defStyle, 0);
+        TypedArray a = context.getTheme()
+                .obtainStyledAttributes(attrs, R.styleable.SlidingMenu, defStyle, 0);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
 
             switch (attr) {
                 case R.styleable.SlidingMenu_rightPadding:
-                    mMenuRightPadding = a.getDimensionPixelSize(attr,
-                            (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
-                                    context.getResources().getDisplayMetrics()));
+                    mMenuRightPadding = a.getDimensionPixelSize(attr, (int) TypedValue
+                            .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
+                                            context.getResources().getDisplayMetrics()));
                     break;
             }
         }

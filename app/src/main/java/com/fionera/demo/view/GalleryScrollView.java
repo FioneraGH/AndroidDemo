@@ -53,7 +53,7 @@ public class GalleryScrollView
                     if (0 != i) {
                         pointList.add(firstChild.getChildAt(i).getLeft() - firstChild.getChildAt(i)
                                 .getWidth() / 4);
-                    }else{
+                    } else {
                         pointList.add(firstChild.getChildAt(i).getLeft());
                     }
                 }

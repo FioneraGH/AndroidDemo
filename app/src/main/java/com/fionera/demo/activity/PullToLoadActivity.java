@@ -50,6 +50,12 @@ public class PullToLoadActivity
         showAllData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper.close();
+    }
+
     /**
      * 读取显示数据
      */
