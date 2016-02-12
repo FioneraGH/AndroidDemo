@@ -8,44 +8,38 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.SwipeDismissBehavior;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.ShowToast;
 
-public class MatrixActivity extends Activity {
-
-    private ImageView imageView1;
-    private ImageView imageView2;
-    private ImageView imageView3;
-    private ImageView imageView4;
-    private ImageView imageView5;
+public class MatrixActivity
+        extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix);
 
-        imageView1 = (ImageView) findViewById(R.id.ivTest1);
-        imageView2 = (ImageView) findViewById(R.id.ivTest2);
-        imageView3 = (ImageView) findViewById(R.id.ivTest3);
-        imageView4 = (ImageView) findViewById(R.id.ivTest4);
-        imageView5 = (ImageView) findViewById(R.id.ivTest5);
+        ImageView imageView1 = (ImageView) findViewById(R.id.ivTest1);
+        ImageView imageView2 = (ImageView) findViewById(R.id.ivTest2);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         imageView1.setImageBitmap(bitmap);
 
-        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
+        Bitmap newBitmap = Bitmap
+                .createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
         Canvas canvas = new Canvas(newBitmap);
         Paint paint = new Paint(Color.BLACK);
         // 设置变换抗锯齿
         paint.setAntiAlias(true);
         Matrix matrix = new Matrix();
         // 通过矩阵设置图形变换
-        matrix.setValues(new float[]{
-                0.5f, 0, 0,
-                0, 0.8f, 0,
-                0, 0, 1
-        });
+        matrix.setValues(new float[]{0.5f, 0, 0, 0, 0.8f, 0, 0, 0, 1});
         // 设置旋转角度
         matrix.setRotate(30);
         // 设置平移
@@ -55,5 +49,17 @@ public class MatrixActivity extends Activity {
 
         imageView2.setImageBitmap(newBitmap);
 
+        final SwipeDismissBehavior<ImageView> swipe = new SwipeDismissBehavior<>();
+        swipe.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
+        swipe.setListener(new SwipeDismissBehavior.OnDismissListener() {
+            @Override
+            public void onDismiss(View view) {
+                ShowToast.show("已移除");
+            }
+
+            @Override
+            public void onDragStateChanged(int state) {
+            }
+        });
     }
 }
