@@ -19,6 +19,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
+            app:title="你好"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|snap|enterAlwaysCollapsed">
 
@@ -37,8 +38,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/grey1"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="你好"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

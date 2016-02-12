@@ -16,6 +16,10 @@
         android:name="android.hardware.wifi"
         android:required="false"/>
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+
     <application
         android:name=".DemoApplication"
         android:allowBackup="true"
@@ -41,8 +45,7 @@
             android:name=".activity.RecycleActivity"
             android:theme="@style/DividerTheme"/>
         <activity android:name=".activity.XUtils3Activity"/>
-        <activity
-            android:name=".activity.SmartTabLayoutActivity"/>
+        <activity android:name=".activity.SmartTabLayoutActivity"/>
 
         <service android:name=".service.WidgetService"/>
 
@@ -60,7 +63,10 @@
         <activity android:name=".activity.NotificationActivity"/>
         <activity android:name=".activity.DataBindingActivity"/>
         <activity android:name=".activity.G2048Activity"/>
-
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
     </application>
 
 </manifest>

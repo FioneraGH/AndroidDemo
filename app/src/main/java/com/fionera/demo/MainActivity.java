@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +29,8 @@ import com.fionera.demo.fragment.BitmapUtilFragment;
 import com.fionera.demo.fragment.ContactFragment;
 import com.fionera.demo.fragment.HomePageFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
+import com.fionera.demo.fragment.LoginFragment;
+import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ChangableTabView;
 import com.fionera.demo.view.FloatView;
 
@@ -41,7 +44,7 @@ import java.util.List;
 
 public class MainActivity
         extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener, LoginFragment.OnFragmentInteractionListener {
 
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
     public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" + "" +
@@ -270,6 +273,12 @@ public class MainActivity
 
         sendBroadcast(intent);
 
+    }
+
+    @Override
+    public void onFragmentInteraction(String result) {
+
+        ShowToast.show(result);
     }
 
     private class ClickReceiver
