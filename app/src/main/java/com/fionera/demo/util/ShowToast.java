@@ -11,12 +11,13 @@ public class ShowToast {
 
     private static Toast toast;
 
-    public static void show(String notice) {
+    public static void show(Object info) {
 
         if (toast == null) {
-            toast = Toast.makeText(DemoApplication.getInstance(), notice, Toast.LENGTH_SHORT);
+            toast = Toast
+                    .makeText(DemoApplication.getInstance(), info.toString(), Toast.LENGTH_SHORT);
         } else {
-            toast.setText(notice);
+            toast.setText(info.toString());
         }
         toast.show();
     }

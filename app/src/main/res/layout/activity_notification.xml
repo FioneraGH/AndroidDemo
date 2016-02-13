@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.fionera.demo.activity.NotificationActivity">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_notify_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="notify"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_notify_html"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:background="#ff99aa"
+        android:padding="16dp"
+        android:text="10010"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_notify_spannable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ff00aa"
+        android:padding="16dp"
+        android:text="spannable"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_notify_linkify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0099aa"
+        android:padding="16dp"
+        android:text="谷歌母公司Alphabet市值超苹果：全球第一，据外媒报道，@谷歌 母公司 @Alphabet 通过公司分拆以及搜索广告业务的持续强势，股价继续攀升。美国时间周一，Alphabet的公司市值已超过了 @苹果 ，成为全世界市值最大的公司. www.baidu.com"
+        android:textSize="18sp"/>
+
+</LinearLayout>
