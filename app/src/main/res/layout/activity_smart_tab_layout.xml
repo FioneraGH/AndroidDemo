@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
-        android:id="@id/tl_tab_layout"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:stl_customTabTextLayoutId="@layout/tab_margin8_layout"
-        app:stl_customTabTextViewId="@+id/tv_tab_text"
-        app:stl_indicatorColor="#40daea"
-        app:stl_indicatorInterpolation="linear"
-        app:stl_indicatorThickness="2dp"
-        app:stl_underlineThickness="1px"/>
+        android:layout_height="wrap_content"
+        app:title="你好"
+        app:subtitle="世界"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"
+        android:background="?attr/colorAccent"
+        android:minHeight="?attr/actionBarSize"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_tab_layout"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
-    </android.support.v4.view.ViewPager>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@id/tl_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:stl_customTabTextLayoutId="@layout/tab_margin8_layout"
+                app:stl_customTabTextViewId="@+id/tv_tab_text"
+                app:stl_indicatorColor="#40daea"
+                app:stl_indicatorInterpolation="linear"
+                app:stl_indicatorThickness="2dp"
+                app:stl_underlineThickness="1px"/>
 
-</LinearLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <fragment
+            android:name="com.fionera.demo.fragment.TabLayoutFragment"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            tools:layout="@layout/fragment_login"/>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</RelativeLayout>
+
