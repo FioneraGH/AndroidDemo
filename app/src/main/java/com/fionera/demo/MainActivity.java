@@ -209,7 +209,7 @@ public class MainActivity
     }
 
     /**
-     * 设置在有键盘的手机可见
+     * 设置菜单项在有键盘的手机可见
      */
     private void setNeverHasMenuKey() {
 
@@ -225,7 +225,7 @@ public class MainActivity
     }
 
     /**
-     * 利用反射获取菜单打开时根据方法名修改参数值
+     * 利用反射在菜单打开时显示ActionBar菜单项Icon
      *
      * @param featureId
      * @param menu

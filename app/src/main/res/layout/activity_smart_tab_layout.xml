@@ -9,19 +9,26 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="你好"
-        app:subtitle="世界"
-        app:titleTextColor="@color/white"
-        app:subtitleTextColor="@color/white"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorAccent"
-        android:minHeight="?attr/actionBarSize"/>
+        app:logo="@mipmap/ic_launcher"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="你好"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"

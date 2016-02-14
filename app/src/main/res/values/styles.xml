@@ -4,6 +4,9 @@
         <item name="colorAccent">@color/blue2</item>
         <item name="colorPrimary">@color/grey2</item>
         <item name="colorPrimaryDark">@color/grey1</item>
+
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="android:windowBackground">@color/dim_foreground_material_dark</item>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
@@ -12,6 +15,11 @@
 
     <style name="DividerTheme" parent="AppTheme">
         <item name="android:listDivider">@drawable/rv_diliver</item>
+    </style>
+
+
+    <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_chat_head</item>
     </style>
 
 </resources>

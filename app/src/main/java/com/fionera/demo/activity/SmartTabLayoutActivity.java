@@ -10,9 +10,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.fionera.demo.R;
 import com.fionera.demo.fragment.TabLayoutFragment;
+import com.fionera.demo.util.ShowToast;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 public class SmartTabLayoutActivity
@@ -29,14 +31,12 @@ public class SmartTabLayoutActivity
         setContentView(R.layout.activity_smart_tab_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.inflateMenu(R.menu.menu_recycle);
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-        }
+        toolbar.inflateMenu(R.menu.menu_recycle);
+        toolbar.setOnMenuItemClickListener(item -> {
+
+            ShowToast.show(item.getTitle());
+            return true;
+        });
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                                                                         toolbar, 0, 0);
