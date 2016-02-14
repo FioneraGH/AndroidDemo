@@ -9,9 +9,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.DisplayUtils;
 
 
 /**
@@ -37,8 +37,9 @@ public class TitleBar
         if (isInEditMode()) {
             return;
         }
-        View titleBar = LayoutInflater.from(context).inflate(R.layout.layout_title_bar, null);
-        addView(titleBar, LayoutParams.MATCH_PARENT, DisplayUtils.dp2px(50));
+        Toolbar titleBar = (Toolbar) LayoutInflater.from(context).inflate(R.layout.layout_title_bar, null);
+        titleBar.setNavigationIcon(null);
+        addView(titleBar,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
 
         mLayoutLeft = (LinearLayout) titleBar.findViewById(R.id.title_bar_left);
         mLayoutRight = (LinearLayout) titleBar.findViewById(R.id.title_bar_right);

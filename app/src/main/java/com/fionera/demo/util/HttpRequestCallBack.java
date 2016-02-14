@@ -14,7 +14,7 @@ public abstract class HttpRequestCallBack<T>
 
     @Override
     public void onSuccess(T result) {
-        LogUtils.d("接口 RESULT " + result.toString());
+        LogCat.d("接口 RESULT " + result.toString());
 //        if (HttpResponseUtils.hasGetData(result.toString())) {
 //            this.onSucceed(result.toString());
 //        } else {
@@ -25,7 +25,7 @@ public abstract class HttpRequestCallBack<T>
 
     @Override
     public void onError(Throwable ex, boolean isOnCallback) {
-        LogUtils.e(ex.getMessage());
+        LogCat.e(ex.getMessage());
         this.onFailed((ex instanceof HttpException) ? ex.getMessage() : "未知错误");
     }
 

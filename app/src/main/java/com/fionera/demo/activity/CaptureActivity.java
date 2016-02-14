@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.fionera.demo.util.LogUtils;
+import com.fionera.demo.util.LogCat;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -43,8 +43,8 @@ public class CaptureActivity extends Activity implements ZXingScannerView.Result
     @Override
     public void handleResult(Result rawResult) {
 
-        LogUtils.d(rawResult.getText());
-        LogUtils.d(rawResult.getBarcodeFormat().toString());
+        LogCat.d(rawResult.getText());
+        LogCat.d(rawResult.getBarcodeFormat().toString());
 
         mScannerView.resumeCameraPreview(this);
     }

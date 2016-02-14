@@ -6,7 +6,6 @@ import android.net.NetworkInfo;
 
 import com.fionera.demo.DemoApplication;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
@@ -26,8 +25,8 @@ public class HttpUtils {
                 e.printStackTrace();
             }
         }
-        LogUtils.d("接口 URL = " + url);
-        LogUtils.d("接口 JSON = " + json);
+        LogCat.d("接口 URL = " + url);
+        LogCat.d("接口 JSON = " + json);
 
         if (!HttpUtils.isNetworkConnected(DemoApplication.getInstance())) {
             ShowToast.show("网络未连接，请检查网络设置！");

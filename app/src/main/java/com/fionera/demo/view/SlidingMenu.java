@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogUtils;
+import com.fionera.demo.util.LogCat;
 
 /**
  * Created by fionera on 15-8-14.
@@ -97,7 +97,7 @@ public class SlidingMenu
 
         super.onLayout(changed, l, t, r, b);
 
-        LogUtils.d(mMenuWidth + "");
+        LogCat.d(mMenuWidth + "");
         if (changed) {
             postDelayed(() -> this.scrollTo(mMenuWidth, 0), 1);
         }

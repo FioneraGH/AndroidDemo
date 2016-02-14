@@ -12,7 +12,7 @@ import com.fionera.demo.R;
 import com.fionera.demo.bean.DemoDbBean;
 import com.fionera.demo.util.HttpRequestCallBack;
 import com.fionera.demo.util.HttpUtils;
-import com.fionera.demo.util.LogUtils;
+import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.ShowToast;
 
 import org.xutils.DbManager;
@@ -118,41 +118,41 @@ public class XUtils3Activity extends Activity {
         /**
          * 获取用户绝对目录
          */
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_ALARMS).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MUSIC).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_NOTIFICATIONS).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PODCASTS).getAbsolutePath());
-        LogUtils.d(Environment.getExternalStoragePublicDirectory(
+        LogCat.d(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_RINGTONES).getAbsolutePath());
 
-        LogUtils.d(Environment.getExternalStorageDirectory().getAbsolutePath());
-        LogUtils.d(Environment.getDataDirectory().getAbsolutePath());
-        LogUtils.d(Environment.getDownloadCacheDirectory().getAbsolutePath());
-        LogUtils.d(Environment.getRootDirectory().getAbsolutePath());
+        LogCat.d(Environment.getExternalStorageDirectory().getAbsolutePath());
+        LogCat.d(Environment.getDataDirectory().getAbsolutePath());
+        LogCat.d(Environment.getDownloadCacheDirectory().getAbsolutePath());
+        LogCat.d(Environment.getRootDirectory().getAbsolutePath());
 
-        LogUtils.d(mContext.getExternalFilesDir(
+        LogCat.d(mContext.getExternalFilesDir(
                 Environment.DIRECTORY_ALARMS).getAbsolutePath());
-        LogUtils.d(mContext.getExternalCacheDir().getAbsolutePath());
+        LogCat.d(mContext.getExternalCacheDir().getAbsolutePath());
 
-        LogUtils.d(mContext.getFilesDir().getAbsolutePath());
-        LogUtils.d(mContext.getCacheDir().getAbsolutePath());
+        LogCat.d(mContext.getFilesDir().getAbsolutePath());
+        LogCat.d(mContext.getCacheDir().getAbsolutePath());
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            LogUtils.d(mContext.getNoBackupFilesDir().getAbsolutePath());
+            LogCat.d(mContext.getNoBackupFilesDir().getAbsolutePath());
         }
 
-        LogUtils.d(mContext.getObbDir().getAbsolutePath());
+        LogCat.d(mContext.getObbDir().getAbsolutePath());
 
         btnClick(null);
         /**
@@ -169,7 +169,7 @@ public class XUtils3Activity extends Activity {
             @Override
             public void onSucceed(String result) {
 
-                LogUtils.d(result);
+                LogCat.d(result);
             }
 
             @Override

@@ -2,30 +2,20 @@ package com.fionera.demo.activity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
-import android.text.style.UnderlineSpan;
 import android.text.util.Linkify;
 import android.view.View;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
-import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogUtils;
 import com.fionera.demo.util.ShowToast;
 
 import org.xutils.view.annotation.Event;

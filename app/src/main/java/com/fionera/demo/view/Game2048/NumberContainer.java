@@ -7,7 +7,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
-import com.fionera.demo.util.LogUtils;
+import com.fionera.demo.util.LogCat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,7 +234,7 @@ public class NumberContainer
     public void generateNum() {
 
         if (checkOver()) {
-            LogUtils.e("GAME OVER");
+            LogCat.e("GAME OVER");
             return;
         }
 
@@ -270,28 +270,28 @@ public class NumberContainer
                 NumberItem item = numberItems[index];
 
                 if ((index + 1) % mColumn != 0) {
-                    LogUtils.d("RIGHT");
+                    LogCat.d("RIGHT");
                     NumberItem itemRight = numberItems[index + 1];
                     if (item.getNumber() == itemRight.getNumber()) {
                         return false;
                     }
                 }
                 if ((index + mColumn) < mColumn * mColumn) {
-                    LogUtils.d("DOWN");
+                    LogCat.d("DOWN");
                     NumberItem itemBottom = numberItems[index + mColumn];
                     if (item.getNumber() == itemBottom.getNumber()) {
                         return false;
                     }
                 }
                 if (index % mColumn != 0) {
-                    LogUtils.d("LEFT");
+                    LogCat.d("LEFT");
                     NumberItem itemLeft = numberItems[index - 1];
                     if (itemLeft.getNumber() == item.getNumber()) {
                         return false;
                     }
                 }
                 if (index + 1 > mColumn) {
-                    LogUtils.d("UP");
+                    LogCat.d("UP");
                     NumberItem itemTop = numberItems[index - mColumn];
                     if (item.getNumber() == itemTop.getNumber()) {
                         return false;
