@@ -15,6 +15,7 @@ import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.RecycleActivity;
+import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.SplitPageActivity;
 import com.fionera.demo.activity.XUtils3Activity;
@@ -49,7 +50,9 @@ public class ExtrasFragment
     @ViewInject(R.id.button8)
     private Button g2048;
     @ViewInject(R.id.button9)
-    private Button volley;
+    private Button xutils;
+    @ViewInject(R.id.button10)
+    private Button rx;
 
     @Override
     public int setLayoutResource() {
@@ -87,9 +90,10 @@ public class ExtrasFragment
                     .makeSceneTransitionAnimation(mActivity, g2048, "testTrans");
             ActivityCompat.startActivity(mActivity, intent, options.toBundle());
         });
-        // 设定Volley测试跳转
-        volley.setOnClickListener(
+        xutils.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));
+        xutils.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
     }
 
     @Override
