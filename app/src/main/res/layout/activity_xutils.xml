@@ -11,9 +11,37 @@
         android:layout_gravity="center_horizontal"
         android:text="xUtils"/>
 
-    <ImageView
-        android:id="@+id/iv_xutils"
+    <com.fionera.demo.view.ViewDragLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:clickable="true"
+            android:layout_margin="16dp"
+            android:background="@color/blue2"
+            android:onClick="fuck"
+            android:text="你好1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:background="@color/blue2"
+            android:text="你好2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/blue2"
+            android:clickable="true"
+            android:padding="16dp"
+            android:text="你好3"/>
+    </com.fionera.demo.view.ViewDragLayout>
+
 
 </LinearLayout>

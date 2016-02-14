@@ -92,7 +92,7 @@ public class ExtrasFragment
         });
         xutils.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));
-        xutils.setOnClickListener(
+        rx.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
     }
 

@@ -1,10 +1,10 @@
 package com.fionera.demo.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -32,21 +32,17 @@ import java.util.List;
  * 内容视图加载
  */
 @ContentView(R.layout.activity_xutils)
-public class XUtils3Activity extends Activity {
+public class XUtils3Activity
+        extends AppCompatActivity {
 
     private Context mContext = this;
-    /**
-     * View绑定控制反转
-     */
-    @ViewInject(R.id.iv_xutils)
-    private ImageView ivXUtils;
 
     /**
      * 事件驱动
      *
      * @param v
      */
-    @Event({R.id.btn_xutils, R.id.iv_xutils})
+    @Event({R.id.btn_xutils})
     private void btnClick(View v) {
 
         if (v == null) {
@@ -64,22 +60,21 @@ public class XUtils3Activity extends Activity {
     }
 
     private List<DemoDbBean> demoDbBeanList;
-    private String temp = "";
 
     private void dbOp() throws DbException {
 
         demoDbBeanList.clear();
-        temp = "";
+        String temp = "";
 
         /**
          * 设定关系对象映射
          */
-        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
-                new File(mContext.getFilesDir().getAbsolutePath() + "/")).setDbName(
-                "demo.db").setDbVersion(1).setDbUpgradeListener(
-                (db, oldVersion, newVersion) -> ShowToast.show(
-                        String.format("upgrade from %d to %d", oldVersion,
-                                newVersion))).setAllowTransaction(true);
+        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
+                .setDbDir(new File(mContext.getFilesDir().getAbsolutePath() + "/"))
+                .setDbName("demo.db").setDbVersion(1).setDbUpgradeListener(
+                        (db, oldVersion, newVersion) -> ShowToast
+                                .show(String.format("upgrade from %d to %d", oldVersion,
+                                                    newVersion))).setAllowTransaction(true);
 
         /**
          * 获取数据库管理器
@@ -118,70 +113,24 @@ public class XUtils3Activity extends Activity {
         /**
          * 获取用户绝对目录
          */
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_ALARMS).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DCIM).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_MOVIES).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_MUSIC).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_NOTIFICATIONS).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PODCASTS).getAbsolutePath());
-        LogCat.d(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_RINGTONES).getAbsolutePath());
+        LogCat.d(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                         .getAbsolutePath());
 
         LogCat.d(Environment.getExternalStorageDirectory().getAbsolutePath());
-        LogCat.d(Environment.getDataDirectory().getAbsolutePath());
         LogCat.d(Environment.getDownloadCacheDirectory().getAbsolutePath());
-        LogCat.d(Environment.getRootDirectory().getAbsolutePath());
 
-        LogCat.d(mContext.getExternalFilesDir(
-                Environment.DIRECTORY_ALARMS).getAbsolutePath());
+        LogCat.d(mContext.getExternalFilesDir(Environment.DIRECTORY_ALARMS).getAbsolutePath());
         LogCat.d(mContext.getExternalCacheDir().getAbsolutePath());
 
         LogCat.d(mContext.getFilesDir().getAbsolutePath());
         LogCat.d(mContext.getCacheDir().getAbsolutePath());
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            LogCat.d(mContext.getNoBackupFilesDir().getAbsolutePath());
-        }
 
         LogCat.d(mContext.getObbDir().getAbsolutePath());
 
         btnClick(null);
-        /**
-         * 图片加载
-         */
-        ImageOptions imageOptions = new ImageOptions.Builder().setImageScaleType(
-                ImageView.ScaleType.CENTER_CROP).build();
+    }
 
-        x.image().bind(ivXUtils, "https://ss0.bdstatic" + "" +
-                        ".com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png",
-                imageOptions);
-
-        HttpUtils.request(HttpMethod.POST, "", null, new HttpRequestCallBack<String>() {
-            @Override
-            public void onSucceed(String result) {
-
-                LogCat.d(result);
-            }
-
-            @Override
-            public void onFailed(String reason) {
-
-            }
-
-            @Override
-            public void onNoNetwork() {
-
-            }
-
-        });
+    public void fuck(View v){
+        ShowToast.show("点");
     }
 }
