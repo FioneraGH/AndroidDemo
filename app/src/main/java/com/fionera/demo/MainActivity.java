@@ -47,8 +47,6 @@ public class MainActivity
         implements View.OnClickListener, LoginFragment.OnFragmentInteractionListener {
 
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
-    public static final String CLICK_TO_CHANGE_FROM_OTHER = "com.fionera.broadcast" + "" +
-            ".CLICK_TO_CHANGE_FROM_OTHER";
 
     private WindowManager wm;
     private WindowManager.LayoutParams wmLayoutParams;
@@ -102,9 +100,8 @@ public class MainActivity
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(CLICK_TO_CHANGE);
-        intentFilter.addAction(CLICK_TO_CHANGE_FROM_OTHER);
         clickReceiver = new ClickReceiver();
-        registerReceiver(clickReceiver, intentFilter);
+        DemoApplication.getLocalBroadcastManager().registerReceiver(clickReceiver, intentFilter);
 
     }
 
@@ -198,7 +195,8 @@ public class MainActivity
         super.onDestroy();
 
         if (clickReceiver != null) {
-            unregisterReceiver(clickReceiver);
+            DemoApplication.getLocalBroadcastManager().unregisterReceiver(clickReceiver);
+            clickReceiver = null;
         }
 
         try {
@@ -271,7 +269,7 @@ public class MainActivity
                 break;
         }
 
-        sendBroadcast(intent);
+        DemoApplication.getLocalBroadcastManager().sendBroadcast(intent);
 
     }
 
@@ -289,9 +287,6 @@ public class MainActivity
             Log.d("MainActivity", intent.getAction());
             if (intent.getAction().equals(CLICK_TO_CHANGE)) {
                 viewPager.setCurrentItem(intent.getIntExtra("which_click", 0), false);
-            } else if (intent.getAction().equals(CLICK_TO_CHANGE_FROM_OTHER)) {
-
-                tabs.get(intent.getIntExtra("which_click", 0)).performClick();
             }
         }
     }
