@@ -12,35 +12,31 @@
         android:text="xUtils"/>
 
     <com.fionera.demo.view.ViewDragLayout
+        android:id="@+id/vdl_toggle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:padding="16dp"
             android:clickable="true"
             android:layout_margin="16dp"
             android:background="@color/blue2"
             android:onClick="fuck"
+            android:tag="open"
             android:text="你好1"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:padding="16dp"
             android:layout_margin="16dp"
+            android:layout_gravity="start"
             android:clickable="true"
-            android:background="@color/blue2"
+            android:onClick="fuck"
+            android:tag="close"
+            android:background="@color/blue"
             android:text="你好2"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@color/blue2"
-            android:clickable="true"
-            android:padding="16dp"
-            android:text="你好3"/>
     </com.fionera.demo.view.ViewDragLayout>
 
 

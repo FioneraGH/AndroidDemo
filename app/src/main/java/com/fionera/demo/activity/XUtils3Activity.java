@@ -14,6 +14,7 @@ import com.fionera.demo.util.HttpRequestCallBack;
 import com.fionera.demo.util.HttpUtils;
 import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.ShowToast;
+import com.fionera.demo.view.ViewDragLayout;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -36,6 +37,9 @@ public class XUtils3Activity
         extends AppCompatActivity {
 
     private Context mContext = this;
+
+    @ViewInject(R.id.vdl_toggle)
+    private ViewDragLayout viewDragLayout;
 
     /**
      * 事件驱动
@@ -131,6 +135,10 @@ public class XUtils3Activity
     }
 
     public void fuck(View v){
-        ShowToast.show("点");
+        if("open".equals(v.getTag())) {
+            viewDragLayout.openDrawer();
+        }else{
+            viewDragLayout.closeDrawer();
+        }
     }
 }
