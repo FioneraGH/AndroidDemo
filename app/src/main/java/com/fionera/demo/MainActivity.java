@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerTabStrip;
@@ -24,17 +22,15 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
-import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.fragment.BitmapUtilFragment;
 import com.fionera.demo.fragment.ContactFragment;
-import com.fionera.demo.fragment.HomePageFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
+import com.fionera.demo.fragment.HomePageFragment;
 import com.fionera.demo.fragment.LoginFragment;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ChangableTabView;
 import com.fionera.demo.view.FloatView;
 
-import org.xutils.view.annotation.Event;
 import org.xutils.x;
 
 import java.lang.reflect.Field;
@@ -53,7 +49,6 @@ public class MainActivity
     private FloatView floatView;
 
     private ViewPager viewPager;
-    private PagerTabStrip pagerTabStrip;
     private List<Fragment> views = new ArrayList<>();
 
     private List<ChangableTabView> tabs = new ArrayList<>();
@@ -70,7 +65,7 @@ public class MainActivity
         x.view().inject(this);
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
-        pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
 
         pagerTabStrip
                 .setTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.blue2));
