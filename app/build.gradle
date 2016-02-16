@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
@@ -27,6 +28,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
@@ -43,4 +47,5 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.11'
     compile 'io.reactivex:rxandroid:1.1.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
 }
