@@ -1,6 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.0.0"
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 23
