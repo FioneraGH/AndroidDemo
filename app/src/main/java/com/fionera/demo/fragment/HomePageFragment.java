@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
 import com.fionera.demo.DemoApplication;
-import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.R;
+import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.adapter.RecentSessionAdapter;
-import com.fionera.demo.util.DisplayUtils;
 
 import org.xutils.view.annotation.ViewInject;
 

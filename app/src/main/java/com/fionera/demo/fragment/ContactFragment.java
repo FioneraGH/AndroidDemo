@@ -1,18 +1,12 @@
 package com.fionera.demo.fragment;
 
-import android.databinding.ObservableField;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ContactsAdapter;
 import com.fionera.demo.bean.ContactBean;
-import com.fionera.demo.util.ShowToast;
 
 import org.xutils.view.annotation.ViewInject;
 

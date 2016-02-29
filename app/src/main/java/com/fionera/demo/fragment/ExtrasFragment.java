@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
+import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DataBindingActivity;
 import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
@@ -53,6 +54,8 @@ public class ExtrasFragment
     private Button xutils;
     @ViewInject(R.id.button10)
     private Button rx;
+    @ViewInject(R.id.button11)
+    private Button bottomsheet;
 
     @Override
     public int setLayoutResource() {
@@ -94,6 +97,8 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));
         rx.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
+        bottomsheet.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, BottomSheetActivity.class)));
     }
 
     @Override

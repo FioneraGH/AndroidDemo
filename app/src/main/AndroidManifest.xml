@@ -75,6 +75,8 @@
         <activity android:name=".activity.G2048Activity"/>
         <activity android:name=".activity.RxAndroidActivity">
         </activity>
+        <activity android:name=".activity.BottomSheetActivity">
+        </activity>
     </application>
 
 </manifest>

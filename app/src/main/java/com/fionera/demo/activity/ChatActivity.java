@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -18,7 +17,6 @@ import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DBHelper;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ArcMenu;
-import com.fionera.demo.view.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;

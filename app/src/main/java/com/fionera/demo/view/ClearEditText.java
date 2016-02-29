@@ -37,7 +37,7 @@ public class ClearEditText
 
     private void init(Context context) {
         final Drawable drawable = ContextCompat
-                .getDrawable(context, R.drawable.abc_ic_clear_mtrl_alpha);
+                .getDrawable(context, R.drawable.ic_text_close);
         /**
          * wrap drawable 保证api < 21能正确着色
          */

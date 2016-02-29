@@ -1,25 +1,19 @@
 package com.fionera.demo.activity;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.fionera.demo.R;
 import com.fionera.demo.bean.DemoDbBean;
-import com.fionera.demo.util.HttpRequestCallBack;
-import com.fionera.demo.util.HttpUtils;
 import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ViewDragLayout;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
-import org.xutils.http.HttpMethod;
-import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
