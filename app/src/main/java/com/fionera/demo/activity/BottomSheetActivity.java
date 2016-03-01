@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fionera.demo.R;
+import com.fionera.demo.view.BottomSheetDialogView;
 
 public class BottomSheetActivity
         extends AppCompatActivity {
@@ -28,11 +29,12 @@ public class BottomSheetActivity
 
         ns_view = findViewById(R.id.ns_bottom_sheet);
         recyclerView = (RecyclerView) findViewById(R.id.rv_bottom_sheet);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter().setItemClickListener(pos -> {
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            Toast.makeText(BottomSheetActivity.this, "pos--->" + pos, Toast.LENGTH_LONG).show();
+            BottomSheetDialogView.show(BottomSheetActivity.this);
         }));
 
         behavior = BottomSheetBehavior.from(ns_view);
@@ -48,14 +50,13 @@ public class BottomSheetActivity
             }
         });
 
-        findViewById(R.id.tv_bottom_sheet)
-                .setOnClickListener(v -> {
-                    if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
-                        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    }else{
-                        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    }
-                });
+        findViewById(R.id.tv_bottom_sheet).setOnClickListener(v -> {
+            if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            } else {
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
     }
 
     public static class SimpleStringRecyclerViewAdapter
