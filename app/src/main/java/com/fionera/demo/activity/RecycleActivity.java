@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DividerItemDecoration;
+import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.PullToRefreshLayout;
 import com.fionera.demo.view.PullableRecyclerView;
+
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,37 +35,19 @@ import java.util.List;
 public class RecycleActivity
         extends Activity {
 
+    @ViewInject(R.id.ptrl_root)
     private PullToRefreshLayout pullToRefreshLayout;
+    @ViewInject(R.id.recycler_view)
     private PullableRecyclerView recyclerView;
-    private List<ChatMsgBean> data;
-    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle);
+        x.view().inject(this);
 
-        pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptrl_root);
-        recyclerView = (PullableRecyclerView) findViewById(R.id.recycler_view);
-        data = new ArrayList<>();
+        List<ChatMsgBean> data = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            ChatMsgBean entry = new ChatMsgBean();
-            entry.setDate("0000-00-00");
-            entry.setName("hello");
-            entry.setMsgType(false);
-            entry.setText("world " + i);
-            data.add(entry);
-        }
-
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new MyAdapter(RecycleActivity.this, data));
-
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-
-        recyclerView.setTotalCount(data.size());
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(final PullToRefreshLayout ptrl) {
@@ -67,6 +55,16 @@ public class RecycleActivity
                     @Override
                     public void handleMessage(Message msg) {
                         ptrl.refreshFinish(PullToRefreshLayout.SUCCEED);
+                        data.clear();
+                        for (int i = 0; i < 10; i++) {
+                            ChatMsgBean entry = new ChatMsgBean();
+                            entry.setDate("0000-00-00");
+                            entry.setName("hello");
+                            entry.setMsgType(false);
+                            entry.setText("world " + i);
+                            data.add(entry);
+                        }
+                        recyclerView.getAdapter().notifyItemRangeChanged(0, data.size());
                     }
                 }.sendEmptyMessageDelayed(0, 1500);
             }
@@ -81,6 +79,33 @@ public class RecycleActivity
                 }.sendEmptyMessageDelayed(0, 1500);
             }
         });
+        pullToRefreshLayout.autoRefresh();
+
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(new MyAdapter(RecycleActivity.this, data));
+
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+
+        recyclerView.setTotalCount(data.size());
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                data.remove(position);
+                recyclerView.getAdapter().notifyItemRemoved(position);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+        }).attachToRecyclerView(recyclerView);
     }
 
     class MyAdapter
@@ -89,17 +114,9 @@ public class RecycleActivity
         private LayoutInflater layoutInflater;
         private List<ChatMsgBean> data;
 
-        /**
-         * Adapter 适配器构造方法
-         *
-         * @param context 上下文
-         * @param data    数据载体
-         */
         MyAdapter(Context context, List<ChatMsgBean> data) {
-
             this.data = data;
             layoutInflater = LayoutInflater.from(context);
-
         }
 
         @Override
@@ -110,10 +127,11 @@ public class RecycleActivity
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-
+            holder.itemView.setTranslationY(DemoApplication.screenHeight);
             holder.tvUserName.setText(data.get(position).getName());
             holder.tvSendTime.setText(data.get(position).getDate());
             holder.tvContent.setText(data.get(position).getText());
+            holder.itemView.setOnClickListener(v -> ShowToast.show(position + ""));
         }
 
         @Override

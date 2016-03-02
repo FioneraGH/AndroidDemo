@@ -159,7 +159,6 @@ public class PullToRefreshLayout
                 timer.cancel();
                 requestLayout();
             }
-            Log.d("handle", "handle");
             // 刷新布局,会自动调用onLayout
             requestLayout();
             // 没有拖拉或者回弹完成
@@ -358,7 +357,8 @@ public class PullToRefreshLayout
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (mEvents == 0) {
-                    if (pullDownY > 0 || (((Pullable) pullableView).canPullDown() && canPullDown && state != LOADING)) {
+                    if (pullDownY > 0 || (((Pullable) pullableView)
+                            .canPullDown() && canPullDown && state != LOADING)) {
                         // 可以下拉，正在加载时不能下拉
                         // 对实际滑动距离做缩小，造成用力拉的感觉
                         pullDownY = pullDownY + (ev.getY() - lastY) / radio;
@@ -374,7 +374,8 @@ public class PullToRefreshLayout
                             // 正在刷新的时候触摸移动
                             isTouch = true;
                         }
-                    } else if (pullUpY < 0 || (((Pullable) pullableView).canPullUp() && canPullUp && state != REFRESHING)) {
+                    } else if (pullUpY < 0 || (((Pullable) pullableView)
+                            .canPullUp() && canPullUp && state != REFRESHING)) {
                         // 可以上拉，正在刷新时不能上拉
                         pullUpY = pullUpY + (ev.getY() - lastY) / radio;
                         if (pullUpY > 0) {
@@ -404,7 +405,7 @@ public class PullToRefreshLayout
                 }
                 if (pullDownY > 0) {
                     if (pullDownY <= refreshDist && (state == RELEASE_TO_REFRESH || state ==
-							DONE)) {
+                            DONE)) {
                         // 如果下拉距离没达到刷新的距离且当前状态是释放刷新，改变状态为下拉刷新
                         changeState(INIT);
                     }
@@ -466,7 +467,7 @@ public class PullToRefreshLayout
 
         @Override
         protected String doInBackground(Integer... params) {
-            while (pullDownY < 4 / 3 * refreshDist) {
+            while (pullDownY < refreshDist) {
                 pullDownY += MOVE_SPEED;
                 publishProgress(pullDownY);
                 try {
@@ -503,7 +504,7 @@ public class PullToRefreshLayout
      */
     public void autoRefresh() {
         AutoRefreshAndLoadTask task = new AutoRefreshAndLoadTask();
-        task.execute(20);
+        task.execute(15);
     }
 
     /**
@@ -534,7 +535,6 @@ public class PullToRefreshLayout
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.d("Test", "Test");
         if (!isLayout) {
             // 这里是第一次进来的时候做一些初始化
             refreshView = getChildAt(0);
