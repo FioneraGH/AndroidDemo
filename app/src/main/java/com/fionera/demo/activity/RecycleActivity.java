@@ -52,15 +52,9 @@ public class RecycleActivity
             data.add(entry);
         }
 
-        myAdapter = new MyAdapter(RecycleActivity.this, data);
-        recyclerView.setAdapter(myAdapter);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RecycleActivity.this,
-                                                                           LinearLayoutManager
-                                                                                   .VERTICAL,
-                                                                           false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(new MyAdapter(RecycleActivity.this, data));
 
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -95,10 +89,6 @@ public class RecycleActivity
         private LayoutInflater layoutInflater;
         private List<ChatMsgBean> data;
 
-        private final int TYPE_HEADER = 0;
-        private final int TYPE_ITEM = 1;
-
-
         /**
          * Adapter 适配器构造方法
          *
@@ -112,59 +102,26 @@ public class RecycleActivity
 
         }
 
-        private boolean isHeader(int postion) {
-            return postion == 0;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return isHeader(position) ? TYPE_HEADER : TYPE_ITEM;
-        }
-
-        /**
-         * 绑定适配器时创建ViewHolder
-         *
-         * @param parent   父级View
-         * @param viewType View类型
-         * @return 返回ViewHolder
-         */
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == TYPE_HEADER) {
-                View view = layoutInflater.inflate(R.layout.lv_chat_msg_right_item, parent, false);
-                return new MyViewHolder(view);
-            } else {
-                View view = layoutInflater.inflate(R.layout.lv_chat_msg_left_item, parent, false);
-                return new MyViewHolder(view);
-            }
+            return new MyViewHolder(
+                    layoutInflater.inflate(R.layout.lv_chat_msg_left_item, parent, false));
         }
 
-        /**
-         * 绑定ViewHolder显示数据
-         *
-         * @param holder   ViewHolder
-         * @param position Item位置
-         */
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
 
-            if (isHeader(position)) {
-                return;
-            }
-            holder.tvUserName.setText(data.get(position - 1).getName());
-            holder.tvSendTime.setText(data.get(position - 1).getDate());
-            holder.tvContent.setText(data.get(position - 1).getText());
+            holder.tvUserName.setText(data.get(position).getName());
+            holder.tvSendTime.setText(data.get(position).getDate());
+            holder.tvContent.setText(data.get(position).getText());
         }
 
         @Override
         public int getItemCount() {
-            return data.size() + 1;
+            return data.size();
         }
     }
 
-    /**
-     * ViewHolder 类，用于创建ViewHolder
-     */
     class MyViewHolder
             extends RecyclerView.ViewHolder {
 
@@ -181,71 +138,4 @@ public class RecycleActivity
             isComMsg = false;
         }
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recycle, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        switch (id) {
-
-            case R.id.action_add:
-
-                data.add(new ChatMsgBean("hello", "1111-11-11", "hello !", false));
-                //myAdapter.notifyItemChanged(data.size());
-                myAdapter.notifyItemInserted(1);
-
-                break;
-            case R.id.action_delete:
-                data.remove(0);
-                myAdapter.notifyItemRemoved(1);
-                break;
-            case R.id.action_listview:
-                recyclerView.setLayoutManager(
-                        new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL,
-                                                false));
-                break;
-            case R.id.action_gridview:
-                recyclerView.setLayoutManager(new GridLayoutManager(RecycleActivity.this, 2));
-                break;
-            case R.id.action_hori_listview:
-                recyclerView.setLayoutManager(new LinearLayoutManager(RecycleActivity.this,
-                                                                      LinearLayoutManager
-                                                                              .HORIZONTAL,
-                                                                      false));
-                break;
-            case R.id.action_hori_gridview:
-                recyclerView.setLayoutManager(
-                        new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL));
-                break;
-            case R.id.action_staggerd_gridview:
-                ChatMsgBean entryTemp = data.get(1);
-                data.get(2).setName(data.get(1).getName());
-                data.get(2).setText(data.get(1).getText());
-                data.get(2).setDate(data.get(1).getDate());
-                data.get(2).setMsgType(data.get(1).getMsgType());
-
-                data.get(1).setName(entryTemp.getName());
-                data.get(1).setText(entryTemp.getText());
-                data.get(1).setDate(entryTemp.getDate());
-                data.get(1).setMsgType(entryTemp.getMsgType());
-
-                myAdapter.notifyItemMoved(2, 3);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }

@@ -205,8 +205,8 @@ public class ScrollViewContainer
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         topView.layout(0, (int) mMoveLen, mViewWidth, topView.getMeasuredHeight() + (int) mMoveLen);
         bottomView.layout(0, topView.getMeasuredHeight() + (int) mMoveLen, mViewWidth,
-                topView.getMeasuredHeight() + (int) mMoveLen + bottomView
-                        .getMeasuredHeight());
+                          topView.getMeasuredHeight() + (int) mMoveLen + bottomView
+                                  .getMeasuredHeight());
     }
 
     @Override
@@ -230,10 +230,14 @@ public class ScrollViewContainer
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            ScrollView sv = (ScrollView) v;
-            if (sv.getScrollY() == (sv.getChildAt(0).getMeasuredHeight() - sv
-                    .getMeasuredHeight()) && mCurrentViewIndex == 0) {
-                canPullUp = true;
+            if (v instanceof ScrollView) {
+                ScrollView sv = (ScrollView) v;
+                if (sv.getScrollY() == (sv.getChildAt(0).getMeasuredHeight() - sv
+                        .getMeasuredHeight()) && mCurrentViewIndex == 0) {
+                    canPullUp = true;
+                } else {
+                    canPullUp = false;
+                }
             } else {
                 canPullUp = false;
             }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.RvItemTouchListener;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        LogCat.d("create a holder");
         View view = LayoutInflater.from(context).inflate(R.layout.rv_recent_session_item, parent,
                 false);
         return new RecentViewHolder(view);

@@ -1,105 +1,136 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
+<com.fionera.demo.view.ScrollViewContainer
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_vertical_margin"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <SearchView
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"/>
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/giv_extras_anim"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="#cecece"
+                android:src="@drawable/gif_banana"/>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Matrix + Coordinator"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SmartTab + Toolbar"/>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dialog"/>
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="PullToLoad"/>
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Notification + Linkify"/>
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="RefreshLayout"/>
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="DataBinding"/>
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="2048"
+                android:transitionName="testTrans"
+                tools:targetApi="lollipop"/>
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="xUtils3 + ViewDragHelper"/>
+
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="RxAndroid"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
-        android:paddingBottom="32dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <SearchView
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"/>
-
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/giv_extras_anim"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="#cecece"
-            android:src="@drawable/gif_banana"/>
-
-        <Button
-            android:id="@+id/button1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Matrix + Coordinator"/>
+            android:layout_marginEnd="@dimen/activity_vertical_margin"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SmartTab + Toolbar"/>
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="BottomSheet"/>
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dialog"/>
+            <Button
+                android:id="@+id/button12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="RecyclerViewWithHead"/>
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="PullToLoad"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Notification + Linkify"/>
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Recycler"/>
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="DataBinding"/>
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="2048"
-            android:transitionName="testTrans"
-            tools:targetApi="lollipop"/>
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="xUtils3 + ViewDragHelper"/>
-
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="RxAndroid"/>
-
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="BottomSheet"/>
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</com.fionera.demo.view.ScrollViewContainer>

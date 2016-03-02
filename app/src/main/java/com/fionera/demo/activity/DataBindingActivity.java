@@ -39,7 +39,7 @@ public class DataBindingActivity
     public void changeUser(View v) {
         user.setFirstName("hello");
         imageview.setVisibility(
-                imageview.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                imageview.isShown() ? View.GONE : View.VISIBLE);
     }
 
     private void extractUidFromUri() {

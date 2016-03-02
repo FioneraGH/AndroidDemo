@@ -11,9 +11,12 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <ToggleButton
+        android:id="@+id/tb_in_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New ToggleButton"/>
+        android:text="New ToggleButton"
+        android:textOn="fuck"
+        android:textOff="hi~"/>
 
     <WebView
         android:id="@+id/wv_in_dialog"

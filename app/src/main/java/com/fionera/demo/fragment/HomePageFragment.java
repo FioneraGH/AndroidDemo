@@ -12,6 +12,7 @@ import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.adapter.RecentSessionAdapter;
+import com.fionera.demo.util.ShowToast;
 
 import org.xutils.view.annotation.ViewInject;
 
@@ -30,7 +31,6 @@ public class HomePageFragment
     FloatingActionButton floatingActionButton;
 
     private List<String> sessionList;
-    private RecentSessionAdapter recentSessionAdapter;
 
     @Override
     public int setLayoutResource() {
@@ -43,11 +43,24 @@ public class HomePageFragment
         setTitleBarText("最近");
 
         sessionList = new ArrayList<>();
-        recentSessionAdapter = new RecentSessionAdapter(mContext, sessionList);
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        sessionList.add("");
+        RecentSessionAdapter recentSessionAdapter = new RecentSessionAdapter(mContext, sessionList);
         recyclerView.setAdapter(recentSessionAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
-        recentSessionAdapter.setRvItemTouchListener(
-                (v, pos) -> startActivity(new Intent(mContext, ChatActivity.class)));
+        recentSessionAdapter.setRvItemTouchListener((v, pos) -> {
+            if (pos == sessionList.size() - 1) {
+                startActivity(new Intent(mContext, ChatActivity.class));
+            }
+            ShowToast.show("" + pos);
+        });
 
         floatingActionButton.setOnClickListener(v -> addSession());
         floatingActionButton.setTranslationX(DemoApplication.screenWidth / 3);
@@ -60,12 +73,11 @@ public class HomePageFragment
                 .start();
         float elevation = ViewCompat.getElevation(floatingActionButton);
         ViewCompat.setElevation(floatingActionButton, 0);
-        sessionList.add("");
-        recyclerView.getAdapter().notifyItemInserted(sessionList.size() - 1);
+        recyclerView.getAdapter().notifyItemInserted(1);
         recyclerView.postDelayed(() -> {
             floatingActionButton.animate().withLayer().scaleX(1.0f).scaleY(1.0f).setDuration(300)
                     .start();
             ViewCompat.setElevation(floatingActionButton, elevation);
-        }, 3000);
+        }, 1000);
     }
 }

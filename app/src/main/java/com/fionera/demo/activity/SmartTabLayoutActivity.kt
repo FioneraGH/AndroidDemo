@@ -34,7 +34,7 @@ class SmartTabLayoutActivity : AppCompatActivity() {
         val mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout,
                 toolbar, 0, 0)
         mDrawerToggle.syncState()
-        mDrawerLayout.setDrawerListener(mDrawerToggle)
+        mDrawerLayout.addDrawerListener(mDrawerToggle)
 
         vp_tab_layout!!.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment {

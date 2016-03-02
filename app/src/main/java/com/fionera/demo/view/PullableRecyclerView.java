@@ -44,7 +44,7 @@ public class PullableRecyclerView
     @Override
     public boolean canPullUp() {
         if (getChildCount() == 0 || ((LinearLayoutManager) getLayoutManager())
-                .findLastCompletelyVisibleItemPosition() == totalCount ) {
+                .findLastCompletelyVisibleItemPosition() == totalCount - 1 ) {
             return true;
         } else {
             return false;

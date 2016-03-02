@@ -16,6 +16,7 @@ import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
+import com.fionera.demo.activity.RVWithHeaderActivity;
 import com.fionera.demo.activity.RecycleActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
@@ -56,6 +57,8 @@ public class ExtrasFragment
     private Button rx;
     @ViewInject(R.id.button11)
     private Button bottomsheet;
+    @ViewInject(R.id.button12)
+    private Button rvwithhead;
 
     @Override
     public int setLayoutResource() {
@@ -98,6 +101,8 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
         bottomsheet.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, BottomSheetActivity.class)));
+        rvwithhead.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
     }
 
     @Override

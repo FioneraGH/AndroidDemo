@@ -1,4 +1,4 @@
-package com.fionera.demo.view.Game2048;
+package com.fionera.demo.view.game2048;
 
 import android.content.Context;
 import android.graphics.Canvas;

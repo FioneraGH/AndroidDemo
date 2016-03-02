@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.util.DisplayUtils;
-import com.fionera.demo.view.Game2048.NumberContainer;
+import com.fionera.demo.view.game2048.NumberContainer;
 
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;

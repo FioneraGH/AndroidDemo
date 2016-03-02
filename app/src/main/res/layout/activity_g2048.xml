@@ -15,7 +15,7 @@
         android:transitionName="testTrans"
         tools:targetApi="lollipop"/>
 
-    <com.fionera.demo.view.Game2048.NumberContainer
+    <com.fionera.demo.view.game2048.NumberContainer
         android:id="@+id/nc_g2048_game_board"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
