@@ -39,7 +39,6 @@
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".activity.MatrixActivity"/>
-        <activity android:name=".activity.SplitPageActivity"/>
         <activity android:name=".activity.PullToLoadActivity"/>
         <activity
             android:name=".activity.RecycleActivity"
@@ -73,10 +72,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.G2048Activity"/>
-        <activity android:name=".activity.RxAndroidActivity">
-        </activity>
-        <activity android:name=".activity.BottomSheetActivity">
-        </activity>
+        <activity android:name=".activity.RxAndroidActivity"/>
+        <activity android:name=".activity.BottomSheetActivity"/>
+        <activity android:name=".activity.DialogActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Dialog"/>
     </application>
 
 </manifest>

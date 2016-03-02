@@ -11,6 +11,7 @@ import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DataBindingActivity;
+import com.fionera.demo.activity.DialogActivity;
 import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
@@ -18,7 +19,6 @@ import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.RecycleActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
-import com.fionera.demo.activity.SplitPageActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
 import org.xutils.view.annotation.ViewInject;
@@ -39,7 +39,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button2)
     private Button smart;
     @ViewInject(R.id.button3)
-    private Button split;
+    private Button dialog;
     @ViewInject(R.id.button4)
     private Button load;
     @ViewInject(R.id.button5)
@@ -72,11 +72,10 @@ public class ExtrasFragment
         // 设定Matrix跳转
         matrix.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
-        // 设定分页加载跳转
-        split.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, SplitPageActivity.class)));
         smart.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class)));
+        dialog.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, DialogActivity.class)));
         // 设定下拉加载跳转
         load.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));

@@ -21,9 +21,11 @@ public class BottomSheetDialogView {
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         dialog.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_dialog_recycler_view, null);
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.bottom_sheet_dialog_recycler_view, null);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.bottom_sheet_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) view
+                .findViewById(R.id.bottom_sheet_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new SimpleAdapter());
 
@@ -35,12 +37,13 @@ public class BottomSheetDialogView {
         new BottomSheetDialogView(context);
     }
 
-    private static class SimpleAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private static class SimpleAdapter
+            extends RecyclerView.Adapter<ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.rv_recent_session_item, parent,false);
+            View view = inflater.inflate(R.layout.rv_recent_session_item, parent, false);
             return new ViewHolder(view);
         }
 
@@ -55,8 +58,8 @@ public class BottomSheetDialogView {
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
-
+    private static class ViewHolder
+            extends RecyclerView.ViewHolder {
 
         public ViewHolder(View itemView) {
             super(itemView);

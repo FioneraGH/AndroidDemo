@@ -92,7 +92,7 @@ public class BottomSheetActivity
 
         @Override
         public int getItemCount() {
-            return 4;
+            return 2;
         }
 
         public static class ViewHolder
