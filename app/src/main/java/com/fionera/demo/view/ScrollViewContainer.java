@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.fionera.demo.util.DisplayUtils;
+
 import java.util.Timer;
 import java.util.TimerTask;
 

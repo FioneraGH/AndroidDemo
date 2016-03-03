@@ -3,6 +3,8 @@ package com.fionera.demo.view;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -19,7 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.DisplayUtils;
 import com.fionera.demo.util.Pullable;
+import com.fionera.demo.util.SimpleAnimatorListener;
 
 
 /**
@@ -109,8 +113,6 @@ public class PullToRefreshLayout
     private boolean canPullDown = true;
     private boolean canPullUp = true;
 
-    private Context mContext;
-
     /**
      * 执行自动回滚的handler
      */
@@ -187,7 +189,6 @@ public class PullToRefreshLayout
     }
 
     private void initView(Context context) {
-        mContext = context;
         timer = new MyTimer(updateHandler);
         rotateAnimation = (RotateAnimation) AnimationUtils
                 .loadAnimation(context, R.anim.rotate_reverse_pull_arrow);
@@ -460,51 +461,29 @@ public class PullToRefreshLayout
     }
 
     /**
-     * @author chenjing 自动模拟手指滑动的task
+     * 自动刷新
      */
-    private class AutoRefreshAndLoadTask
-            extends AsyncTask<Integer, Float, String> {
-
-        @Override
-        protected String doInBackground(Integer... params) {
-            while (pullDownY < refreshDist) {
-                pullDownY += MOVE_SPEED;
-                publishProgress(pullDownY);
-                try {
-                    Thread.sleep(params[0]);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            changeState(REFRESHING);
-            // 刷新操作
-            if (mListener != null) {
-                mListener.onRefresh(PullToRefreshLayout.this);
-            }
-            hide();
-        }
-
-        @Override
-        protected void onProgressUpdate(Float... values) {
+    public void autoRefresh() {
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, refreshDist + 50);
+        valueAnimator.setDuration(900);
+        valueAnimator.addUpdateListener(animation -> {
+            pullDownY = (float) animation.getAnimatedValue();
             if (pullDownY > refreshDist) {
                 changeState(RELEASE_TO_REFRESH);
             }
             requestLayout();
-        }
-
-    }
-
-    /**
-     * 自动刷新
-     */
-    public void autoRefresh() {
-        AutoRefreshAndLoadTask task = new AutoRefreshAndLoadTask();
-        task.execute(15);
+        });
+        valueAnimator.addListener(new SimpleAnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                changeState(REFRESHING);
+                if (mListener != null) {
+                    mListener.onRefresh(PullToRefreshLayout.this);
+                }
+                hide();
+            }
+        });
+        valueAnimator.start();
     }
 
     /**

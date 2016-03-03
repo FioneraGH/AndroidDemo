@@ -65,6 +65,7 @@ public class RecycleActivity
                             data.add(entry);
                         }
                         recyclerView.getAdapter().notifyItemRangeChanged(0, data.size());
+                        recyclerView.setTotalCount(data.size());
                     }
                 }.sendEmptyMessageDelayed(0, 1500);
             }
@@ -127,11 +128,12 @@ public class RecycleActivity
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            holder.itemView.setTranslationY(DemoApplication.screenHeight);
             holder.tvUserName.setText(data.get(position).getName());
             holder.tvSendTime.setText(data.get(position).getDate());
             holder.tvContent.setText(data.get(position).getText());
-            holder.itemView.setOnClickListener(v -> ShowToast.show(position + ""));
+            holder.itemView.setOnClickListener(v -> ShowToast
+                    .show(position + " " + holder.getAdapterPosition() + " " + holder
+                            .getLayoutPosition()));
         }
 
         @Override
