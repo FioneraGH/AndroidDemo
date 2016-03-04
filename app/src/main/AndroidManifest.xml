@@ -41,7 +41,7 @@
         <activity android:name=".activity.MatrixActivity"/>
         <activity android:name=".activity.PullToLoadActivity"/>
         <activity
-            android:name=".activity.RecycleActivity"
+            android:name=".activity.RecyclerItemDraggerActivity"
             android:theme="@style/DividerTheme"/>
         <activity android:name=".activity.XUtils3Activity"/>
         <activity android:name=".activity.SmartTabLayoutActivity"/>

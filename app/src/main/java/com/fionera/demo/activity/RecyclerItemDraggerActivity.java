@@ -5,20 +5,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DividerItemDecoration;
@@ -30,9 +24,10 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class RecycleActivity
+public class RecyclerItemDraggerActivity
         extends Activity {
 
     @ViewInject(R.id.ptrl_root)
@@ -83,30 +78,37 @@ public class RecycleActivity
         pullToRefreshLayout.autoRefresh();
 
         recyclerView.setLayoutManager(
-                new LinearLayoutManager(RecycleActivity.this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new MyAdapter(RecycleActivity.this, data));
+                new LinearLayoutManager(RecyclerItemDraggerActivity.this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(new MyAdapter(RecyclerItemDraggerActivity.this, data));
 
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
         recyclerView.setTotalCount(data.size());
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+                                                   ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                data.remove(position);
-                recyclerView.getAdapter().notifyItemRemoved(position);
-            }
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        data.remove(position);
+                        recyclerView.getAdapter().notifyItemRemoved(position);
+                    }
 
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
-                return false;
-            }
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView,
+                                          RecyclerView.ViewHolder viewHolder,
+                                          RecyclerView.ViewHolder target) {
+                        Collections.swap(data, viewHolder.getAdapterPosition(),
+                                         target.getAdapterPosition());
+                        recyclerView.getAdapter().notifyItemMoved(viewHolder.getAdapterPosition(),
+                                                                  target.getAdapterPosition());
+                        return false;
+                    }
 
-        }).attachToRecyclerView(recyclerView);
+                }).attachToRecyclerView(recyclerView);
     }
 
     class MyAdapter

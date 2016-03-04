@@ -17,7 +17,7 @@ import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.RVWithHeaderActivity;
-import com.fionera.demo.activity.RecycleActivity;
+import com.fionera.demo.activity.RecyclerItemDraggerActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.XUtils3Activity;
@@ -86,7 +86,7 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, NotificationActivity.class)));
         // 设定RecyclerView测试跳转
         recycle.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, RecycleActivity.class)));
+                v -> mContext.startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class)));
         databind.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DataBindingActivity.class)));
         g2048.setOnClickListener(v -> {

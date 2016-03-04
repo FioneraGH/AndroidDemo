@@ -465,7 +465,7 @@ public class PullToRefreshLayout
      */
     public void autoRefresh() {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, refreshDist + 50);
-        valueAnimator.setDuration(900);
+        valueAnimator.setDuration(500);
         valueAnimator.addUpdateListener(animation -> {
             pullDownY = (float) animation.getAnimatedValue();
             if (pullDownY > refreshDist) {
@@ -483,6 +483,7 @@ public class PullToRefreshLayout
                 hide();
             }
         });
+        valueAnimator.setStartDelay(300);
         valueAnimator.start();
     }
 
