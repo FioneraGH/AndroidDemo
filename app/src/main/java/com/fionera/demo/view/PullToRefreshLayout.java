@@ -464,7 +464,7 @@ public class PullToRefreshLayout
      * 自动刷新
      */
     public void autoRefresh() {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, refreshDist + 50);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, refreshDist + DisplayUtils.dp2px(12));
         valueAnimator.setDuration(500);
         valueAnimator.addUpdateListener(animation -> {
             pullDownY = (float) animation.getAnimatedValue();

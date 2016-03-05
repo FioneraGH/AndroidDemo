@@ -11,8 +11,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
+import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DividerItemDecoration;
@@ -59,7 +61,7 @@ public class RecyclerItemDraggerActivity
                             entry.setText("world " + i);
                             data.add(entry);
                         }
-                        recyclerView.getAdapter().notifyItemRangeChanged(0, data.size());
+                        recyclerView.getAdapter().notifyDataSetChanged();
                         recyclerView.setTotalCount(data.size());
                     }
                 }.sendEmptyMessageDelayed(0, 1500);
@@ -71,14 +73,24 @@ public class RecyclerItemDraggerActivity
                     @Override
                     public void handleMessage(Message msg) {
                         ptrl.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+                        for (int i = 0; i < 10; i++) {
+                            ChatMsgBean entry = new ChatMsgBean();
+                            entry.setDate("0000-00-00");
+                            entry.setName("hello");
+                            entry.setMsgType(false);
+                            entry.setText("world " + i);
+                            data.add(entry);
+                        }
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                        recyclerView.setTotalCount(data.size());
                     }
                 }.sendEmptyMessageDelayed(0, 1500);
             }
         });
         pullToRefreshLayout.autoRefresh();
 
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(RecyclerItemDraggerActivity.this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(RecyclerItemDraggerActivity.this,
+                                                              LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(new MyAdapter(RecyclerItemDraggerActivity.this, data));
 
         recyclerView.addItemDecoration(
@@ -116,6 +128,7 @@ public class RecyclerItemDraggerActivity
 
         private LayoutInflater layoutInflater;
         private List<ChatMsgBean> data;
+        private int lastPosition = -1;
 
         MyAdapter(Context context, List<ChatMsgBean> data) {
             this.data = data;
@@ -136,6 +149,24 @@ public class RecyclerItemDraggerActivity
             holder.itemView.setOnClickListener(v -> ShowToast
                     .show(position + " " + holder.getAdapterPosition() + " " + holder
                             .getLayoutPosition()));
+
+            runItemAnim(holder.itemView, position);
+        }
+
+        private void runItemAnim(View itemView, int position) {
+            if (position > lastPosition) {
+                lastPosition = position;
+                itemView.setTranslationY(DemoApplication.screenHeight);
+                if (position < 7) {
+                    itemView.animate().withLayer().translationY(0f)
+                            .setInterpolator(new DecelerateInterpolator(1.0f))
+                            .setStartDelay(100 * position).start();
+                } else {
+                    itemView.animate().withLayer().translationY(0f)
+                            .setInterpolator(new DecelerateInterpolator(1.0f)).setStartDelay(100)
+                            .start();
+                }
+            }
         }
 
         @Override
