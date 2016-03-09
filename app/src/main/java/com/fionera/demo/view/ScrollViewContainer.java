@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.fionera.demo.util.DisplayUtils;
+import com.fionera.demo.util.LogCat;
+import com.fionera.demo.util.NavigationBarUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -91,28 +93,23 @@ public class ScrollViewContainer
                 } else {
                     mTimer.cancel();
                 }
+            } else {
+                mTimer.cancel();
             }
             requestLayout();
         }
-
     };
 
     public ScrollViewContainer(Context context) {
-        super(context);
-        init();
+        this(context,null);
     }
 
     public ScrollViewContainer(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs,0);
     }
 
     public ScrollViewContainer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
-    }
-
-    private void init() {
         mTimer = new MyTimer(handler);
     }
 
@@ -145,7 +142,6 @@ public class ScrollViewContainer
                     } else if (mMoveLen < -mViewHeight) {
                         mMoveLen = -mViewHeight;
                         mCurrentViewIndex = 1;
-
                     }
                     if (mMoveLen < -8) {
                         // 防止事件冲突
@@ -203,64 +199,7 @@ public class ScrollViewContainer
         return true;
     }
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        topView.layout(0, (int) mMoveLen, mViewWidth, topView.getMeasuredHeight() + (int) mMoveLen);
-        bottomView.layout(0, topView.getMeasuredHeight() + (int) mMoveLen, mViewWidth,
-                          topView.getMeasuredHeight() + (int) mMoveLen + bottomView
-                                  .getMeasuredHeight());
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (!isMeasured) {
-            isMeasured = true;
-
-            mViewHeight = getMeasuredHeight();
-            mViewWidth = getMeasuredWidth();
-
-            topView = getChildAt(0);
-            bottomView = getChildAt(1);
-
-            bottomView.setOnTouchListener(bottomViewTouchListener);
-            topView.setOnTouchListener(topViewTouchListener);
-        }
-    }
-
-    private OnTouchListener topViewTouchListener = new OnTouchListener() {
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (v instanceof ScrollView) {
-                ScrollView sv = (ScrollView) v;
-                if (sv.getScrollY() == (sv.getChildAt(0).getMeasuredHeight() - sv
-                        .getMeasuredHeight()) && mCurrentViewIndex == 0) {
-                    canPullUp = true;
-                } else {
-                    canPullUp = false;
-                }
-            } else {
-                canPullUp = false;
-            }
-            return false;
-        }
-    };
-
-    private OnTouchListener bottomViewTouchListener = new OnTouchListener() {
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (v.getScrollY() == 0 && mCurrentViewIndex == 1) {
-                canPullDown = true;
-            } else {
-                canPullDown = false;
-            }
-            return false;
-        }
-    };
-
-    class MyTimer {
+    private class MyTimer {
         private Handler handler;
         private Timer timer;
         private MyTask mTask;
@@ -286,7 +225,7 @@ public class ScrollViewContainer
             }
         }
 
-        class MyTask
+        private class MyTask
                 extends TimerTask {
             private Handler handler;
 
@@ -298,7 +237,55 @@ public class ScrollViewContainer
             public void run() {
                 handler.obtainMessage().sendToTarget();
             }
-
         }
     }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (!isMeasured) {
+            isMeasured = true;
+
+            topView = getChildAt(0);
+            bottomView = getChildAt(1);
+
+            bottomView.setOnTouchListener(bottomViewTouchListener);
+            topView.setOnTouchListener(topViewTouchListener);
+        }
+        mViewHeight = getMeasuredHeight();
+        mViewWidth = getMeasuredWidth();
+        LogCat.d("w:" + mViewWidth + "h:" + mViewHeight);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        topView.layout(0, (int) mMoveLen, mViewWidth, topView.getMeasuredHeight() + (int) mMoveLen);
+        bottomView.layout(0, topView.getMeasuredHeight() + (int) mMoveLen, mViewWidth,
+                          topView.getMeasuredHeight() + (int) mMoveLen + bottomView
+                                  .getMeasuredHeight());
+    }
+
+    private OnTouchListener topViewTouchListener = new OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (v instanceof ScrollView) {
+                ScrollView sv = (ScrollView) v;
+                canPullUp = sv.getScrollY() == (sv.getChildAt(0).getMeasuredHeight() - sv
+                        .getMeasuredHeight()) && mCurrentViewIndex == 0;
+            } else {
+                canPullUp = false;
+            }
+            return false;
+        }
+    };
+
+    private OnTouchListener bottomViewTouchListener = new OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            canPullDown = v.getScrollY() == 0 && mCurrentViewIndex == 1;
+            return false;
+        }
+    };
 }
