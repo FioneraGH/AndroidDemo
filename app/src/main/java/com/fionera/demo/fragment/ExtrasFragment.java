@@ -13,7 +13,7 @@ import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DataBindingActivity;
 import com.fionera.demo.activity.DialogActivity;
 import com.fionera.demo.activity.G2048Activity;
-import com.fionera.demo.activity.HListViewActivity;
+import com.fionera.demo.activity.DoubleHeadTableActivity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
@@ -107,7 +107,7 @@ public class ExtrasFragment
         rvwithhead.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
         doublehead.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, HListViewActivity.class)));
+                v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
     }
 
     @Override

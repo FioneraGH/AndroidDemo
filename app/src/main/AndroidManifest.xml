@@ -80,7 +80,7 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"/>
         <activity android:name=".activity.RVWithHeaderActivity">
         </activity>
-        <activity android:name=".activity.HListViewActivity">
+        <activity android:name=".activity.DoubleHeadTableActivity">
         </activity>
     </application>
 

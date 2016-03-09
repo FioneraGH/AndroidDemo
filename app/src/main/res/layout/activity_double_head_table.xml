@@ -18,7 +18,7 @@
             android:background="@color/blue2"
             android:text="表头" />
 
-        <com.fionera.demo.view.CHScrollView
+        <com.fionera.demo.view.ListNestedScrollView
             android:id="@+id/item_scroll_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,7 +67,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center" />
             </LinearLayout>
-        </com.fionera.demo.view.CHScrollView>
+        </com.fionera.demo.view.ListNestedScrollView>
     </LinearLayout>
 
     <ListView
@@ -76,6 +76,7 @@
         android:layout_height="match_parent"
         android:cacheColorHint="@android:color/transparent"
         android:fadingEdge="none"
+        android:overScrollMode="never"
         android:scrollbars="none" >
     </ListView>
 

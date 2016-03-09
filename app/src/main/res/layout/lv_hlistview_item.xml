@@ -12,10 +12,10 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:gravity="center"
-        android:text="区-1" 
-        android:textColor="@color/black"/>
+        android:background="@color/yellow0"
+        android:text="区-1" />
 
-    <com.fionera.demo.view.CHScrollView
+    <com.fionera.demo.view.ListNestedScrollView
         android:id="@+id/item_chscroll_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,6 +64,6 @@
                 android:gravity="center" />
 
         </LinearLayout>
-    </com.fionera.demo.view.CHScrollView>
+    </com.fionera.demo.view.ListNestedScrollView>
 
 </LinearLayout>
