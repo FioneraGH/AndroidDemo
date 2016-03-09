@@ -1,6 +1,10 @@
 package com.fionera.demo.fragment;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +17,7 @@ import com.fionera.demo.R;
 import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.adapter.RecentSessionAdapter;
 import com.fionera.demo.util.ShowToast;
+import com.fionera.demo.util.TadaAnimator;
 
 import org.xutils.view.annotation.ViewInject;
 
@@ -66,18 +71,19 @@ public class HomePageFragment
         floatingActionButton.setTranslationX(DemoApplication.screenWidth / 3);
         floatingActionButton.animate().withLayer().translationX(0).setDuration(700)
                 .setInterpolator(new OvershootInterpolator(1.0f)).start();
+        ObjectAnimator objectAnimator = ObjectAnimator
+                .ofObject(recyclerView, "backgroundColor", new ArgbEvaluator(), Color.BLUE,
+                          Color.RED).setDuration(2000);
+        objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        objectAnimator.start();
     }
 
     private void addSession() {
-        floatingActionButton.animate().withLayer().scaleX(0.0f).scaleY(0.0f).setDuration(300)
-                .start();
-        float elevation = ViewCompat.getElevation(floatingActionButton);
-        ViewCompat.setElevation(floatingActionButton, 0);
+        TadaAnimator.nope(floatingActionButton).start();
         recyclerView.getAdapter().notifyItemInserted(1);
-        recyclerView.postDelayed(() -> {
-            floatingActionButton.animate().withLayer().scaleX(1.0f).scaleY(1.0f).setDuration(300)
-                    .start();
-            ViewCompat.setElevation(floatingActionButton, elevation);
-        }, 1000);
+        recyclerView.postDelayed(
+                () -> floatingActionButton.animate().withLayer().scaleX(1.0f).scaleY(1.0f)
+                        .setDuration(300).start(), 1000);
     }
 }

@@ -13,6 +13,7 @@ import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DataBindingActivity;
 import com.fionera.demo.activity.DialogActivity;
 import com.fionera.demo.activity.G2048Activity;
+import com.fionera.demo.activity.HListViewActivity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
@@ -59,6 +60,8 @@ public class ExtrasFragment
     private Button bottomsheet;
     @ViewInject(R.id.button12)
     private Button rvwithhead;
+    @ViewInject(R.id.button13)
+    private Button doublehead;
 
     @Override
     public int setLayoutResource() {
@@ -103,6 +106,8 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, BottomSheetActivity.class)));
         rvwithhead.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
+        doublehead.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, HListViewActivity.class)));
     }
 
     @Override
