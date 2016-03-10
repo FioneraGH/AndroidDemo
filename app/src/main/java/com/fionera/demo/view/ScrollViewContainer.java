@@ -101,11 +101,11 @@ public class ScrollViewContainer
     };
 
     public ScrollViewContainer(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public ScrollViewContainer(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public ScrollViewContainer(Context context, AttributeSet attrs, int defStyle) {
