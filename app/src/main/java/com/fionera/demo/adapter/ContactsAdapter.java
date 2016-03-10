@@ -51,10 +51,10 @@ public class ContactsAdapter
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ((ContactViewHolder)holder).getBinding().setContact(data.get(position));
-        ((ContactViewHolder)holder).getBinding().executePendingBindings();
+        ((ContactViewHolder) holder).getBinding().setContact(data.get(position));
+        ((ContactViewHolder) holder).getBinding().executePendingBindings();
         holder.itemView.setOnClickListener(
-                v -> rvItemTouchListener.onItemClick(holder.itemView, position));
+                v -> rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition()));
     }
 
     @Override
