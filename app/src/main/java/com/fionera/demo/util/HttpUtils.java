@@ -28,7 +28,7 @@ public class HttpUtils {
         LogCat.d("接口 URL = " + url);
         LogCat.d("接口 JSON = " + json);
 
-        if (!HttpUtils.isNetworkConnected(DemoApplication.getInstance())) {
+        if (!isNetworkConnected(DemoApplication.getInstance())) {
             ShowToast.show("网络未连接，请检查网络设置！");
             callBack.onNoNetwork();
             return null;
