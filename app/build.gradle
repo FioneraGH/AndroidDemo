@@ -4,12 +4,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 buildscript {
+    ext.kotlin_version = '1.0.1'
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.0.0"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -57,6 +59,6 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.11'
     compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'me.henrytao:smooth-app-bar-layout:0.2.1'
 }
