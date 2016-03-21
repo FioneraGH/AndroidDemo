@@ -1,83 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="40dip"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:gravity="center"
             android:background="@color/blue2"
-            android:text="表头" />
+            android:gravity="center"
+            android:text="表头"/>
 
         <com.fionera.demo.view.ListNestedScrollView
             android:id="@+id/item_scroll_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/yellow0"
-            android:scrollbars="none" >
+            android:background="@color/yellow1"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal" >
-                <TextView
-                    android:text="区1"
-                    android:layout_width="100dip"
-                    android:layout_height="match_parent"
-                    android:gravity="center" />
+                android:orientation="horizontal">
 
                 <TextView
+                    android:layout_width="100dip"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="区1"/>
+
+                <TextView
+                    android:layout_width="100dip"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="区2"
-                    android:layout_width="100dip"
-                    android:layout_height="match_parent"
-                    android:textColor="#850"
-                    android:gravity="center" />
+                    android:textColor="#850"/>
 
                 <TextView
-                    android:text="区3"
                     android:layout_width="100dip"
                     android:layout_height="match_parent"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="区3"/>
 
                 <TextView
-                    android:text="区4"
                     android:layout_width="100dip"
                     android:layout_height="match_parent"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="区4"/>
 
                 <TextView
-                    android:text="区5"
                     android:layout_width="100dip"
                     android:layout_height="match_parent"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="区5"/>
 
                 <TextView
-                    android:text="区6"
                     android:layout_width="100dip"
                     android:layout_height="match_parent"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="区6"/>
             </LinearLayout>
         </com.fionera.demo.view.ListNestedScrollView>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/hlistview_scroll_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_scroll_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="@android:color/transparent"
-        android:fadingEdge="none"
-        android:overScrollMode="never"
-        android:scrollbars="none" >
-    </ListView>
+        android:overScrollMode="never"/>
 
 </LinearLayout>

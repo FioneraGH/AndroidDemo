@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
@@ -23,9 +24,9 @@ import java.util.Map;
 
 public class DoubleHeadTableActivity
         extends Activity {
-    private ListView mListView;
+    private RecyclerView recyclerView;
     private HorizontalScrollView touchView;
-    private List<ListNestedScrollView> mHScrollViews = new ArrayList<>();
+    private List<ListNestedScrollView> mHScrollItems = new ArrayList<>();
     private String[] columns = new String[]{"title", "data_1", "data_2", "data_3", "data_4",
             "data_5", "data_6"};
 
@@ -46,8 +47,8 @@ public class DoubleHeadTableActivity
 
     private void init() {
         List<Map<String, String>> datas = new ArrayList<>();
-        mHScrollViews.add((ListNestedScrollView) findViewById(R.id.item_scroll_title));
-        mListView = (ListView) findViewById(R.id.hlistview_scroll_list);
+        mHScrollItems.add((ListNestedScrollView) findViewById(R.id.item_scroll_title));
+        recyclerView = (RecyclerView) findViewById(R.id.rv_scroll_list);
         for (int i = 0; i < 20; i++) {
             Map<String, String> data = new HashMap<>();
             data.put("title", "区_" + i);
@@ -56,15 +57,12 @@ public class DoubleHeadTableActivity
             }
             datas.add(data);
         }
-        mListView.setAdapter(new ScrollAdapter(this, datas, R.layout.lv_hlistview_item, columns,
-                                               new int[]{R.id.item_titlev, R.id.item_datav1, R.id
-                                                       .item_datav2, R.id.item_datav3, R.id
-                                                       .item_datav4, R.id.item_datav5, R.id
-                                                       .item_datav6}));
+        recyclerView.setAdapter(new ScrollAdapter(this, datas));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void onScrollChanged(int l, int t, int oldl, int oldt) {
-        for (ListNestedScrollView scrollView : mHScrollViews) {
+    public void onScrollChanged(int l, int t) {
+        for (ListNestedScrollView scrollView : mHScrollItems) {
             if (touchView != scrollView) {
                 scrollView.smoothScrollTo(l, t);
             }
@@ -72,55 +70,60 @@ public class DoubleHeadTableActivity
     }
 
     private class ScrollAdapter
-            extends SimpleAdapter {
+            extends RecyclerView.Adapter<ListHolder> {
 
         private Context context;
         private List<? extends Map<String, ?>> datas;
-        private int resLayout;
-        private String[] from;
-        private int[] to;
 
-        public ScrollAdapter(Context context, List<? extends Map<String, ?>> data, int resource,
-                             String[] from, int[] to) {
-            super(context, data, resource, from, to);
+        public ScrollAdapter(Context context, List<? extends Map<String, ?>> data) {
             this.context = context;
             this.datas = data;
-            this.resLayout = resource;
-            this.from = from;
-            this.to = to;
+        }
+
+
+        @Override
+        public ListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ListHolder(LayoutInflater.from(context)
+                                          .inflate(R.layout.rv_hscroll_item, parent, false));
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = convertView;
-            if (v == null) {
-                v = LayoutInflater.from(context).inflate(resLayout, parent, false);
-                ListNestedScrollView listNestedScrollView = (ListNestedScrollView) v
-                        .findViewById(R.id.item_chscroll_scroll);
-                if (!mHScrollViews.isEmpty()) {
-                    final int scrollX = mHScrollViews.get(mHScrollViews.size() - 1).getScrollX();
-                    if (0 != scrollX) {
-                        mListView.post(() -> listNestedScrollView.scrollTo(scrollX, 0));
-                    }
+        public void onBindViewHolder(ListHolder holder, int position) {
+            if (!mHScrollItems.isEmpty()) {
+                final int scrollX = mHScrollItems.get(mHScrollItems.size() - 1).getScrollX();
+                if (0 != scrollX) {
+                    recyclerView.post(() -> holder.listNestedScrollView.scrollTo(scrollX, 0));
                 }
-                mHScrollViews.add(listNestedScrollView);
-                View[] views = new View[to.length];
-                for (int i = 0; i < to.length; i++) {
-                    View tv = v.findViewById(to[i]);
-                    tv.setOnClickListener(clickListener);
-                    views[i] = tv;
-                }
-                v.setTag(views);
             }
-            View[] holders = (View[]) v.getTag();
-            for (int i = 0; i < holders.length; i++) {
-                ((TextView) holders[i]).setText(this.datas.get(position).get(from[i]).toString());
+            mHScrollItems.add(holder.listNestedScrollView);
+            int lineCount = ((LinearLayout) holder.listNestedScrollView.getChildAt(0))
+                    .getChildCount();
+            for (int i = 0; i < lineCount; i++) {
+                TextView tv = (TextView) ((LinearLayout) holder.listNestedScrollView.getChildAt(0))
+                        .getChildAt(i);
+                tv.setOnClickListener(clickListener);
+                tv.setText(datas.get(position).get(columns[i]).toString());
             }
-            return v;
+        }
+
+        @Override
+        public int getItemCount() {
+            return datas.size();
         }
     }
 
-
     private View.OnClickListener clickListener = v -> ShowToast
             .show("点击了:" + ((TextView) v).getText());
+
+    private class ListHolder
+            extends RecyclerView.ViewHolder {
+
+        ListNestedScrollView listNestedScrollView;
+
+        public ListHolder(View itemView) {
+            super(itemView);
+            listNestedScrollView = (ListNestedScrollView) itemView
+                    .findViewById(R.id.item_chscroll_scroll);
+        }
+    }
 }

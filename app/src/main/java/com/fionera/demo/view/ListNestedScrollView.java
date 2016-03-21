@@ -38,7 +38,7 @@ public class ListNestedScrollView
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		if(activity.getTouchView() == this) {
-			activity.onScrollChanged(l, t, oldl, oldt);
+			activity.onScrollChanged(l, t);
 		}else{
 			super.onScrollChanged(l, t, oldl, oldt);
 		}
