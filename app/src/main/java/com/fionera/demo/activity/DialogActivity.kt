@@ -22,10 +22,4 @@ class DialogActivity : AppCompatActivity() {
         tb_in_dialog.setOnClickListener({
             BottomSheetDialogView.show(this@DialogActivity); })
     }
-
-    override fun onDestroy() {
-
-        super.onDestroy()
-        LogCat.d("destroy")
-    }
 }

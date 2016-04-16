@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="danmu_vertical_margin" type="id"/>
-    <item name="tl_tab_layout" type="id"/>
+    <item name="tv_tab_text" type="id"/>
 </resources>

@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 
-import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DataBindingActivity;
 import com.fionera.demo.activity.DialogActivity;
-import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
+import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
@@ -25,16 +23,11 @@ import com.fionera.demo.activity.XUtils3Activity;
 
 import org.xutils.view.annotation.ViewInject;
 
-import pl.droidsonroids.gif.GifImageView;
-
 /**
  * Created by fionera on 15-10-3.
  */
 public class ExtrasFragment
         extends BaseFragment {
-
-    @ViewInject(R.id.giv_extras_anim)
-    private GifImageView gifImageView;
 
     @ViewInject(R.id.button1)
     private Button matrix;
@@ -72,8 +65,6 @@ public class ExtrasFragment
     public void initViews(View rootView) {
 
         setTitleBarText("扩展");
-
-        gifImageView.setTranslationY(-DemoApplication.screenHeight / 3);
 
         // 设定Matrix跳转
         matrix.setOnClickListener(
@@ -114,11 +105,5 @@ public class ExtrasFragment
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
-            if (gifImageView != null && 0.0f != gifImageView.getTranslationY()) {
-                gifImageView.animate().withLayer().translationY(0.0f).setDuration(1000)
-                        .setInterpolator(new BounceInterpolator()).start();
-            }
-        }
     }
 }

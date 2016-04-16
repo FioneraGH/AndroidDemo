@@ -36,7 +36,7 @@ public class ScrollViewContainer
     /**
      * 动画速度
      */
-    private static final float SPEED = 12f;
+    private static final float SPEED = DisplayUtils.dp2px(5);
 
     private boolean isMeasured = false;
 
@@ -254,7 +254,7 @@ public class ScrollViewContainer
         }
         mViewHeight = getMeasuredHeight();
         mViewWidth = getMeasuredWidth();
-        LogCat.d("w:" + mViewWidth + "h:" + mViewHeight);
+//        LogCat.d("w:" + mViewWidth + "h:" + mViewHeight);
     }
 
     @Override

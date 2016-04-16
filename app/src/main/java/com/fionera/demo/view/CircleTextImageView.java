@@ -19,6 +19,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
@@ -73,6 +74,8 @@ public class CircleTextImageView
     private boolean mSetupPending;
     private boolean mBorderOverlay;
 
+    private Context context;
+
     public CircleTextImageView(Context context) {
         this(context, null);
     }
@@ -83,6 +86,8 @@ public class CircleTextImageView
 
     public CircleTextImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        this.context = context;
 
         TypedArray a = context
                 .obtainStyledAttributes(attrs, R.styleable.CircleTextImageView, defStyle, 0);
@@ -170,7 +175,6 @@ public class CircleTextImageView
         return mTextString;
     }
 
-
     public void setText(@StringRes int TextResId) {
         setText(getResources().getString(TextResId));
     }
@@ -178,7 +182,6 @@ public class CircleTextImageView
     public void setText(String textString) {
         this.mTextString = textString;
         invalidate();
-
     }
 
     public int getTextColor() {
@@ -192,7 +195,7 @@ public class CircleTextImageView
     }
 
     public void setTextColorResource(@ColorRes int colorResource) {
-        setTextColor(getResources().getColor(colorResource));
+        setTextColor(ContextCompat.getColor(context,colorResource));
     }
 
     public int getTextSize() {
@@ -229,7 +232,7 @@ public class CircleTextImageView
     }
 
     public void setBorderColorResource(@ColorRes int borderColorRes) {
-        setBorderColor(getContext().getResources().getColor(borderColorRes));
+        setBorderColor(ContextCompat.getColor(context,borderColorRes));
     }
 
     public int getFillColor() {
@@ -247,7 +250,7 @@ public class CircleTextImageView
     }
 
     public void setFillColorResource(@ColorRes int fillColorRes) {
-        setFillColor(getContext().getResources().getColor(fillColorRes));
+        setFillColor(ContextCompat.getColor(context,fillColorRes));
     }
 
     public int getBorderWidth() {
@@ -356,17 +359,14 @@ public class CircleTextImageView
             return;
         }
 
-
         if (mBitmap == null && TextUtils.isEmpty(mTextString)) {
             invalidate();
             return;
         }
 
-
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(mTextColor);
         mTextPaint.setTextSize(mTextSize);
-
 
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setAntiAlias(true);
@@ -376,7 +376,6 @@ public class CircleTextImageView
         mFillPaint.setStyle(Paint.Style.FILL);
         mFillPaint.setAntiAlias(true);
         mFillPaint.setColor(mFillColor);
-
 
         mBorderRect.set(0, 0, getWidth(), getHeight());
         mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f,

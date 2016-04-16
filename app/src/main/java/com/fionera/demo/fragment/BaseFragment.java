@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.DisplayUtils;
 import com.fionera.demo.view.TitleBar;
 
 import org.xutils.x;
@@ -39,7 +40,7 @@ public abstract class BaseFragment
             ((LinearLayout) rootView).addView(contentView, LinearLayout.LayoutParams.MATCH_PARENT,
                                               LinearLayout.LayoutParams.MATCH_PARENT);
             titleBar = (TitleBar) ((LinearLayout) rootView).getChildAt(0);
-            ViewCompat.setElevation(titleBar, 5);
+            ViewCompat.setElevation(titleBar, DisplayUtils.dp2px(5));
             x.view().inject(this, rootView);
             initViews(rootView);
         }

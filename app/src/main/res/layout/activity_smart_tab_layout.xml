@@ -36,11 +36,11 @@
             android:orientation="vertical">
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
-                android:id="@id/tl_tab_layout"
+                android:id="@+id/tl_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 app:stl_customTabTextLayoutId="@layout/tab_margin8_layout"
-                app:stl_customTabTextViewId="@+id/tv_tab_text"
+                app:stl_customTabTextViewId="@id/tv_tab_text"
                 app:stl_indicatorColor="#40daea"
                 app:stl_indicatorInterpolation="linear"
                 app:stl_indicatorThickness="2dp"
