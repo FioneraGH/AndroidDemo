@@ -8,7 +8,6 @@ import android.view.WindowManager;
 
 import org.xutils.x;
 
-
 public class DemoApplication extends Application {
 
     private static WindowManager.LayoutParams wmLayoutParams;
