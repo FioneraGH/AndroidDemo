@@ -11,7 +11,6 @@ import com.fionera.demo.fragment.TabLayoutFragment
 import com.fionera.demo.util.ShowToast
 import kotlinx.android.synthetic.main.activity_smart_tab_layout.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
 
 class SmartTabLayoutActivity : AppCompatActivity() {
 

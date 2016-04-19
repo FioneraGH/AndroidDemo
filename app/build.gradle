@@ -20,8 +20,8 @@ android {
         applicationId "com.fionera.demo"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.2"
+        versionCode 4
+        versionName "1.2.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +30,7 @@ android {
     }
     buildTypes {
         release {
+            zipAlignEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -50,8 +51,8 @@ android {
 }
 
 dependencies {
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile "com.android.support:support-annotations:$support_version"
     compile "com.android.support:design:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
@@ -63,4 +64,6 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile	"org.jetbrains.anko:anko-common:0.8.3"
+    compile	"org.jetbrains.anko:anko-sdk15:0.8.3"
+    compile	"org.jetbrains.anko:anko-recyclerview-v7:0.8.3"
 }

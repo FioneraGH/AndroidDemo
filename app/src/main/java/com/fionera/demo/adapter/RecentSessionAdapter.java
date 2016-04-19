@@ -33,8 +33,6 @@ public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        LogCat.d("create a holder");
         View view = LayoutInflater.from(context).inflate(R.layout.rv_recent_session_item, parent,
                 false);
         return new RecentViewHolder(view);
@@ -42,7 +40,6 @@ public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
         holder.itemView.setOnClickListener(
                 v -> rvItemTouchListener.onItemClick(holder.itemView, position));
     }
@@ -53,7 +50,6 @@ public class RecentSessionAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private class RecentViewHolder extends RecyclerView.ViewHolder {
-
 
         public RecentViewHolder(View itemView) {
             super(itemView);
