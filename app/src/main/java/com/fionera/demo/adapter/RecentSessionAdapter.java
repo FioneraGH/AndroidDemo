@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.RvItemTouchListener;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.fionera.demo.view;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -12,8 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.fionera.demo.util.DisplayUtils;
-import com.fionera.demo.util.LogCat;
-import com.fionera.demo.util.NavigationBarUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;

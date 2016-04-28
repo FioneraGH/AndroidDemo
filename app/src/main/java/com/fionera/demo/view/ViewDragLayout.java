@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fionera.demo.DemoApplication;
-import com.fionera.demo.util.LogCat;
 
 /**
  * Created by fionera on 16-2-14.

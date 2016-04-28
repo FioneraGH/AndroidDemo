@@ -3,7 +3,6 @@ package com.fionera.demo.bean;
 import android.databinding.BaseObservable;
 
 import com.fionera.demo.BR;
-import com.fionera.demo.R;
 
 /**
  * Created by fionera on 16-2-5.

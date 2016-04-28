@@ -1,16 +1,11 @@
 package com.fionera.demo.view;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +19,9 @@ import com.fionera.demo.R;
 import com.fionera.demo.util.DisplayUtils;
 import com.fionera.demo.util.Pullable;
 import com.fionera.demo.util.SimpleAnimatorListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**

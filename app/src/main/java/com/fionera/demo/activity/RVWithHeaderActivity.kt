@@ -1,14 +1,12 @@
 package com.fionera.demo.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-
 import com.fionera.demo.R
 import com.fionera.demo.util.ShowToast
 import kotlinx.android.synthetic.main.activity_rvwith_header.*

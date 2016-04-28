@@ -44,4 +44,11 @@
         <attr name="bottom_width" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="RichText">
+        <attr name="place_holder" format="reference" />
+        <attr name="error_image" format="reference" />
+        <attr name="default_width" format="dimension" />
+        <attr name="default_height" format="dimension" />
+    </declare-styleable>
+
 </resources>

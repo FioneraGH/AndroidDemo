@@ -1,10 +1,8 @@
 package com.fionera.demo.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AppCompatDelegate
+import android.support.v7.app.AppCompatActivity
 import android.webkit.WebViewClient
-
 import com.fionera.demo.R
 import com.fionera.demo.util.LogCat
 import com.fionera.demo.view.BottomSheetDialogView
