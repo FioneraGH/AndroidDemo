@@ -1,8 +1,10 @@
 package com.fionera.demo.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.ShowToast;
 
 import org.xutils.common.Callback;
 import org.xutils.image.ImageOptions;
@@ -78,11 +81,11 @@ public class RichText
         d_h = typedArray.getDimensionPixelSize(R.styleable.RichText_default_height, d_h);
 
         if (placeHolder == null) {
-            placeHolder = new ColorDrawable(Color.GRAY);
+            placeHolder = new ColorDrawable(Color.BLUE);
         }
         placeHolder.setBounds(0, 0, d_w, d_h);
         if (errorImage == null) {
-            errorImage = new ColorDrawable(Color.GRAY);
+            errorImage = new ColorDrawable(Color.BLUE);
         }
         errorImage.setBounds(0, 0, d_w, d_h);
         typedArray.recycle();
@@ -235,8 +238,14 @@ public class RichText
 
         @Override
         public void onSuccess(Drawable result) {
-            urlDrawable.setBounds(0, 0, result.getIntrinsicWidth(), result.getIntrinsicHeight());
-            urlDrawable.setDrawable(result);
+            /**
+             * force create a new bitmap which used to create a new drawable to refresh the resources
+             */
+            Bitmap bitmap = ((BitmapDrawable) result).getBitmap();
+            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+            drawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            urlDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            urlDrawable.setDrawable(drawable);
             RichText.this.setText(getText());
         }
 
@@ -259,7 +268,7 @@ public class RichText
     private Html.ImageGetter asyncImageGetter = new Html.ImageGetter() {
         @Override
         public Drawable getDrawable(String source) {
-            final URLDrawable urlDrawable = new URLDrawable();
+            final URLDrawable urlDrawable = new URLDrawable(getResources(), null);
             ImageTarget target = new ImageTarget(urlDrawable);
             addTarget(target);
             ImageHolder holder = mImages.get(source);
@@ -287,7 +296,8 @@ public class RichText
             extends BitmapDrawable {
         private Drawable drawable;
 
-        public URLDrawable() {
+        public URLDrawable(Resources res, Bitmap bitmap) {
+            super(res, bitmap);
         }
 
         @Override

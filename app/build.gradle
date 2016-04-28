@@ -40,6 +40,10 @@ android {
             minSdkVersion 21
             resConfigs("zh_CN","en_US")
         }
+        emu{
+            minSdkVersion 16
+            resConfigs("zh_CN","en_US")
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
