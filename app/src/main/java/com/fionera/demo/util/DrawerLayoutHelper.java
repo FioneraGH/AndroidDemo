@@ -22,12 +22,8 @@ public class DrawerLayoutHelper {
             edgeSizeField.setAccessible(true);
             int edgeSize = edgeSizeField.getInt(leftDragger);
             edgeSizeField.setInt(leftDragger, Math.max(edgeSize, DisplayUtils.dp2px(dp)));
-        } catch (NoSuchFieldException e) {
-            // ignore
-        } catch (IllegalArgumentException e) {
-            // ignore
-        } catch (IllegalAccessException e) {
-            // ignore
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 }

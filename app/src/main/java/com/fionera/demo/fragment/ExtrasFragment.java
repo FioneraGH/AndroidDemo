@@ -11,6 +11,7 @@ import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DataBindingActivity;
 import com.fionera.demo.activity.DialogActivity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
+import com.fionera.demo.activity.FlycoPageIndicaorActivity;
 import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
@@ -40,7 +41,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button5)
     private Button notify;
     @ViewInject(R.id.button6)
-    private Button recycle;
+    private Button recyclerview;
     @ViewInject(R.id.button7)
     private Button databind;
     @ViewInject(R.id.button8)
@@ -55,6 +56,8 @@ public class ExtrasFragment
     private Button rvwithhead;
     @ViewInject(R.id.button13)
     private Button doublehead;
+    @ViewInject(R.id.button14)
+    private Button flycoindicator;
 
     @Override
     public int setLayoutResource() {
@@ -66,20 +69,17 @@ public class ExtrasFragment
 
         setTitleBarText("扩展");
 
-        // 设定Matrix跳转
         matrix.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
         smart.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class)));
         dialog.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DialogActivity.class)));
-        // 设定下拉加载跳转
         load.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));
         notify.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, NotificationActivity.class)));
-        // 设定RecyclerView测试跳转
-        recycle.setOnClickListener(
+        recyclerview.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class)));
         databind.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DataBindingActivity.class)));
@@ -99,11 +99,7 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
         doublehead.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
+        flycoindicator.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, FlycoPageIndicaorActivity.class)));
     }
 }

@@ -15,18 +15,13 @@ public abstract class HttpRequestCallBack<T>
     @Override
     public void onSuccess(T result) {
         LogCat.d("接口 RESULT " + result.toString());
-//        if (HttpResponseUtils.hasGetData(result.toString())) {
-//            this.onSucceed(result.toString());
-//        } else {
-//            this.onFailed(HttpResponseUtils.getStatusMsg(result.toString()));
-//        }
-        this.onSucceed(result.toString());
+        onSucceed(result.toString());
     }
 
     @Override
     public void onError(Throwable ex, boolean isOnCallback) {
         LogCat.e(ex.getMessage());
-        this.onFailed((ex instanceof HttpException) ? ex.getMessage() : "未知错误");
+        onFailed((ex instanceof HttpException) ? ex.getMessage() : "未知错误");
     }
 
     @Override

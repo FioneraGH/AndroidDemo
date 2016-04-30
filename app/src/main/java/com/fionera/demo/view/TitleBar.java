@@ -13,10 +13,6 @@ import android.widget.TextView;
 
 import com.fionera.demo.R;
 
-
-/**
- * Created by victor on 15-9-22.
- */
 public class TitleBar
         extends LinearLayout {
 

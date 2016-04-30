@@ -157,7 +157,7 @@ public class RecyclerItemDraggerActivity
             if (position > lastPosition) {
                 lastPosition = position;
                 itemView.setTranslationY(DemoApplication.screenHeight);
-                if (position < 7) {
+                if (position < 6) {
                     itemView.animate().withLayer().translationY(0f)
                             .setInterpolator(new DecelerateInterpolator(1.0f))
                             .setStartDelay(100 * position).start();

@@ -25,7 +25,8 @@ import java.util.List;
  *
  * @see RecyclerView#setItemAnimator(RecyclerView.ItemAnimator)
  */
-public class MyItemAnimator extends SimpleItemAnimator {
+public class FlyingItemAnimator
+        extends SimpleItemAnimator {
     private static final boolean DEBUG = false;
 
     private ArrayList<ViewHolder> mPendingRemovals = new ArrayList<>();
@@ -46,7 +47,7 @@ public class MyItemAnimator extends SimpleItemAnimator {
     private int width;
     private int height;
 
-    public MyItemAnimator(Context context) {
+    public FlyingItemAnimator(Context context) {
         this.mContext = context;
         DisplayMetrics metric = new DisplayMetrics();
         ((Activity)mContext).getWindowManager().getDefaultDisplay().getMetrics(metric);

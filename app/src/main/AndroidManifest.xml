@@ -78,10 +78,9 @@
             android:name=".activity.DialogActivity"
             android:label="Dialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"/>
-        <activity android:name=".activity.RVWithHeaderActivity">
-        </activity>
-        <activity android:name=".activity.DoubleHeadTableActivity">
-        </activity>
+        <activity android:name=".activity.RVWithHeaderActivity"/>
+        <activity android:name=".activity.DoubleHeadTableActivity"/>
+        <activity android:name=".activity.FlycoPageIndicaorActivity"/>
     </application>
 
 </manifest>
