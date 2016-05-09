@@ -8,18 +8,14 @@ import android.widget.Button;
 
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
-import com.fionera.demo.activity.DataBindingActivity;
-import com.fionera.demo.activity.DialogActivity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
 import com.fionera.demo.activity.FlycoPageIndicaorActivity;
 import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
-import com.fionera.demo.activity.RVWithHeaderActivity;
 import com.fionera.demo.activity.RecyclerItemDraggerActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
-import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
 import org.xutils.view.annotation.ViewInject;
@@ -71,18 +67,12 @@ public class ExtrasFragment
 
         matrix.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
-        smart.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class)));
-        dialog.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, DialogActivity.class)));
         load.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));
         notify.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, NotificationActivity.class)));
         recyclerview.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class)));
-        databind.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, DataBindingActivity.class)));
         g2048.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), G2048Activity.class);
             ActivityOptionsCompat options = ActivityOptionsCompat
@@ -95,8 +85,6 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
         bottomsheet.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, BottomSheetActivity.class)));
-        rvwithhead.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
         doublehead.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
         flycoindicator.setOnClickListener(

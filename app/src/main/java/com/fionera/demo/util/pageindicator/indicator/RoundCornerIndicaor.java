@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-
 import com.fionera.demo.R;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 

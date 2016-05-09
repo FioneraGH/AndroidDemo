@@ -1,16 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-buildscript{
-    repositories {
-        jcenter()
-    }
-    dependencies{
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-    }
-}
 
 android {
     compileSdkVersion 23
@@ -24,9 +12,10 @@ android {
         versionName "1.2.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    dataBinding {
-        enabled = true
+
+        jackOptions{
+            enabled true
+        }
     }
     buildTypes {
         release {
@@ -49,9 +38,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
 }
 
 dependencies {
@@ -66,9 +52,5 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'io.reactivex:rxandroid:1.1.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile	"org.jetbrains.anko:anko-common:0.8.3"
-    compile	"org.jetbrains.anko:anko-sdk15:0.8.3"
-    compile	"org.jetbrains.anko:anko-recyclerview-v7:0.8.3"
     compile	"com.flyco.banner:FlycoBanner_Lib:2.0.2"
 }

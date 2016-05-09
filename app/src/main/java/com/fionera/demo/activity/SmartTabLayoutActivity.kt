@@ -7,10 +7,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.fionera.demo.R
-import com.fionera.demo.fragment.TabLayoutFragment
 import com.fionera.demo.util.ShowToast
 import kotlinx.android.synthetic.main.activity_smart_tab_layout.*
-import org.jetbrains.anko.find
 
 class SmartTabLayoutActivity : AppCompatActivity() {
 

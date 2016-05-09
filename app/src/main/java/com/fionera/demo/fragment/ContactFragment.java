@@ -38,8 +38,8 @@ public class ContactFragment
         contactBeanList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             ContactBean bean = new ContactBean();
-            bean.name.set("aaaa");
-            bean.phone.set("1111");
+            bean.setName("aaaa");
+            bean.setPhone("1111");
             contactBeanList.add(bean);
         }
 
@@ -49,7 +49,7 @@ public class ContactFragment
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
         contactsAdapter.setRvItemTouchListener((v, pos) -> {
             if (pos > 5) {
-                contactBeanList.get(pos).name.set(contactBeanList.get(pos).name.get() + " " + pos);
+                contactBeanList.get(pos).setName(contactBeanList.get(pos).getName() + " " + pos);
                 recyclerView.getAdapter().notifyItemChanged(pos);
             } else {
                 ShowToast.show(pos);

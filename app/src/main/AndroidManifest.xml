@@ -60,17 +60,6 @@
 
         <activity android:name=".activity.CaptureActivity"/>
         <activity android:name=".activity.NotificationActivity"/>
-        <activity android:name=".activity.DataBindingActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <action android:name="android.intent.action.VIEW"/>
-
-                <data
-                    android:host="profile"
-                    android:scheme="mxn"/>
-            </intent-filter>
-        </activity>
         <activity android:name=".activity.G2048Activity"/>
         <activity android:name=".activity.RxAndroidActivity"/>
         <activity android:name=".activity.BottomSheetActivity"/>

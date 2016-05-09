@@ -16,7 +16,13 @@
 #   public *;
 #}
 
--dontwarn org.androidannotations.api.rest.**
+-dontwarn com.alibaba.fastjson.**
+-dontwarn master.flame.danmaku.**
+-keep class master.flame.danmaku.** { *; }
+-dontwarn org.eclipse.mat.**
+-dontwarn com.squareup.leakcanary.**
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
 
 ################### region for gradle_retrolambda
 -dontwarn java.lang.invoke.*
@@ -30,8 +36,8 @@
 #################### end region
 
 ################### region for gradle_butterknife
--keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
+-keep class butterknife.** { *; }
 -keep class **$$ViewBinder { *; }
 
 -keepclasseswithmembernames class * {
@@ -43,9 +49,20 @@
 }
 #################### end region
 
-################### region for gradle_volley
--keep class com.android.volley.**  {* ;}
--keep class org.apache.http.**  {* ;}
+################### region for gradle_okhttp
+-dontwarn com.squareup.okhttp.**
+-dontwarn okhttp3.**
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+#################### end region
+
+################### region for gradle_okio
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**
+-keep class sun.misc.Unsafe { *; }
 #################### end region
 
 ################### region for gradle_glide
@@ -54,9 +71,11 @@
     **[] $VALUES;
     public *;
 }
-################### transformations
--dontwarn jp.co.cyberagent.android.gpuimage.**
--keep class android.support.v8.renderscript.** { *; }
+#################### end region
+
+################### region for gradle_gif_drawable
+-keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}
+-keep class pl.droidsonroids.gif.GifInfoHandle{<init>(long,int,int,int);}
 #################### end region
 
 ################### region for gradle_gson
@@ -69,7 +88,7 @@
 
 ################### region for gradle_bean,R
 -keep class com.bean.** { *; }
--keep public class com.centling.honny.R$*{
+-keep public class com.centling.shenyou.R$*{
     public static final int *;
 }
 #################### end region
@@ -79,11 +98,16 @@
 -keep class org.sqlite.database.** { *; }
 #################### end region
 
+################### region for gradle_getui
+-dontwarn com.igexin.**
+-keep class com.igexin.**{*;}
+#################### end region
+
 ################### region for gradle_support
--keep class com.widget.** { *; }
 -dontwarn org.apache.http.**
 -dontwarn android.net.**
 -dontwarn android.support.design.**
+-keep class com.widget.** { *; }
 -keep class android.support.design.** { *; }
 -keep interface android.support.design.** { *; }
 -keep public class android.support.design.R$* { *; }
@@ -107,87 +131,6 @@
 -keep class com.alipay.sdk.app.PayTask{ public *;}
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
 
-#-keep class com.tencent.mm.sdk.openapi.WXMediaMessage {*;}
-#-keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject {*;}
+-keep class com.tencent.mm.sdk.openapi.WXMediaMessage {*;}
+-keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject {*;}
 #################### end region
-
-
-####################
--keep public class com.activity.OrderDetailActivity{*;}
--dontwarn com.activity.**
-
-######################################友盟####################################
--dontshrink
--dontoptimize
--dontwarn com.google.android.maps.**
--dontwarn android.webkit.WebView
--dontwarn com.umeng.**
--dontwarn com.tencent.weibo.sdk.**
--dontwarn com.facebook.**
-
-
--keep enum com.facebook.**
--keepattributes Exceptions,InnerClasses,Signature
--keepattributes *Annotation*
--keepattributes SourceFile,LineNumberTable
-
--keep public interface com.facebook.**
--keep public interface com.tencent.**
--keep public interface com.umeng.socialize.**
--keep public interface com.umeng.socialize.sensor.**
--keep public interface com.umeng.scrshot.**
-
--keep public class com.umeng.socialize.* {*;}
--keep public class javax.**
--keep public class android.webkit.**
-
--keep class com.facebook.**
--keep class com.facebook.** { *; }
--keep class com.umeng.scrshot.**
--keep public class com.tencent.** {*;}
--keep class com.umeng.socialize.sensor.**
--keep class com.umeng.socialize.handler.**
--keep class com.umeng.socialize.handler.*
--keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {*;}
--keep class com.tencent.mm.sdk.modelmsg.** implements com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {*;}
-
--keep class im.yixin.sdk.api.YXMessage {*;}
--keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
-
--dontwarn twitter4j.**
--keep class twitter4j.** { *; }
-
--keep class com.tencent.** {*;}
--dontwarn com.tencent.**
--keep public class com.umeng.soexample.R$*{
-    public static final int *;
-}
--keep public class com.umeng.soexample.R$*{
-    public static final int *;
-}
--keep class com.tencent.open.TDialog$*
--keep class com.tencent.open.TDialog$* {*;}
--keep class com.tencent.open.PKDialog
--keep class com.tencent.open.PKDialog {*;}
--keep class com.tencent.open.PKDialog$*
--keep class com.tencent.open.PKDialog$* {*;}
-
--keep class com.sina.** {*;}
--dontwarn com.sina.**
--keep class  com.alipay.share.sdk.** {
-   *;
-}
--dontwarn com.appkefu.**
--keep class com.appkefu.**{
-*;
-}
--keep class com.amap.api.location.**{*;}
-
--keep class com.amap.api.fence.**{*;}
-
--keep class com.autonavi.aps.amapapi.model.**{*;}
--keepnames class * implements android.os.Parcelable {
-    public static final ** CREATOR;
-}
--keep class com.linkedin.** { *; }
--keepattributes Signature
