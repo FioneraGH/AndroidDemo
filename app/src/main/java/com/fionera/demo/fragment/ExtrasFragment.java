@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
-import com.fionera.demo.activity.FlycoPageIndicaorActivity;
+import com.fionera.demo.activity.FlycoPageIndicatorActivity;
 import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
@@ -88,6 +88,6 @@ public class ExtrasFragment
         doublehead.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
         flycoindicator.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, FlycoPageIndicaorActivity.class)));
+                v -> mContext.startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class)));
     }
 }

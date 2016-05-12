@@ -22,7 +22,7 @@ import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 
 import java.util.ArrayList;
 
-public class FlycoPageIndicaor
+public class FlycoPageIndicator
         extends LinearLayout
         implements PageIndicator {
     private Context context;
@@ -47,11 +47,11 @@ public class FlycoPageIndicaor
     private Class<? extends IndicatorBaseAnimator> selectAnimClass;
     private Class<? extends IndicatorBaseAnimator> unselectAnimClass;
 
-    public FlycoPageIndicaor(Context context) {
+    public FlycoPageIndicator(Context context) {
         this(context, null);
     }
 
-    public FlycoPageIndicaor(Context context, AttributeSet attrs) {
+    public FlycoPageIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         setClipChildren(false);
@@ -63,26 +63,26 @@ public class FlycoPageIndicaor
         addView(rl_parent);
 
         setGravity(Gravity.CENTER);
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FlycoPageIndicaor);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FlycoPageIndicator);
         indicatorWidth = ta
-                .getDimensionPixelSize(R.styleable.FlycoPageIndicaor_fpi_width, dp2px(6));
+                .getDimensionPixelSize(R.styleable.FlycoPageIndicator_fpi_width, dp2px(6));
         indicatorHeight = ta
-                .getDimensionPixelSize(R.styleable.FlycoPageIndicaor_fpi_height, dp2px(6));
-        indicatorGap = ta.getDimensionPixelSize(R.styleable.FlycoPageIndicaor_fpi_gap, dp2px(8));
+                .getDimensionPixelSize(R.styleable.FlycoPageIndicator_fpi_height, dp2px(6));
+        indicatorGap = ta.getDimensionPixelSize(R.styleable.FlycoPageIndicator_fpi_gap, dp2px(8));
         cornerRadius = ta
-                .getDimensionPixelSize(R.styleable.FlycoPageIndicaor_fpi_cornerRadius, dp2px(3));
+                .getDimensionPixelSize(R.styleable.FlycoPageIndicator_fpi_cornerRadius, dp2px(3));
         strokeWidth = ta
-                .getDimensionPixelSize(R.styleable.FlycoPageIndicaor_fpi_strokeWidth, dp2px(0));
-        strokeColor = ta.getColor(R.styleable.FlycoPageIndicaor_fpi_strokeColor,
+                .getDimensionPixelSize(R.styleable.FlycoPageIndicator_fpi_strokeWidth, dp2px(0));
+        strokeColor = ta.getColor(R.styleable.FlycoPageIndicator_fpi_strokeColor,
                                   Color.parseColor("#ffffff"));
-        isSnap = ta.getBoolean(R.styleable.FlycoPageIndicaor_fpi_isSnap, false);
+        isSnap = ta.getBoolean(R.styleable.FlycoPageIndicator_fpi_isSnap, false);
 
-        int selectColor = ta.getColor(R.styleable.FlycoPageIndicaor_fpi_selectColor,
+        int selectColor = ta.getColor(R.styleable.FlycoPageIndicator_fpi_selectColor,
                                       Color.parseColor("#ffffff"));
-        int unselectColor = ta.getColor(R.styleable.FlycoPageIndicaor_fpi_unselectColor,
+        int unselectColor = ta.getColor(R.styleable.FlycoPageIndicator_fpi_unselectColor,
                                         Color.parseColor("#88ffffff"));
-        int selectRes = ta.getResourceId(R.styleable.FlycoPageIndicaor_fpi_selectRes, 0);
-        int unselectRes = ta.getResourceId(R.styleable.FlycoPageIndicaor_fpi_unselectRes, 0);
+        int selectRes = ta.getResourceId(R.styleable.FlycoPageIndicator_fpi_selectRes, 0);
+        int unselectRes = ta.getResourceId(R.styleable.FlycoPageIndicator_fpi_unselectRes, 0);
         ta.recycle();
 
         if (selectRes != 0) {
@@ -101,7 +101,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set indicator width, unit dp, default 6dp
      */
-    public FlycoPageIndicaor setIndicatorWidth(float indicatorWidth) {
+    public FlycoPageIndicator setIndicatorWidth(float indicatorWidth) {
         this.indicatorWidth = dp2px(indicatorWidth);
         return this;
     }
@@ -109,7 +109,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set indicator height, unit dp, default 6dp
      */
-    public FlycoPageIndicaor setIndicatorHeight(float indicatorHeight) {
+    public FlycoPageIndicator setIndicatorHeight(float indicatorHeight) {
         this.indicatorHeight = dp2px(indicatorHeight);
         return this;
     }
@@ -117,7 +117,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set gap between two indicators, unit dp, default 6dp
      */
-    public FlycoPageIndicaor setIndicatorGap(float indicatorGap) {
+    public FlycoPageIndicator setIndicatorGap(float indicatorGap) {
         this.indicatorGap = dp2px(indicatorGap);
         return this;
     }
@@ -125,7 +125,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set indicator select color, default "#ffffff" "#88ffffff"
      */
-    public FlycoPageIndicaor setIndicatorSelectColor(int selectColor, int unselectColor) {
+    public FlycoPageIndicator setIndicatorSelectColor(int selectColor, int unselectColor) {
         this.selectDrawable = getDrawable(selectColor, cornerRadius);
         this.unSelectDrawable = getDrawable(unselectColor, cornerRadius);
         return this;
@@ -134,7 +134,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set indicator corner raduis, unit dp, default 3dp
      */
-    public FlycoPageIndicaor setCornerRadius(float cornerRadius) {
+    public FlycoPageIndicator setCornerRadius(float cornerRadius) {
         this.cornerRadius = dp2px(cornerRadius);
         return this;
     }
@@ -143,7 +143,7 @@ public class FlycoPageIndicaor
      * call before setViewPager. set width of the stroke used to draw the indicators, unit dp,
      * default 0dp
      */
-    public FlycoPageIndicaor setStrokeWidth(int strokeWidth) {
+    public FlycoPageIndicator setStrokeWidth(int strokeWidth) {
         this.strokeWidth = strokeWidth;
         return this;
     }
@@ -152,7 +152,7 @@ public class FlycoPageIndicaor
      * call before setViewPager. set color of the stroke used to draw the indicators. default
      * "#ffffff"
      */
-    public FlycoPageIndicaor setStrokeColor(int strokeColor) {
+    public FlycoPageIndicator setStrokeColor(int strokeColor) {
         this.strokeColor = strokeColor;
         return this;
     }
@@ -161,7 +161,7 @@ public class FlycoPageIndicaor
      * call before setViewPager. Whether or not the selected indicator snaps to the indicators.
      * default false
      */
-    public FlycoPageIndicaor setIsSnap(boolean isSnap) {
+    public FlycoPageIndicator setIsSnap(boolean isSnap) {
         this.isSnap = isSnap;
         return this;
     }
@@ -169,7 +169,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set indicator select anim. only valid when isSnap is true
      */
-    public FlycoPageIndicaor setSelectAnimClass(
+    public FlycoPageIndicator setSelectAnimClass(
             Class<? extends IndicatorBaseAnimator> selectAnimClass) {
         this.selectAnimClass = selectAnimClass;
         return this;
@@ -178,7 +178,7 @@ public class FlycoPageIndicaor
     /**
      * call before setViewPager. set indicator unselect anim. only valid when isSnap is true
      */
-    public FlycoPageIndicaor setUnselectAnimClass(
+    public FlycoPageIndicator setUnselectAnimClass(
             Class<? extends IndicatorBaseAnimator> unselectAnimClass) {
         this.unselectAnimClass = unselectAnimClass;
         return this;

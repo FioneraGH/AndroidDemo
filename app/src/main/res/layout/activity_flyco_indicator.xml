@@ -33,7 +33,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="20dp">
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_circle"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     fpi:fpi_unselectColor="#88F44336"
                     fpi:fpi_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_square"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                     fpi:fpi_unselectColor="#88FFC107"
                     fpi:fpi_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_round_rectangle"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     fpi:fpi_unselectColor="#8803A9F4"
                     fpi:fpi_width="20dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_circle_stroke"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                     fpi:fpi_unselectColor="#00000000"
                     fpi:fpi_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_square_stroke"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                     fpi:fpi_unselectColor="#00000000"
                     fpi:fpi_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_round_rectangle_stroke"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                     fpi:fpi_unselectColor="#00000000"
                     fpi:fpi_width="20dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_circle_snap"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                     fpi:fpi_unselectColor="#558BC34A"
                     fpi:fpi_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_circle_anim"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                     android:paddingTop="20dp"
                     fpi:fpi_gap="16dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_round_rectangle_anim"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                     fpi:fpi_unselectColor="#B6B6B6"
                     fpi:fpi_width="20dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator
                     android:id="@+id/indicator_res"
                     xmlns:fpi="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"

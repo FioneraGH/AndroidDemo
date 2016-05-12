@@ -72,7 +72,7 @@
         <attr name="rci_isSnap" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="FlycoPageIndicaor">
+    <declare-styleable name="FlycoPageIndicator">
         <!-- indicator width, unit dp,default 6dp -->
         <attr name="fpi_width" format="dimension"/>
         <!-- indicator height,unit dp,default 6dp -->

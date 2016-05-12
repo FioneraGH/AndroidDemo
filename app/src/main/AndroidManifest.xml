@@ -69,7 +69,7 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"/>
         <activity android:name=".activity.RVWithHeaderActivity"/>
         <activity android:name=".activity.DoubleHeadTableActivity"/>
-        <activity android:name=".activity.FlycoPageIndicaorActivity"/>
+        <activity android:name=".activity.FlycoPageIndicatorActivity"/>
     </application>
 
 </manifest>

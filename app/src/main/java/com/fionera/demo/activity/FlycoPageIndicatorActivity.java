@@ -7,13 +7,13 @@ import com.fionera.demo.R;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.util.pageindicator.anim.select.ZoomInEnter;
 import com.fionera.demo.util.pageindicator.banner.SimpleImageBanner;
-import com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicaor;
+import com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 import com.flyco.banner.widget.Banner.base.BaseBanner;
 
 import java.util.ArrayList;
 
-public class FlycoPageIndicaorActivity
+public class FlycoPageIndicatorActivity
         extends AppCompatActivity {
     private int[] resIds = {R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R
             .mipmap.ic_launcher};
@@ -59,14 +59,14 @@ public class FlycoPageIndicaorActivity
     }
 
     private void indicatorAnim() {
-        final FlycoPageIndicaor indicator = (FlycoPageIndicaor) findViewById(
+        final FlycoPageIndicator indicator = (FlycoPageIndicator) findViewById(
                 R.id.indicator_circle_anim);
         indicator.setIsSnap(true).setSelectAnimClass(ZoomInEnter.class)
                 .setViewPager(banner.getViewPager(), resList.size());
     }
 
     private void indicatorRes() {
-        final FlycoPageIndicaor indicator_res = (FlycoPageIndicaor) findViewById(
+        final FlycoPageIndicator indicator_res = (FlycoPageIndicator) findViewById(
                 R.id.indicator_res);
         indicator_res.setViewPager(banner.getViewPager(), resList.size());
     }
