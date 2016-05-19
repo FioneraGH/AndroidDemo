@@ -63,10 +63,6 @@
         <activity android:name=".activity.G2048Activity"/>
         <activity android:name=".activity.RxAndroidActivity"/>
         <activity android:name=".activity.BottomSheetActivity"/>
-        <activity
-            android:name=".activity.DialogActivity"
-            android:label="Dialog"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"/>
         <activity android:name=".activity.RVWithHeaderActivity"/>
         <activity android:name=".activity.DoubleHeadTableActivity"/>
         <activity android:name=".activity.FlycoPageIndicatorActivity"/>

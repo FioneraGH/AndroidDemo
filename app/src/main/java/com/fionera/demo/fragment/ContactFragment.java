@@ -43,8 +43,7 @@ public class ContactFragment
             contactBeanList.add(bean);
         }
 
-        ContactsAdapter contactsAdapter = new ContactsAdapter(mContext, contactBeanList,
-                                                              recyclerView);
+        ContactsAdapter contactsAdapter = new ContactsAdapter(mContext, contactBeanList);
         recyclerView.setAdapter(contactsAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
         contactsAdapter.setRvItemTouchListener((v, pos) -> {

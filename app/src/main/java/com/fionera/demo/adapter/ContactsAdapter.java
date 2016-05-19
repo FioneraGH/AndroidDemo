@@ -1,10 +1,13 @@
 package com.fionera.demo.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ContactBean;
@@ -27,7 +30,7 @@ public class ContactsAdapter
         this.rvItemTouchListener = rvItemTouchListener;
     }
 
-    public ContactsAdapter(Context context, List<ContactBean> data, RecyclerView recyclerView) {
+    public ContactsAdapter(Context context, List<ContactBean> data) {
         this.context = context;
         this.data = data;
     }
@@ -41,6 +44,8 @@ public class ContactsAdapter
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ((ContactViewHolder)holder).tvOne.setText(data.get(holder.getAdapterPosition()).getName());
+        ((ContactViewHolder)holder).tvTwo.setText(data.get(holder.getAdapterPosition()).getPhone());
         holder.itemView.setOnClickListener(
                 v -> rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition()));
     }
@@ -53,8 +58,13 @@ public class ContactsAdapter
     private class ContactViewHolder
             extends RecyclerView.ViewHolder {
 
+        TextView tvOne;
+        TextView tvTwo;
+
         public ContactViewHolder(View itemView) {
             super(itemView);
+            tvOne = (TextView) ((LinearLayout)((CardView)itemView).getChildAt(0)).getChildAt(0);
+            tvTwo = (TextView) ((LinearLayout)((CardView)itemView).getChildAt(0)).getChildAt(1);
         }
     }
 }
