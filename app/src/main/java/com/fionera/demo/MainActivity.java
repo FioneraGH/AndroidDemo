@@ -35,8 +35,11 @@ import org.xutils.x;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity
         extends AppCompatActivity
@@ -118,7 +121,7 @@ public class MainActivity
             public CharSequence getPageTitle(int position) {
                 String title_text = "测试 ";
                 for (int i = 0; i < position; i++) {
-                    title_text += " " + Math.pow(position, position);
+                    title_text += new DecimalFormat(" #0").format(Math.pow(position, position));
                 }
                 return title_text;
             }

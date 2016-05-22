@@ -4,17 +4,23 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import com.fionera.demo.util.LogCat;
+import com.fionera.demo.util.ShowToast;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class CaptureActivity extends Activity implements ZXingScannerView.ResultHandler {
+public class CaptureActivity
+        extends AppCompatActivity
+        implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
+    private final static int ASK_FOR_CAMERA = 0;
 
     @Override
     public void onCreate(Bundle state) {
@@ -22,8 +28,12 @@ public class CaptureActivity extends Activity implements ZXingScannerView.Result
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
         if (ContextCompat.checkSelfPermission(CaptureActivity.this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+                                              Manifest.permission.CAMERA) != PackageManager
+                .PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                                              ASK_FOR_CAMERA);
+        } else {
+            ShowToast.show("请对准二维码");
         }
     }
 
@@ -47,5 +57,19 @@ public class CaptureActivity extends Activity implements ZXingScannerView.Result
         LogCat.d(rawResult.getBarcodeFormat().toString());
 
         mScannerView.resumeCameraPreview(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (ASK_FOR_CAMERA == requestCode && Manifest.permission.CAMERA.equals(permissions[0])) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                ShowToast.show("授权成功");
+            } else {
+                ShowToast.show("该功能需要相机权限支持");
+                finish();
+            }
+        }
     }
 }

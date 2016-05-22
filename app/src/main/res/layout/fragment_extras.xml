@@ -30,7 +30,7 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SmartTab + Toolbar"/>
+            android:text="ConstraintLayout"/>
 
         <Button
             android:id="@+id/button3"

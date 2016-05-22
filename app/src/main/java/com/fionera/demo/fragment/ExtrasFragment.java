@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
+import com.fionera.demo.activity.ConstraintLayoutActivity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
 import com.fionera.demo.activity.FlycoPageIndicatorActivity;
 import com.fionera.demo.activity.G2048Activity;
@@ -29,7 +30,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button1)
     private Button matrix;
     @ViewInject(R.id.button2)
-    private Button smart;
+    private Button constraint;
     @ViewInject(R.id.button3)
     private Button dialog;
     @ViewInject(R.id.button4)
@@ -67,6 +68,8 @@ public class ExtrasFragment
 
         matrix.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
+        constraint.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, ConstraintLayoutActivity.class)));
         load.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));
         notify.setOnClickListener(

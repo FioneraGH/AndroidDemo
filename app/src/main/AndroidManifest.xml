@@ -66,6 +66,8 @@
         <activity android:name=".activity.RVWithHeaderActivity"/>
         <activity android:name=".activity.DoubleHeadTableActivity"/>
         <activity android:name=".activity.FlycoPageIndicatorActivity"/>
+        <activity android:name=".activity.ConstraintLayoutActivity">
+        </activity>
     </application>
 
 </manifest>

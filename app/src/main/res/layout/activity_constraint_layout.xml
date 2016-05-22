@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/activity_constraint_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fionera.demo.activity.ConstraintLayoutActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="25dp">
+
+    <ImageView
+        android:src="@drawable/ic_chat_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:scaleType="centerCrop"
+        tools:layout_editor_absoluteX="216dp"
+        tools:layout_editor_absoluteY="80dp"
+        android:cropToPadding="true"
+        android:adjustViewBounds="true"
+        app:layout_constraintLeft_toLeftOf="@+id/activity_constraint_layout"
+        android:layout_marginStart="16dp"
+        tools:layout_constraintLeft_creator="0"
+        app:layout_constraintTop_toTopOf="@+id/activity_constraint_layout"
+        android:layout_marginTop="80dp"
+        tools:layout_constraintTop_creator="0"
+        app:layout_constraintRight_toRightOf="@+id/activity_constraint_layout"
+        android:layout_marginEnd="16dp"
+        tools:layout_constraintRight_creator="0"
+        app:layout_constraintHorizontal_bias="0.7"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="187dp"
+        tools:layout_editor_absoluteY="170dp"
+        android:id="@+id/textView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        tools:text="Hello Constraint"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView"
+        tools:layout_constraintLeft_creator="0"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:layout_marginTop="48dp"
+        tools:layout_constraintTop_creator="0"
+        app:layout_constraintRight_toRightOf="@+id/imageView"
+        tools:layout_constraintRight_creator="0"/>
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="155dp"
+        android:id="@+id/button16"
+        app:layout_constraintLeft_toLeftOf="@+id/activity_constraint_layout"
+        android:layout_marginStart="24dp"
+        tools:layout_constraintLeft_creator="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        tools:layout_constraintBaseline_creator="0"/>
+
+</android.support.constraint.ConstraintLayout>
