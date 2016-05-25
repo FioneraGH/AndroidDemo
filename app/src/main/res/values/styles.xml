@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/grey1</item>
 
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
-        <item name="android:windowBackground">@color/dim_foreground_material_dark</item>
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">

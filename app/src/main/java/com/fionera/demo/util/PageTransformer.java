@@ -6,8 +6,8 @@ import android.view.View;
 public class PageTransformer
         implements ViewPager.PageTransformer {
 
-    public static final float MAX_SIZE = 1.0f;
-    public static final float MIN_SIZE = 0.8f;
+    private static final float MAX_SIZE = 1.0f;
+    private static final float MIN_SIZE = 0.8f;
 
     @Override
     public void transformPage(View page, float position) {

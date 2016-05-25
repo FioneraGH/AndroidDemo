@@ -15,8 +15,11 @@ import com.fionera.demo.activity.G2048Activity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
+import com.fionera.demo.activity.RVWithHeaderActivity;
 import com.fionera.demo.activity.RecyclerItemDraggerActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
+import com.fionera.demo.activity.SmartTabLayoutActivity;
+import com.fionera.demo.activity.StickyHeaderActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
 import org.xutils.view.annotation.ViewInject;
@@ -32,7 +35,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button2)
     private Button constraint;
     @ViewInject(R.id.button3)
-    private Button dialog;
+    private Button stickyheader;
     @ViewInject(R.id.button4)
     private Button load;
     @ViewInject(R.id.button5)
@@ -40,7 +43,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button6)
     private Button recyclerview;
     @ViewInject(R.id.button7)
-    private Button databind;
+    private Button rvwithheader;
     @ViewInject(R.id.button8)
     private Button g2048;
     @ViewInject(R.id.button9)
@@ -50,7 +53,7 @@ public class ExtrasFragment
     @ViewInject(R.id.button11)
     private Button bottomsheet;
     @ViewInject(R.id.button12)
-    private Button rvwithhead;
+    private Button smart;
     @ViewInject(R.id.button13)
     private Button doublehead;
     @ViewInject(R.id.button14)
@@ -70,12 +73,16 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
         constraint.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, ConstraintLayoutActivity.class)));
+        stickyheader.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, StickyHeaderActivity.class)));
         load.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));
         notify.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, NotificationActivity.class)));
-        recyclerview.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class)));
+        recyclerview.setOnClickListener(v -> mContext
+                .startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class)));
+        rvwithheader.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
         g2048.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), G2048Activity.class);
             ActivityOptionsCompat options = ActivityOptionsCompat
@@ -88,9 +95,11 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
         bottomsheet.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, BottomSheetActivity.class)));
+        smart.setOnClickListener(
+                v -> mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class)));
         doublehead.setOnClickListener(
                 v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
-        flycoindicator.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class)));
+        flycoindicator.setOnClickListener(v -> mContext
+                .startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class)));
     }
 }

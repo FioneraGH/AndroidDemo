@@ -54,7 +54,7 @@
         </LinearLayout>
 
         <fragment
-            android:name="com.fionera.demo.fragment.TabLayoutFragment"
+            android:name="com.fionera.demo.fragment.ExtrasFragment"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"

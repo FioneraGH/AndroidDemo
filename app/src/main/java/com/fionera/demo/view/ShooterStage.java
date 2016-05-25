@@ -1,4 +1,4 @@
-package com.fionera.demo.util;
+package com.fionera.demo.view;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

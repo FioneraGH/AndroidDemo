@@ -36,7 +36,7 @@
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dialog"/>
+            android:text="StickyHeader"/>
 
         <Button
             android:id="@+id/button4"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="DataBinding"/>
+            android:text="RecyclerViewWithHeader"/>
 
         <Button
             android:id="@+id/button8"
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="RecyclerViewWithHead"/>
+            android:text="SmartTabLayout"/>
 
         <Button
             android:id="@+id/button13"
