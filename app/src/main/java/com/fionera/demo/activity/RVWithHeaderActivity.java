@@ -1,12 +1,21 @@
 package com.fionera.demo.activity;
 
+import android.animation.Animator;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
 import com.fionera.demo.R;
@@ -50,4 +59,5 @@ public class RVWithHeaderActivity extends AppCompatActivity {
             super(itemView);
         }
     }
+
 }
