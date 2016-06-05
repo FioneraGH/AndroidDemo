@@ -38,13 +38,9 @@
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".activity.MatrixActivity"/>
-        <activity android:name=".activity.PullToLoadActivity"/>
         <activity
             android:name=".activity.RecyclerItemDraggerActivity"
             android:theme="@style/DividerTheme"/>
-        <activity android:name=".activity.XUtils3Activity"/>
-        <activity android:name=".activity.SmartTabLayoutActivity"/>
 
         <service android:name=".service.WidgetService"/>
 
@@ -58,6 +54,10 @@
                 android:resource="@xml/widget_provider"/>
         </receiver>
 
+        <activity android:name=".activity.XUtils3Activity"/>
+        <activity android:name=".activity.SmartTabLayoutActivity"/>
+        <activity android:name=".activity.MatrixActivity"/>
+        <activity android:name=".activity.PullToLoadActivity"/>
         <activity android:name=".activity.CaptureActivity"/>
         <activity android:name=".activity.NotificationActivity"/>
         <activity android:name=".activity.G2048Activity"/>
@@ -66,10 +66,8 @@
         <activity android:name=".activity.RVWithHeaderActivity"/>
         <activity android:name=".activity.DoubleHeadTableActivity"/>
         <activity android:name=".activity.FlycoPageIndicatorActivity"/>
-        <activity android:name=".activity.ConstraintLayoutActivity">
-        </activity>
-        <activity android:name=".activity.StickyHeaderActivity">
-        </activity>
+        <activity android:name=".activity.ConstraintLayoutActivity"/>
+        <activity android:name=".activity.StickyHeaderActivity"/>
     </application>
 
 </manifest>

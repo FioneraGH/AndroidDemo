@@ -14,7 +14,6 @@ import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.util.ShowToast;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
-
 public class SmartTabLayoutActivity
         extends AppCompatActivity {
 
@@ -26,7 +25,7 @@ public class SmartTabLayoutActivity
         setContentView(R.layout.activity_smart_tab_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.menu_recycle);
+        toolbar.inflateMenu(R.menu.menu_test);
         toolbar.setOnMenuItemClickListener(item -> {
             ShowToast.show(item.getTitle());
             return true;
@@ -39,7 +38,6 @@ public class SmartTabLayoutActivity
         drawer.addDrawerListener(drawerToggle);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp_tab_layout);
-
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

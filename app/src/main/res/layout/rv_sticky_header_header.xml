@@ -3,18 +3,25 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/white"
-              android:orientation="vertical"
-              android:paddingBottom="24dp"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="24dp">
+              android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey2"/>
 
     <TextView
         android:id="@+id/titleTextView"
         style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:textAllCaps="true"
         android:textColor="@color/blue2"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey2"/>
 
 </LinearLayout>

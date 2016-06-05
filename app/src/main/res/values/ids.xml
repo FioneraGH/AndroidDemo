@@ -2,5 +2,4 @@
 <resources>
     <item name="danmu_vertical_margin" type="id"/>
     <item name="tv_tab_text" type="id"/>
-    <item name="sectioning_adapter_tag_key_view_viewholder" type="id"/>
 </resources>
