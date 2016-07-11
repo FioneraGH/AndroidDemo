@@ -20,6 +20,7 @@ import com.fionera.demo.activity.RecyclerItemDraggerActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.StickyHeaderActivity;
+import com.fionera.demo.activity.SurfaceViewActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
 import org.xutils.view.annotation.ViewInject;
@@ -58,6 +59,8 @@ public class ExtrasFragment
     private Button doublehead;
     @ViewInject(R.id.button14)
     private Button flycoindicator;
+    @ViewInject(R.id.button15)
+    private Button surfaceview;
 
     @Override
     public int setLayoutResource() {
@@ -101,5 +104,7 @@ public class ExtrasFragment
                 v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
         flycoindicator.setOnClickListener(v -> mContext
                 .startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class)));
+        surfaceview.setOnClickListener(v -> mContext
+                .startActivity(new Intent(mContext, SurfaceViewActivity.class)));
     }
 }

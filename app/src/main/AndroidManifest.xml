@@ -68,6 +68,7 @@
         <activity android:name=".activity.FlycoPageIndicatorActivity"/>
         <activity android:name=".activity.ConstraintLayoutActivity"/>
         <activity android:name=".activity.StickyHeaderActivity"/>
+        <activity android:name=".activity.SurfaceViewActivity"/>
     </application>
 
 </manifest>

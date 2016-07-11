@@ -117,6 +117,13 @@
             android:layout_gravity="center_horizontal"
             android:text="FlycoIndicator"/>
 
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="SurfaceView"/>
+
     </LinearLayout>
 
 </ScrollView>
