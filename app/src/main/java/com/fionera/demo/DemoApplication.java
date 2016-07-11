@@ -2,13 +2,20 @@ package com.fionera.demo;
 
 import android.app.Application;
 import android.os.StrictMode;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.fionera.demo.util.WeexImageLoaderAdapter;
+import com.taobao.weex.InitConfig;
+import com.taobao.weex.WXEnvironment;
+import com.taobao.weex.WXSDKEngine;
+
 import org.xutils.x;
 
-public class DemoApplication extends Application {
+public class DemoApplication
+        extends Application {
 
     private static WindowManager.LayoutParams wmLayoutParams;
     private static Application instance;
@@ -29,6 +36,10 @@ public class DemoApplication extends Application {
 
         x.Ext.init(this);
         x.Ext.setDebug(false);
+
+        WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
+        WXSDKEngine.initialize(this,
+                new InitConfig.Builder().setImgAdapter(new WeexImageLoaderAdapter()).build());
 
         getDisplayMetrics();
 

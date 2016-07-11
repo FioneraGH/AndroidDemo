@@ -43,11 +43,15 @@ public class ContactsAdapter
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         ((ContactViewHolder)holder).tvOne.setText(data.get(holder.getAdapterPosition()).getName());
         ((ContactViewHolder)holder).tvTwo.setText(data.get(holder.getAdapterPosition()).getPhone());
-        holder.itemView.setOnClickListener(
-                v -> rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View view) {
+                                                   rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition());
+                                               }
+                                           });
     }
 
     @Override

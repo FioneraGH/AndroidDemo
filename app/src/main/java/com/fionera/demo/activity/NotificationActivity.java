@@ -1,5 +1,6 @@
 package com.fionera.demo.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -41,21 +42,24 @@ public class NotificationActivity
         sendNotification(notificationManager);
     }
 
-    private void sendNotification(NotificationManager notificationManager) {
-        Notification.Builder builder = new Notification.Builder(this);
+    private void sendNotification(final NotificationManager notificationManager) {
+        final Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("Picture Download").setContentText("Download in progress")
                 .setSmallIcon(R.mipmap.ic_launcher);
-        new Thread(() -> {
-            for (int i = 0; i < 100; i += 20) {
-                builder.setProgress(100, i, false);
-                notificationManager.notify(0x123456, builder.build());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ignored) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i += 20) {
+                    builder.setProgress(100, i, false);
+                    notificationManager.notify(0x123456, builder.build());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ignored) {
+                    }
                 }
+                builder.setContentText("Download complete").setProgress(0, 0, false);
+                notificationManager.notify(0x123456, builder.build());
             }
-            builder.setContentText("Download complete").setProgress(0, 0, false);
-            notificationManager.notify(0x123456, builder.build());
         }).start();
     }
 
@@ -73,20 +77,23 @@ public class NotificationActivity
 
         SpannableString text = new SpannableString("百度");
         text.setSpan(new NoUnderlineSpan("https://www.baidu.com"), 0, text.length(),
-                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvNotifySpannable.setText(text);
         tvNotifySpannable.setMovementMethod(LinkMovementMethod.getInstance());
 
         Pattern p = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
         Linkify.addLinks(tvNotifyLinkify, Linkify.WEB_URLS);
-        Linkify.addLinks(tvNotifyLinkify, p, "mxn://profile?uid=",
-                         (s, start, end) -> s.charAt(end - 1) != '.',
-                         new Linkify.TransformFilter() {
-                             @Override
-                             public String transformUrl(Matcher match, String url) {
-                                 return url.toLowerCase();
-                             }
-                         });
+        Linkify.addLinks(tvNotifyLinkify, p, "mxn://profile?uid=", new Linkify.MatchFilter() {
+            @Override
+            public boolean acceptMatch(CharSequence charSequence, int start, int end) {
+                return charSequence.charAt(end - 1) != '.';
+            }
+        }, new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return url.toLowerCase();
+            }
+        });
         stripUnderlines(tvNotifyLinkify);
     }
 
@@ -103,10 +110,11 @@ public class NotificationActivity
         textView.setText(s);
     }
 
+    @SuppressLint("ParcelCreator")
     private class NoUnderlineSpan
             extends URLSpan {
 
-        public NoUnderlineSpan(String url) {
+        NoUnderlineSpan(String url) {
             super(url);
         }
 

@@ -30,7 +30,12 @@ public class RVWithHeaderActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.iv_with_header);
 
-        imageView.setOnClickListener(v -> ShowToast.show("shoot"));
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowToast.show("shoot");
+            }
+        });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_with_header);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

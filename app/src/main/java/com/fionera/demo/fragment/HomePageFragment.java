@@ -15,6 +15,7 @@ import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.adapter.RecentSessionAdapter;
+import com.fionera.demo.util.RvItemTouchListener;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.util.TadaAnimator;
 
@@ -59,20 +60,27 @@ public class HomePageFragment
         RecentSessionAdapter recentSessionAdapter = new RecentSessionAdapter(mContext, sessionList);
         recyclerView.setAdapter(recentSessionAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
-        recentSessionAdapter.setRvItemTouchListener((v, pos) -> {
-            if (pos == sessionList.size() - 1) {
-                startActivity(new Intent(mContext, ChatActivity.class));
+        recentSessionAdapter.setRvItemTouchListener(new RvItemTouchListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                if (pos == sessionList.size() - 1) {
+                    startActivity(new Intent(mContext, ChatActivity.class));
+                }
+                ShowToast.show("" + pos);
             }
-            ShowToast.show("" + pos);
         });
 
-        floatingActionButton.setOnClickListener(v -> addSession());
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addSession();
+            }
+        });
         floatingActionButton.setTranslationX(DemoApplication.screenWidth / 3);
-        floatingActionButton.animate().withLayer().translationX(0).setDuration(700)
-                .setInterpolator(new OvershootInterpolator(1.0f)).start();
-        ObjectAnimator objectAnimator = ObjectAnimator
-                .ofObject(recyclerView, "backgroundColor", new ArgbEvaluator(), Color.BLUE,
-                          Color.RED).setDuration(2000);
+        floatingActionButton.animate().withLayer().translationX(0).setDuration(700).setInterpolator(
+                new OvershootInterpolator(1.0f)).start();
+        ObjectAnimator objectAnimator = ObjectAnimator.ofObject(recyclerView, "backgroundColor",
+                new ArgbEvaluator(), Color.BLUE, Color.RED).setDuration(2000);
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.start();
@@ -81,8 +89,12 @@ public class HomePageFragment
     private void addSession() {
         TadaAnimator.nope(floatingActionButton).start();
         recyclerView.getAdapter().notifyItemInserted(1);
-        recyclerView.postDelayed(
-                () -> floatingActionButton.animate().withLayer().scaleX(1.0f).scaleY(1.0f)
-                        .setDuration(300).start(), 1000);
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                floatingActionButton.animate().withLayer().scaleX(1.0f).scaleY(1.0f).setDuration(
+                        300).start();
+            }
+        }, 1000);
     }
 }

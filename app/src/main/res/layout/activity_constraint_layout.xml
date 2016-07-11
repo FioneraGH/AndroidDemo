@@ -54,7 +54,6 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="155dp"
-        android:id="@+id/button16"
         app:layout_constraintLeft_toLeftOf="@+id/activity_constraint_layout"
         android:layout_marginStart="24dp"
         tools:layout_constraintLeft_creator="0"

@@ -87,7 +87,12 @@ public class PullToLoadActivity
                 .OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
             currentPage++;
             // 增加数据
-            handler.postDelayed(this::appendDate, 1000);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    appendDate();
+                }
+            }, 1000);
 
         }
     }

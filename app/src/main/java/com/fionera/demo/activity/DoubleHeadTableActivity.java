@@ -42,7 +42,12 @@ public class DoubleHeadTableActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_double_head_table);
-        new Handler().postDelayed(this::init, 3000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                init();
+            }
+        }, 3000);
     }
 
     private void init() {
@@ -88,11 +93,16 @@ public class DoubleHeadTableActivity
         }
 
         @Override
-        public void onBindViewHolder(ListHolder holder, int position) {
+        public void onBindViewHolder(final ListHolder holder, int position) {
             if (!mHScrollItems.isEmpty()) {
                 final int scrollX = mHScrollItems.get(mHScrollItems.size() - 1).getScrollX();
                 if (0 != scrollX) {
-                    recyclerView.post(() -> holder.listNestedScrollView.scrollTo(scrollX, 0));
+                    recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.listNestedScrollView.scrollTo(scrollX, 0);
+                        }
+                    });
                 }
             }
             mHScrollItems.add(holder.listNestedScrollView);
@@ -112,8 +122,13 @@ public class DoubleHeadTableActivity
         }
     }
 
-    private View.OnClickListener clickListener = v -> ShowToast
-            .show("点击了:" + ((TextView) v).getText());
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ShowToast
+                    .show("点击了:" + ((TextView) view).getText());
+        }
+    };
 
     private class ListHolder
             extends RecyclerView.ViewHolder {

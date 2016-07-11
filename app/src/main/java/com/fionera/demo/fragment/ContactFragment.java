@@ -7,6 +7,7 @@ import android.view.View;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ContactsAdapter;
 import com.fionera.demo.bean.ContactBean;
+import com.fionera.demo.util.RvItemTouchListener;
 import com.fionera.demo.util.ShowToast;
 
 import org.xutils.view.annotation.ViewInject;
@@ -46,12 +47,15 @@ public class ContactFragment
         ContactsAdapter contactsAdapter = new ContactsAdapter(mContext, contactBeanList);
         recyclerView.setAdapter(contactsAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
-        contactsAdapter.setRvItemTouchListener((v, pos) -> {
-            if (pos > 5) {
-                contactBeanList.get(pos).setName(contactBeanList.get(pos).getName() + " " + pos);
-                recyclerView.getAdapter().notifyItemChanged(pos);
-            } else {
-                ShowToast.show(pos);
+        contactsAdapter.setRvItemTouchListener(new RvItemTouchListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                if (pos > 5) {
+                    contactBeanList.get(pos).setName(contactBeanList.get(pos).getName() + " " + pos);
+                    recyclerView.getAdapter().notifyItemChanged(pos);
+                } else {
+                    ShowToast.show(pos);
+                }
             }
         });
     }

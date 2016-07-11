@@ -22,6 +22,7 @@ import org.xutils.x;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 内容视图加载
@@ -67,12 +68,17 @@ public class XUtils3Activity
         /**
          * 设定关系对象映射
          */
-        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-                .setDbDir(new File(mContext.getFilesDir().getAbsolutePath() + "/"))
-                .setDbName("demo.db").setDbVersion(1).setDbUpgradeListener(
-                        (db, oldVersion, newVersion) -> ShowToast
-                                .show(String.format("upgrade from %d to %d", oldVersion,
-                                                    newVersion))).setAllowTransaction(true);
+        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
+                new File(mContext.getFilesDir().getAbsolutePath() + "/")).setDbName("demo.db")
+                .setDbVersion(1).setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+
+                    @Override
+                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                        ShowToast.show(
+                                String.format(Locale.CHINA, "upgrade from %d to %d", oldVersion,
+                                        newVersion));
+                    }
+                }).setAllowTransaction(true);
 
         /**
          * 获取数据库管理器
@@ -112,7 +118,7 @@ public class XUtils3Activity
          * 获取用户绝对目录
          */
         LogCat.d(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                         .getAbsolutePath());
+                .getAbsolutePath());
 
         LogCat.d(Environment.getExternalStorageDirectory().getAbsolutePath());
         LogCat.d(Environment.getDownloadCacheDirectory().getAbsolutePath());
@@ -128,10 +134,10 @@ public class XUtils3Activity
         btnClick(null);
     }
 
-    public void fuck(View v){
-        if("open".equals(v.getTag())) {
+    public void fuck(View v) {
+        if ("open".equals(v.getTag())) {
             viewDragLayout.openDrawer();
-        }else{
+        } else {
             viewDragLayout.closeDrawer();
         }
     }

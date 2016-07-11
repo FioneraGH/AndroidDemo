@@ -9,6 +9,8 @@ import com.fionera.demo.view.RichText;
 
 import org.xutils.view.annotation.ViewInject;
 
+import java.util.List;
+
 /**
  * Created by fionera on 15-10-3.
  */
@@ -26,19 +28,29 @@ public class BitmapUtilFragment
     @Override
     public void initViews(View rootView) {
         setTitleBarText("内容");
-        richText.setOnImageClickListener(
-                (imageUrls, position) -> ShowToast.show(imageUrls.get(position)));
-        richText.setOnURLClickListener(url -> {
-            ShowToast.show(url);
-            return true;
+        richText.setOnImageClickListener(new RichText.OnImageClickListener() {
+            @Override
+            public void imageClicked(List<String> imageUrls, int position) {
+                ShowToast.show(imageUrls.get(position));
+            }
         });
-        richText.setImageFixListener(holder -> {
-            if (holder.getWidth() > 100 || holder.getHeight() > 100) {
-                int width = DemoApplication.screenWidth;
-                int height = (int) (holder.getHeight() * 1f * width / holder.getWidth()) - 300;
-                holder.setWidth(width);
-                holder.setHeight(height);
-                holder.setScaleType(RichText.ImageHolder.CENTER_INSIDE);
+        richText.setOnURLClickListener(new RichText.OnURLClickListener() {
+            @Override
+            public boolean urlClicked(String url) {
+                ShowToast.show(url);
+                return true;
+            }
+        });
+        richText.setImageFixListener(new RichText.ImageFixListener() {
+            @Override
+            public void onFix(RichText.ImageHolder holder) {
+                if (holder.getWidth() > 100 || holder.getHeight() > 100) {
+                    int width = DemoApplication.screenWidth;
+                    int height = (int) (holder.getHeight() * 1f * width / holder.getWidth()) - 300;
+                    holder.setWidth(width);
+                    holder.setHeight(height);
+                    holder.setScaleType(RichText.ImageHolder.CENTER_INSIDE);
+                }
             }
         });
         richText.setRichText(

@@ -464,12 +464,15 @@ public class PullToRefreshLayout
     public void autoRefresh() {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, refreshDist + DisplayUtils.dp2px(12));
         valueAnimator.setDuration(500);
-        valueAnimator.addUpdateListener(animation -> {
-            pullDownY = (float) animation.getAnimatedValue();
-            if (pullDownY > refreshDist) {
-                changeState(RELEASE_TO_REFRESH);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                pullDownY = (float) valueAnimator.getAnimatedValue();
+                if (pullDownY > refreshDist) {
+                    changeState(RELEASE_TO_REFRESH);
+                }
+                requestLayout();
             }
-            requestLayout();
         });
         valueAnimator.addListener(new SimpleAnimatorListener() {
             @Override

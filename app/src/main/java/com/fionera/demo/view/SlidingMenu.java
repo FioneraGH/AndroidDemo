@@ -2,6 +2,7 @@ package com.fionera.demo.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.transition.Slide;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -43,8 +44,8 @@ public class SlidingMenu
         /**
          * 获取自定义参数
          */
-        TypedArray a = context.getTheme()
-                .obtainStyledAttributes(attrs, R.styleable.SlidingMenu, defStyle, 0);
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SlidingMenu,
+                defStyle, 0);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
@@ -53,7 +54,7 @@ public class SlidingMenu
                 case R.styleable.SlidingMenu_rightPadding:
                     mMenuRightPadding = a.getDimensionPixelSize(attr, (int) TypedValue
                             .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
-                                            context.getResources().getDisplayMetrics()));
+                                    context.getResources().getDisplayMetrics()));
                     break;
             }
         }
@@ -99,7 +100,12 @@ public class SlidingMenu
 
         LogCat.d(mMenuWidth + "");
         if (changed) {
-            postDelayed(() -> this.scrollTo(mMenuWidth, 0), 1);
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SlidingMenu.this.scrollTo(mMenuWidth, 0);
+                }
+            }, 1);
         }
     }
 

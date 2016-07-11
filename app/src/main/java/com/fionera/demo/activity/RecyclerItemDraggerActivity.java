@@ -43,7 +43,7 @@ public class RecyclerItemDraggerActivity
         setContentView(R.layout.activity_recycle);
         x.view().inject(this);
 
-        List<ChatMsgBean> data = new ArrayList<>();
+        final List<ChatMsgBean> data = new ArrayList<>();
 
         pullToRefreshLayout.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
@@ -142,13 +142,16 @@ public class RecyclerItemDraggerActivity
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(final MyViewHolder holder,final int position) {
             holder.tvUserName.setText(data.get(position).getName());
             holder.tvSendTime.setText(data.get(position).getDate());
             holder.tvContent.setText(data.get(position).getText());
-            holder.itemView.setOnClickListener(v -> ShowToast
-                    .show(position + " " + holder.getAdapterPosition() + " " + holder
-                            .getLayoutPosition()));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ShowToast.show(position + " " + holder.getAdapterPosition() + " " + holder.getLayoutPosition());
+                }
+            });
 
             runItemAnim(holder.itemView, position);
         }

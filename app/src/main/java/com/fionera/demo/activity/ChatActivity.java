@@ -63,9 +63,11 @@ public class ChatActivity
         findViewById(R.id.tv_send_msg).setOnClickListener(this);
         findViewById(R.id.tv_extra_function).setOnClickListener(this);
         ArcMenu arcMenu = (ArcMenu) findViewById(R.id.arc_menu);
-        arcMenu.setOnMenuItemClickListener((view, pos) -> {
-
-            ShowToast.show(pos + "");
+        arcMenu.setOnMenuItemClickListener(new ArcMenu.OnMenuItemClickListener() {
+            @Override
+            public void onClick(View view, int pos) {
+                ShowToast.show(pos + "");
+            }
         });
 
         mEditTextContent = (EditText) findViewById(R.id.et_send_message);
@@ -124,7 +126,12 @@ public class ChatActivity
         if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView
                 .OnScrollListener.SCROLL_STATE_IDLE) {
             currentPage++;
-            new Handler().postDelayed(this::appendDate, 1000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    appendDate();
+                }
+            }, 1000);
         }
     }
 
@@ -159,7 +166,12 @@ public class ChatActivity
             mAdapter.notifyDataSetChanged();
             listView.setSelection(listView.getCount() - 1);
             dbHelper.insertChatEntity(entry);
-            new Handler().postDelayed(this::autoReply, 1000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    autoReply();
+                }
+            }, 1000);
             mEditTextContent.setText("");
         }
     }

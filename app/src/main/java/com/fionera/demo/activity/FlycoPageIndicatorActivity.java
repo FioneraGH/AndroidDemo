@@ -31,7 +31,12 @@ public class FlycoPageIndicatorActivity
         }
         banner = (SimpleImageBanner) findViewById(R.id.vp_flyco_indicator);
         banner.setSource(resList).startScroll();
-        banner.setOnItemClickL(position -> ShowToast.show("点击" + position));
+        banner.setOnItemClickL(new BaseBanner.OnItemClickL() {
+            @Override
+            public void onItemClick(int position) {
+                ShowToast.show("点击" + position);
+            }
+        });
 
         indicator(R.id.indicator_circle);
         indicator(R.id.indicator_square);

@@ -21,6 +21,7 @@ import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.StickyHeaderActivity;
 import com.fionera.demo.activity.SurfaceViewActivity;
+import com.fionera.demo.activity.WeexActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
 import org.xutils.view.annotation.ViewInject;
@@ -29,38 +30,12 @@ import org.xutils.view.annotation.ViewInject;
  * Created by fionera on 15-10-3.
  */
 public class ExtrasFragment
-        extends BaseFragment {
+        extends BaseFragment
+        implements View.OnClickListener {
 
-    @ViewInject(R.id.button1)
-    private Button matrix;
-    @ViewInject(R.id.button2)
-    private Button constraint;
-    @ViewInject(R.id.button3)
-    private Button stickyheader;
-    @ViewInject(R.id.button4)
-    private Button load;
-    @ViewInject(R.id.button5)
-    private Button notify;
-    @ViewInject(R.id.button6)
-    private Button recyclerview;
-    @ViewInject(R.id.button7)
-    private Button rvwithheader;
-    @ViewInject(R.id.button8)
-    private Button g2048;
-    @ViewInject(R.id.button9)
-    private Button xutils;
-    @ViewInject(R.id.button10)
-    private Button rx;
-    @ViewInject(R.id.button11)
-    private Button bottomsheet;
-    @ViewInject(R.id.button12)
-    private Button smart;
-    @ViewInject(R.id.button13)
-    private Button doublehead;
-    @ViewInject(R.id.button14)
-    private Button flycoindicator;
-    @ViewInject(R.id.button15)
-    private Button surfaceview;
+    private int[] ids = {R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R
+            .id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.button10, R.id.button11,
+            R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16};
 
     @Override
     public int setLayoutResource() {
@@ -72,39 +47,65 @@ public class ExtrasFragment
 
         setTitleBarText("扩展");
 
-        matrix.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, MatrixActivity.class)));
-        constraint.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, ConstraintLayoutActivity.class)));
-        stickyheader.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, StickyHeaderActivity.class)));
-        load.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, PullToLoadActivity.class)));
-        notify.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, NotificationActivity.class)));
-        recyclerview.setOnClickListener(v -> mContext
-                .startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class)));
-        rvwithheader.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class)));
-        g2048.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), G2048Activity.class);
-            ActivityOptionsCompat options = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation(mActivity, g2048, "testTrans");
-            ActivityCompat.startActivity(mActivity, intent, options.toBundle());
-        });
-        xutils.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, XUtils3Activity.class)));
-        rx.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, RxAndroidActivity.class)));
-        bottomsheet.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, BottomSheetActivity.class)));
-        smart.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class)));
-        doublehead.setOnClickListener(
-                v -> mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class)));
-        flycoindicator.setOnClickListener(v -> mContext
-                .startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class)));
-        surfaceview.setOnClickListener(v -> mContext
-                .startActivity(new Intent(mContext, SurfaceViewActivity.class)));
+        for (int id : ids) {
+            rootView.findViewById(id).setOnClickListener(this);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button1:
+                mContext.startActivity(new Intent(mContext, MatrixActivity.class));
+                break;
+            case R.id.button2:
+                mContext.startActivity(new Intent(mContext, ConstraintLayoutActivity.class));
+                break;
+            case R.id.button3:
+                mContext.startActivity(new Intent(mContext, StickyHeaderActivity.class));
+                break;
+            case R.id.button4:
+                mContext.startActivity(new Intent(mContext, PullToLoadActivity.class));
+                break;
+            case R.id.button5:
+                mContext.startActivity(new Intent(mContext, NotificationActivity.class));
+                break;
+            case R.id.button6:
+                mContext.startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class));
+                break;
+            case R.id.button7:
+                mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class));
+                break;
+            case R.id.button8:
+                Intent intent = new Intent(getActivity(), G2048Activity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        mActivity, view, "testTrans");
+                ActivityCompat.startActivity(mActivity, intent, options.toBundle());
+                break;
+            case R.id.button9:
+                mContext.startActivity(new Intent(mContext, XUtils3Activity.class));
+                break;
+            case R.id.button10:
+                mContext.startActivity(new Intent(mContext, RxAndroidActivity.class));
+                break;
+            case R.id.button11:
+                mContext.startActivity(new Intent(mContext, BottomSheetActivity.class));
+                break;
+            case R.id.button12:
+                mContext.startActivity(new Intent(mContext, SmartTabLayoutActivity.class));
+                break;
+            case R.id.button13:
+                mContext.startActivity(new Intent(mContext, DoubleHeadTableActivity.class));
+                break;
+            case R.id.button14:
+                mContext.startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class));
+                break;
+            case R.id.button15:
+                mContext.startActivity(new Intent(mContext, SurfaceViewActivity.class));
+                break;
+            case R.id.button16:
+                mContext.startActivity(new Intent(mContext, WeexActivity.class));
+                break;
+        }
     }
 }

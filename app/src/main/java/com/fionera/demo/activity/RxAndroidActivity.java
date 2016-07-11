@@ -41,6 +41,8 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 
@@ -61,15 +63,12 @@ public class RxAndroidActivity
     @Event(R.id.btn_rx_demo)
     private void onClick(View v) {
         if (ContextCompat.checkSelfPermission(RxAndroidActivity.this,
-                                              Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                                              new String[]{Manifest.permission
-                                                      .WRITE_EXTERNAL_STORAGE},
-                                              0);
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
-        downloadProgress.distinct().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Integer>() {
+        downloadProgress.distinct().observeOn(AndroidSchedulers.mainThread()).subscribe(
+                new Subscriber<Integer>() {
                     @Override
                     public void onCompleted() {
                         ShowToast.show("Download complete");
@@ -97,7 +96,12 @@ public class RxAndroidActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         rxAdapter = new RxAdapter();
         recyclerView.setAdapter(rxAdapter);
-        swipeRefreshLayout.setOnRefreshListener(() -> loadList(outList));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadList(outList);
+            }
+        });
         refreshList();
     }
 
@@ -133,45 +137,56 @@ public class RxAndroidActivity
 
         Observable<Long> clock = Observable.interval(1, TimeUnit.SECONDS);
 
-        Observable.zip(Observable.merge(Observable.from(outList).take(3),
-                                        Observable.from(reverseList).take(3)), clock,
-                       (appInfo, aLong) -> new AppInfo(appInfo.icon,
-                                                       appInfo.name + String.valueOf(aLong)))
-                .map(appInfo -> (appInfo.name.startsWith("V")) ? new AppInfo(appInfo.icon,
-                                                                             "new " + appInfo
-                                                                                     .name) :
-                        appInfo)
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<AppInfo>() {
+        Observable.zip(Observable
+                        .merge(Observable.from(outList).take(3), Observable.from(reverseList).take(3)),
+                clock, new Func2<AppInfo, Long, AppInfo>() {
+                    @Override
+                    public AppInfo call(AppInfo appInfo, Long aLong) {
+                        return new AppInfo(appInfo.icon, appInfo.name + String.valueOf(aLong));
+                    }
+                })
+                .map(new Func1<AppInfo, AppInfo>() {
+                    @Override
+                    public AppInfo call(AppInfo appInfo) {
+                        return (appInfo.name.startsWith("V")) ? new AppInfo(appInfo.icon,
+                                "new " + appInfo.name) : appInfo;
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<AppInfo>() {
 
-            @Override
-            public void onCompleted() {
-                ShowToast.show("Here is the refresh list");
-                swipeRefreshLayout.setRefreshing(false);
-            }
+                    @Override
+                    public void onCompleted() {
+                        ShowToast.show("Here is the refresh list");
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                ShowToast.show("Something error");
-                swipeRefreshLayout.setRefreshing(false);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        ShowToast.show("Something error");
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
 
-            @Override
-            public void onNext(AppInfo appInfo) {
-                rxAdapter.addApplication(appInfo);
-            }
-        });
+                    @Override
+                    public void onNext(AppInfo appInfo) {
+                        rxAdapter.addApplication(appInfo);
+                    }
+                });
     }
 
     private Observable<Boolean> downloadObservable() {
-        return Observable.create(subscriber -> {
-            boolean result = downloadFile(
-                    "http://down.gfan.com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk",
-                    Environment.getExternalStorageDirectory().getAbsolutePath() + "/GfanMobile.apk");
-            if (result) {
-                subscriber.onNext(true);
-                subscriber.onCompleted();
-            } else {
-                subscriber.onError(new Throwable("Download error"));
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                boolean result = downloadFile(
+                        "http://down.gfan.com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk",
+                        Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/GfanMobile.apk");
+                if (result) {
+                    subscriber.onNext(true);
+                    subscriber.onCompleted();
+                } else {
+                    subscriber.onError(new Throwable("Download error"));
+                }
             }
         });
     }
@@ -227,44 +242,48 @@ public class RxAndroidActivity
     }
 
     private Observable<AppInfo> getApps() {
-        return Observable.create((Observable.OnSubscribe<AppInfo>) subscriber -> {
-            List<AppInfoRich> apps = new ArrayList<>();
-            final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-            mainIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        return Observable.create(
+                new Observable.OnSubscribe<AppInfo>() {
+                    @Override
+                    public void call(Subscriber<? super AppInfo> subscriber) {
+                        List<AppInfoRich> apps = new ArrayList<>();
+                        final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+                        mainIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
-            List<ResolveInfo> infos = getPackageManager()
-                    .queryIntentActivities(mainIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                        List<ResolveInfo> infos = getPackageManager().queryIntentActivities(mainIntent,
+                                PackageManager.MATCH_DEFAULT_ONLY);
 
-            for (ResolveInfo info : infos) {
-                apps.add(new AppInfoRich(info));
-            }
+                        for (ResolveInfo info : infos) {
+                            apps.add(new AppInfoRich(info));
+                        }
 
-            for (AppInfoRich appInfo : apps) {
-                Drawable icon = appInfo.icon;
-                String name = appInfo.name;
-                if (subscriber.isUnsubscribed()) {
-                    return;
-                }
-                AppInfo info = new AppInfo(icon, name);
-                subscriber.onNext(info);
-                outList.add(info);
-            }
+                        for (AppInfoRich appInfo : apps) {
+                            Drawable icon = appInfo.icon;
+                            String name = appInfo.name;
+                            if (subscriber.isUnsubscribed()) {
+                                return;
+                            }
+                            AppInfo info = new AppInfo(icon, name);
+                            subscriber.onNext(info);
+                            outList.add(info);
+                        }
 
-            if (!subscriber.isUnsubscribed()) {
-                subscriber.onCompleted();
-            }
-        });
+                        if (!subscriber.isUnsubscribed()) {
+                            subscriber.onCompleted();
+                        }
+                    }
+                });
     }
 
-    class RxAdapter
+    private class RxAdapter
             extends RecyclerView.Adapter<RxHolder> {
 
         private List<AppInfo> appInfos = new ArrayList<>();
 
         @Override
         public RxHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(RxAndroidActivity.this)
-                    .inflate(android.R.layout.simple_list_item_1, parent, false);
+            View view = LayoutInflater.from(RxAndroidActivity.this).inflate(
+                    android.R.layout.simple_list_item_1, parent, false);
             return new RxHolder(view);
         }
 
