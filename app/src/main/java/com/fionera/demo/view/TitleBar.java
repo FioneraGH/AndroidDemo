@@ -106,12 +106,8 @@ public class TitleBar
     private void toggleRight(boolean state) {
         if (state) {
             mLayoutRight.setVisibility(View.VISIBLE);
-            mLayoutRight.setAnimation(
-                    AnimationUtils.loadAnimation(getContext(), R.anim.set_title_ic_visible));
         } else {
             mLayoutRight.setVisibility(View.INVISIBLE);
-            mLayoutRight.setAnimation(
-                    AnimationUtils.loadAnimation(getContext(), R.anim.set_title_ic_invisible));
         }
     }
 
