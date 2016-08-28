@@ -16,9 +16,15 @@
 #   public *;
 #}
 
+-dontwarn org.jetbrains.anko.**
 -dontwarn com.alibaba.fastjson.**
 -dontwarn master.flame.danmaku.**
 -keep class master.flame.danmaku.** { *; }
+-keep class tv.danmaku.ijk.media.** { *; }
+-dontwarn org.eclipse.mat.**
+-dontwarn com.squareup.leakcanary.**
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
 
 ################### region for gradle_leakcanary
 -dontwarn org.eclipse.mat.**
@@ -34,7 +40,7 @@
 }
 #################### end region
 
-################### region for gradle_xutils
+################### region for xUtils
 -keepattributes Signature,*Annotation*
 -keep public class org.xutils.** {
     public protected *;

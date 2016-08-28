@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,9 +19,23 @@ import com.fionera.demo.util.DBHelper;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ArcMenu;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class ChatActivity
         extends Activity
@@ -85,7 +100,7 @@ public class ChatActivity
     /**
      * 读取显示数据
      */
-    public void showAllData() {
+    private void showAllData() {
 
         // 获取总记录数
         allRecorders = dbHelper.getCount();
@@ -105,7 +120,28 @@ public class ChatActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_send_msg:
-                send();
+                //                send();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Properties prop = new Properties();
+                            prop.setProperty("mail.host", "smtp.163.com");
+                            prop.setProperty("mail.transport.protocol", "smtp");
+                            prop.setProperty("mail.smtp.auth", "true");
+
+                            Session session = Session.getInstance(prop);
+                            session.setDebug(true);
+                            Transport ts = session.getTransport();
+                            ts.connect("smtp.163.com", "sanjinzhou@163.com", "stsjs1218!!");
+                            Message message = createAttachMail(session);
+                            ts.sendMessage(message, message.getAllRecipients());
+                            ts.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 break;
             case R.id.tv_extra_function:
                 startActivity(new Intent(mContext, CaptureActivity.class));
@@ -113,7 +149,37 @@ public class ChatActivity
         }
     }
 
-    int firstItem = -1;
+    private static MimeMessage createAttachMail(Session session) throws Exception {
+        MimeMessage message = new MimeMessage(session);
+        //发件人
+        message.setFrom(new InternetAddress("sanjinzhou@163.com"));
+        //收件人
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress("shell.yang@centling.com"));
+        //邮件标题
+        message.setSubject("JavaMail邮件发送测试");
+        //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
+        MimeBodyPart text = new MimeBodyPart();
+        text.setContent("使用JavaMail创建的带附件的邮件", "text/html;charset=UTF-8");
+        //创建邮件附件
+        MimeBodyPart attach = new MimeBodyPart();
+        DataHandler dh = new DataHandler(new FileDataSource(Environment.getExternalStorageDirectory() + "/DidiUuid"));
+        attach.setDataHandler(dh);
+        attach.setFileName("DidiUuid");
+        //创建容器描述数据关系
+        MimeMultipart mp = new MimeMultipart();
+        mp.addBodyPart(text);
+        mp.addBodyPart(attach);
+        mp.setSubType("mixed");
+        message.setContent(mp);
+        message.saveChanges();
+        //将创建的Email写入到E盘存储
+        message.writeTo(new FileOutputStream(
+                Environment.getExternalStorageDirectory() + "/attachMail.eml"));
+        //返回生成的邮件
+        return message;
+    }
+
+    private int firstItem = -1;
 
     @Override
     public void onScroll(AbsListView absView, int firstVisibleItem, int visibleItemCount,
@@ -139,7 +205,6 @@ public class ChatActivity
      * 增加数据
      */
     private void appendDate() {
-
         ArrayList<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, lineSize);
         mAdapter.setCount(mAdapter.getCount() + addItems.size());
 
@@ -152,7 +217,6 @@ public class ChatActivity
         listView.setSelection(addItems.size());
         dbHelper.CloseDb();
     }
-
 
     private void send() {
         String contString = mEditTextContent.getText().toString();
@@ -189,8 +253,7 @@ public class ChatActivity
         dbHelper.insertChatEntity(entry);
     }
 
-    public static String getDate() {
-
+    private static String getDate() {
         Calendar c = Calendar.getInstance();
         String year = String.valueOf(c.get(Calendar.YEAR));
         String month = String.valueOf(c.get(Calendar.MONTH) + 1);
@@ -199,5 +262,4 @@ public class ChatActivity
         String mins = String.valueOf(c.get(Calendar.MINUTE));
         return (year + "-" + month + "-" + day + " " + hour + ":" + mins);
     }
-
 }
