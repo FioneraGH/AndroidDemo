@@ -53,7 +53,7 @@ public class WeexActivity
 
             }
         });
-        renderPage(mInstance, getPackageName(), WXFileUtils.loadFileContent("hello_weex.js", this),
+        renderPage(mInstance, getPackageName(), WXFileUtils.loadAsset("hello_weex.js", this),
                 WEEX_INDEX_URL, null);
     }
 
