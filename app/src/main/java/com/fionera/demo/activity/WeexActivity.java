@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.fionera.demo.R;
+import com.fionera.demo.weex.CustomViewComponent;
 import com.taobao.weex.IWXRenderListener;
+import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.WXSDKInstance;
+import com.taobao.weex.common.WXException;
 import com.taobao.weex.common.WXRenderStrategy;
 import com.taobao.weex.utils.WXFileUtils;
 import com.taobao.weex.utils.WXViewUtils;
@@ -19,8 +22,7 @@ import java.util.Map;
 public class WeexActivity
         extends AppCompatActivity {
 
-    private static final String DEFAULT_IP = "10.42.0.1";
-    private static String CURRENT_IP = DEFAULT_IP;
+    private static String CURRENT_IP = "10.42.0.1";
     private static final String WEEX_INDEX_URL = "http://" + CURRENT_IP +
             ":12580/examples/build/index.js";
 
@@ -30,7 +32,15 @@ public class WeexActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weex);
+
         viewGroup = (ConstraintLayout) findViewById(R.id.activity_weex);
+
+        try {
+            WXSDKEngine.registerComponent("CustomViewComponent", CustomViewComponent.class);
+        } catch (WXException e) {
+            e.printStackTrace();
+        }
+
         WXSDKInstance mInstance = new WXSDKInstance(this);
         mInstance.registerRenderListener(new IWXRenderListener() {
             @Override

@@ -18,7 +18,7 @@ public class DemoApplication
         extends Application {
 
     private static WindowManager.LayoutParams wmLayoutParams;
-    private static Application instance;
+    private static DemoApplication instance;
     private static LocalBroadcastManager localBroadcastManager;
 
     public static int screenWidth;
@@ -52,7 +52,7 @@ public class DemoApplication
         }
     }
 
-    public static Application getInstance() {
+    public static DemoApplication getInstance() {
         return instance;
     }
 
