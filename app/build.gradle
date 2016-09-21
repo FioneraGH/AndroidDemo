@@ -9,8 +9,10 @@ android {
             storePassword 'fionera'
         }
     }
+
     compileSdkVersion 24
     buildToolsVersion '24.0.2'
+
     defaultConfig {
         applicationId "com.fionera.demo"
         minSdkVersion 16
@@ -20,15 +22,26 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        jackOptions {
-            enabled false
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
         }
 
-        ndk{
+        jackOptions {
+            enabled true
+        }
+
+        ndk {
             abiFilters "armeabi"
         }
     }
+
     buildTypes {
+        debug {
+            zipAlignEnabled false
+            minifyEnabled false
+        }
         release {
             zipAlignEnabled true
             minifyEnabled true
@@ -36,6 +49,7 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
     productFlavors {
         dev {
             minSdkVersion 21
@@ -48,12 +62,20 @@ android {
             return 0
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
     dexOptions {
         preDexLibraries = false
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
     }
 }
 
@@ -69,7 +91,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.sun.mail:android-mail:1.5.5'
     compile 'com.flyco.banner:FlycoBanner_Lib:2.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

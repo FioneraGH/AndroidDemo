@@ -14,7 +14,7 @@
         android:src="@drawable/ic_chat_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/iv_constraint_pr"
         android:scaleType="centerCrop"
         tools:layout_editor_absoluteX="216dp"
         tools:layout_editor_absoluteY="80dp"
@@ -37,15 +37,15 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="187dp"
         tools:layout_editor_absoluteY="170dp"
-        android:id="@+id/textView"
+        android:id="@+id/tv_constraint_tips"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         tools:text="Hello Constraint"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_constraint_pr"
         tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/iv_constraint_pr"
         android:layout_marginTop="48dp"
         tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="@+id/iv_constraint_pr"
         tools:layout_constraintRight_creator="0"/>
 
     <Button
@@ -58,7 +58,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/activity_constraint_layout"
         android:layout_marginStart="24dp"
         tools:layout_constraintLeft_creator="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_constraint_tips"
         tools:layout_constraintBaseline_creator="0"/>
 
 </android.support.constraint.ConstraintLayout>
