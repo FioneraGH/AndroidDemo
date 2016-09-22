@@ -12,18 +12,18 @@ import com.fionera.demo.util.ShowToast;
 public class ConstraintLayoutActivity
         extends AppCompatActivity {
 
-    private TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint_layout);
 
-        textView= (TextView) findViewById(R.id.tv_constraint_tips);
-        textView.setText(stringFromJNI());
+        TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
+        textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));
     }
 
     public native String stringFromJNI();
+
+    public native int addNumberUsingJNI(int a, int b);
 
     static {
         System.loadLibrary("native-lib");
@@ -31,7 +31,8 @@ public class ConstraintLayoutActivity
 
     public void turnOnNight(View view) {
         Intent localIntent = new Intent();
-        localIntent.setClassName("com.android.systemui", "com.android.systemui.tuner.TunerActivity");
+        localIntent.setClassName("com.android.systemui",
+                "com.android.systemui.tuner.TunerActivity");
         localIntent.putExtra("show_night_mode", true);
         startActivity(localIntent);
         ShowToast.show("open");

@@ -44,44 +44,34 @@
 /* 0 */
 /***/ function(module, exports) {
 
-	;__weex_define__("@weex-component/f111bebcf77d75ec8e9d7ecf51a59ef5", [], function(__weex_require__, __weex_exports__, __weex_module__){
+	;__weex_define__("@weex-component/2465ca28d6ae48d267000233a840856a", [], function(__weex_require__, exports, __weex_module__){
 
 	;
-	    __weex_module__.exports = {
-	        methods:{
-	            onClickTitle:function(e){
-	                console.log(e);
-	                alert('title clicked.');
-	            }
-	        }
+	  __weex_module__.exports = {
+	    methods:{
+	      openUrl:function(){
+	        __weex_require__('@weex-module/URLHelper').openURL('www.baidu.com', function(ts){
+	          console.log("url is open at "+ts);
+	        })
+	      }
 	    }
+	  }
 
 	;__weex_module__.exports.template = __weex_module__.exports.template || {}
 	;Object.assign(__weex_module__.exports.template, {
 	  "type": "div",
 	  "children": [
 	    {
-	      "type": "text",
-	      "classList": [
-	        "title"
-	      ],
-	      "events": {
-	        "click": "onClickTitle"
-	      },
+	      "type": "customviewcomponent",
 	      "attr": {
-	        "value": "Hello World"
+	        "text": "hello component",
+	        "size": "19"
 	      }
 	    }
 	  ]
 	})
-	;__weex_module__.exports.style = __weex_module__.exports.style || {}
-	;Object.assign(__weex_module__.exports.style, {
-	  "title": {
-	    "color": "#FF0000"
-	  }
 	})
-	})
-	;__weex_bootstrap__("@weex-component/f111bebcf77d75ec8e9d7ecf51a59ef5", {
+	;__weex_bootstrap__("@weex-component/2465ca28d6ae48d267000233a840856a", {
 	  "transformerVersion": "0.3.1"
 	},undefined)
 

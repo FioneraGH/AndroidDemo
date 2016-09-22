@@ -23,6 +23,5 @@ public class WeexImageLoaderAdapter
                 x.image().bind(view, url);
             }
         }, 0);
-
     }
 }

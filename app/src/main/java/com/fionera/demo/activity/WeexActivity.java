@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.fionera.demo.R;
 import com.fionera.demo.weex.CustomViewComponent;
+import com.fionera.demo.weex.URLHelperModule;
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.WXSDKInstance;
@@ -36,7 +37,8 @@ public class WeexActivity
         viewGroup = (ConstraintLayout) findViewById(R.id.activity_weex);
 
         try {
-            WXSDKEngine.registerComponent("CustomViewComponent", CustomViewComponent.class);
+            WXSDKEngine.registerComponent("customviewcomponent", CustomViewComponent.class);
+            WXSDKEngine.registerModule("URLHelper", URLHelperModule.class);
         } catch (WXException e) {
             e.printStackTrace();
         }
