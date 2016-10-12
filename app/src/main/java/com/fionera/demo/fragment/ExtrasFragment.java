@@ -3,6 +3,8 @@ package com.fionera.demo.fragment;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,6 +48,11 @@ public class ExtrasFragment
     public void initViews(View rootView) {
 
         setTitleBarText("扩展");
+
+        ActionBar actionBar = ((AppCompatActivity) mActivity).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         for (int id : ids) {
             rootView.findViewById(id).setOnClickListener(this);

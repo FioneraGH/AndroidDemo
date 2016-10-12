@@ -1,8 +1,10 @@
 package com.fionera.demo.activity;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +18,16 @@ public class ConstraintLayoutActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint_layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_constrant_title);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
         TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
         textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));

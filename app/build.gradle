@@ -11,7 +11,7 @@ android {
     }
 
     compileSdkVersion 24
-    buildToolsVersion '24.0.2'
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         applicationId "com.fionera.demo"
@@ -57,15 +57,18 @@ android {
             return 0
         }
         emu {
-            minSdkVersion 16
+            minSdkVersion 24
             resConfigs("zh_CN", "en_US")
+            ndk {
+                abiFilters "x86"
+            }
             return 0
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dexOptions {
@@ -82,16 +85,17 @@ android {
 dependencies {
     compile "com.android.support:design:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
+    compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:cardview-v7:$support_version"
     compile 'org.xutils:xutils:3.3.36'
     compile 'com.alibaba:fastjson:1.2.16'
-    compile 'com.taobao.android:weex_sdk:0.7.0'
+    compile 'com.taobao.android:weex_sdk:0.8.0.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.sun.mail:android-mail:1.5.5'
     compile 'com.flyco.banner:FlycoBanner_Lib:2.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
