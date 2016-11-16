@@ -100,7 +100,6 @@ public class MainActivity
         intentFilter.addAction(CLICK_TO_CHANGE);
         clickReceiver = new ClickReceiver();
         DemoApplication.getLocalBroadcastManager().registerReceiver(clickReceiver, intentFilter);
-
     }
 
     private int currIndex = 0;
@@ -173,7 +172,7 @@ public class MainActivity
         /**
          * 初始位置在左上角
          */
-        wmLayoutParams.gravity = Gravity.LEFT | Gravity.TOP;
+        wmLayoutParams.gravity = Gravity.START | Gravity.TOP;
         /**
          * 设定原点为(0,0)
          */

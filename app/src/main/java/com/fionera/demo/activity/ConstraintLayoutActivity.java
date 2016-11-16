@@ -1,9 +1,10 @@
 package com.fionera.demo.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -46,7 +47,12 @@ public class ConstraintLayoutActivity
         localIntent.setClassName("com.android.systemui",
                 "com.android.systemui.tuner.TunerActivity");
         localIntent.putExtra("show_night_mode", true);
-        startActivity(localIntent);
-        ShowToast.show("open");
+        PackageManager packageManager = getPackageManager();
+        if (packageManager != null && packageManager.queryIntentActivities(localIntent,
+                PackageManager.MATCH_DEFAULT_ONLY).size() > 0) {
+            startActivity(localIntent);
+        } else {
+            ShowToast.show("cannot open");
+        }
     }
 }

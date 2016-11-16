@@ -7,6 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.fionera.demo.util.CrashHandler;
 import com.fionera.demo.util.WeexImageLoaderAdapter;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
@@ -49,6 +50,9 @@ public class DemoApplication
             StrictMode.setThreadPolicy(
                     new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
                             .penaltyDeathOnNetwork().build());
+
+            CrashHandler crashHandler = CrashHandler.getInstance();
+            crashHandler.init(getApplicationContext());
         }
     }
 

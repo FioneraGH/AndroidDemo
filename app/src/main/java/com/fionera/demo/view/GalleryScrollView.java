@@ -6,6 +6,8 @@ import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+import com.fionera.demo.util.ShowToast;
+
 import java.util.ArrayList;
 
 /**
@@ -31,23 +33,22 @@ public class GalleryScrollView
         init();
     }
 
-
     private void init() {
         setHorizontalScrollBarEnabled(false);
         setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
         receiveChildInfo();
     }
 
     public void receiveChildInfo() {
-
         LinearLayout firstChild = (LinearLayout) getChildAt(0);
         if (firstChild != null) {
             subChildCount = firstChild.getChildCount();
+            ShowToast.show(subChildCount);
             for (int i = 0; i < subChildCount; i++) {
                 if (firstChild.getChildAt(i).getWidth() > 0) {
                     if (0 != i) {
@@ -59,7 +60,6 @@ public class GalleryScrollView
                 }
             }
         }
-
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.taobao.weex.WXSDKInstance;
-import com.taobao.weex.common.WXDomPropConstant;
+import com.taobao.weex.common.Constants;
 import com.taobao.weex.dom.WXDomObject;
 import com.taobao.weex.ui.component.WXComponent;
 import com.taobao.weex.ui.component.WXComponentProp;
@@ -31,7 +31,7 @@ public class CustomViewComponent
         return super.getHostView();
     }
 
-    @WXComponentProp(name = WXDomPropConstant.WX_ATTR_INPUT_TYPE_TEXT)
+    @WXComponentProp(name = Constants.Value.TEXT)
     public void setTextValue(String text) {
         ((TextView) mHost).setText(text);
     }

@@ -18,10 +18,10 @@ public class LoginFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
         view.findViewById(R.id.email_sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View item) {
                 mListener
                         .onFragmentInteraction(("hello").equals(((AutoCompleteTextView) view
                                 .findViewById(R.id.actv_login_email)).getText()
