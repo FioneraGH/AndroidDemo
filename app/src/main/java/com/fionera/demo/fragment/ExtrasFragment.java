@@ -6,7 +6,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
@@ -25,8 +24,6 @@ import com.fionera.demo.activity.StickyHeaderActivity;
 import com.fionera.demo.activity.SurfaceViewActivity;
 import com.fionera.demo.activity.WeexActivity;
 import com.fionera.demo.activity.XUtils3Activity;
-
-import org.xutils.view.annotation.ViewInject;
 
 /**
  * Created by fionera on 15-10-3.
