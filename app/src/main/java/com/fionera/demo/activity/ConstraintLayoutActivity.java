@@ -78,6 +78,20 @@ public class ConstraintLayoutActivity
             System.arraycopy(byteDate, 0, cmd, 1, 7);
             writeValue("20:91:48:A2:D9:BD",cmd ,new ArrayList<>());
         });
+        findViewById(R.id.btn_contrant_stamp_1).setOnClickListener(view -> {
+            byte[] cmd = {0x07};
+            List<Byte> packet = new ArrayList<>();
+            packet.add((byte) 0x01);
+            packet.add((byte) 0x00);
+            writeValue("88:4A:EA:30:34:FD", cmd, packet);
+        });
+        findViewById(R.id.btn_contrant_stamp_2).setOnClickListener(view -> {
+            byte[] cmd = {0x07};
+            List<Byte> packet = new ArrayList<>();
+            packet.add((byte) 0x01);
+            packet.add((byte) 0x00);
+            writeValue("20:91:48:A2:D9:BD", cmd, packet);
+        });
     }
 
     private static byte[] hexStr2Bytes(String src) {
