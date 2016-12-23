@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports) {
 
-	;__weex_define__("@weex-component/2465ca28d6ae48d267000233a840856a", [], function(__weex_require__, exports, __weex_module__){
+	;__weex_define__("@weex-component/custom-view-component", [], function(__weex_require__, exports, __weex_module__){
 
 	;
 	  __weex_module__.exports = {
@@ -62,7 +62,7 @@
 	  "type": "div",
 	  "children": [
 	    {
-	      "type": "customviewcomponent",
+	      "type": "custom-view-component",
 	      "attr": {
 	        "text": "hello component",
 	        "size": "19"

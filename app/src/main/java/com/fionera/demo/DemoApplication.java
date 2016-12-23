@@ -9,9 +9,12 @@ import android.view.WindowManager;
 
 import com.fionera.demo.util.CrashHandler;
 import com.fionera.demo.util.WeexImageLoaderAdapter;
+import com.fionera.demo.weex.CustomViewComponent;
+import com.fionera.demo.weex.URLHelperModule;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
 import com.taobao.weex.WXSDKEngine;
+import com.taobao.weex.common.WXException;
 
 import org.xutils.x;
 
@@ -38,9 +41,15 @@ public class DemoApplication
         x.Ext.init(this);
         x.Ext.setDebug(false);
 
-        WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
-        WXSDKEngine.initialize(this,
-                new InitConfig.Builder().setImgAdapter(new WeexImageLoaderAdapter()).build());
+        try {
+            WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
+            WXSDKEngine.registerComponent("custom-view-component", CustomViewComponent.class);
+            WXSDKEngine.registerModule("URLHelper", URLHelperModule.class);
+            WXSDKEngine.initialize(this,
+                    new InitConfig.Builder().setImgAdapter(new WeexImageLoaderAdapter()).build());
+        } catch (WXException e) {
+            e.printStackTrace();
+        }
 
         getDisplayMetrics();
 
@@ -50,7 +59,7 @@ public class DemoApplication
             StrictMode.setThreadPolicy(
                     new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
                             .penaltyDeathOnNetwork().build());
-
+        } else {
             CrashHandler crashHandler = CrashHandler.getInstance();
             crashHandler.init(getApplicationContext());
         }
