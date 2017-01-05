@@ -1,2 +1,2 @@
 # AndroidDemo
-This is the traing code on my study road.
+This is the training code on my study road.

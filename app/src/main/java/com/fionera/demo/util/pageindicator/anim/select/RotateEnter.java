@@ -1,11 +1,9 @@
 package com.fionera.demo.util.pageindicator.anim.select;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
 import com.fionera.demo.util.pageindicator.anim.base.IndicatorBaseAnimator;
-
 
 public class RotateEnter
         extends IndicatorBaseAnimator {
@@ -15,6 +13,6 @@ public class RotateEnter
 
     public void setAnimation(View view) {
         animatorSet
-                .playTogether(new Animator[]{ObjectAnimator.ofFloat(view, "rotation", 0, 180)});
+                .playTogether(ObjectAnimator.ofFloat(view, "rotation", 0, 180));
     }
 }

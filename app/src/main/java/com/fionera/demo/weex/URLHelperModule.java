@@ -24,10 +24,10 @@ public class URLHelperModule
         if(TextUtils.isEmpty(url)){
             return;
         }
-        Uri uri = Uri.parse("http:" + url);
+        Uri uri = Uri.parse("http://" + url);
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addCategory(WEEX_CATEGORY);
+//        intent.addCategory(WEEX_CATEGORY);
         mWXSDKInstance.getContext().startActivity(intent);
 
         jsCallback.invoke(System.currentTimeMillis());

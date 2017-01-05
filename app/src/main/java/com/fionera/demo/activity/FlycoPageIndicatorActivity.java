@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.util.pageindicator.anim.select.ZoomInEnter;
+import com.fionera.demo.util.pageindicator.banner.BaseBanner;
 import com.fionera.demo.util.pageindicator.banner.SimpleImageBanner;
 import com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
-import com.flyco.banner.widget.Banner.base.BaseBanner;
 
 import java.util.ArrayList;
 

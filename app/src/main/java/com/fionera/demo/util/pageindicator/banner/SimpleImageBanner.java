@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor;
-import com.flyco.banner.widget.Banner.base.BaseBanner;
 
 public class SimpleImageBanner
         extends BaseBanner<Integer, SimpleImageBanner> {
@@ -28,8 +27,8 @@ public class SimpleImageBanner
     }
 
     @Override
-    public void onTitleSlect(TextView tv, int position) {
-        super.onTitleSlect(tv, position);
+    public void onTitleSelect(TextView tv, int position) {
+        super.onTitleSelect(tv, position);
         tv.setText("当前" + position);
     }
 

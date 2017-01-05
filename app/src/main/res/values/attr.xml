@@ -97,4 +97,28 @@
         <attr name="fpi_unselectRes" format="reference"/>
     </declare-styleable>
 
+    <!--轮播图-->
+    <declare-styleable name="BaseBanner">
+        <attr name="bb_scale" format="float"/>
+        <attr name="bb_isLoopEnable" format="boolean"/>
+        <attr name="bb_delay" format="integer"/>
+        <attr name="bb_period" format="integer"/>
+        <attr name="bb_isAutoScrollEnable" format="boolean"/>
+        <attr name="bb_barColor" format="color"/>
+        <attr name="bb_isBarShowWhenLast" format="boolean"/>
+        <attr name="bb_barPaddingBottom" format="dimension"/>
+        <attr name="bb_barPaddingLeft" format="dimension"/>
+        <attr name="bb_barPaddingRight" format="dimension"/>
+        <attr name="bb_barPaddingTop" format="dimension"/>
+        <attr name="bb_textColor" format="color"/>
+        <attr name="bb_textSize" format="dimension"/>
+        <attr name="bb_isTitleShow" format="boolean"/>
+        <attr name="bb_isIndicatorShow" format="boolean"/>
+        <attr name="bb_indicatorGravity">
+            <enum name="CENTER" value="17"/>
+            <enum name="LEFT" value="3"/>
+            <enum name="RIGHT" value="5"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

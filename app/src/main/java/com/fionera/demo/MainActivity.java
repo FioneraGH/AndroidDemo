@@ -37,10 +37,8 @@ import org.xutils.x;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity
         extends AppCompatActivity
@@ -49,7 +47,6 @@ public class MainActivity
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
 
     private WindowManager wm;
-    private WindowManager.LayoutParams wmLayoutParams;
     private FloatView floatView;
 
     private ViewPager viewPager;
@@ -155,32 +152,33 @@ public class MainActivity
         viewPager.setOffscreenPageLimit(3);
     }
 
+    @SuppressWarnings("unused")
     private void createFloatView() {
 
         floatView = new FloatView(getApplicationContext());
         floatView.setImageResource(R.mipmap.ic_launcher);
 
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        wmLayoutParams = DemoApplication.getWmLayoutParams();
-        /**
-         * 设置类型为TYPE_PHONE，拥有最高顶层的权限
+        WindowManager.LayoutParams wmLayoutParams = DemoApplication.getWmLayoutParams();
+        /*
+          设置类型为TYPE_PHONE，拥有最高顶层的权限
          */
         wmLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-        /**
-         * 设置图片背景透明
+        /*
+          设置图片背景透明
          */
         wmLayoutParams.format = PixelFormat.RGBA_8888;
-        /**
-         * 初始位置在左上角
+        /*
+          初始位置在左上角
          */
         wmLayoutParams.gravity = Gravity.START | Gravity.TOP;
-        /**
-         * 设定原点为(0,0)
+        /*
+          设定原点为(0,0)
          */
         wmLayoutParams.x = 0;
         wmLayoutParams.y = 0;
-        /**
-         * 设定长宽
+        /*
+          设定长宽
          */
         wmLayoutParams.width = 256;
         wmLayoutParams.height = 256;
@@ -224,10 +222,6 @@ public class MainActivity
 
     /**
      * 利用反射在菜单打开时显示ActionBar菜单项Icon
-     *
-     * @param featureId
-     * @param menu
-     * @return
      */
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
