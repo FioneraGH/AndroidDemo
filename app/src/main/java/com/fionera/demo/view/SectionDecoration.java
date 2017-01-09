@@ -9,15 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
 
 import com.fionera.demo.R;
 import com.fionera.demo.bean.StickyHeaderBean;
 import com.fionera.demo.util.DisplayUtils;
+import com.fionera.demo.util.LogCat;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 
 /**
  * Created by fionera on 17-1-9 in AndroidDemo.
@@ -26,34 +25,38 @@ import java.util.Objects;
 public class SectionDecoration
         extends RecyclerView.ItemDecoration {
 
-    private Context context;
-    private List<StickyHeaderBean.DataEntity.ComingEntity> comingEntityList = new ArrayList<>();
-
     private DecorationCallback callback;
 
     private TextPaint textPaint;
+    private TextPaint textPaintOver;
     private Paint paint;
+    private Paint paintOver;
     private int topGap;
     private int alignBottom;
-    private Paint.FontMetrics fontMetrics;
 
     public SectionDecoration(Context context, List<StickyHeaderBean.DataEntity.ComingEntity> comingEntityList,
                              DecorationCallback callback) {
-        this.context = context;
-        this.comingEntityList = comingEntityList;
         this.callback = callback;
 
         paint = new Paint();
         paint.setColor(ContextCompat.getColor(context, R.color.grey2));
 
+        paintOver = new Paint();
+        paintOver.setColor(ContextCompat.getColor(context, R.color.blue2));
+
         textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(DisplayUtils.sp2px(14f));
-        textPaint.setColor(ContextCompat.getColor(context,R.color.black1));
+        textPaint.setColor(ContextCompat.getColor(context,R.color.blue2));
         textPaint.setTextAlign(Paint.Align.LEFT);
 
-        fontMetrics = new Paint.FontMetrics();
-        topGap = DisplayUtils.dp2px(24);
+        textPaintOver = new TextPaint();
+        textPaintOver.setAntiAlias(true);
+        textPaintOver.setTextSize(DisplayUtils.sp2px(14f));
+        textPaintOver.setColor(ContextCompat.getColor(context,R.color.black1));
+        textPaintOver.setTextAlign(Paint.Align.LEFT);
+
+        topGap = DisplayUtils.dp2px(30);
         alignBottom = DisplayUtils.dp2px(8);
     }
 
@@ -97,11 +100,11 @@ public class SectionDecoration
             }
             String textLine = callback.getGroupFirstLine(position).toUpperCase();
             if (TextUtils.isEmpty(textLine)) {
-                c.drawRect(left, view.getTop(), right, view.getTop(), paint);
+                c.drawRect(left, view.getTop() - topGap / 2, right, view.getTop(), paint);
             } else {
                 if (0 == position || isFirstInGroup(position)) {
                     c.drawRect(left, view.getTop() - topGap, right, view.getTop(), paint);
-                    c.drawText(textLine, left, view.getTop() - DisplayUtils.dp2px(4), textPaint);
+                    c.drawText(textLine, left, view.getTop() - DisplayUtils.dp2px(8), textPaint);
                 }
             }
         }
@@ -113,9 +116,8 @@ public class SectionDecoration
         int itemCount = state.getItemCount();
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
-        float lineHeight = textPaint.getTextSize() + fontMetrics.descent;
 
-        String preGroupId = "";
+        String preGroupId;
         String groupId = "-1";
         for (int i = 0, childCount = parent.getChildCount(); i < childCount; i++) {
             View view = parent.getChildAt(i);
@@ -123,6 +125,7 @@ public class SectionDecoration
 
             preGroupId = groupId;
             groupId = callback.getGroupId(position);
+
             if (TextUtils.equals(groupId, "-1") || TextUtils.equals(preGroupId, groupId)) {
                 continue;
             }
@@ -132,18 +135,19 @@ public class SectionDecoration
                 continue;
             }
 
-            int viewBottom = view.getBottom();
             float textY = Math.max(topGap, view.getTop());
 
             if (position + 1 < itemCount) {
                 String nextGroupId = callback.getGroupId(position + 1);
+                LogCat.d(String.format(Locale.CHINA, "Draw Over Current Position:%d %s:%s:%s",
+                        position, preGroupId, groupId, nextGroupId));
                 if (!TextUtils.equals(nextGroupId, groupId) && view.getBottom() < textY) {
-                    textY = viewBottom;
+                    textY = view.getBottom();
                 }
             }
 
-            c.drawRect(left, textY - topGap, right, textY, paint);
-            c.drawText(textLine, left + 2 * alignBottom, textY - alignBottom, textPaint);
+            c.drawRect(left, textY - topGap, right, textY, paintOver);
+            c.drawText(textLine, left + 2 * alignBottom, textY - alignBottom, textPaintOver);
         }
     }
 

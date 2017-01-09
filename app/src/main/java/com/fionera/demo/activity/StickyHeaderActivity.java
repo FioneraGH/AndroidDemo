@@ -2,6 +2,7 @@ package com.fionera.demo.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ public class StickyHeaderActivity
     @ViewInject(R.id.rv_sticky_header)
     private RecyclerView recyclerView;
 
+    private List<String> groups = new ArrayList<>();
     private List<StickyHeaderBean.DataEntity.ComingEntity> comingEntityList = new ArrayList<>();
 
     public String URL = "http://api.meituan.com/mmdb/movie/v2/list/rt/order/coming" +
@@ -43,16 +45,30 @@ public class StickyHeaderActivity
         x.view().inject(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.addItemDecoration(new SectionDecoration(mContext, comingEntityList, new
-                SectionDecoration.DecorationCallback() {
+        groups.add("1");
+        groups.add("1");
+        groups.add("1");
+        groups.add("2");
+        groups.add("3");
+        groups.add("3");
+        groups.add("4");
+        groups.add("1");
+        groups.add("5");
+        groups.add("");
+        groups.add("5");
+        groups.add("5");
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new SectionDecoration(mContext, comingEntityList,
+                new SectionDecoration.DecorationCallback() {
                     @Override
                     public String getGroupId(int position) {
-                        return comingEntityList.get(position).getNm();
+                        return groups.get(position);
                     }
 
                     @Override
                     public String getGroupFirstLine(int position) {
-                        return comingEntityList.get(position).getNm();
+                        return groups.get(position);
                     }
                 }));
         recyclerView.setAdapter(new StickyHeaderAdapter(mContext, comingEntityList));
