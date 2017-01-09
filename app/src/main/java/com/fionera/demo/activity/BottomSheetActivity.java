@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import com.fionera.demo.R;
 import com.fionera.demo.view.BottomSheetDialogView;
 
 public class BottomSheetActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
     public BottomSheetBehavior behavior;
     public RecyclerView recyclerView;
@@ -36,7 +35,7 @@ public class BottomSheetActivity
             @Override
             public void onItemClick(int pos) {
                 behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                BottomSheetDialogView.show(BottomSheetActivity.this);
+                BottomSheetDialogView.show(mContext);
             }
         }));
 
@@ -65,21 +64,21 @@ public class BottomSheetActivity
         });
     }
 
-    public static class SimpleStringRecyclerViewAdapter
+    static class SimpleStringRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
-        public ItemClickListener mItemClickListener;
+        ItemClickListener mItemClickListener;
 
-        public SimpleStringRecyclerViewAdapter setItemClickListener(ItemClickListener listener) {
+        SimpleStringRecyclerViewAdapter setItemClickListener(ItemClickListener listener) {
             mItemClickListener = listener;
             return this;
         }
 
-        public interface ItemClickListener {
+        interface ItemClickListener {
             void onItemClick(int pos);
         }
 
-        public SimpleStringRecyclerViewAdapter() {
+        SimpleStringRecyclerViewAdapter() {
             super();
         }
 

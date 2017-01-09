@@ -38,8 +38,6 @@ public class XUtils3Activity
 
     /**
      * 事件驱动
-     *
-     * @param v
      */
     @Event({R.id.btn_xutils})
     private void btnClick(View v) {
@@ -65,8 +63,8 @@ public class XUtils3Activity
         demoDbBeanList.clear();
         String temp = "";
 
-        /**
-         * 设定关系对象映射
+        /*
+          设定关系对象映射
          */
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbDir(
                 new File(mContext.getFilesDir().getAbsolutePath() + "/")).setDbName("demo.db")
@@ -80,8 +78,8 @@ public class XUtils3Activity
                     }
                 }).setAllowTransaction(true);
 
-        /**
-         * 获取数据库管理器
+        /*
+          获取数据库管理器
          */
         DbManager db = x.getDb(daoConfig);
         DemoDbBean demoDbBean = new DemoDbBean();
@@ -114,8 +112,8 @@ public class XUtils3Activity
         x.view().inject(this);
         demoDbBeanList = new ArrayList<>();
 
-        /**
-         * 获取用户绝对目录
+        /*
+          获取用户绝对目录
          */
         LogCat.d(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                 .getAbsolutePath());

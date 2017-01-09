@@ -167,13 +167,11 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
     /**
      * 主按钮开关子按钮
-     * @param time
      */
     public void toggleMenu(int time) {
-        /**
-         * 平移动画和旋转动画
+        /*
+          平移动画和旋转动画
          */
-
         for (int i = 1; i < getChildCount(); i++) {
             final View child = getChildAt(i);
             //点击即显示子按钮
@@ -228,9 +226,8 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-
-                    /**
-                     * 动画结束若是关闭状态隐藏子按钮
+                    /*
+                      动画结束若是关闭状态隐藏子按钮
                      */
                     if (!menuIsOpen) {
                         child.setVisibility(View.GONE);
@@ -256,12 +253,12 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                     } else {
                         Log.d("ArcMenu", "listener is null");
                     }
-                    menuIsOpen = menuIsOpen ? false : true;
+                    menuIsOpen = !menuIsOpen;
                     foldItem(no);
                 }
             });
         }
-        menuIsOpen = menuIsOpen ? false : true;
+        menuIsOpen = !menuIsOpen;
     }
 
     private void foldItem(int pos) {

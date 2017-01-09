@@ -1,6 +1,5 @@
 package com.fionera.demo.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,8 +27,6 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -38,7 +35,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class ChatActivity
-        extends Activity
+        extends BaseActivity
         implements OnClickListener, AbsListView.OnScrollListener {
 
     private Context mContext = this;
@@ -111,7 +108,7 @@ public class ChatActivity
         // 计算总页数
         pageSize = (allRecorders + lineSize - 1) / lineSize;
         mDataArrays = dbHelper.getSomeItems(currentPage, lineSize);
-        mAdapter = new ChatMsgViewAdapter(ChatActivity.this, mDataArrays, lineSize);
+        mAdapter = new ChatMsgViewAdapter(mContext, mDataArrays, lineSize);
         listView.setAdapter(mAdapter);
         listView.setSelection(mDataArrays.size() - 1);//直接定位到最底部
         dbHelper.CloseDb();
@@ -120,20 +117,20 @@ public class ChatActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_send_msg:
-                //                send();
+                send();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             Properties prop = new Properties();
-                            prop.setProperty("mail.host", "smtp.163.com");
+                            prop.setProperty("mail.host", "smtp.qiye.163.com");
                             prop.setProperty("mail.transport.protocol", "smtp");
                             prop.setProperty("mail.smtp.auth", "true");
 
                             Session session = Session.getInstance(prop);
                             session.setDebug(true);
                             Transport ts = session.getTransport();
-                            ts.connect("smtp.163.com", "sanjinzhou@163.com", "stsjs1218!!");
+                            ts.connect("smtp.qiye.163.com", "shell.yang@centling.com", "Fionera0");
                             Message message = createAttachMail(session);
                             ts.sendMessage(message, message.getAllRecipients());
                             ts.close();
@@ -152,9 +149,9 @@ public class ChatActivity
     private static MimeMessage createAttachMail(Session session) throws Exception {
         MimeMessage message = new MimeMessage(session);
         //发件人
-        message.setFrom(new InternetAddress("sanjinzhou@163.com"));
+        message.setFrom(new InternetAddress("shell.yang@centling.com"));
         //收件人
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress("shell.yang@centling.com"));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress("devilinmind@qq.com"));
         //邮件标题
         message.setSubject("JavaMail邮件发送测试");
         //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码

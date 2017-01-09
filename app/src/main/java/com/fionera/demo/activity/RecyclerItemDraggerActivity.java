@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -17,7 +19,6 @@ import android.widget.TextView;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
-import com.fionera.demo.util.DividerItemDecoration;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.PullToRefreshLayout;
 import com.fionera.demo.view.PullableRecyclerView;
@@ -30,7 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecyclerItemDraggerActivity
-        extends Activity {
+        extends AppCompatActivity {
 
     @ViewInject(R.id.ptrl_root)
     private PullToRefreshLayout pullToRefreshLayout;
@@ -94,7 +95,7 @@ public class RecyclerItemDraggerActivity
         recyclerView.setAdapter(new MyAdapter(RecyclerItemDraggerActivity.this, data));
 
         recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         recyclerView.setTotalCount(data.size());
 
@@ -123,7 +124,7 @@ public class RecyclerItemDraggerActivity
                 }).attachToRecyclerView(recyclerView);
     }
 
-    class MyAdapter
+    private class MyAdapter
             extends RecyclerView.Adapter<MyViewHolder> {
 
         private LayoutInflater layoutInflater;
@@ -142,14 +143,15 @@ public class RecyclerItemDraggerActivity
         }
 
         @Override
-        public void onBindViewHolder(final MyViewHolder holder,final int position) {
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
             holder.tvUserName.setText(data.get(position).getName());
             holder.tvSendTime.setText(data.get(position).getDate());
             holder.tvContent.setText(data.get(position).getText());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ShowToast.show(position + " " + holder.getAdapterPosition() + " " + holder.getLayoutPosition());
+                    ShowToast.show(position + " " + holder.getAdapterPosition() + " " + holder
+                            .getLayoutPosition());
                 }
             });
 
@@ -181,12 +183,12 @@ public class RecyclerItemDraggerActivity
     class MyViewHolder
             extends RecyclerView.ViewHolder {
 
-        public TextView tvSendTime;
-        public TextView tvUserName;
-        public TextView tvContent;
-        public boolean isComMsg;
+        TextView tvSendTime;
+        TextView tvUserName;
+        TextView tvContent;
+        boolean isComMsg;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             tvSendTime = (TextView) itemView.findViewById(R.id.tv_sendtime);
             tvUserName = (TextView) itemView.findViewById(R.id.tv_username);

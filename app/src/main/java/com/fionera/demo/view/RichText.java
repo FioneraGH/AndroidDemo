@@ -230,14 +230,14 @@ public class RichText
             implements Callback.CommonCallback<Drawable> {
         private final URLDrawable urlDrawable;
 
-        public ImageTarget(URLDrawable urlDrawable) {
+        ImageTarget(URLDrawable urlDrawable) {
             this.urlDrawable = urlDrawable;
         }
 
         @Override
         public void onSuccess(Drawable result) {
-            /**
-             * force create a new bitmap which used to create a new drawable to refresh the resources
+            /*
+              force create a new bitmap which used to create a new drawable to refresh the resources
              */
             Bitmap bitmap = ((BitmapDrawable) result).getBitmap();
             Drawable drawable = new BitmapDrawable(getResources(), bitmap);
@@ -333,6 +333,31 @@ public class RichText
             }
             super.onClick(widget);
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+        }
+
+        protected CallableURLSpan(Parcel in) {
+            super(in);
+        }
+
+        public static final Creator<CallableURLSpan> CREATOR = new Creator<CallableURLSpan>() {
+            @Override
+            public CallableURLSpan createFromParcel(Parcel source) {
+                return new CallableURLSpan(source);
+            }
+
+            @Override
+            public CallableURLSpan[] newArray(int size) {
+                return new CallableURLSpan[size];
+            }
+        };
     }
 
     public static class ImageHolder {

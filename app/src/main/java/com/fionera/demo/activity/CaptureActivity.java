@@ -1,13 +1,11 @@
 package com.fionera.demo.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.ShowToast;
@@ -16,7 +14,7 @@ import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class CaptureActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
@@ -27,7 +25,7 @@ public class CaptureActivity
         super.onCreate(state);
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
-        if (ContextCompat.checkSelfPermission(CaptureActivity.this,
+        if (ContextCompat.checkSelfPermission(mContext,
                                               Manifest.permission.CAMERA) != PackageManager
                 .PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},

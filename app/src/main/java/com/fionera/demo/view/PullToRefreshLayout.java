@@ -1,6 +1,7 @@
 package com.fionera.demo.view;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
@@ -18,11 +19,9 @@ import android.widget.TextView;
 import com.fionera.demo.R;
 import com.fionera.demo.util.DisplayUtils;
 import com.fionera.demo.util.Pullable;
-import com.fionera.demo.util.SimpleAnimatorListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 /**
  * 自定义的布局，用来管理三个子控件，其中一个是下拉头，一个是包含内容的pullableView（可以是实现Pullable接口的的任何View），
@@ -32,7 +31,6 @@ import java.util.TimerTask;
  */
 public class PullToRefreshLayout
         extends RelativeLayout {
-    public static final String TAG = "PullToRefreshLayout";
     // 初始状态
     public static final int INIT = 0;
     // 释放刷新
@@ -204,8 +202,6 @@ public class PullToRefreshLayout
 
     /**
      * 完成刷新操作，显示刷新结果。注意：刷新完成后一定要调用这个方法
-     */
-    /**
      * @param refreshResult PullToRefreshLayout.SUCCEED代表成功，PullToRefreshLayout.FAIL代表失败
      */
     public void refreshFinish(int refreshResult) {
@@ -474,9 +470,10 @@ public class PullToRefreshLayout
                 requestLayout();
             }
         });
-        valueAnimator.addListener(new SimpleAnimatorListener() {
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
                 changeState(REFRESHING);
                 if (mListener != null) {
                     mListener.onRefresh(PullToRefreshLayout.this);
@@ -537,17 +534,17 @@ public class PullToRefreshLayout
                                     .getMeasuredHeight() + loadmoreView.getMeasuredHeight());
     }
 
-    class MyTimer {
+    private class MyTimer {
         private Handler handler;
         private Timer timer;
         private MyTask mTask;
 
-        public MyTimer(Handler handler) {
+        MyTimer(Handler handler) {
             this.handler = handler;
             timer = new Timer();
         }
 
-        public void schedule(long period) {
+        void schedule(long period) {
             if (mTask != null) {
                 mTask.cancel();
                 mTask = null;
@@ -556,7 +553,7 @@ public class PullToRefreshLayout
             timer.schedule(mTask, 0, period);
         }
 
-        public void cancel() {
+        void cancel() {
             if (mTask != null) {
                 mTask.cancel();
                 mTask = null;
@@ -567,7 +564,7 @@ public class PullToRefreshLayout
                 extends TimerTask {
             private Handler handler;
 
-            public MyTask(Handler handler) {
+            MyTask(Handler handler) {
                 this.handler = handler;
             }
 

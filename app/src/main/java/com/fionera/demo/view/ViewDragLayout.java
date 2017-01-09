@@ -151,8 +151,6 @@ public class ViewDragLayout
 
     /**
      * 更改布局参数为Margin
-     *
-     * @return
      */
     @Override
     protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
@@ -173,8 +171,8 @@ public class ViewDragLayout
     public void openDrawer() {
         View menuView = mLeftMenuView;
         mHelper.smoothSlideViewTo(menuView, 0, menuView.getTop());
-        /**
-         * 防止调用无效
+        /*
+          防止调用无效
          */
         postInvalidate();
     }

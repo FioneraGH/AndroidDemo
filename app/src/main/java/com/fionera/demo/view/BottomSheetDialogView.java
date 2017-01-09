@@ -16,12 +16,11 @@ import com.fionera.demo.R;
  */
 public class BottomSheetDialogView {
 
-    public BottomSheetDialogView(Context context) {
+    private BottomSheetDialogView(Context context) {
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         dialog.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.bottom_sheet_dialog_recycler_view, null);
+        View view = View.inflate(context, R.layout.bottom_sheet_dialog_recycler_view, null);
 
         RecyclerView recyclerView = (RecyclerView) view
                 .findViewById(R.id.bottom_sheet_recycler_view);

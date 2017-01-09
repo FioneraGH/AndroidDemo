@@ -15,6 +15,7 @@ import java.util.Random;
 
 /**
  * Created by fionera on 16-2-10.
+ * Modified by fionera on 17-1-9.
  */
 public class NumberContainer
         extends RelativeLayout {
@@ -82,8 +83,8 @@ public class NumberContainer
 
         mMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mMargin,
                                                   getResources().getDisplayMetrics());
-        /**
-         * 设置Layout的内边距，四边一致，设置为四内边距中的最小值
+        /*
+          设置Layout的内边距，四边一致，设置为四内边距中的最小值
          */
         mPadding = getPaddingLeft();
         mGestureDetector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
@@ -211,8 +212,8 @@ public class NumberContainer
                 int val = item1.getNumber() + item2.getNumber();
                 item1.setNumber(val);
 
-                /**
-                 * 合并总分
+                /*
+                  合并总分
                  */
                 mScore += val;
                 if (onScoreChangeListener != null) {
@@ -319,12 +320,12 @@ public class NumberContainer
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        /**
-         * 获得正方形的边长
+        /*
+          获得正方形的边长
          */
         int length = Math.min(getMeasuredHeight(), getMeasuredWidth());
-        /**
-         * 获得Item的宽度
+        /*
+          获得Item的宽度
          */
         int childWidth = (length - mPadding * 2 - mMargin * (mColumn - 1)) / mColumn;
 
@@ -339,8 +340,8 @@ public class NumberContainer
                 numberItems[i] = item;
                 item.setId(i + 1);
 
-                /**
-                 * 添加子项，使用右下位置flag
+                /*
+                  添加子项，使用右下位置flag
                  */
                 if ((i + 1) % mColumn != 0) {
                     lp.rightMargin = mMargin;

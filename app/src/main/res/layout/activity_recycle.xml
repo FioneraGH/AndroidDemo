@@ -5,10 +5,12 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/layout_refresh_head"/>
+
     <com.fionera.demo.view.PullableRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
+
     <include layout="@layout/layout_load_more"/>
 </com.fionera.demo.view.PullToRefreshLayout>
 

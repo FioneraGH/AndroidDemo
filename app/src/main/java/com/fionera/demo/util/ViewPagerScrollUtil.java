@@ -24,14 +24,14 @@ public class ViewPagerScrollUtil {
         }
     }
 
-    public class FixedSpeedScroller extends Scroller {
+    private class FixedSpeedScroller extends Scroller {
         private int mDuration = 1000;
 
-        public FixedSpeedScroller(Context context, Interpolator interpolator) {
+        FixedSpeedScroller(Context context, Interpolator interpolator) {
             super(context, interpolator);
         }
 
-        public FixedSpeedScroller(Context context, Interpolator interpolator, int duration) {
+        FixedSpeedScroller(Context context, Interpolator interpolator, int duration) {
             this(context, interpolator);
             mDuration = duration;
         }

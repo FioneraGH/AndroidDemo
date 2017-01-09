@@ -2,13 +2,14 @@ package com.fionera.demo.view;
 
 import android.content.Context;
 import android.graphics.Matrix;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
  * Created by fionera on 15-12-25.
  */
-public class TopCropImageView extends ImageView {
+public class TopCropImageView extends AppCompatImageView {
 
     public TopCropImageView(Context context) {
         this(context, null);

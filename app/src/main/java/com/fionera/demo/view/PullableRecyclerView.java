@@ -31,22 +31,14 @@ public class PullableRecyclerView
 
     @Override
     public boolean canPullDown() {
-        if (getChildCount() == 0 || ((LinearLayoutManager) getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return getChildCount() == 0 || ((LinearLayoutManager) getLayoutManager())
+                .findFirstCompletelyVisibleItemPosition() == 0;
     }
 
     @Override
     public boolean canPullUp() {
-        if (getChildCount() == 0 || ((LinearLayoutManager) getLayoutManager())
-                .findLastCompletelyVisibleItemPosition() == totalCount - 1 ) {
-            return true;
-        } else {
-            return false;
-        }
+        return getChildCount() == 0 || ((LinearLayoutManager) getLayoutManager())
+                .findLastCompletelyVisibleItemPosition() == totalCount - 1;
     }
 
 }

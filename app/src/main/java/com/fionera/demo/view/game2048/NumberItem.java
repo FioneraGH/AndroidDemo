@@ -8,9 +8,6 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by fionera on 16-2-10.
- */
 public class NumberItem
         extends View {
     /**
@@ -111,8 +108,6 @@ public class NumberItem
 
     /**
      * 绘制文字
-     *
-     * @param canvas
      */
     private void drawText(Canvas canvas) {
 
