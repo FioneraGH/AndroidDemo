@@ -25,6 +25,5 @@ public class PageTransformer
         float scaleSize = MIN_SIZE + offset * (MAX_SIZE - MIN_SIZE);
         page.setScaleY(scaleSize);
         page.setScaleX(scaleSize);
-
     }
 }

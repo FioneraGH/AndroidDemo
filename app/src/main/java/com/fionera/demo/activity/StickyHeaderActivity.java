@@ -1,7 +1,6 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import com.fionera.demo.bean.StickyHeaderBean;
 import com.fionera.demo.util.HttpUtils;
 import com.fionera.demo.view.SectionDecoration;
 
-import org.json.JSONObject;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 

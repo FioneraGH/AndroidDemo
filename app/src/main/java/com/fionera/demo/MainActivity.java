@@ -28,6 +28,7 @@ import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.fragment.HomePageFragment;
 import com.fionera.demo.fragment.LoginFragment;
 import com.fionera.demo.service.BluetoothLeService;
+import com.fionera.demo.util.PageTransformer;
 import com.fionera.demo.util.ShowToast;
 import com.fionera.demo.view.ChangableTabView;
 import com.fionera.demo.view.FloatView;
@@ -66,6 +67,7 @@ public class MainActivity
         x.view().inject(this);
 
         viewPager = (ViewPager) findViewById(R.id.vp_main_page);
+        viewPager.setPageTransformer(true, new PageTransformer());
         PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
 
         pagerTabStrip

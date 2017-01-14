@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * Sticker Header Decoration
  * Created by fionera on 17-1-9 in AndroidDemo.
  */
 
