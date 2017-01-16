@@ -86,11 +86,11 @@ public class ProvincePopup
 
         View view = View.inflate(context, R.layout.dialog_change_province_pop, null);
         setContentView(view);
-        TextView tv_cancel = (TextView) view.findViewById(R.id.provice_cancel_tv);
-        TextView tv_save = (TextView) view.findViewById(R.id.provice_pop_tv);
-        mViewProvince = (WheelView) view.findViewById(R.id.id_province);
-        mViewCity = (WheelView) view.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) view.findViewById(R.id.id_district);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_city_picker_cancel);
+        TextView tv_save = (TextView) view.findViewById(R.id.tv_city_picker_confirm);
+        mViewProvince = (WheelView) view.findViewById(R.id.wl_province_picker);
+        mViewCity = (WheelView) view.findViewById(R.id.wl_city_picker);
+        mViewDistrict = (WheelView) view.findViewById(R.id.wl_district_picker);
         mViewProvince.addChangingListener(this);
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);

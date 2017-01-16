@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <com.fionera.demo.view.wheelview.WheelView
-            android:id="@+id/id_province"
+            android:id="@+id/wl_province_picker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -37,7 +37,7 @@
             android:background="@color/black"/>
 
         <com.fionera.demo.view.wheelview.WheelView
-            android:id="@+id/id_city"
+            android:id="@+id/wl_city_picker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -50,7 +50,7 @@
             android:background="@color/black"/>
 
         <com.fionera.demo.view.wheelview.WheelView
-            android:id="@+id/id_district"
+            android:id="@+id/wl_district_picker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -64,7 +64,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/provice_cancel_tv"
+            android:id="@+id/tv_city_picker_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             android:background="@color/grey1"/>
 
         <TextView
-            android:id="@+id/provice_pop_tv"
+            android:id="@+id/tv_city_picker_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
