@@ -14,6 +14,7 @@ import android.view.SurfaceView;
 import java.text.DecimalFormat;
 
 /**
+ * Thermometer
  * Created by fionera on 16-6-9.
  */
 
@@ -271,11 +272,11 @@ public class Thermometer
 
         //这里控制水银的上升速度
         float difference = Math.abs(targetTemperature - currentTemperature);
-        /**
-         * //这里定义一个boolean来控制是使用加法还是减法，其中true表示当前温度小于
-         * 目标温度，要使用加法，false表示当前温度大于目标温度，要使用减法。
+        /*
+          //这里定义一个boolean来控制是使用加法还是减法，其中true表示当前温度小于
+          目标温度，要使用加法，false表示当前温度大于目标温度，要使用减法。
          */
-        boolean addORsub = currentTemperature >= targetTemperature ? false : true;
+        boolean addORsub = currentTemperature < targetTemperature;
         if (difference == 0 || difference <= 0.005) {
             mSpeed = 0;
             currentTemperature = targetTemperature;

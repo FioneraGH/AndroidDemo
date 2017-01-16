@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
+import com.fionera.demo.popupwindow.ProvincePopup;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.DesUtil;
+import com.fionera.demo.util.NavigationBarUtil;
 import com.fionera.demo.util.ShowToast;
 
 import org.xutils.common.util.LogUtil;
@@ -23,10 +28,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class ConstraintLayoutActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
     private static final byte[] KEY = {(byte) 0xB4, 0x31, 0x5B, (byte) 0x86, (byte) 0x9D, 0x7D,
             (byte) 0xFA, (byte) 0xA2};
+
+    private ProvincePopup provincePopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +50,38 @@ public class ConstraintLayoutActivity
             actionBar.setDisplayShowTitleEnabled(false);
         }
 
+        provincePopup = new ProvincePopup(mContext);
+
         TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
         textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));
-
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] addresses = textView.getText().toString().split(":");
+                if (addresses.length == 3) {
+                    provincePopup.setValue(addresses[0] + ":" + addresses[1] + ":" + addresses[2]);
+                }
+                provincePopup.setGetValueCallback(new ProvincePopup.GetValueCallback() {
+                    @Override
+                    public void getValue(String province, String city, String district,
+                                         String zipCode) {
+                        textView.setText(province + ":" + city + ":" + district);
+                    }
+                });
+                provincePopup.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,
+                        NavigationBarUtil.getNavigationBarHeight(mContext));
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 0.3f;
+                getWindow().setAttributes(lp);
+                provincePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        lp.alpha = 1f;
+                        getWindow().setAttributes(lp);
+                    }
+                });
+            }
+        });
 
         findViewById(R.id.btn_contrant_connect_1).setOnClickListener(view -> {
             Intent intent = new Intent(ConstraintLayoutActivity.this, BluetoothLeService.class);

@@ -12,10 +12,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.fionera.demo.R;
+import com.fionera.demo.util.DisplayUtils;
 
 /**
+ * ClearEditText
  * Created by fionera on 16-2-12.
  */
+
 public class ClearEditText
         extends AppCompatEditText
         implements View.OnTouchListener, View.OnFocusChangeListener, TextWatcher {
@@ -36,16 +39,14 @@ public class ClearEditText
     }
 
     private void init(Context context) {
-        final Drawable drawable = ContextCompat
-                .getDrawable(context, R.drawable.ic_text_close);
-        /**
-         * wrap drawable 保证api < 21能正确着色
+        final Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_text_close);
+        /*
+          wrap drawable 保证api < 21能正确着色
          */
         final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTint(wrappedDrawable, getCurrentHintTextColor());
         mClearTextIcon = wrappedDrawable;
-        mClearTextIcon.setBounds(0, 0, mClearTextIcon.getIntrinsicHeight(),
-                                 mClearTextIcon.getIntrinsicHeight());
+        mClearTextIcon.setBounds(0, 0, DisplayUtils.dp2px(16), DisplayUtils.dp2px(16));
         setClearIconVisible(false);
         setOnTouchListener(this);
         setOnFocusChangeListener(this);
@@ -56,7 +57,7 @@ public class ClearEditText
         mClearTextIcon.setVisible(visible, false);
         final Drawable[] compoundDrawables = getCompoundDrawables();
         setCompoundDrawables(compoundDrawables[0], compoundDrawables[1],
-                             visible ? mClearTextIcon : null, compoundDrawables[3]);
+                visible ? mClearTextIcon : null, compoundDrawables[3]);
     }
 
     @Override

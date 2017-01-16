@@ -118,32 +118,36 @@ public class ChatActivity
         switch (view.getId()) {
             case R.id.tv_send_msg:
                 send();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Properties prop = new Properties();
-                            prop.setProperty("mail.host", "smtp.qiye.163.com");
-                            prop.setProperty("mail.transport.protocol", "smtp");
-                            prop.setProperty("mail.smtp.auth", "true");
-
-                            Session session = Session.getInstance(prop);
-                            session.setDebug(true);
-                            Transport ts = session.getTransport();
-                            ts.connect("smtp.qiye.163.com", "shell.yang@centling.com", "Fionera0");
-                            Message message = createAttachMail(session);
-                            ts.sendMessage(message, message.getAllRecipients());
-                            ts.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+//                sendTestEmail();
                 break;
             case R.id.tv_extra_function:
                 startActivity(new Intent(mContext, CaptureActivity.class));
                 break;
         }
+    }
+
+    private void sendTestEmail() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Properties prop = new Properties();
+                    prop.setProperty("mail.host", "smtp.qiye.163.com");
+                    prop.setProperty("mail.transport.protocol", "smtp");
+                    prop.setProperty("mail.smtp.auth", "true");
+
+                    Session session = Session.getInstance(prop);
+                    session.setDebug(true);
+                    Transport ts = session.getTransport();
+                    ts.connect("smtp.qiye.163.com", "shell.yang@centling.com", "Fionera0");
+                    Message message = createAttachMail(session);
+                    ts.sendMessage(message, message.getAllRecipients());
+                    ts.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private static MimeMessage createAttachMail(Session session) throws Exception {
