@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
+import com.fionera.demo.activity.ClipBoardActivity;
 import com.fionera.demo.activity.ConstraintLayoutActivity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
 import com.fionera.demo.activity.FlycoPageIndicatorActivity;
@@ -26,6 +27,7 @@ import com.fionera.demo.activity.WeexActivity;
 import com.fionera.demo.activity.XUtils3Activity;
 
 /**
+ * ExtrasFragment
  * Created by fionera on 15-10-3.
  */
 public class ExtrasFragment
@@ -34,7 +36,7 @@ public class ExtrasFragment
 
     private int[] ids = {R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R
             .id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.button10, R.id.button11,
-            R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16};
+            R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16, R.id.button17};
 
     @Override
     public int setLayoutResource() {
@@ -109,6 +111,9 @@ public class ExtrasFragment
                 break;
             case R.id.button16:
                 mContext.startActivity(new Intent(mContext, WeexActivity.class));
+                break;
+            case R.id.button17:
+                mContext.startActivity(new Intent(mContext, ClipBoardActivity.class));
                 break;
         }
     }

@@ -131,6 +131,13 @@
             android:layout_gravity="center_horizontal"
             android:text="WeexDemo"/>
 
+        <Button
+            android:id="@+id/button17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="ClipBoard"/>
+
     </LinearLayout>
 
 </ScrollView>

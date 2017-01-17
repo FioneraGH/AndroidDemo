@@ -44,20 +44,6 @@
         <activity
             android:name=".activity.RecyclerItemDraggerActivity"
             android:theme="@style/DividerTheme"/>
-
-        <service android:name=".service.WidgetService"/>
-        <service android:name=".service.BluetoothLeService"/>
-
-        <receiver android:name=".provider.WidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider"/>
-        </receiver>
-
         <activity android:name=".activity.XUtils3Activity"/>
         <activity android:name=".activity.SmartTabLayoutActivity"/>
         <activity android:name=".activity.MatrixActivity"/>
@@ -73,8 +59,34 @@
         <activity android:name=".activity.ConstraintLayoutActivity"/>
         <activity android:name=".activity.StickyHeaderActivity"/>
         <activity android:name=".activity.SurfaceViewActivity"/>
-        <activity android:name=".activity.WeexActivity">
-        </activity>
+        <activity android:name=".activity.WeexActivity"/>
+        <activity android:name=".activity.ClipBoardActivity"/>
+
+        <service android:name=".service.WidgetService"/>
+        <service android:name=".service.BluetoothLeService"/>
+        <service
+            android:name=".service.ListenClipboardService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":clip"
+            android:permission="com.fionera.demo.CLIP_SERVICE"/>
+
+        <receiver android:name=".receiver.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".provider.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider"/>
+        </receiver>
+
     </application>
 
 </manifest>
