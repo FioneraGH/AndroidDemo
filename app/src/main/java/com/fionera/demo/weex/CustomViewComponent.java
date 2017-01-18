@@ -30,11 +30,11 @@ public class CustomViewComponent
 
     @WXComponentProp(name = Constants.Value.TEXT)
     public void setTextValue(String text) {
-        mHost.setText(text);
+        ((TextView) getRealView()).setText(text);
     }
 
     @WXComponentProp(name = "size")
     public void setTextSizeValue(int size) {
-        mHost.setTextSize(size);
+        ((TextView) getRealView()).setTextSize(size);
     }
 }

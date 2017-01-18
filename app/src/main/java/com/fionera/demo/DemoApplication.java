@@ -1,13 +1,16 @@
 package com.fionera.demo;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.os.Process;
 import android.os.StrictMode;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.fionera.demo.util.CrashHandler;
+import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.WeexImageLoaderAdapter;
 import com.fionera.demo.weex.CustomViewComponent;
 import com.fionera.demo.weex.URLHelperModule;
@@ -18,11 +21,13 @@ import com.taobao.weex.common.WXException;
 
 import org.xutils.x;
 
+import java.util.List;
+import java.util.Locale;
+
 public class DemoApplication
         extends Application {
-
-    private static WindowManager.LayoutParams wmLayoutParams;
     private static DemoApplication instance;
+    private static WindowManager.LayoutParams wmLayoutParams;
     private static LocalBroadcastManager localBroadcastManager;
 
     public static int screenWidth;
@@ -32,10 +37,14 @@ public class DemoApplication
 
     @Override
     public void onCreate() {
-
         super.onCreate();
-        wmLayoutParams = new WindowManager.LayoutParams();
+
+        if(!isMainProcess()){
+            return;
+        }
+
         instance = this;
+        wmLayoutParams = new WindowManager.LayoutParams();
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
         x.Ext.init(this);
@@ -65,20 +74,37 @@ public class DemoApplication
         }
     }
 
-    public static DemoApplication getInstance() {
-        return instance;
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        instance = null;
     }
 
-    public static LocalBroadcastManager getLocalBroadcastManager() {
-        return localBroadcastManager;
+    public boolean isMainProcess() {
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processes = activityManager
+                .getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo process : processes) {
+            if (TextUtils.equals(process.processName, getPackageName())) {
+                return Process.myPid() == process.pid;
+            }
+        }
+        return false;
+    }
+
+    public static DemoApplication getInstance() {
+        return instance;
     }
 
     public static WindowManager.LayoutParams getWmLayoutParams() {
         return wmLayoutParams;
     }
 
-    private void getDisplayMetrics() {
+    public static LocalBroadcastManager getLocalBroadcastManager() {
+        return localBroadcastManager;
+    }
 
+    private void getDisplayMetrics() {
         DisplayMetrics metric = getApplicationContext().getResources().getDisplayMetrics();
         screenWidth = metric.widthPixels;
         screenHeight = metric.heightPixels;

@@ -1,9 +1,11 @@
 package com.fionera.demo.view.floatview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.ClipBoardActivity;
 
@@ -77,7 +80,12 @@ public final class TipViewController
     @Override
     public void onClick(View v) {
         removePoppedViewAndClear();
-        ClipBoardActivity.startForContent(mContext, mContent.toString());
+        if (TextUtils.equals(mContent, "Don't forget the marshmallows!")) {
+            Intent intent = new Intent(mContext, MainActivity.class);
+            mContext.startActivity(intent);
+        } else {
+            ClipBoardActivity.startForContent(mContext, mContent.toString());
+        }
     }
 
     /**

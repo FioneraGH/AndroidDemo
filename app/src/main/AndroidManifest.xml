@@ -60,7 +60,18 @@
         <activity android:name=".activity.StickyHeaderActivity"/>
         <activity android:name=".activity.SurfaceViewActivity"/>
         <activity android:name=".activity.WeexActivity"/>
-        <activity android:name=".activity.ClipBoardActivity"/>
+        <activity android:name=".activity.ClipBoardActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:port="8856"
+                    android:host="profile"
+                    android:scheme="mxn"/>
+            </intent-filter>
+        </activity>>
 
         <service android:name=".service.WidgetService"/>
         <service android:name=".service.BluetoothLeService"/>

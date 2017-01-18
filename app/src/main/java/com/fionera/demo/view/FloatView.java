@@ -1,18 +1,19 @@
 package com.fionera.demo.view;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.fionera.demo.DemoApplication;
 
 /**
+ * FloatView
  * Created by fionera on 15-11-22.
  */
-public class FloatView extends ImageView {
+public class FloatView extends AppCompatImageView {
 
     private WindowManager wm = (WindowManager) getContext().getSystemService(
             Context.WINDOW_SERVICE);

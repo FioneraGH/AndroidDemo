@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 public class NotificationActivity
         extends AppCompatActivity {
+    public static final int NOTIFICATION_ID = 142035738;
 
     @ViewInject(R.id.tv_notify_html)
     private TextView tvNotifyHtml;
@@ -58,7 +59,7 @@ public class NotificationActivity
                     }
                 }
                 builder.setContentText("Download complete").setProgress(0, 0, false);
-                notificationManager.notify(0x123456, builder.build());
+                notificationManager.notify(NOTIFICATION_ID, builder.build());
             }
         }).start();
     }
@@ -83,7 +84,7 @@ public class NotificationActivity
 
         Pattern p = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
         Linkify.addLinks(tvNotifyLinkify, Linkify.WEB_URLS);
-        Linkify.addLinks(tvNotifyLinkify, p, "mxn://profile?uid=", new Linkify.MatchFilter() {
+        Linkify.addLinks(tvNotifyLinkify, p, "mxn://profile:8856?uid=user", new Linkify.MatchFilter() {
             @Override
             public boolean acceptMatch(CharSequence charSequence, int start, int end) {
                 return charSequence.charAt(end - 1) != '.';
@@ -126,7 +127,7 @@ public class NotificationActivity
 
         @Override
         public void onClick(View widget) {
-            ShowToast.show(((TextView) widget).getText().toString());
+//            ShowToast.show(((TextView) widget).getText().toString());
             super.onClick(widget);
         }
     }

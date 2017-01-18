@@ -2,6 +2,7 @@ package com.fionera.demo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +41,10 @@ public final class ClipBoardActivity
         });
 
         Intent intent = getIntent();
+        Uri uri = intent.getData();
+        if (uri != null) {
+            button.setText(uri.getQueryParameter("uid"));
+        }
         tryToShowContent(intent);
         ListenClipboardService.start(mContext);
     }
