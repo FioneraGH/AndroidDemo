@@ -31,8 +31,22 @@
 -keep class tv.danmaku.ijk.media.** { *; }
 #################### end region
 
-################### region for gradle_retrolambda
--dontwarn java.lang.invoke.*
+################### region for gradle_weex
+-keep class com.taobao.weex.bridge.**{*;}
+-keep class com.taobao.weex.dom.**{*;}
+-keep class com.taobao.weex.adapter.**{*;}
+-keep class com.taobao.weex.common.**{*;}
+-keep class * implements com.taobao.weex.IWXObject{*;}
+-keep class com.taobao.weex.ui.**{*;}
+-keep class com.taobao.weex.ui.component.**{*;}
+-keep class com.taobao.weex.utils.**{
+    public <fields>;
+    public <methods>;
+    }
+-keep class com.taobao.weex.view.**{*;}
+-keep class com.taobao.weex.module.**{*;}
+-keep public class * extends com.taobao.weex.common.WXModule{*;}
+-keep public class com.taobao.weex.WXDebugTool{*;}
 #################### end region
 
 ################### region for gradle_kotlin
@@ -97,9 +111,8 @@
 -keep class com.google.gson.stream.** { *; }
 #################### end region
 
-################### region for gradle_bean,R
--keep class com.bean.** { *; }
--keep public class com.centling.shenyou.R$*{
+################### region for R
+-keep public class com.fionera.demo.R$*{
     public static final int *;
 }
 #################### end region
@@ -173,10 +186,11 @@
 -keep class com.tencent.open.PKDialog$* {*;}
 
 -keep class com.sina.** {*;}
--keep class tv.shenyou.app.** {*;}
+### perhaps all keep
+-keep class com.fionera.demo.** {*;}
 #################### end region
 
-################### region for gradle_general
+################### region for gradle_rxjava
 -dontwarn sun.misc.**
 
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {

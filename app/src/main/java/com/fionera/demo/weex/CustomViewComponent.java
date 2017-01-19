@@ -18,9 +18,8 @@ import com.taobao.weex.ui.component.WXVContainer;
 public class CustomViewComponent
         extends WXComponent<TextView> {
 
-    public CustomViewComponent(WXSDKInstance instance, WXDomObject dom, WXVContainer parent,
-                               boolean isLazy) {
-        super(instance, dom, parent, isLazy);
+    public CustomViewComponent(WXSDKInstance instance, WXDomObject dom, WXVContainer parent) {
+        super(instance, dom, parent);
     }
 
     @Override

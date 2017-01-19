@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'mysignature'
             keyPassword 'fionera'
-            storeFile file('/home/fionera/Data/Git/AndroidDemo/demo.jks')
+            storeFile file('../demo.jks')
             storePassword 'fionera'
         }
     }
