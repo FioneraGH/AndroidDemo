@@ -30,7 +30,7 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ConstraintLayout"/>
+            android:text="ConstraintLayout + Bluetooth"/>
 
         <Button
             android:id="@+id/button3"
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="PullToLoad"/>
+            android:text="PullToLoad + SQLite"/>
 
         <Button
             android:id="@+id/button5"
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="2048"
+            android:text="2048 + ScrollGallery"
             android:transitionName="testTrans"
             tools:targetApi="lollipop"/>
 
@@ -136,7 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="ClipBoard"/>
+            android:text="ClipBoard + AccessibilityService"/>
 
     </LinearLayout>
 

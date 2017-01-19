@@ -35,7 +35,7 @@ public class BlueToothScanUtil {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
-            LogCat.d("search bluetooth device:" + result.getDevice().getAddress());
+            LogCat.d("Search Bluetooth Device:" + result.getDevice().getAddress());
             addDeviceToList(result.getDevice());
         }
     };
@@ -100,7 +100,7 @@ public class BlueToothScanUtil {
     }
 
     public void startSearchBlueDevice() {
-        LogCat.d("search bluetooth device start:" + macAddress);
+        LogCat.d("Search Bluetooth Device Start:" + macAddress);
         if(bluetoothAdapter == null || isScanning){
             return;
         }
@@ -111,7 +111,7 @@ public class BlueToothScanUtil {
     }
 
     public void stopSearch(boolean timeout) {
-        LogCat.d("search bluetooth device end:" + macAddress);
+        LogCat.d("Search Bluetooth Device End:" + macAddress);
         if(bluetoothAdapter == null || !isScanning){
             return;
         }

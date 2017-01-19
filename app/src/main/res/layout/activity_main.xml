@@ -38,7 +38,7 @@
             android:background="@color/grey2"
             android:orientation="horizontal">
 
-            <com.fionera.demo.view.ChangableTabView
+            <com.fionera.demo.view.ChangeableTabView
                 android:id="@+id/ctv_one"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -48,7 +48,7 @@
                 app:ctab_size="12sp"
                 app:ctab_text="One"/>
 
-            <com.fionera.demo.view.ChangableTabView
+            <com.fionera.demo.view.ChangeableTabView
                 android:id="@+id/ctv_two"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -58,7 +58,7 @@
                 app:ctab_size="12sp"
                 app:ctab_text="Two"/>
 
-            <com.fionera.demo.view.ChangableTabView
+            <com.fionera.demo.view.ChangeableTabView
                 android:id="@+id/ctv_three"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -68,7 +68,7 @@
                 app:ctab_size="12sp"
                 app:ctab_text="Three"/>
 
-            <com.fionera.demo.view.ChangableTabView
+            <com.fionera.demo.view.ChangeableTabView
                 android:id="@+id/ctv_four"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

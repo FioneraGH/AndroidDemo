@@ -22,7 +22,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
-import com.fionera.demo.fragment.BitmapUtilFragment;
+import com.fionera.demo.fragment.RichTextFragment;
 import com.fionera.demo.fragment.ContactFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.fragment.HomePageFragment;
@@ -30,7 +30,7 @@ import com.fionera.demo.fragment.LoginFragment;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.PageTransformer;
 import com.fionera.demo.util.ShowToast;
-import com.fionera.demo.view.ChangableTabView;
+import com.fionera.demo.view.ChangeableTabView;
 import com.fionera.demo.view.FloatView;
 
 import org.xutils.x;
@@ -53,7 +53,7 @@ public class MainActivity
     private ViewPager viewPager;
     private List<Fragment> views = new ArrayList<>();
 
-    private List<ChangableTabView> tabs = new ArrayList<>();
+    private List<ChangeableTabView> tabs = new ArrayList<>();
 
     private ClickReceiver clickReceiver;
 
@@ -61,7 +61,9 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setNeverHasMenuKey();
+
         //        createFloatView();
 
         x.view().inject(this);
@@ -77,17 +79,17 @@ public class MainActivity
         views.add(homePageFragment);
         ContactFragment contactFragment = new ContactFragment();
         views.add(contactFragment);
-        BitmapUtilFragment bitmapUtilFragment = new BitmapUtilFragment();
-        views.add(bitmapUtilFragment);
+        RichTextFragment richTextFragment = new RichTextFragment();
+        views.add(richTextFragment);
         ExtrasFragment extrasFragment = new ExtrasFragment();
         views.add(extrasFragment);
 
-        tabs.add((ChangableTabView) findViewById(R.id.ctv_one));
-        tabs.add((ChangableTabView) findViewById(R.id.ctv_two));
-        tabs.add((ChangableTabView) findViewById(R.id.ctv_three));
-        tabs.add((ChangableTabView) findViewById(R.id.ctv_four));
+        tabs.add((ChangeableTabView) findViewById(R.id.ctv_one));
+        tabs.add((ChangeableTabView) findViewById(R.id.ctv_two));
+        tabs.add((ChangeableTabView) findViewById(R.id.ctv_three));
+        tabs.add((ChangeableTabView) findViewById(R.id.ctv_four));
 
-        for (ChangableTabView view : tabs) {
+        for (ChangeableTabView view : tabs) {
             view.setOnClickListener(this);
             if (view.getId() == R.id.ctv_one) {
                 view.setTabAlpha(1.0f);
@@ -244,10 +246,10 @@ public class MainActivity
 
     @Override
     public void onClick(View v) {
-        for (ChangableTabView view : tabs) {
+        for (ChangeableTabView view : tabs) {
             view.setTabAlpha(0.0f);
         }
-        ((ChangableTabView) v).setTabAlpha(1.0f);
+        ((ChangeableTabView) v).setTabAlpha(1.0f);
 
         Intent intent = new Intent(CLICK_TO_CHANGE);
         switch (v.getId()) {

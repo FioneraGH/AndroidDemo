@@ -67,27 +67,39 @@
                 <category android:name="android.intent.category.DEFAULT"/>
 
                 <data
-                    android:port="8856"
                     android:host="profile"
+                    android:port="8856"
                     android:scheme="mxn"/>
             </intent-filter>
-        </activity>>
-
+        </activity>
+        >
         <service android:name=".service.WidgetService"/>
         <service android:name=".service.BluetoothLeService"/>
         <service
             android:name=".service.ListenClipboardService"
             android:enabled="true"
             android:exported="true"
-            android:process=":clip"
-            android:permission="com.fionera.demo.CLIP_SERVICE"/>
+            android:permission="com.fionera.demo.CLIP_SERVICE"
+            android:process=":clip"/>
+        <service
+            android:name=".service.GrabAccessibilityService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:process=":grab">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility"/>
+        </service>
 
         <receiver android:name=".receiver.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-
         <receiver android:name=".provider.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>

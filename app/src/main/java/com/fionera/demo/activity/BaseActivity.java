@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
+ * BaseActivity
  * Created by fionera on 17-1-9 in AndroidDemo.
  */
 

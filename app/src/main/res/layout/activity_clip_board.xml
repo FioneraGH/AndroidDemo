@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="测试"/>
+        android:text="测试剪贴板"/>
+
+    <Button
+        android:id="@+id/btn_grab_red_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="48dp"
+        android:text="测试抢红包"/>
 
 </FrameLayout>

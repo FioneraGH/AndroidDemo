@@ -15,7 +15,7 @@
         <attr name="radiu" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="ChangableTabView">
+    <declare-styleable name="ChangeableTabView">
         <attr name="ctab_icon" format="reference"/>
         <attr name="ctab_color" format="color"/>
         <attr name="ctab_text" format="string"/>

@@ -1,6 +1,5 @@
 package com.fionera.demo.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class PullToLoadActivity
-        extends Activity
+        extends BaseActivity
         implements AbsListView.OnScrollListener {
 
     private static final int ITEM_SIZE = 20;
@@ -40,7 +39,7 @@ public class PullToLoadActivity
         setContentView(R.layout.activity_pull_to_load);
         listView = (ListView) findViewById(R.id.list_view_load);
         //获取listView头部，共享分页脚部
-        header = getLayoutInflater().inflate(R.layout.layout_load_more, null);
+        header = View.inflate(mContext, R.layout.layout_load_more, null);
 
         listView.addHeaderView(header);
         listView.setOnScrollListener(this);
@@ -93,7 +92,6 @@ public class PullToLoadActivity
                     appendDate();
                 }
             }, 1000);
-
         }
     }
 
@@ -114,7 +112,7 @@ public class PullToLoadActivity
         listView.setSelection(addItems.size());
     }
 
-    class TestAdapter
+    private class TestAdapter
             extends BaseAdapter {
         int count = ITEM_SIZE;
 

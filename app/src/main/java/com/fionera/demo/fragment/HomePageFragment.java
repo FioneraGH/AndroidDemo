@@ -31,8 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * HomePageFragment
  * Created by fionera on 15-10-3.
  */
+
 public class HomePageFragment
         extends BaseFragment {
 

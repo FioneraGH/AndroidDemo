@@ -12,4 +12,6 @@
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
 
+    <string name="demo_accessibility_service">Demo辅助服务</string>
+
 </resources>

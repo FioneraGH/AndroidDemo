@@ -131,9 +131,9 @@ public class ProvincePopup
         if(TextUtils.isEmpty(address)){
             return;
         }
-        LogCat.d("PROVINCE POP SET ADDRESS:" + address);
+        LogCat.d("Province Pop Set Address:" + address);
         String addresses[] = address.split(":");
-        LogCat.d("PROVINCE POP SET ADDRESS LIST SIZE:" + addresses.length);
+        LogCat.d("Province Pop Set Address List Size:" + addresses.length);
         if (addresses.length != 3) {
             return;
         }
@@ -264,7 +264,7 @@ public class ProvincePopup
             InputStream in = a.open("province_data.json");
             int length = in.available();
             byte[] buffer = new byte[length];
-            LogCat.d("PROVINCE POP READ STRING:" + in.read(buffer));
+            LogCat.d("Province Pop Read String:" + in.read(buffer));
             res = new String(buffer, Charset.defaultCharset());
             in.close();
             provinceList = JSON.parseObject(res, ProvinceResultBean.class).getProvinceModelList();
