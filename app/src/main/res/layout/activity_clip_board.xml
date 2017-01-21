@@ -21,4 +21,18 @@
         android:layout_marginBottom="48dp"
         android:text="测试抢红包"/>
 
+    <EditText
+        android:id="@+id/et_test_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_marginBottom="96dp"
+        android:hint="测试键盘"/>
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/kv_keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </FrameLayout>

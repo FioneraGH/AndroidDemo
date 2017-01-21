@@ -10,8 +10,10 @@ import com.taobao.weex.dom.WXImageQuality;
 import org.xutils.x;
 
 /**
+ * WeexImageLoaderAdapter
  * Created by fionera on 16-7-11.
  */
+
 public class WeexImageLoaderAdapter
         implements IWXImgLoaderAdapter {
     @Override

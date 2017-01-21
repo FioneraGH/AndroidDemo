@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.fionera.demo.util.CrashHandler;
 import com.fionera.demo.util.LogCat;
+import com.fionera.demo.util.WeexHttpAdapter;
 import com.fionera.demo.util.WeexImageLoaderAdapter;
 import com.fionera.demo.weex.CustomViewComponent;
 import com.fionera.demo.weex.URLHelperModule;
@@ -54,8 +55,8 @@ public class DemoApplication
             WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
             WXSDKEngine.registerComponent("custom-view-component", CustomViewComponent.class);
             WXSDKEngine.registerModule("URLHelper", URLHelperModule.class);
-            WXSDKEngine.initialize(this,
-                    new InitConfig.Builder().setImgAdapter(new WeexImageLoaderAdapter()).build());
+            WXSDKEngine.initialize(this, new InitConfig.Builder().setHttpAdapter(
+                    new WeexHttpAdapter()).setImgAdapter(new WeexImageLoaderAdapter()).build());
         } catch (WXException e) {
             e.printStackTrace();
         }

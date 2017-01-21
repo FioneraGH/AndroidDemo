@@ -25,6 +25,8 @@
 -dontwarn org.jetbrains.anko.**
 -dontwarn com.alibaba.fastjson.**
 
+-keep class com.alibaba.fastjson.** { *; }
+
 ################### region for gradle_ijkplayer
 -dontwarn master.flame.danmaku.**
 -keep class master.flame.danmaku.** { *; }

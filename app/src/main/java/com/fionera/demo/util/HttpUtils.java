@@ -55,18 +55,15 @@ public class HttpUtils {
         return x.http().post(params, callBack);
     }
 
-    public static Callback.Cancelable postJson(String url, RequestParams params,
+    public static Callback.Cancelable post(RequestParams params,
                                                HttpRequestCallBack<String> callBack) {
         if (!isNetworkConnected(DemoApplication.getInstance())) {
             ShowToast.show("网络未连接，请检查网络设置！");
             callBack.onNoNetwork();
             return null;
         }
-        if (params == null) {
-            params = new RequestParams(url);
-        }
-        LogCat.d("POST_JSON URL = " + url);
-        LogCat.d("POST_JSON BODY = " + params.toString());
+        LogCat.d("POST URL = " + params.getUri());
+        LogCat.d("POST BODY = " + params.toString());
         return x.http().post(params, callBack);
     }
 

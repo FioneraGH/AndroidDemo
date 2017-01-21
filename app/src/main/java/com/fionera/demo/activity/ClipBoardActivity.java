@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.KeyboardView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -12,22 +13,23 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.service.GrabAccessibilityService;
 import com.fionera.demo.service.ListenClipboardService;
+import com.fionera.demo.util.KeyboardUtil;
 import com.fionera.demo.util.LogCat;
-import com.fionera.demo.util.ShowToast;
 
 public final class ClipBoardActivity
         extends BaseActivity {
     public static final String CLIPBOARD_CONTENT = "clipboard_content";
 
-    public static boolean isStartAccessibilityService = false;
-
     private Button btnClipBoardTest;
     private Button btnGrabRedStart;
+    private EditText etTestKeyboard;
+    private KeyboardView kvKeyboardView;
 
     public static void startForContent(Context context, String content) {
         Intent intent = new Intent(context, ClipBoardActivity.class);
@@ -41,8 +43,8 @@ public final class ClipBoardActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clip_board);
 
-        btnClipBoardTest = (Button) findViewById(R.id.btn_clip_board_test);
-        btnGrabRedStart = (Button) findViewById(R.id.btn_grab_red_start);
+        initView();
+
         btnClipBoardTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +64,7 @@ public final class ClipBoardActivity
                         notification);
             }
         });
+        new KeyboardUtil(mContext, kvKeyboardView, etTestKeyboard).registerEditText(etTestKeyboard);
 
         Intent intent = getIntent();
         Uri uri = intent.getData();
@@ -85,7 +88,7 @@ public final class ClipBoardActivity
         try {
             accessibilityEnabled = Settings.Secure.getInt(
                     mContext.getApplicationContext().getContentResolver(),
-                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+                    Settings.Secure.ACCESSIBILITY_ENABLED);
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
@@ -125,6 +128,9 @@ public final class ClipBoardActivity
     }
 
     private void initView() {
+        btnClipBoardTest = (Button) findViewById(R.id.btn_clip_board_test);
         btnGrabRedStart = (Button) findViewById(R.id.btn_grab_red_start);
+        etTestKeyboard = (EditText) findViewById(R.id.et_test_keyboard);
+        kvKeyboardView = (KeyboardView) findViewById(R.id.kv_keyboard_view);
     }
 }
