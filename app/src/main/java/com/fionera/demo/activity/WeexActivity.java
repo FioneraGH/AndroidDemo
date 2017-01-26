@@ -33,20 +33,18 @@ public class WeexActivity
     private static final String WEEX_INDEX_URL = "http://" + CURRENT_IP +
             ":12580/examples/build/index.js";
 
-    private LinearLayout viewGroup;
+    private WXSDKInstance mInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weex);
 
-        viewGroup = (LinearLayout) findViewById(R.id.activity_weex);
-
-        WXSDKInstance mInstance = new WXSDKInstance(this);
+        mInstance = new WXSDKInstance(this);
         mInstance.registerRenderListener(new IWXRenderListener() {
             @Override
             public void onViewCreated(WXSDKInstance instance, View view) {
-                viewGroup.addView(view);
+                setContentView(view);
             }
 
             @Override
@@ -64,7 +62,7 @@ public class WeexActivity
                 ShowToast.show("render failed");
             }
         });
-        renderPage(mInstance, getPackageName(), WXFileUtils.loadAsset("hello_weex.js", this),
+        renderPage(mInstance, getPackageName(), WXFileUtils.loadAsset("app.weex.js", this),
                 WEEX_INDEX_URL, "{\"os\":\"android\"}");
     }
 
@@ -72,8 +70,36 @@ public class WeexActivity
                             String source, String jsonInitData) {
         Map<String, Object> options = new HashMap<>();
 //        options.put(WXSDKInstance.BUNDLE_URL, source);
-        mInstance.render(packageName, template, options, jsonInitData,
-                WXViewUtils.getScreenWidth(this), WXViewUtils.getScreenHeight(this),
-                WXRenderStrategy.APPEND_ASYNC);
+        mInstance.render(packageName, template, options, jsonInitData, WXRenderStrategy.APPEND_ASYNC);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mInstance.onActivityStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mInstance.onActivityResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mInstance.onActivityPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mInstance.onActivityStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mInstance.onActivityDestroy();
     }
 }

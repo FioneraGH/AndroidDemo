@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +45,6 @@ public abstract class BaseFragment
             if (actionBar != null) {
                 actionBar.setDisplayShowTitleEnabled(false);
             }
-            setHasOptionsMenu(true);
 
             ViewCompat.setElevation(titleBar, DisplayUtils.dp2px(5));
             x.view().inject(this, rootView);
@@ -57,6 +55,7 @@ public abstract class BaseFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
         initViews(view);
     }
 
@@ -71,7 +70,6 @@ public abstract class BaseFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        setHasOptionsMenu(false);
         mContext = context;
         mActivity = (Activity) context;
     }

@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,11 +21,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
-import com.fionera.demo.fragment.RichTextFragment;
+import com.fionera.demo.activity.BaseActivity;
 import com.fionera.demo.fragment.ContactFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.fragment.HomePageFragment;
 import com.fionera.demo.fragment.LoginFragment;
+import com.fionera.demo.fragment.RichTextFragment;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.PageTransformer;
 import com.fionera.demo.util.ShowToast;
@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements View.OnClickListener, LoginFragment.OnFragmentInteractionListener {
 
     public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
@@ -73,7 +73,7 @@ public class MainActivity
         PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
 
         pagerTabStrip
-                .setTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.blue2));
+                .setTabIndicatorColor(ContextCompat.getColor(mContext, R.color.blue2));
 
         HomePageFragment homePageFragment = new HomePageFragment();
         views.add(homePageFragment);
@@ -205,16 +205,15 @@ public class MainActivity
 
         }
 
-        stopService(new Intent(MainActivity.this, BluetoothLeService.class));
+        stopService(new Intent(mContext, BluetoothLeService.class));
     }
 
     /**
      * 设置菜单项在有键盘的手机可见
      */
     private void setNeverHasMenuKey() {
-
         try {
-            ViewConfiguration vc = ViewConfiguration.get(MainActivity.this);
+            ViewConfiguration vc = ViewConfiguration.get(mContext);
 
             Field menuKey = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
             menuKey.setAccessible(true);
@@ -268,12 +267,10 @@ public class MainActivity
         }
 
         DemoApplication.getLocalBroadcastManager().sendBroadcast(intent);
-
     }
 
     @Override
     public void onFragmentInteraction(String result) {
-
         ShowToast.show(result);
     }
 
