@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import com.fionera.demo.R;
 import com.fionera.demo.fragment.ExtrasFragment;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 public class SmartTabLayoutActivity

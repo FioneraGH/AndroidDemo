@@ -4,11 +4,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ContactsAdapter;
 import com.fionera.demo.bean.ContactBean;
 import com.fionera.demo.util.RvItemTouchListener;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 
 import org.xutils.view.annotation.ViewInject;
 

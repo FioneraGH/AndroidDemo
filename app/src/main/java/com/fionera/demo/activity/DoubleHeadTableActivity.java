@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.ListNestedScrollView;
 
 import java.util.ArrayList;

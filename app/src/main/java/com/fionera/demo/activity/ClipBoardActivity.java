@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.service.GrabAccessibilityService;

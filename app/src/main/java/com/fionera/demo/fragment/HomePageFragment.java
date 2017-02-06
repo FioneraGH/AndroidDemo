@@ -17,12 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
+import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.adapter.RecentSessionAdapter;
-import com.fionera.demo.util.RvItemTouchListener;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.util.TadaAnimator;
 
 import org.xutils.view.annotation.ViewInject;

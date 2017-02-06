@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.ClipBoardActivity;

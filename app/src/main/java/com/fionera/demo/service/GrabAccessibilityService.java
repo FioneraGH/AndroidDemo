@@ -3,13 +3,10 @@ package com.fionera.demo.service;
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.fionera.demo.activity.ClipBoardActivity;
 import com.fionera.demo.util.LogCat;
-import com.fionera.demo.util.ShowToast;
 
 import java.util.List;
 

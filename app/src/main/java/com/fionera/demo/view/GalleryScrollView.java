@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 
 import java.util.ArrayList;
 

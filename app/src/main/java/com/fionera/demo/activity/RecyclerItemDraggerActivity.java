@@ -1,6 +1,5 @@
 package com.fionera.demo.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.PullToRefreshLayout;
 import com.fionera.demo.view.PullableRecyclerView;
 

@@ -16,7 +16,7 @@ import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.DisplayUtils;
+import com.fionera.base.util.DisplayUtils;
 
 import java.util.LinkedList;
 import java.util.List;

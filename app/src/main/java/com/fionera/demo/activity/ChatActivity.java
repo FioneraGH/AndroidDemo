@@ -11,11 +11,12 @@ import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ChatMsgViewAdapter;
 import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DBHelper;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.ArcMenu;
 
 import java.io.FileOutputStream;

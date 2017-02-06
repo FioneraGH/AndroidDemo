@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_local_album_detail_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/blue3">
+
+        <ImageView
+            android:id="@+id/iv_local_album_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_back"/>
+
+        <TextView
+            android:id="@+id/tv_local_album_detail_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:maxLength="12"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_large"/>
+
+        <TextView
+            android:id="@+id/tv_local_album_detail_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/sl_bg_blue1_blue2_corner4"
+            android:enabled="true"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="完成"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gv_local_album_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="8dp"
+        android:numColumns="3"
+        android:verticalSpacing="8dp"/>
+
+    <FrameLayout
+        android:id="@+id/fl_local_album_detail_pager_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="visible"
+        android:visibility="gone">
+
+        <com.fionera.multipic.widget.AlbumViewPager
+            android:id="@+id/vp_local_album_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <RelativeLayout
+            android:id="@+id/album_item_header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/trans_black2">
+
+            <ImageView
+                android:id="@+id/ic_local_album_detail_header_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="15dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_back"/>
+
+            <TextView
+                android:id="@+id/tv_local_album_detail_header_count"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/ic_local_album_detail_header_back"
+                android:gravity="center"
+                android:paddingStart="16dip"
+                android:paddingEnd="16dp"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_normal"/>
+
+            <TextView
+                android:id="@+id/tv_local_album_detail_header_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/sl_bg_blue1_blue2_corner4"
+                android:enabled="true"
+                android:padding="8dp"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="@color/white"/>
+
+            <CheckBox
+                android:id="@+id/cb_local_album_detail_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                android:layout_toStartOf="@id/tv_local_album_detail_header_finish"
+                android:background="@drawable/sl_album_pic_cb_select"
+                android:button="@null"
+                android:checked="false"
+                android:focusable="false"/>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -3,6 +3,8 @@ package com.fionera.demo.util;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.ViewDragHelper;
 
+import com.fionera.base.util.DisplayUtils;
+
 import java.lang.reflect.Field;
 
 /**

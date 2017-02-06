@@ -5,14 +5,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.DemoApplication;
 
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.ex.HttpException;
-import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
-import org.xutils.http.app.DefaultParamsBuilder;
 import org.xutils.x;
 
 public class HttpUtils {

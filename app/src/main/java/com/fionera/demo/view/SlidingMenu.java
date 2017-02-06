@@ -2,7 +2,6 @@ package com.fionera.demo.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.transition.Slide;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;

@@ -21,7 +21,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
-import com.fionera.demo.activity.BaseActivity;
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.fragment.ContactFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.fragment.HomePageFragment;
@@ -29,7 +29,7 @@ import com.fionera.demo.fragment.LoginFragment;
 import com.fionera.demo.fragment.RichTextFragment;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.PageTransformer;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.ChangeableTabView;
 import com.fionera.demo.view.FloatView;
 

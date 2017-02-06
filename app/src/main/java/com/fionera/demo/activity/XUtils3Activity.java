@@ -9,7 +9,7 @@ import android.view.View;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.DemoDbBean;
 import com.fionera.demo.util.LogCat;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.ViewDragLayout;
 
 import org.xutils.DbManager;

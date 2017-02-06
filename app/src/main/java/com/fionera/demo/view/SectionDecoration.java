@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.fionera.demo.R;
 import com.fionera.demo.bean.StickyHeaderBean;
-import com.fionera.demo.util.DisplayUtils;
+import com.fionera.base.util.DisplayUtils;
 import com.fionera.demo.util.LogCat;
 
 import java.util.List;

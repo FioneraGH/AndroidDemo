@@ -1,7 +1,6 @@
 package com.fionera.demo;
 
 import android.app.ActivityManager;
-import android.app.Application;
 import android.os.Process;
 import android.os.StrictMode;
 import android.support.v4.content.LocalBroadcastManager;
@@ -9,12 +8,13 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.fionera.base.BaseApplication;
 import com.fionera.demo.util.CrashHandler;
-import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.WeexHttpAdapter;
 import com.fionera.demo.util.WeexImageLoaderAdapter;
 import com.fionera.demo.weex.CustomViewComponent;
 import com.fionera.demo.weex.URLHelperModule;
+import com.fionera.multipic.common.LocalImageHelper;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
 import com.taobao.weex.WXSDKEngine;
@@ -23,18 +23,12 @@ import com.taobao.weex.common.WXException;
 import org.xutils.x;
 
 import java.util.List;
-import java.util.Locale;
 
 public class DemoApplication
-        extends Application {
-    private static DemoApplication instance;
+        extends BaseApplication {
+
     private static WindowManager.LayoutParams wmLayoutParams;
     private static LocalBroadcastManager localBroadcastManager;
-
-    public static int screenWidth;
-    public static int screenHeight;
-    public static float screenDensity;
-    public static float scaledDensity;
 
     @Override
     public void onCreate() {
@@ -62,6 +56,8 @@ public class DemoApplication
         }
 
         getDisplayMetrics();
+
+        LocalImageHelper.init(instance);
 
         if (BuildConfig.DEBUG) {
             StrictMode.setVmPolicy(
@@ -91,10 +87,6 @@ public class DemoApplication
             }
         }
         return false;
-    }
-
-    public static DemoApplication getInstance() {
-        return instance;
     }
 
     public static WindowManager.LayoutParams getWmLayoutParams() {

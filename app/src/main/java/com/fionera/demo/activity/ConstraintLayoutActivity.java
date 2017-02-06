@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -12,12 +11,16 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.popupwindow.ProvincePopup;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.DesUtil;
 import com.fionera.demo.util.NavigationBarUtil;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
+import com.fionera.multipic.common.ImageConst;
+import com.fionera.multipic.common.LocalImageHelper;
+import com.fionera.multipic.ui.LocalAlbum;
 
 import org.xutils.common.util.LogUtil;
 
@@ -265,6 +268,29 @@ public class ConstraintLayoutActivity
             startActivity(localIntent);
         } else {
             ShowToast.show("cannot open");
+        }
+
+        LocalImageHelper.getInstance().getCheckedItems().clear();
+        LocalImageHelper.getInstance().setCurrentSize(0);
+        startActivityForResult(new Intent(mContext, LocalAlbum.class),
+                ImageConst.REQUEST_CODE_GET_IMAGE_BY_CROP);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK && requestCode != ImageConst.REQUEST_CODE_GET_IMAGE_BY_CROP) {
+            return;
+        }
+        switch (requestCode){
+            case ImageConst.REQUEST_CODE_GET_IMAGE_BY_CROP:
+                if (LocalImageHelper.getInstance().isResultOk()) {
+                    LocalImageHelper.getInstance().setResultOk(false);
+                    List<LocalImageHelper.LocalFile> files = LocalImageHelper.getInstance()
+                            .getCheckedItems();
+                    ShowToast.show(files.size());
+                }
+                break;
         }
     }
 }

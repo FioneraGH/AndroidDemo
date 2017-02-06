@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.fionera.demo.view.TitleBar
+    <com.fionera.base.widget.TitleBar
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

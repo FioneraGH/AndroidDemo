@@ -1,4 +1,4 @@
-package com.fionera.demo.fragment;
+package com.fionera.base.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.fionera.demo.R;
-import com.fionera.demo.util.DisplayUtils;
-import com.fionera.demo.view.TitleBar;
+import com.fionera.base.R;
+import com.fionera.base.util.DisplayUtils;
+import com.fionera.base.widget.TitleBar;
 
 import org.xutils.x;
 

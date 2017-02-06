@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DBHelper;

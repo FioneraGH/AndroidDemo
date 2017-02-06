@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
+import com.fionera.base.util.DisplayUtils;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.demo.util.DisplayUtils;
 import com.fionera.demo.view.game2048.NumberContainer;
 
 import org.xutils.view.annotation.ViewInject;

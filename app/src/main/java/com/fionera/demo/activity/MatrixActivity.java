@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 
 public class MatrixActivity
         extends Activity {

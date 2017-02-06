@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.StickyHeaderAdapter;
 import com.fionera.demo.bean.StickyHeaderBean;

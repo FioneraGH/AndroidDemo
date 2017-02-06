@@ -1,27 +1,15 @@
 package com.fionera.demo.activity;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.alibaba.fastjson.JSON;
 import com.fionera.demo.R;
-import com.fionera.demo.util.ShowToast;
-import com.fionera.demo.weex.CustomViewComponent;
-import com.fionera.demo.weex.URLHelperModule;
+import com.fionera.base.util.ShowToast;
 import com.taobao.weex.IWXRenderListener;
-import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.WXSDKInstance;
-import com.taobao.weex.common.WXException;
 import com.taobao.weex.common.WXRenderStrategy;
 import com.taobao.weex.utils.WXFileUtils;
-import com.taobao.weex.utils.WXViewUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;

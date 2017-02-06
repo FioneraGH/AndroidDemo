@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.demo.util.DisplayUtils;
+import com.fionera.base.util.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * BaseBanner
  * Created by fionera on 16-5-4.
  */
 

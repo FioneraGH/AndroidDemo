@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 
 public class RVWithHeaderActivity extends AppCompatActivity {
 

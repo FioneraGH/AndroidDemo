@@ -10,7 +10,10 @@
     <color name="green2">#8DBE53</color>
 
     <color name="blue">#0000FF</color>
-    <color name="blue2">#4A9DFF</color>
+    <color name="blue1">#3790ec</color>
+    <color name="trans_blue2">#990291d9</color>
+    <color name="blue2">#0091d9</color>
+    <color name="blue3">#3790ec</color>
 
     <color name="yellow">#ffff00</color>
     <color name="yellow1">#f9b72c</color>

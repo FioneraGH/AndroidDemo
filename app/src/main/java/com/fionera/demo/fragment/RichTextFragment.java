@@ -2,9 +2,10 @@ package com.fionera.demo.fragment;
 
 import android.view.View;
 
+import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.RichText;
 
 import org.xutils.view.annotation.ViewInject;

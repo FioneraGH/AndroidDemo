@@ -21,7 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.ShowToast;
+import com.fionera.base.util.ShowToast;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;

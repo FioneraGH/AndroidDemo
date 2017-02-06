@@ -1,10 +1,11 @@
-package com.fionera.demo.util;
+package com.fionera.base.util;
 
 import android.widget.Toast;
 
-import com.fionera.demo.DemoApplication;
+import com.fionera.base.BaseApplication;
 
 /**
+ * ShowToast
  * Created by fionera on 15-12-6.
  */
 public class ShowToast {
@@ -15,7 +16,7 @@ public class ShowToast {
 
         if (toast == null) {
             toast = Toast
-                    .makeText(DemoApplication.getInstance(), info.toString(), Toast.LENGTH_SHORT);
+                    .makeText(BaseApplication.getInstance(), info.toString(), Toast.LENGTH_SHORT);
         } else {
             toast.setText(info.toString());
         }

@@ -1,4 +1,4 @@
-package com.fionera.demo.view;
+package com.fionera.base.widget;
 
 import android.content.Context;
 import android.support.v7.widget.Toolbar;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fionera.demo.R;
+import com.fionera.base.R;
 
 @SuppressWarnings("unused")
 public class TitleBar

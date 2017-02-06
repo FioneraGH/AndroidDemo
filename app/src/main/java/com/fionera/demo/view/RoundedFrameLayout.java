@@ -11,9 +11,10 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.fionera.demo.util.DisplayUtils;
+import com.fionera.base.util.DisplayUtils;
 
 /**
+ * RoundedFrameLayout
  * Created by fionera on 16-6-26.
  */
 public class RoundedFrameLayout
