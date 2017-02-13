@@ -55,7 +55,8 @@
                     android:scheme="mxn"/>
             </intent-filter>
         </activity>
-        >
+        <activity android:name=".activity.SeatTableActivity"/>
+
         <service android:name=".service.WidgetService"/>
         <service android:name=".service.BluetoothLeService"/>
         <service
