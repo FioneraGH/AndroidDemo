@@ -1,27 +1,21 @@
 package com.fionera.demo;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 import android.view.ViewConfiguration;
 import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.fragment.ContactFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.fragment.HomePageFragment;
@@ -29,10 +23,8 @@ import com.fionera.demo.fragment.LoginFragment;
 import com.fionera.demo.fragment.RichTextFragment;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.PageTransformer;
-import com.fionera.base.util.ShowToast;
-import com.fionera.demo.view.ChangeableTabView;
-import com.fionera.demo.view.FloatView;
 
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.lang.reflect.Field;
@@ -43,19 +35,17 @@ import java.util.List;
 
 public class MainActivity
         extends BaseActivity
-        implements View.OnClickListener, LoginFragment.OnFragmentInteractionListener {
+        implements LoginFragment.OnFragmentInteractionListener {
 
-    public static final String CLICK_TO_CHANGE = "com.fionera.broadcast.CLICK_TO_CHANGE";
-
-    private WindowManager wm;
-    private FloatView floatView;
-
+    @ViewInject(R.id.vp_main_page)
     private ViewPager viewPager;
+    @ViewInject(R.id.ptas_main_page)
+    private PagerTabStrip pagerTabStrip;
+    @ViewInject(R.id.bnv_main_page)
+    private BottomNavigationView bottomNavigationView;
+
     private List<Fragment> views = new ArrayList<>();
-
-    private List<ChangeableTabView> tabs = new ArrayList<>();
-
-    private ClickReceiver clickReceiver;
+    private MenuItem preMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +54,10 @@ public class MainActivity
 
         setNeverHasMenuKey();
 
-        //        createFloatView();
-
         x.view().inject(this);
 
-        viewPager = (ViewPager) findViewById(R.id.vp_main_page);
         viewPager.setPageTransformer(true, new PageTransformer());
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
-
-        pagerTabStrip
-                .setTabIndicatorColor(ContextCompat.getColor(mContext, R.color.blue2));
+        pagerTabStrip.setTabIndicatorColor(ContextCompat.getColor(mContext, R.color.blue2));
 
         HomePageFragment homePageFragment = new HomePageFragment();
         views.add(homePageFragment);
@@ -84,27 +68,8 @@ public class MainActivity
         ExtrasFragment extrasFragment = new ExtrasFragment();
         views.add(extrasFragment);
 
-        tabs.add((ChangeableTabView) findViewById(R.id.ctv_one));
-        tabs.add((ChangeableTabView) findViewById(R.id.ctv_two));
-        tabs.add((ChangeableTabView) findViewById(R.id.ctv_three));
-        tabs.add((ChangeableTabView) findViewById(R.id.ctv_four));
-
-        for (ChangeableTabView view : tabs) {
-            view.setOnClickListener(this);
-            if (view.getId() == R.id.ctv_one) {
-                view.setTabAlpha(1.0f);
-            }
-        }
-
         initViewPager();
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(CLICK_TO_CHANGE);
-        clickReceiver = new ClickReceiver();
-        DemoApplication.getLocalBroadcastManager().registerReceiver(clickReceiver, intentFilter);
     }
-
-    private int currIndex = 0;
 
     private void initViewPager() {
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -132,20 +97,19 @@ public class MainActivity
             @Override
             public void onPageScrolled(int position, float positionOffset,
                                        int positionOffsetPixels) {
-                if (positionOffset > 0) {
-
-                    tabs.get(position).setTabAlpha(1 - positionOffset);
-                    tabs.get(position + 1).setTabAlpha(positionOffset);
-                }
             }
 
             @Override
             public void onPageSelected(int position) {
-
-                Animation animation = new TranslateAnimation(100 * currIndex, 100 * position, 0, 0);
-                currIndex = position;
-                animation.setFillAfter(true);
-                animation.setDuration(300);
+                if (preMenuItem != null) {
+                    preMenuItem.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                preMenuItem = bottomNavigationView.getMenu().getItem(position);
+                if (preMenuItem != null) {
+                    bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                }
             }
 
             @Override
@@ -154,56 +118,33 @@ public class MainActivity
             }
         });
         viewPager.setOffscreenPageLimit(3);
-    }
 
-    @SuppressWarnings("unused")
-    private void createFloatView() {
-
-        floatView = new FloatView(getApplicationContext());
-        floatView.setImageResource(R.mipmap.ic_launcher);
-
-        wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        WindowManager.LayoutParams wmLayoutParams = DemoApplication.getWmLayoutParams();
-        /*
-          设置类型为TYPE_PHONE，拥有最高顶层的权限
-         */
-        wmLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-        /*
-          设置图片背景透明
-         */
-        wmLayoutParams.format = PixelFormat.RGBA_8888;
-        /*
-          初始位置在左上角
-         */
-        wmLayoutParams.gravity = Gravity.START | Gravity.TOP;
-        /*
-          设定原点为(0,0)
-         */
-        wmLayoutParams.x = 0;
-        wmLayoutParams.y = 0;
-        /*
-          设定长宽
-         */
-        wmLayoutParams.width = 256;
-        wmLayoutParams.height = 256;
-
-        wm.addView(floatView, wmLayoutParams);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_home:
+                                viewPager.setCurrentItem(0);
+                                break;
+                            case R.id.menu_list:
+                                viewPager.setCurrentItem(1);
+                                break;
+                            case R.id.menu_rich:
+                                viewPager.setCurrentItem(2);
+                                break;
+                            case R.id.menu_extra:
+                                viewPager.setCurrentItem(3);
+                                break;
+                        }
+                        return false;
+                    }
+                });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (clickReceiver != null) {
-            DemoApplication.getLocalBroadcastManager().unregisterReceiver(clickReceiver);
-            clickReceiver = null;
-        }
-
-        try {
-            wm.removeView(floatView);
-        } catch (Exception ignored) {
-
-        }
 
         stopService(new Intent(mContext, BluetoothLeService.class));
     }
@@ -231,8 +172,8 @@ public class MainActivity
         if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
                 try {
-                    Method m = menu.getClass()
-                            .getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",
+                            Boolean.TYPE);
                     m.setAccessible(true);
                     m.invoke(menu, true);
                 } catch (Exception e) {
@@ -244,45 +185,7 @@ public class MainActivity
     }
 
     @Override
-    public void onClick(View v) {
-        for (ChangeableTabView view : tabs) {
-            view.setTabAlpha(0.0f);
-        }
-        ((ChangeableTabView) v).setTabAlpha(1.0f);
-
-        Intent intent = new Intent(CLICK_TO_CHANGE);
-        switch (v.getId()) {
-            case R.id.ctv_one:
-                intent.putExtra("which_click", 0);
-                break;
-            case R.id.ctv_two:
-                intent.putExtra("which_click", 1);
-                break;
-            case R.id.ctv_three:
-                intent.putExtra("which_click", 2);
-                break;
-            case R.id.ctv_four:
-                intent.putExtra("which_click", 3);
-                break;
-        }
-
-        DemoApplication.getLocalBroadcastManager().sendBroadcast(intent);
-    }
-
-    @Override
     public void onFragmentInteraction(String result) {
         ShowToast.show(result);
-    }
-
-    private class ClickReceiver
-            extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("MainActivity", intent.getAction());
-            if (intent.getAction().equals(CLICK_TO_CHANGE)) {
-                viewPager.setCurrentItem(intent.getIntExtra("which_click", 0), false);
-            }
-        }
     }
 }
