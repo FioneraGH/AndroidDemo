@@ -2,11 +2,15 @@ package com.fionera.multipic.common;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.fionera.base.util.ShowToast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -129,6 +133,7 @@ public class LocalImageHelper {
     private boolean isRunning = false;
 
     public synchronized void initImage() {
+        final long startTime = System.currentTimeMillis();
         if (isRunning) {
             return;
         }
@@ -188,6 +193,16 @@ public class LocalImageHelper {
         folders.put("所有图片", paths);
         cursor.close();
         isRunning = false;
+        /*
+        here to compute content fetch time
+         */
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                ShowToast.show(String.format(Locale.CHINA, "image helper init speed %d ms",
+                        System.currentTimeMillis() - startTime));
+            }
+        });
     }
 
     private String getThumbnail(int id) {
@@ -251,19 +266,10 @@ public class LocalImageHelper {
     public static class LocalFile
             implements Parcelable {
 
-        private String applyDocPicId;
         private String originalUri;
         private String thumbnailUri;
         private int orientation;
         private String path;
-
-        public String getApplyDocPicId() {
-            return applyDocPicId;
-        }
-
-        public void setApplyDocPicId(String applyDocPicId) {
-            this.applyDocPicId = applyDocPicId;
-        }
 
         public String getOriginalUri() {
             return originalUri;
@@ -304,7 +310,6 @@ public class LocalImageHelper {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.applyDocPicId);
             dest.writeString(this.originalUri);
             dest.writeString(this.thumbnailUri);
             dest.writeInt(this.orientation);
@@ -314,8 +319,7 @@ public class LocalImageHelper {
         public LocalFile() {
         }
 
-        protected LocalFile(Parcel in) {
-            this.applyDocPicId = in.readString();
+        LocalFile(Parcel in) {
             this.originalUri = in.readString();
             this.thumbnailUri = in.readString();
             this.orientation = in.readInt();

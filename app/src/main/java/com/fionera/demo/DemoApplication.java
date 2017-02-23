@@ -1,6 +1,10 @@
 package com.fionera.demo;
 
 import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Process;
 import android.os.StrictMode;
 import android.support.v4.content.LocalBroadcastManager;
@@ -27,20 +31,15 @@ import java.util.List;
 public class DemoApplication
         extends BaseApplication {
 
-    private static WindowManager.LayoutParams wmLayoutParams;
-    private static LocalBroadcastManager localBroadcastManager;
-
     @Override
     public void onCreate() {
         super.onCreate();
 
-        if(!isMainProcess()){
+        if (!isMainProcess()) {
             return;
         }
 
         instance = this;
-        wmLayoutParams = new WindowManager.LayoutParams();
-        localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
         x.Ext.init(this);
         x.Ext.setDebug(false);
@@ -56,8 +55,6 @@ public class DemoApplication
         }
 
         getDisplayMetrics();
-
-        LocalImageHelper.init(instance);
 
         if (BuildConfig.DEBUG) {
             StrictMode.setVmPolicy(
@@ -87,14 +84,6 @@ public class DemoApplication
             }
         }
         return false;
-    }
-
-    public static WindowManager.LayoutParams getWmLayoutParams() {
-        return wmLayoutParams;
-    }
-
-    public static LocalBroadcastManager getLocalBroadcastManager() {
-        return localBroadcastManager;
     }
 
     private void getDisplayMetrics() {
