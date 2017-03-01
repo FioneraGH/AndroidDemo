@@ -1,20 +1,13 @@
 package com.fionera.demo.fragment;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.transition.TransitionManager;
 import android.view.View;
+import android.widget.Button;
 
 import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.R;
-import com.fionera.demo.adapter.ContactsAdapter;
-import com.fionera.demo.bean.ContactBean;
-import com.fionera.demo.util.RvItemTouchListener;
-import com.fionera.base.util.ShowToast;
-
-import org.xutils.view.annotation.ViewInject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ContactFragment
@@ -24,10 +17,15 @@ import java.util.List;
 public class ContactFragment
         extends BaseFragment {
 
-    @ViewInject(R.id.rv_contact)
-    private RecyclerView recyclerView;
+    private ConstraintLayout clContact;
+    private Button btnContactApply;
+    private Button btnContactReset;
+    private Button btnContact1;
+    private Button btnContact2;
+    private Button btnContact3;
 
-    private List<ContactBean> contactBeanList;
+    private ConstraintSet applyConstraintSet = new ConstraintSet();
+    private ConstraintSet resetConstraintSet = new ConstraintSet();
 
     @Override
     public int setLayoutResource() {
@@ -36,30 +34,61 @@ public class ContactFragment
 
     @Override
     public void initViews(View rootView) {
+        initView(rootView);
 
-        setTitleBarText("人脉");
+        applyConstraintSet.clone(clContact);
+        resetConstraintSet.clone(clContact);
+    }
 
-        contactBeanList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            ContactBean bean = new ContactBean();
-            bean.setName("aaaa");
-            bean.setPhone("1111");
-            contactBeanList.add(bean);
-        }
-
-        ContactsAdapter contactsAdapter = new ContactsAdapter(mContext, contactBeanList);
-        recyclerView.setAdapter(contactsAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
-        contactsAdapter.setRvItemTouchListener(new RvItemTouchListener() {
+    private void initView(View rootView) {
+        clContact = (ConstraintLayout) rootView.findViewById(R.id.cl_contact);
+        btnContactApply = (Button) rootView.findViewById(R.id.btn_contact_apply);
+        btnContactApply.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(View v, int pos) {
-                if (pos > 5) {
-                    contactBeanList.get(pos).setName(contactBeanList.get(pos).getName() + " " + pos);
-                    recyclerView.getAdapter().notifyItemChanged(pos);
-                } else {
-                    ShowToast.show(pos);
-                }
+            public void onClick(View v) {
+                TransitionManager.beginDelayedTransition(clContact);
+
+                applyConstraintSet.setMargin(R.id.btn_contact1, ConstraintSet.START, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact1, ConstraintSet.TOP, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact1, ConstraintSet.END, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact1, ConstraintSet.BOTTOM, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact2, ConstraintSet.START, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact2, ConstraintSet.END, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact3, ConstraintSet.START, 0);
+                applyConstraintSet.setMargin(R.id.btn_contact3, ConstraintSet.END, 0);
+
+                applyConstraintSet.constrainWidth(R.id.btn_contact2, 500);
+
+                applyConstraintSet.centerHorizontally(R.id.btn_contact1, R.id.cl_contact);
+                applyConstraintSet.centerVertically(R.id.btn_contact1, R.id.cl_contact);
+                applyConstraintSet.centerHorizontally(R.id.btn_contact2, R.id.cl_contact);
+                applyConstraintSet.centerHorizontally(R.id.btn_contact3, R.id.cl_contact);
+
+                applyConstraintSet.clear(R.id.btn_contact1);
+
+                applyConstraintSet.connect(R.id.btn_contact1, ConstraintSet.START, R.id.cl_contact,
+                        ConstraintSet.START, 0);
+                applyConstraintSet.connect(R.id.btn_contact1, ConstraintSet.END, R.id.cl_contact,
+                        ConstraintSet.END, 0);
+                applyConstraintSet.connect(R.id.btn_contact1, ConstraintSet.TOP, R.id.cl_contact,
+                        ConstraintSet.TOP, 0);
+                applyConstraintSet.connect(R.id.btn_contact1, ConstraintSet.BOTTOM, R.id.cl_contact,
+                        ConstraintSet.BOTTOM, 0);
+
+                applyConstraintSet.setVisibility(R.id.btn_contact1, View.GONE);
+
+                applyConstraintSet.applyTo(clContact);
             }
         });
+        btnContactReset = (Button) rootView.findViewById(R.id.btn_contact_reset);
+        btnContactReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetConstraintSet.applyTo(clContact);
+            }
+        });
+        btnContact1 = (Button) rootView.findViewById(R.id.btn_contact1);
+        btnContact2 = (Button) rootView.findViewById(R.id.btn_contact2);
+        btnContact3 = (Button) rootView.findViewById(R.id.btn_contact3);
     }
 }

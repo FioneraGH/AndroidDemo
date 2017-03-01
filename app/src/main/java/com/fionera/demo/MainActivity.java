@@ -86,7 +86,7 @@ public class MainActivity
 
         initViewPager();
 
-        switchMainComponent();
+//        switchMainComponent();
     }
 
     private void initViewPager() {
