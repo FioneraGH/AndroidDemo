@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_contact"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,15 +20,27 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
+        android:id="@+id/btn_contact_chain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Chain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
         android:id="@+id/btn_contact_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="16dp"
         android:text="Reset"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintLeft_toRightOf="@id/btn_contact_apply"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@id/btn_contact_chain"
+        android:layout_marginRight="8dp" />
 
     <Button
         android:id="@+id/btn_contact1"
@@ -50,7 +63,7 @@
         android:background="@color/yellow"
         android:text="Button 2"
         app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintLeft_toRightOf="@id/btn_contact1"
+        app:layout_constraintLeft_toRightOf="@+id/btn_contact1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,9 +73,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
         android:layout_marginTop="102dp"
-        android:background="@android:color/holo_red_dark"
+        android:background="@android:color/holo_red_light"
         android:text="Button 3"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_contact1" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_contact1" />
+
+    <Button
+        android:id="@+id/btn_contact4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button4"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="33dp"
+        android:background="@android:color/holo_green_light"
+        app:layout_constraintTop_toBottomOf="@+id/btn_contact3"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toRightOf="@+id/btn_contact3" />
 
 </android.support.constraint.ConstraintLayout>
