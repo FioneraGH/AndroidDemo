@@ -7,8 +7,7 @@ import android.util.Log;
  * Created by fionera on 17-2-6 in AndroidDemo.
  */
 
-public class LogUtils {
-
+class LogUtils {
     public static void d(Object o){
         if(o == null){
             return;

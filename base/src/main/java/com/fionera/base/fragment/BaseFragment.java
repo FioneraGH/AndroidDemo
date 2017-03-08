@@ -18,8 +18,6 @@ import com.fionera.base.R;
 import com.fionera.base.util.DisplayUtils;
 import com.fionera.base.widget.TitleBar;
 
-import org.xutils.x;
-
 public abstract class BaseFragment
         extends Fragment {
 
@@ -47,7 +45,6 @@ public abstract class BaseFragment
             }
 
             ViewCompat.setElevation(titleBar, DisplayUtils.dp2px(5));
-            x.view().inject(this, rootView);
         }
         return rootView;
     }

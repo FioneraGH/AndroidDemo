@@ -31,9 +31,6 @@ import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.PageTransformer;
 import com.fionera.multipic.common.LocalImageHelper;
 
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
@@ -45,11 +42,7 @@ public class MainActivity
         implements LoginFragment.OnFragmentInteractionListener {
     private static int ASK_FOR_READ_EXTERNAL = 3000;
 
-    @ViewInject(R.id.vp_main_page)
     private ViewPager viewPager;
-    @ViewInject(R.id.ptas_main_page)
-    private PagerTabStrip pagerTabStrip;
-    @ViewInject(R.id.bnv_main_page)
     private BottomNavigationView bottomNavigationView;
 
     private List<Fragment> views = new ArrayList<>();
@@ -60,17 +53,19 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        viewPager = (ViewPager) findViewById(R.id.vp_main_page);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bnv_main_page);
+
         if (ContextCompat.checkSelfPermission(mContext,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, ASK_FOR_READ_EXTERNAL);
         } else {
-            LocalImageHelper.init(this);
+            LocalImageHelper.init();
         }
 
         setNeverHasMenuKey();
-
-        x.view().inject(this);
 
         viewPager.setPageTransformer(true, new PageTransformer());
         pagerTabStrip.setTabIndicatorColor(ContextCompat.getColor(mContext, R.color.blue2));
@@ -85,8 +80,6 @@ public class MainActivity
         views.add(extrasFragment);
 
         initViewPager();
-
-//        switchMainComponent();
     }
 
     private void initViewPager() {
@@ -150,6 +143,7 @@ public class MainActivity
                                 break;
                             case R.id.menu_rich:
                                 viewPager.setCurrentItem(2);
+                                switchMainComponent();
                                 break;
                             case R.id.menu_extra:
                                 viewPager.setCurrentItem(3);
@@ -198,6 +192,7 @@ public class MainActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LocalImageHelper.getInstance().release();
         stopService(new Intent(mContext, BluetoothLeService.class));
     }
 
@@ -209,9 +204,9 @@ public class MainActivity
                 .equals(permissions[0])) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ShowToast.show("授权成功");
-                LocalImageHelper.init(this);
+                LocalImageHelper.init();
             } else {
-                ShowToast.show("该功能需要外部存储权限");
+                ShowToast.show("该应用需要外部存储权限");
                 finish();
             }
         }

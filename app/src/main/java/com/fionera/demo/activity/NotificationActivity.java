@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -18,10 +19,6 @@ import android.widget.TextView;
 
 import com.fionera.demo.R;
 
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,18 +26,7 @@ public class NotificationActivity
         extends AppCompatActivity {
     public static final int NOTIFICATION_ID = 142035738;
 
-    @ViewInject(R.id.tv_notify_html)
-    private TextView tvNotifyHtml;
-    @ViewInject(R.id.tv_notify_spannable)
-    private TextView tvNotifySpannable;
-    @ViewInject(R.id.tv_notify_linkify)
-    private TextView tvNotifyLinkify;
     private NotificationManager notificationManager;
-
-    @Event(R.id.btn_notify_send)
-    private void onClick(View v) {
-        sendNotification(notificationManager);
-    }
 
     private void sendNotification(final NotificationManager notificationManager) {
         final Notification.Builder builder = new Notification.Builder(this);
@@ -68,12 +54,21 @@ public class NotificationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        x.view().inject(this);
+        findViewById(R.id.btn_notify_send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendNotification(notificationManager);
+            }
+        });
+
+        TextView tvNotifyHtml = (TextView) findViewById(R.id.tv_notify_html);
+        TextView tvNotifySpannable = (TextView) findViewById(R.id.tv_notify_spannable);
+        TextView tvNotifyLinkify = (TextView) findViewById(R.id.tv_notify_linkify);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        //        tvNotifyHtml.setText((Html.fromHtml("<a href='https://www.badiu.com'>百度</a>")));
-        //        tvNotifyHtml.setMovementMethod(LinkMovementMethod.getInstance());
+        tvNotifyHtml.setText((Html.fromHtml("<a href='https://www.badiu.com'>百度</a>")));
+        tvNotifyHtml.setMovementMethod(LinkMovementMethod.getInstance());
 
         SpannableString text = new SpannableString("百度");
         text.setSpan(new NoUnderlineSpan("https://www.baidu.com"), 0, text.length(),

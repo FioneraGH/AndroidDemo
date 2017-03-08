@@ -12,8 +12,10 @@ import com.fionera.demo.util.RvItemTouchListener;
 import java.util.List;
 
 /**
+ * RecentSessionAdapter
  * Created by fionera on 16-1-12.
  */
+
 public class RecentSessionAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -43,7 +45,7 @@ public class RecentSessionAdapter
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rvItemTouchListener.onItemClick(holder.itemView, position);
+                rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition());
             }
         });
     }
@@ -56,9 +58,8 @@ public class RecentSessionAdapter
     private class RecentViewHolder
             extends RecyclerView.ViewHolder {
 
-        public RecentViewHolder(View itemView) {
+        RecentViewHolder(View itemView) {
             super(itemView);
-
         }
     }
 }

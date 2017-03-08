@@ -15,15 +15,12 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
-import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.PullToRefreshLayout;
 import com.fionera.demo.view.PullableRecyclerView;
-
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,16 +29,16 @@ import java.util.List;
 public class RecyclerItemDraggerActivity
         extends AppCompatActivity {
 
-    @ViewInject(R.id.ptrl_root)
-    private PullToRefreshLayout pullToRefreshLayout;
-    @ViewInject(R.id.recycler_view)
     private PullableRecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle);
-        x.view().inject(this);
+
+        PullToRefreshLayout pullToRefreshLayout = (PullToRefreshLayout) findViewById(
+                R.id.ptrl_root);
+        recyclerView = (PullableRecyclerView) findViewById(R.id.recycler_view);
 
         final List<ChatMsgBean> data = new ArrayList<>();
 

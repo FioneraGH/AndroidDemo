@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -11,9 +11,10 @@
         android:id="@+id/ll_local_album_detail_title_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal"
+        android:background="@color/blue3"
         android:gravity="center_vertical"
-        android:background="@color/blue3">
+        android:orientation="horizontal"
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_local_album_detail_back"
@@ -21,20 +22,20 @@
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_back"/>
+            android:src="@drawable/ic_action_back" />
 
         <TextView
             android:id="@+id/tv_local_album_detail_title"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:maxLength="12"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="@dimen/textsize_large"/>
+            android:textSize="@dimen/textsize_large" />
 
         <TextView
             android:id="@+id/tv_local_album_detail_finish"
@@ -46,30 +47,28 @@
             android:gravity="center"
             android:padding="8dp"
             android:text="完成"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/gv_local_album_detail"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/local_album_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="8dp"
-        android:numColumns="3"
-        android:verticalSpacing="8dp"/>
+        tools:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/fl_local_album_detail_pager_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:visibility="visible"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <com.fionera.multipic.widget.AlbumViewPager
+        <com.fionera.multipic.widget.HackyViewPager
             android:id="@+id/vp_local_album_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
         <RelativeLayout
             android:id="@+id/album_item_header_bar"
@@ -82,8 +81,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_back"/>
+                android:src="@drawable/ic_action_back" />
 
             <TextView
                 android:id="@+id/tv_local_album_detail_header_count"
@@ -91,11 +91,11 @@
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@id/ic_local_album_detail_header_back"
                 android:gravity="center"
-                android:paddingStart="16dip"
-                android:paddingEnd="16dp"
                 android:maxLines="1"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dip"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textsize_normal"/>
+                android:textSize="@dimen/textsize_normal" />
 
             <TextView
                 android:id="@+id/tv_local_album_detail_header_finish"
@@ -106,10 +106,10 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/sl_bg_blue1_blue2_corner4"
                 android:enabled="true"
-                android:padding="8dp"
                 android:gravity="center"
+                android:padding="8dp"
                 android:text="完成"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <CheckBox
                 android:id="@+id/cb_local_album_detail_check"
@@ -121,9 +121,7 @@
                 android:background="@drawable/sl_album_pic_cb_select"
                 android:button="@null"
                 android:checked="false"
-                android:focusable="false"/>
+                android:focusable="false" />
         </RelativeLayout>
-
     </FrameLayout>
-
 </LinearLayout>

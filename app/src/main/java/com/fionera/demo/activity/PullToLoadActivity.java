@@ -1,7 +1,6 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -16,35 +15,33 @@ import com.fionera.demo.util.DBHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class PullToLoadActivity
         extends BaseActivity
         implements AbsListView.OnScrollListener {
 
-    private static final int ITEM_SIZE = 20;
-
     private ListView listView;
     private View header;
-    private ArrayList<ChatMsgBean> items;
     private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
-    private int allRecorders = 0;  //全部记录数
-    private int currentPage = 1; //默认在第一页
-    private int pageSize = 1;  //默认共一页
+
+    private static final int PAGE_SIZE = 20;
+    private int allRecorders = 0;  // 全部记录数
+    private int currentPage = 1; // 默认在第一页
+    private int pageSize = 1;  // 默认共一页
+
+    private List<ChatMsgBean> items = new ArrayList<>();
 
     private TestAdapter baseAdapter;
-    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pull_to_load);
-        listView = (ListView) findViewById(R.id.list_view_load);
-        //获取listView头部，共享分页脚部
+
+        listView = (ListView) findViewById(R.id.lv_load_data);
         header = View.inflate(mContext, R.layout.layout_load_more, null);
-
-        listView.addHeaderView(header);
         listView.setOnScrollListener(this);
-
         showAllData();
     }
 
@@ -58,19 +55,20 @@ public class PullToLoadActivity
      * 读取显示数据
      */
     public void showAllData() {
-
-        // 获取总记录数
         allRecorders = dbHelper.getCount();
-        if (allRecorders < ITEM_SIZE) {
-            listView.removeHeaderView(header);
+        if (allRecorders > PAGE_SIZE) {
+            listView.addHeaderView(header);
         }
-        // 计算总页数
-        pageSize = (allRecorders + ITEM_SIZE - 1) / ITEM_SIZE;
-        items = dbHelper.getSomeItems(currentPage, ITEM_SIZE);
+
+        pageSize = (allRecorders + PAGE_SIZE - 1) / PAGE_SIZE;
+        items.addAll(dbHelper.getSomeItems(currentPage, PAGE_SIZE));
+
         Collections.reverse(items);
+
         baseAdapter = new TestAdapter();
         listView.setAdapter(baseAdapter);
-        listView.setSelection(items.size());//直接定位到最底部
+        listView.setSelection(items.size() - 1);
+        dbHelper.closeDb();
     }
 
     int firstItem = -1;
@@ -84,15 +82,9 @@ public class PullToLoadActivity
     @Override
     public void onScrollStateChanged(AbsListView view, int scorllState) {
         if (firstItem == 0 && currentPage < pageSize && scorllState == AbsListView
-                .OnScrollListener.SCROLL_STATE_IDLE) {// 不再滚动
+                .OnScrollListener.SCROLL_STATE_IDLE) {
             currentPage++;
-            // 增加数据
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    appendDate();
-                }
-            }, 1000);
+            appendDate();
         }
     }
 
@@ -100,14 +92,11 @@ public class PullToLoadActivity
      * 增加数据
      */
     private void appendDate() {
-        ArrayList<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, ITEM_SIZE);
-        baseAdapter.setCount(baseAdapter.getCount() + addItems.size());
-        //判断，如果到了最末尾则去掉进度圈
-        if (allRecorders == baseAdapter.getCount()) {
+        List<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, PAGE_SIZE);
+        items.addAll(0, addItems);
+        if (allRecorders == items.size()) {
             listView.removeHeaderView(header);
         }
-        //        Collections.reverse(addItems);
-        items.addAll(0, addItems);
 
         baseAdapter.notifyDataSetChanged();
         listView.setSelection(addItems.size());
@@ -115,18 +104,9 @@ public class PullToLoadActivity
 
     private class TestAdapter
             extends BaseAdapter {
-        int count = ITEM_SIZE;
 
         public int getCount() {
-            if (items.size() < ITEM_SIZE) {
-                return items.size();
-            } else {
-                return count;
-            }
-        }
-
-        public void setCount(int count) {
-            this.count = count;
+            return items.size();
         }
 
         public Object getItem(int pos) {

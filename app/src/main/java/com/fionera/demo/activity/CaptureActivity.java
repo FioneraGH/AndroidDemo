@@ -18,8 +18,9 @@ public class CaptureActivity
         extends BaseActivity
         implements ZXingScannerView.ResultHandler {
 
+    private final static int ASK_FOR_CAMERA = 1000;
+
     private ZXingScannerView mScannerView;
-    private final static int ASK_FOR_CAMERA = 0;
 
     @Override
     public void onCreate(Bundle state) {
@@ -27,10 +28,9 @@ public class CaptureActivity
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
         if (ContextCompat.checkSelfPermission(mContext,
-                                              Manifest.permission.CAMERA) != PackageManager
-                .PERMISSION_GRANTED) {
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                                              ASK_FOR_CAMERA);
+                    ASK_FOR_CAMERA);
         } else {
             ShowToast.show("请对准二维码");
         }
@@ -51,7 +51,6 @@ public class CaptureActivity
 
     @Override
     public void handleResult(Result rawResult) {
-
         LogCat.d(rawResult.getText());
         LogCat.d(rawResult.getBarcodeFormat().toString());
 

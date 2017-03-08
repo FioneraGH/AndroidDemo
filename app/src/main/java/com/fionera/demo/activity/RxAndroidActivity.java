@@ -1,6 +1,7 @@
 package com.fionera.demo.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -11,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,12 +20,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.fionera.demo.R;
+import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.ShowToast;
-
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
+import com.fionera.demo.R;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -51,57 +48,60 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 public class RxAndroidActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
-    @ViewInject(R.id.srl_rx_demo)
     private SwipeRefreshLayout swipeRefreshLayout;
-    @ViewInject(R.id.pb_rx_demo)
     private ProgressBar progressBar;
-    @ViewInject(R.id.rv_rx_demo)
-    private RecyclerView recyclerView;
 
     private List<AppInfo> outList = new ArrayList<>();
     private RxAdapter rxAdapter;
     private PublishSubject<Integer> downloadProgress = PublishSubject.create();
 
-    @Event(R.id.btn_rx_demo)
-    private void onClick(View v) {
-        if (ContextCompat.checkSelfPermission(RxAndroidActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
-        downloadProgress.distinct().observeOn(AndroidSchedulers.mainThread()).subscribe(
-                new Observer<Integer>() {
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        ShowToast.show("Download complete");
-                    }
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        ShowToast.show("Download subscribe");
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        progressBar.setProgress(integer);
-                    }
-                });
-        downloadObservable().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_android);
-        x.view().inject(this);
+
+        findViewById(R.id.btn_rx_demo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(RxAndroidActivity.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager
+                        .PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions((Activity) mContext,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                }
+                downloadProgress.distinct().observeOn(AndroidSchedulers.mainThread()).subscribe(
+                        new Observer<Integer>() {
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                ShowToast.show("Download complete");
+                            }
+
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                ShowToast.show("Download subscribe");
+                            }
+
+                            @Override
+                            public void onNext(Integer integer) {
+                                progressBar.setProgress(integer);
+                            }
+                        });
+                downloadObservable().subscribeOn(Schedulers.io()).observeOn(
+                        AndroidSchedulers.mainThread()).subscribe();
+            }
+        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_rx_demo);
+        progressBar = (ProgressBar) findViewById(R.id.pb_rx_demo);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_rx_demo);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         rxAdapter = new RxAdapter();
         recyclerView.setAdapter(rxAdapter);
@@ -191,7 +191,7 @@ public class RxAndroidActivity
             @Override
             public void subscribe(ObservableEmitter<Boolean> subscriber) {
                 boolean result = downloadFile(
-                        "http://down.gfan" +
+                        "http://down.gfan" + "" +
                                 ".com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk",
                         Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/GfanMobile.apk");
@@ -323,7 +323,6 @@ public class RxAndroidActivity
 
     class RxHolder
             extends RecyclerView.ViewHolder {
-
         RxHolder(View itemView) {
             super(itemView);
         }

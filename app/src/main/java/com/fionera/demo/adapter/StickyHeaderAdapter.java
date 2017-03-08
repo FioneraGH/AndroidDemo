@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import com.fionera.demo.R;
 import com.fionera.demo.bean.StickyHeaderBean;
-
-import org.xutils.x;
+import com.fionera.multipic.common.ImageUtil;
 
 import java.util.List;
 
 /**
+ * StickyHeaderAdapter
  * Created by fionera on 17-1-9 in AndroidDemo.
  */
 
@@ -61,15 +61,17 @@ public class StickyHeaderAdapter
             super(itemView);
             ivStickyHeader = (ImageView) itemView.findViewById(R.id.iv_sticky_header);
             tvStickyHeaderName = (TextView) itemView.findViewById(R.id.tv_sticky_header_name);
-            tvStickyHeaderAudience = (TextView) itemView.findViewById(R.id.tv_sticky_header_audience);
-            tvStickyHeaderProfessional = (TextView) itemView.findViewById(R.id.tv_sticky_header_professional);
+            tvStickyHeaderAudience = (TextView) itemView.findViewById(
+                    R.id.tv_sticky_header_audience);
+            tvStickyHeaderProfessional = (TextView) itemView.findViewById(
+                    R.id.tv_sticky_header_professional);
             tvStickyHeaderDesc = (TextView) itemView.findViewById(R.id.tv_sticky_header_desc);
             tvStickyHeaderDate = (TextView) itemView.findViewById(R.id.tv_sticky_header_date);
         }
 
-        public void setData(int position){
+        public void setData(int position) {
             StickyHeaderBean.DataEntity.ComingEntity comingEntity = comingEntityList.get(position);
-            x.image().bind(ivStickyHeader,comingEntity.getImg().replaceAll("w.h","50.80"));
+            ImageUtil.loadImage(comingEntity.getImg().replaceAll("w.h", "50.80"), ivStickyHeader);
             tvStickyHeaderName.setText(comingEntity.getNm());
             tvStickyHeaderDesc.setText(comingEntity.getScm());
             tvStickyHeaderDate.setText(comingEntity.getShowInfo());

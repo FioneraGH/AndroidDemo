@@ -2,12 +2,11 @@ package com.fionera.demo.util;
 
 import android.widget.ImageView;
 
+import com.fionera.multipic.common.ImageUtil;
 import com.taobao.weex.WXSDKManager;
 import com.taobao.weex.adapter.IWXImgLoaderAdapter;
 import com.taobao.weex.common.WXImageStrategy;
 import com.taobao.weex.dom.WXImageQuality;
-
-import org.xutils.x;
 
 /**
  * WeexImageLoaderAdapter
@@ -22,7 +21,7 @@ public class WeexImageLoaderAdapter
         WXSDKManager.getInstance().postOnUiThread(new Runnable() {
             @Override
             public void run() {
-                x.image().bind(view, url);
+                ImageUtil.loadImage(url,view);
             }
         }, 0);
     }

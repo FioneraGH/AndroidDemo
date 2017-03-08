@@ -10,11 +10,7 @@ import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.StickyHeaderAdapter;
 import com.fionera.demo.bean.StickyHeaderBean;
-import com.fionera.demo.util.HttpUtils;
 import com.fionera.demo.view.SectionDecoration;
-
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +18,6 @@ import java.util.List;
 public class StickyHeaderActivity
         extends BaseActivity {
 
-    @ViewInject(R.id.rv_sticky_header)
     private RecyclerView recyclerView;
 
     private List<String> groups = new ArrayList<>();
@@ -41,8 +36,8 @@ public class StickyHeaderActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sticky_header);
-        x.view().inject(this);
 
+        recyclerView = (RecyclerView) findViewById(R.id.rv_sticky_header);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         groups.add("1");
         groups.add("1");
@@ -76,23 +71,7 @@ public class StickyHeaderActivity
     }
 
     private void fetchData() {
-        HttpUtils.get(URL, null, new HttpUtils.HttpRequestCallBack<String>(URL) {
 
-            @Override
-            public void onSucceed(String json) {
-                processData(json);
-            }
-
-            @Override
-            public void onFailed(String reason) {
-
-            }
-
-            @Override
-            public void onNoNetwork() {
-
-            }
-        });
     }
 
     private void processData(String json) {

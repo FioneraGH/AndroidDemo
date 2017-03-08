@@ -18,23 +18,15 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     private final int IS_NOT_COMING_MSG = 1;
 
     private List<ChatMsgBean> data;
-    private int count;
     private LayoutInflater mInflater;
 
-    public ChatMsgViewAdapter(Context context, List<ChatMsgBean> data, int count) {
+    public ChatMsgViewAdapter(Context context, List<ChatMsgBean> data) {
         this.data = data;
-        this.count = count;
         mInflater = LayoutInflater.from(context);
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     // 获取ListView的项个数
     public int getCount() {
-        // 如果数量不足一页（20行） 则返回真是数量，否则返回一页的数量
-        if (count > 20) return count;
         return data.size();
     }
 
@@ -51,7 +43,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     // 判定左右回收类型
     @Override
     public int getItemViewType(int position) {
-        if (data.get(position).getMsgType() == true) {
+        if (data.get(position).getMsgType()) {
             return IS_COMING_MSG;
         }
         return IS_NOT_COMING_MSG;
@@ -73,17 +65,17 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         if (convertView == null) {
 
             if (getItemViewType(position) == IS_COMING_MSG) {
-                convertView = mInflater.inflate(R.layout.lv_chat_msg_left_item, null);
+                convertView = mInflater.inflate(R.layout.lv_chat_msg_left_item, parent, false);
             } else if (getItemViewType(position) == IS_NOT_COMING_MSG) {
-                convertView = mInflater.inflate(R.layout.lv_chat_msg_right_item, null);
+                convertView = mInflater.inflate(R.layout.lv_chat_msg_right_item, parent, false);
             }
-
             viewHolder = new ViewHolder();
-            viewHolder.tvSendTime = (TextView) convertView.findViewById(R.id.tv_sendtime);
-            viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
-            viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_chatcontent);
-
-            convertView.setTag(viewHolder);
+            if (convertView != null) {
+                viewHolder.tvSendTime = (TextView) convertView.findViewById(R.id.tv_sendtime);
+                viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
+                viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_chatcontent);
+                convertView.setTag(viewHolder);
+            }
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
@@ -95,11 +87,9 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-
     class ViewHolder {
-
-        public TextView tvSendTime;
-        public TextView tvUserName;
-        public TextView tvContent;
+        TextView tvSendTime;
+        TextView tvUserName;
+        TextView tvContent;
     }
 }

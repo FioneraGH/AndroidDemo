@@ -1,7 +1,6 @@
 package com.fionera.demo.util.pageindicator.anim.select;
 
 import android.animation.ObjectAnimator;
-import android.support.annotation.Keep;
 import android.view.View;
 
 import com.fionera.demo.util.pageindicator.anim.base.IndicatorBaseAnimator;

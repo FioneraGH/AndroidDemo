@@ -1,20 +1,26 @@
 package com.fionera.multipic.ui;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fionera.base.activity.TitleBarActivity;
@@ -23,8 +29,6 @@ import com.fionera.multipic.R;
 import com.fionera.multipic.common.ImageConst;
 import com.fionera.multipic.common.ImageUtil;
 import com.fionera.multipic.common.LocalImageHelper;
-
-import org.xutils.x;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +40,7 @@ import java.util.Map;
 
 public class LocalAlbum
         extends TitleBarActivity {
-    private ListView listView;
-    private List<String> folderNames;
+    private final static int ASK_FOR_CAMERA = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,34 +60,13 @@ public class LocalAlbum
             return;
         }
 
-        listView = (ListView) findViewById(R.id.local_album_list);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LocalImageHelper.getInstance().initImage();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!isDestroy) {
-                            listView.setAdapter(new FolderAdapter(mContext, LocalImageHelper.getInstance().getFolderMap()));
-                        }
-                    }
-                });
-            }
-        }).start();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(mContext, LocalAlbumDetail.class);
-                intent.putExtra("local_folder_name", folderNames.get(i));
-                intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                startActivity(intent);
-                finish();
-            }
-        });
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.local_album_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        FolderAdapter folderAdapter = new FolderAdapter(mContext, LocalImageHelper.getInstance().getFolderMap());
+        recyclerView.setAdapter(folderAdapter);
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private void tryToCapturePic() {
         /*
           统计审核照片数量，判断是否继续添加照片
@@ -97,12 +79,24 @@ public class LocalAlbum
             return;
         }
 
+        if (ContextCompat.checkSelfPermission(mContext,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    ASK_FOR_CAMERA);
+            return;
+        }
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        String cameraPath = LocalImageHelper.getInstance().setCameraImgPath();
+        String cameraPath = LocalImageHelper.getInstance().setupCameraImgPath();
         File file = new File(cameraPath);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        startActivityForResult(intent,
-                ImageConst.REQUEST_CODE_GET_IMAGE_BY_CAMERA);
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(mContext, "com.fionera.demo.FileProvider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, ImageConst.REQUEST_CODE_GET_IMAGE_BY_CAMERA);
     }
 
     @Override
@@ -125,16 +119,24 @@ public class LocalAlbum
                         localFile.setOrientation(getBitmapDegree(cameraPath));
                         LocalImageHelper.getInstance().getCheckedItems().add(localFile);
                         LocalImageHelper.getInstance().setResultOk(true);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 1000);
+                        finish();
                     } else {
                         ShowToast.show("图片获取失败");
                     }
                     break;
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (ASK_FOR_CAMERA == requestCode && Manifest.permission.CAMERA.equals(permissions[0])) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                tryToCapturePic();
+            } else {
+                ShowToast.show("该功能需要相机权限支持");
             }
         }
     }
@@ -162,18 +164,18 @@ public class LocalAlbum
         return degree;
     }
 
-    private class FolderAdapter extends BaseAdapter {
-        Map<String, List<LocalImageHelper.LocalFile>> folders;
+    private class FolderAdapter extends RecyclerView.Adapter<ViewHolder> {
         Context context;
+        Map<String, List<LocalImageHelper.LocalFile>> folders;
+        List<String> folderNames;
 
         FolderAdapter(Context context, Map<String, List<LocalImageHelper.LocalFile>> folders) {
-            this.folders = folders;
             this.context = context;
+            this.folders = folders;
             folderNames = new ArrayList<>();
 
-            for (Object set : folders.entrySet()) {
-                Map.Entry entry = (Map.Entry) set;
-                String key = (String) entry.getKey();
+            for (Map.Entry<String, List<LocalImageHelper.LocalFile>> set : folders.entrySet()) {
+                String key = set.getKey();
                 folderNames.add(key);
             }
 
@@ -186,45 +188,52 @@ public class LocalAlbum
             });
         }
 
+
         @Override
-        public int getCount() {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.rv_local_album_foler_item, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            String name = folderNames.get(position);
+            List<LocalImageHelper.LocalFile> files = folders.get(name);
+            holder.textView.setText(name + "(" + files.size() + ")");
+            if (files.size() > 0) {
+                holder.imageView.setVisibility(View.VISIBLE);
+                ImageUtil.loadImage(files.get(0).getThumbnailUri(), holder.imageView);
+            } else {
+                holder.imageView.setVisibility(View.GONE);
+            }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, LocalAlbumDetail.class);
+                    intent.putExtra("local_folder_name",
+                            folderNames.get(holder.getAdapterPosition()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
             return folders.size();
         }
+    }
 
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
+    private class ViewHolder
+            extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView textView;
 
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View convertView, ViewGroup viewGroup) {
-            ViewHolder viewHolder;
-            if (convertView == null || convertView.getTag() == null) {
-                viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(context).inflate(R.layout.ll_local_album_foler_item, viewGroup,false);
-                viewHolder.imageView = (ImageView) convertView.findViewById(R.id.iv_local_album_folder_preview);
-                viewHolder.textView = (TextView) convertView.findViewById(R.id.iv_local_album_folder_name);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-            String name = folderNames.get(i);
-            List<LocalImageHelper.LocalFile> files = folders.get(name);
-            viewHolder.textView.setText(name + "(" + files.size() + ")");
-            if (files.size() > 0) {
-                ImageUtil.loadImage(files.get(0).getThumbnailUri(), viewHolder.imageView);
-            }
-            return convertView;
-        }
-
-        private class ViewHolder {
-            ImageView imageView;
-            TextView textView;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            imageView = (ImageView) itemView.findViewById(R.id.iv_local_album_folder_preview);
+            textView = (TextView) itemView.findViewById(R.id.iv_local_album_folder_name);
         }
     }
 }

@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -22,24 +23,20 @@ import android.text.style.ImageSpan;
 import android.text.style.URLSpan;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.fionera.demo.R;
-
-import org.xutils.common.Callback;
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RichText
-        extends TextView {
+        extends AppCompatTextView {
 
     private static Pattern IMAGE_TAG_PATTERN = Pattern.compile("\\<img(.*?)\\>");
     private static Pattern IMAGE_WIDTH_PATTERN = Pattern.compile("width=\"(.*?)\"");
@@ -49,7 +46,6 @@ public class RichText
     private Drawable placeHolder, errorImage;//占位图，错误图
     private OnImageClickListener onImageClickListener;//图片点击回调
     private OnURLClickListener onURLClickListener;//超链接点击回调
-    private HashSet<ImageTarget> targets;
     private HashMap<String, ImageHolder> mImages;
     private ImageFixListener mImageFixListener;
     private int d_w = 200;
@@ -70,7 +66,6 @@ public class RichText
     }
 
     private void init(Context context, AttributeSet attrs) {
-        targets = new HashSet<>();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RichText);
         placeHolder = typedArray.getDrawable(R.styleable.RichText_place_holder);
         errorImage = typedArray.getDrawable(R.styleable.RichText_error_image);
@@ -89,14 +84,12 @@ public class RichText
         typedArray.recycle();
     }
 
-
     /**
      * 设置富文本
      *
      * @param text 富文本
      */
     public void setRichText(String text) {
-        targets.clear();
         matchImages(text);
 
         Spanned spanned = Html.fromHtml(text, asyncImageGetter, null);
@@ -158,11 +151,6 @@ public class RichText
         super.setText(spanned);
         setMovementMethod(LinkMovementMethod.getInstance());
     }
-
-    private void addTarget(ImageTarget target) {
-        targets.add(target);
-    }
-
 
     /**
      * 从文本中拿到<img/>标签,并获取图片url和宽高
@@ -226,66 +214,33 @@ public class RichText
         return null;
     }
 
-    private class ImageTarget
-            implements Callback.CommonCallback<Drawable> {
-        private final URLDrawable urlDrawable;
-
-        ImageTarget(URLDrawable urlDrawable) {
-            this.urlDrawable = urlDrawable;
-        }
-
-        @Override
-        public void onSuccess(Drawable result) {
-            /*
-              force create a new bitmap which used to create a new drawable to refresh the resources
-             */
-            Bitmap bitmap = ((BitmapDrawable) result).getBitmap();
-            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-            drawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-            urlDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-            urlDrawable.setDrawable(drawable);
-            RichText.this.setText(getText());
-        }
-
-        @Override
-        public void onError(Throwable ex, boolean isOnCallback) {
-
-        }
-
-        @Override
-        public void onCancelled(CancelledException cex) {
-
-        }
-
-        @Override
-        public void onFinished() {
-
-        }
-    }
-
     private Html.ImageGetter asyncImageGetter = new Html.ImageGetter() {
         @Override
         public Drawable getDrawable(String source) {
             final URLDrawable urlDrawable = new URLDrawable(getResources(), null);
-            ImageTarget target = new ImageTarget(urlDrawable);
-            addTarget(target);
             ImageHolder holder = mImages.get(source);
-            ImageOptions.Builder load = new ImageOptions.Builder();
             if (mImageFixListener != null && holder != null) {
                 mImageFixListener.onFix(holder);
                 if (holder.width != -1 && holder.height != -1) {
-                    load.setSize(holder.width, holder.height);
-                }
-
-                if (holder.scaleType == ImageHolder.CENTER_CROP) {
-                    load.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
-                } else if (holder.scaleType == ImageHolder.CENTER_INSIDE) {
-                    load.setImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    Glide.with(getContext()).load(source).asBitmap().override(holder.width,
+                            holder.height).placeholder(placeHolder).error(errorImage).into(
+                            new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(Bitmap resource,
+                                                            GlideAnimation<? super Bitmap>
+                                                                    glideAnimation) {
+                                    Drawable drawable = new BitmapDrawable(getResources(),
+                                            resource);
+                                    drawable.setBounds(0, 0, resource.getWidth(),
+                                            resource.getHeight());
+                                    urlDrawable.setBounds(0, 0, resource.getWidth(),
+                                            resource.getHeight());
+                                    urlDrawable.setDrawable(drawable);
+                                    RichText.this.setText(getText());
+                                }
+                            });
                 }
             }
-            ImageOptions options = load.setLoadingDrawable(placeHolder)
-                    .setFailureDrawable(errorImage).build();
-            x.image().loadDrawable(source, options, target);
             return urlDrawable;
         }
     };

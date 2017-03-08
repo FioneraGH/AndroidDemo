@@ -3,12 +3,10 @@ package com.fionera.demo.fragment;
 import android.view.View;
 
 import com.fionera.base.fragment.BaseFragment;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.RichText;
-
-import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
@@ -20,9 +18,6 @@ import java.util.List;
 public class RichTextFragment
         extends BaseFragment {
 
-    @ViewInject(R.id.rt_content)
-    private RichText richText;
-
     @Override
     public int setLayoutResource() {
         return R.layout.fragment_bitmap_util;
@@ -31,6 +26,8 @@ public class RichTextFragment
     @Override
     public void initViews(View rootView) {
         setTitleBarText("内容");
+
+        RichText richText = (RichText) rootView.findViewById(R.id.rt_content);
         richText.setOnImageClickListener(new RichText.OnImageClickListener() {
             @Override
             public void imageClicked(List<String> imageUrls, int position) {

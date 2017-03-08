@@ -8,21 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.popupwindow.ProvincePopup;
 import com.fionera.demo.service.BluetoothLeService;
+import com.fionera.demo.util.BlueToothScanUtil;
 import com.fionera.demo.util.DesUtil;
+import com.fionera.demo.util.LogCat;
 import com.fionera.demo.util.NavigationBarUtil;
-import com.fionera.base.util.ShowToast;
 import com.fionera.multipic.common.ImageConst;
+import com.fionera.multipic.common.ImageUtil;
 import com.fionera.multipic.common.LocalImageHelper;
 import com.fionera.multipic.ui.LocalAlbum;
-
-import org.xutils.common.util.LogUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ public class ConstraintLayoutActivity
 
     private ProvincePopup provincePopup;
 
+    private ImageView ivConstraintPr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,8 @@ public class ConstraintLayoutActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
+
+        ivConstraintPr = (ImageView) findViewById(R.id.iv_constraint_pr);
 
         provincePopup = new ProvincePopup(mContext);
 
@@ -87,17 +93,15 @@ public class ConstraintLayoutActivity
         });
 
         findViewById(R.id.btn_contrant_connect_1).setOnClickListener(view -> {
-            Intent intent = new Intent(ConstraintLayoutActivity.this, BluetoothLeService.class);
+            Intent intent = new Intent(mContext, BluetoothLeService.class);
             intent.putExtra("DEVICE_ADDRESS", "88:4A:EA:30:34:FD");
             ConstraintLayoutActivity.this.startService(intent);
         });
         findViewById(R.id.btn_contrant_connect_2).setOnClickListener(view -> {
-            Intent intent = new Intent(ConstraintLayoutActivity.this, BluetoothLeService.class);
-            intent.putExtra("DEVICE_ADDRESS", "20:91:48:A2:D9:BD");
-            ConstraintLayoutActivity.this.startService(intent);
-//            BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(this);
-//            blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
-//            blueToothScanUtil.startSearchBlueDevice();
+            Intent intent = new Intent(mContext, BluetoothLeService.class);
+            BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(this);
+            blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
+            blueToothScanUtil.startSearchBlueDevice();
         });
         findViewById(R.id.btn_contrant_send_1).setOnClickListener(view -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
@@ -153,7 +157,7 @@ public class ConstraintLayoutActivity
         List<byte[]> list = separate(makeDataPacket(packet, extraData));
 
         for (int i = 0; i < list.size(); i++) {
-            LogUtil.e("Need Send Data：" + bytesToHexString(list.get(i)));
+            LogCat.e("Need Send Data：" + bytesToHexString(list.get(i)));
             BluetoothLeService.writeValue(address,list.get(i));
             try {
                 Thread.sleep(100);
@@ -186,9 +190,9 @@ public class ConstraintLayoutActivity
     private List<Byte> makeDataPacket(List<Byte> packet, List<Byte> extraData) {
         byte[] length = intToByteArray(packet.size() + 2 + extraData.size());
         byte packetHead = 0x02;
-        packet.add(0, packetHead); //添加包头
-        packet.add(1, length[1]); //添加长度字低位
-        packet.add(2, length[0]); //添加长度字高位
+        packet.add(0, packetHead); // 添加包头
+        packet.add(1, length[1]); // 添加长度字低位
+        packet.add(2, length[0]); // 添加长度字高位
         for (int i = 0; i < extraData.size(); i++) {
             packet.add(i + 4, extraData.get(i));
         }
@@ -203,10 +207,10 @@ public class ConstraintLayoutActivity
         byte[] checkDes = null;
         try {
             checkDes = DesUtil.encrypt(c, KEY);
-            LogUtil.e("Send Data Before Encrypt:" + bytesToHexString(c));
-            LogUtil.e("Send Data After Encrypt:" + bytesToHexString(checkDes));
+            LogCat.e("Send Data Before Encrypt:" + bytesToHexString(c));
+            LogCat.e("Send Data After Encrypt:" + bytesToHexString(checkDes));
             byte[] result = DesUtil.decrypt(checkDes, KEY);
-            LogUtil.e("Send Data After Decrypt:" + bytesToHexString(result));
+            LogCat.e("Send Data After Decrypt:" + bytesToHexString(result));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -289,6 +293,9 @@ public class ConstraintLayoutActivity
                     List<LocalImageHelper.LocalFile> files = LocalImageHelper.getInstance()
                             .getCheckedItems();
                     ShowToast.show(files.size());
+                    if (files.size() > 0) {
+                        ImageUtil.loadImage(files.get(0).getOriginalUri(), ivConstraintPr);
+                    }
                 }
                 break;
         }

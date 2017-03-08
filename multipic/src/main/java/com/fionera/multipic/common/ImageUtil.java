@@ -7,8 +7,10 @@ import com.bumptech.glide.Glide;
 import com.fionera.multipic.R;
 
 /**
+ * ImageUtil
  * Created by fionera on 16-6-15.
  */
+
 @SuppressWarnings("unused")
 public class ImageUtil {
 
