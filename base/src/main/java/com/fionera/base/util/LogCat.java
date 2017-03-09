@@ -1,4 +1,4 @@
-package com.fionera.demo.util;
+package com.fionera.base.util;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -6,8 +6,10 @@ import android.util.Log;
 import java.util.Locale;
 
 /**
+ * LogCat
  * Created by fionera on 15-12-6.
  */
+
 public class LogCat {
     private static boolean isDebug = true;
 

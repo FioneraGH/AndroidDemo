@@ -8,7 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.fionera.base.activity.BaseActivity;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 import com.fionera.base.util.ShowToast;
 import com.google.zxing.Result;
 

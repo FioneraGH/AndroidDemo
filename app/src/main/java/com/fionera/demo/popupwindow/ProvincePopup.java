@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 import com.fionera.demo.view.wheelview.ArrayWheelAdapter;
 import com.fionera.demo.view.wheelview.OnWheelChangedListener;
 import com.fionera.demo.view.wheelview.ProvinceResultBean;

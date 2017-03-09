@@ -38,14 +38,14 @@ import java.util.regex.Pattern;
 public class RichText
         extends AppCompatTextView {
 
-    private static Pattern IMAGE_TAG_PATTERN = Pattern.compile("\\<img(.*?)\\>");
+    private static Pattern IMAGE_TAG_PATTERN = Pattern.compile("<img(.*?)>");
     private static Pattern IMAGE_WIDTH_PATTERN = Pattern.compile("width=\"(.*?)\"");
     private static Pattern IMAGE_HEIGHT_PATTERN = Pattern.compile("height=\"(.*?)\"");
     private static Pattern IMAGE_SRC_PATTERN = Pattern.compile("src=\"(.*?)\"");
 
-    private Drawable placeHolder, errorImage;//占位图，错误图
-    private OnImageClickListener onImageClickListener;//图片点击回调
-    private OnURLClickListener onURLClickListener;//超链接点击回调
+    private Drawable placeHolder, errorImage; // 占位图，错误图
+    private OnImageClickListener onImageClickListener; // 图片点击回调
+    private OnURLClickListener onURLClickListener;// 超链接 点击回调
     private HashMap<String, ImageHolder> mImages;
     private ImageFixListener mImageFixListener;
     private int d_w = 200;
@@ -92,7 +92,7 @@ public class RichText
     public void setRichText(String text) {
         matchImages(text);
 
-        Spanned spanned = Html.fromHtml(text, asyncImageGetter, null);
+        Spanned spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY, asyncImageGetter, null);
         SpannableStringBuilder spannableStringBuilder;
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;
@@ -105,7 +105,7 @@ public class RichText
                 .getSpans(0, spannableStringBuilder.length(), ImageSpan.class);
         final List<String> imageUrls = new ArrayList<>();
 
-        for (int i = 0, size = imageSpans.length; i < size; i++) {
+        for (int i = 0, size = imageSpans == null ? 0 : imageSpans.length; i < size; i++) {
             ImageSpan imageSpan = imageSpans[i];
             String imageUrl = imageSpan.getSource();
             int start = spannableStringBuilder.getSpanStart(imageSpan);
@@ -172,6 +172,7 @@ public class RichText
                 continue;
             }
             holder = new ImageHolder(src, position);
+
             widthMatcher = IMAGE_WIDTH_PATTERN.matcher(image);
             if (widthMatcher.find()) {
                 holder.width = parseStringToInteger(
@@ -249,7 +250,7 @@ public class RichText
             extends BitmapDrawable {
         private Drawable drawable;
 
-        public URLDrawable(Resources res, Bitmap bitmap) {
+        URLDrawable(Resources res, Bitmap bitmap) {
             super(res, bitmap);
         }
 
@@ -270,14 +271,8 @@ public class RichText
 
         private OnURLClickListener onURLClickListener;
 
-        public CallableURLSpan(String url, OnURLClickListener onURLClickListener) {
+        CallableURLSpan(String url, OnURLClickListener onURLClickListener) {
             super(url);
-            this.onURLClickListener = onURLClickListener;
-        }
-
-        @SuppressWarnings("unused")
-        public CallableURLSpan(Parcel src, OnURLClickListener onURLClickListener) {
-            super(src);
             this.onURLClickListener = onURLClickListener;
         }
 
@@ -298,7 +293,7 @@ public class RichText
         public void writeToParcel(Parcel dest, int flags) {
         }
 
-        protected CallableURLSpan(Parcel in) {
+        CallableURLSpan(Parcel in) {
             super(in);
         }
 
@@ -321,7 +316,7 @@ public class RichText
         public static final int CENTER_INSIDE = 2;
 
         @IntDef({DEFAULT, CENTER_CROP, CENTER_INSIDE})
-        public @interface ScaleType {
+        @interface ScaleType {
         }
 
         private final String src;
@@ -329,7 +324,7 @@ public class RichText
         private int width = -1, height = -1;
         private int scaleType = DEFAULT;
 
-        public ImageHolder(String src, int position) {
+        ImageHolder(String src, int position) {
             this.src = src;
             this.position = position;
         }
@@ -377,31 +372,25 @@ public class RichText
         this.errorImage.setBounds(0, 0, d_w, d_h);
     }
 
-    public void setOnImageClickListener(OnImageClickListener onImageClickListener) {
-        this.onImageClickListener = onImageClickListener;
-    }
-
     public void setImageFixListener(ImageFixListener mImageFixListener) {
         this.mImageFixListener = mImageFixListener;
     }
 
-    /**
-     * 设置超链接点击回调事件（需在setRichText方法之前调用）
-     *
-     * @param onURLClickListener 回调
-     */
     public void setOnURLClickListener(OnURLClickListener onURLClickListener) {
         this.onURLClickListener = onURLClickListener;
     }
 
-    public interface OnImageClickListener {
+    public void setOnImageClickListener(OnImageClickListener onImageClickListener) {
+        this.onImageClickListener = onImageClickListener;
+    }
+
+    public interface ImageFixListener {
         /**
-         * 图片被点击后的回调方法
+         * 修复图片尺寸的方法
          *
-         * @param imageUrls 本篇富文本内容里的全部图片
-         * @param position  点击处图片在imageUrls中的位置
+         * @param holder ImageHolder对象
          */
-        void imageClicked(List<String> imageUrls, int position);
+        void onFix(ImageHolder holder);
     }
 
     public interface OnURLClickListener {
@@ -415,13 +404,14 @@ public class RichText
         boolean urlClicked(String url);
     }
 
-    public interface ImageFixListener {
+    public interface OnImageClickListener {
         /**
-         * 修复图片尺寸的方法
+         * 图片被点击后的回调方法
          *
-         * @param holder ImageHolder对象
+         * @param imageUrls 本篇富文本内容里的全部图片
+         * @param position  点击处图片在imageUrls中的位置
          */
-        void onFix(ImageHolder holder);
+        void imageClicked(List<String> imageUrls, int position);
     }
 }
 

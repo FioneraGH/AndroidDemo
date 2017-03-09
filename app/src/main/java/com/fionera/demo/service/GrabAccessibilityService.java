@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 
 import java.util.List;
 

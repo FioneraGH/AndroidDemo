@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.fionera.base.util.LogCat;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.service.BluetoothLeService;
 

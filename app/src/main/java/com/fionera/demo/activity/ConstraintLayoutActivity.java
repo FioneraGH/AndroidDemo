@@ -19,7 +19,7 @@ import com.fionera.demo.popupwindow.ProvincePopup;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.BlueToothScanUtil;
 import com.fionera.demo.util.DesUtil;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 import com.fionera.demo.util.NavigationBarUtil;
 import com.fionera.multipic.common.ImageConst;
 import com.fionera.multipic.common.ImageUtil;

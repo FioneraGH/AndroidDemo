@@ -21,8 +21,9 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.LogCat;
 import com.fionera.base.util.ShowToast;
-import com.fionera.demo.fragment.ContactFragment;
+import com.fionera.demo.fragment.ConstraintSetFragment;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.fionera.demo.fragment.HomePageFragment;
 import com.fionera.demo.fragment.LoginFragment;
@@ -72,8 +73,8 @@ public class MainActivity
 
         HomePageFragment homePageFragment = new HomePageFragment();
         views.add(homePageFragment);
-        ContactFragment contactFragment = new ContactFragment();
-        views.add(contactFragment);
+        ConstraintSetFragment constraintSetFragment = new ConstraintSetFragment();
+        views.add(constraintSetFragment);
         RichTextFragment richTextFragment = new RichTextFragment();
         views.add(richTextFragment);
         ExtrasFragment extrasFragment = new ExtrasFragment();
@@ -167,10 +168,10 @@ public class MainActivity
             packageManager.setComponentEnabledSetting(originComponentName,
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         } else {
-            packageManager.setComponentEnabledSetting(anotherComponentName,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             packageManager.setComponentEnabledSetting(originComponentName,
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            packageManager.setComponentEnabledSetting(anotherComponentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         }
 
         killLauncher(packageManager);
@@ -184,7 +185,9 @@ public class MainActivity
         for (ResolveInfo res : resolves) {
             if (res.activityInfo != null) {
                 ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+                LogCat.d("Need kill Package:" + res.activityInfo.packageName);
                 am.killBackgroundProcesses(res.activityInfo.packageName);
+                break;
             }
         }
     }

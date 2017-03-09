@@ -11,8 +11,10 @@ import com.fionera.base.util.ShowToast;
 import java.util.ArrayList;
 
 /**
+ * GalleryScrollView
  * Created by fionera on 16-2-11.
  */
+
 public class GalleryScrollView
         extends HorizontalScrollView {
     private int subChildCount = 0;

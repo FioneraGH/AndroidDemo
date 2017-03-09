@@ -7,7 +7,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 
 import java.util.ArrayList;
 import java.util.List;

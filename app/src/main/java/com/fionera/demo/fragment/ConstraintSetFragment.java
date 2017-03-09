@@ -11,11 +11,11 @@ import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.R;
 
 /**
- * ContactFragment
+ * ConstraintSetFragment
  * Created by fionera on 15-10-3.
  */
 
-public class ContactFragment
+public class ConstraintSetFragment
         extends BaseFragment {
 
     private ConstraintLayout clContact;
@@ -26,7 +26,7 @@ public class ContactFragment
 
     @Override
     public int setLayoutResource() {
-        return R.layout.fragment_contact;
+        return R.layout.fragment_constraint_set;
     }
 
     @Override
@@ -113,8 +113,11 @@ public class ContactFragment
                 chainConstraintSet.connect(R.id.btn_contact3, ConstraintSet.END, R.id.btn_contact4,
                         ConstraintSet.START, 0);
 
-                chainConstraintSet.createHorizontalChainRtl(R.id.btn_contact1, ConstraintSet.START,
-                        R.id.btn_contact4, ConstraintSet.END,
+                /*
+                rtl lose effect
+                 */
+                chainConstraintSet.createHorizontalChain(R.id.btn_contact1, ConstraintSet.LEFT,
+                        R.id.btn_contact4, ConstraintSet.RIGHT,
                         new int[]{R.id.btn_contact1, R.id.btn_contact4}, null,
                         ConstraintWidget.CHAIN_SPREAD);
 

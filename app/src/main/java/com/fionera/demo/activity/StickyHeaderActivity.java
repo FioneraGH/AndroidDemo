@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.OkHttpUtil;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.StickyHeaderAdapter;
 import com.fionera.demo.bean.StickyHeaderBean;
@@ -71,7 +72,17 @@ public class StickyHeaderActivity
     }
 
     private void fetchData() {
+        OkHttpUtil.getEnqueue(URL, new OkHttpUtil.NetCallBack() {
+            @Override
+            public void onSucceed(String json) {
+                processData(json);
+            }
 
+            @Override
+            public void onFailed(String reason) {
+
+            }
+        }, getLocalClassName());
     }
 
     private void processData(String json) {

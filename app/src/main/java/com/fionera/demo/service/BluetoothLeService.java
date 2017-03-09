@@ -19,7 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

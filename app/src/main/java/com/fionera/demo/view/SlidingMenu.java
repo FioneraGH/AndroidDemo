@@ -11,13 +11,15 @@ import android.widget.LinearLayout;
 
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 
 /**
+ * SlidingMenu
  * Created by fionera on 15-8-14.
  */
+
 public class SlidingMenu
-        extends HorizontalScrollView {
+        extends HorizontalScrollView implements Runnable {
 
     private ViewGroup mMenu;
     private ViewGroup mContent;
@@ -40,15 +42,11 @@ public class SlidingMenu
     public SlidingMenu(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        /**
-         * 获取自定义参数
-         */
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SlidingMenu,
                 defStyle, 0);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
-
             switch (attr) {
                 case R.styleable.SlidingMenu_rightPadding:
                     mMenuRightPadding = a.getDimensionPixelSize(attr, (int) TypedValue
@@ -58,18 +56,13 @@ public class SlidingMenu
             }
         }
         a.recycle();
-
     }
 
     /**
      * 设置子View的宽和高以及自己的宽和高
-     *
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         if (!firstMeasure) {
@@ -85,64 +78,50 @@ public class SlidingMenu
 
     /**
      * 布局参数，通过设置偏移量将Menu隐藏
-     *
-     * @param changed
-     * @param l
-     * @param t
-     * @param r
-     * @param b
      */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-
         super.onLayout(changed, l, t, r, b);
 
         LogCat.d(mMenuWidth + "");
         if (changed) {
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    SlidingMenu.this.scrollTo(mMenuWidth, 0);
-                }
-            }, 1);
+            postDelayed(this, 1);
         }
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public void run() {
+        scrollTo(mMenuWidth, 0);
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_UP:
-                //隐藏在左边的宽度
-                this.smoothScrollTo(getScrollX() > mMenuWidth / 2 ? mMenuWidth : 0, 0);
+                // 隐藏在左边的宽度
+                smoothScrollTo(getScrollX() > mMenuWidth / 2 ? mMenuWidth : 0, 0);
                 isOpen = !isOpen;
                 return true;
         }
-
-        //不能覆盖，会造成其他Action失效
         return super.onTouchEvent(ev);
     }
 
+    @SuppressWarnings("unused")
     public void toggleMenu() {
-        this.smoothScrollTo(isOpen ? mMenuWidth : 0, 0);
+        smoothScrollTo(isOpen ? mMenuWidth : 0, 0);
         isOpen = !isOpen;
     }
 
     /**
      * 滚动时设置
-     *
-     * @param l
-     * @param t
-     * @param oldl
-     * @param oldt
      */
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
 
-        /**
-         * l即是当前getScrollX的值，初值为mMenuWidth -> 0
+        /*
+          l即是当前getScrollX的值，初值为mMenuWidth -> 0
          */
         float scale = l * 1.0f / mMenuWidth;
 
@@ -154,8 +133,8 @@ public class SlidingMenu
         mMenu.setScaleX(1.0f - 0.3f * scale);
         mMenu.setScaleY(1.0f - 0.3f * scale);
 
-        /**
-         * 调用属性动画，设置TransactionX
+        /*
+          调用属性动画，设置TransactionX
          */
         mMenu.setTranslationX(mMenuWidth * scale * 0.7f);
         mMenu.setAlpha(1.0f - 1.0f * scale);

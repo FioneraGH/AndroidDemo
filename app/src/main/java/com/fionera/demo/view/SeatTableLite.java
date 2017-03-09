@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.fionera.base.util.DisplayUtils;
 import com.fionera.demo.R;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 
 import java.util.ArrayList;
 import java.util.Collections;

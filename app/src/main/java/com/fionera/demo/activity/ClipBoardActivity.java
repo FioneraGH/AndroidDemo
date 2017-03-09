@@ -21,7 +21,7 @@ import com.fionera.demo.R;
 import com.fionera.demo.service.GrabAccessibilityService;
 import com.fionera.demo.service.ListenClipboardService;
 import com.fionera.demo.util.KeyboardUtil;
-import com.fionera.demo.util.LogCat;
+import com.fionera.base.util.LogCat;
 
 public final class ClipBoardActivity
         extends BaseActivity {

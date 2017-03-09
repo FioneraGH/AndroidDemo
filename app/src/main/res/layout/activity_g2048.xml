@@ -19,7 +19,6 @@
         android:id="@+id/nc_g2048_game_board"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
         android:padding="10dp"/>
 
     <com.fionera.demo.view.GalleryScrollView
