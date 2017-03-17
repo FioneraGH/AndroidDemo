@@ -13,13 +13,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.LogCat;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.popupwindow.ProvincePopup;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.BlueToothScanUtil;
 import com.fionera.demo.util.DesUtil;
-import com.fionera.base.util.LogCat;
 import com.fionera.demo.util.NavigationBarUtil;
 import com.fionera.multipic.common.ImageConst;
 import com.fionera.multipic.common.ImageUtil;
@@ -48,7 +48,12 @@ public class ConstraintLayoutActivity
         setContentView(R.layout.activity_constraint_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_constrant_title);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -61,7 +66,7 @@ public class ConstraintLayoutActivity
 
         provincePopup = new ProvincePopup(mContext);
 
-        TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
+        final TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
         textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +84,7 @@ public class ConstraintLayoutActivity
                 });
                 provincePopup.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,
                         NavigationBarUtil.getNavigationBarHeight(mContext));
-                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                final WindowManager.LayoutParams lp = getWindow().getAttributes();
                 lp.alpha = 0.3f;
                 getWindow().setAttributes(lp);
                 provincePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -92,48 +97,66 @@ public class ConstraintLayoutActivity
             }
         });
 
-        findViewById(R.id.btn_contrant_connect_1).setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, BluetoothLeService.class);
-            intent.putExtra("DEVICE_ADDRESS", "88:4A:EA:30:34:FD");
-            ConstraintLayoutActivity.this.startService(intent);
+        findViewById(R.id.btn_contrant_connect_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, BluetoothLeService.class);
+                intent.putExtra("DEVICE_ADDRESS", "88:4A:EA:30:34:FD");
+                ConstraintLayoutActivity.this.startService(intent);
+            }
         });
-        findViewById(R.id.btn_contrant_connect_2).setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, BluetoothLeService.class);
-            BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(this);
-            blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
-            blueToothScanUtil.startSearchBlueDevice();
+        findViewById(R.id.btn_contrant_connect_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, BluetoothLeService.class);
+                BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(mContext);
+                blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
+                blueToothScanUtil.startSearchBlueDevice();
+            }
         });
-        findViewById(R.id.btn_contrant_send_1).setOnClickListener(view -> {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
-            String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-            byte[] byteDate = hexStr2Bytes(date);
-            byte[] cmd = new byte[8];
-            cmd[0] = 0x0e;
-            System.arraycopy(byteDate, 0, cmd, 1, 7);
-            writeValue("88:4A:EA:30:34:FD",cmd ,new ArrayList<>());
+        findViewById(R.id.btn_contrant_send_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
+                String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+                byte[] byteDate = hexStr2Bytes(date);
+                byte[] cmd = new byte[8];
+                cmd[0] = 0x0e;
+                System.arraycopy(byteDate, 0, cmd, 1, 7);
+                writeValue("88:4A:EA:30:34:FD",cmd ,new ArrayList<Byte>());
+            }
         });
-        findViewById(R.id.btn_contrant_send_2).setOnClickListener(view -> {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
-            String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-            byte[] byteDate = hexStr2Bytes(date);
-            byte[] cmd = new byte[8];
-            cmd[0] = 0x0e;
-            System.arraycopy(byteDate, 0, cmd, 1, 7);
-            writeValue("20:91:48:A2:D9:BD",cmd ,new ArrayList<>());
+        findViewById(R.id.btn_contrant_send_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
+                String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+                byte[] byteDate = hexStr2Bytes(date);
+                byte[] cmd = new byte[8];
+                cmd[0] = 0x0e;
+                System.arraycopy(byteDate, 0, cmd, 1, 7);
+                writeValue("20:91:48:A2:D9:BD",cmd ,new ArrayList<Byte>());
+            }
         });
-        findViewById(R.id.btn_contrant_stamp_1).setOnClickListener(view -> {
-            byte[] cmd = {0x07};
-            List<Byte> packet = new ArrayList<>();
-            packet.add((byte) 0x01);
-            packet.add((byte) 0x00);
-            writeValue("88:4A:EA:30:34:FD", cmd, packet);
+        findViewById(R.id.btn_contrant_stamp_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                byte[] cmd = {0x07};
+                List<Byte> packet = new ArrayList<>();
+                packet.add((byte) 0x01);
+                packet.add((byte) 0x00);
+                writeValue("88:4A:EA:30:34:FD", cmd, packet);
+            }
         });
-        findViewById(R.id.btn_contrant_stamp_2).setOnClickListener(view -> {
-            byte[] cmd = {0x07};
-            List<Byte> packet = new ArrayList<>();
-            packet.add((byte) 0x01);
-            packet.add((byte) 0x00);
-            writeValue("20:91:48:A2:D9:BD", cmd, packet);
+        findViewById(R.id.btn_contrant_stamp_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                byte[] cmd = {0x07};
+                List<Byte> packet = new ArrayList<>();
+                packet.add((byte) 0x01);
+                packet.add((byte) 0x00);
+                writeValue("20:91:48:A2:D9:BD", cmd, packet);
+            }
         });
     }
 

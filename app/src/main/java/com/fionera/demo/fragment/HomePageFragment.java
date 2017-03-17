@@ -52,7 +52,12 @@ public class HomePageFragment
 
         Toolbar toolbar = (Toolbar) titleBar.getChildAt(0);
         toolbar.setNavigationIcon(R.drawable.ic_text_close);
-        toolbar.setNavigationOnClickListener(v -> ShowToast.show("Boom"));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowToast.show("Boom");
+            }
+        });
         toolbar.inflateMenu(R.menu.menu_single);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

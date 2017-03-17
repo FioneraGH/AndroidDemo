@@ -23,7 +23,7 @@ public class KeyboardUtil {
     private boolean isUpper = false;// 是否大写
 
 
-    public KeyboardUtil(Context ctx, KeyboardView view, EditText edit) {
+    public KeyboardUtil(Context ctx, KeyboardView view, final EditText edit) {
         k1 = new Keyboard(ctx, R.xml.char_keyboard);
         k2 = new Keyboard(ctx, R.xml.num_keyboard);
         keyboardView = view;
@@ -123,7 +123,7 @@ public class KeyboardUtil {
     }
 
     //EditText的点击监听事件
-    public void registerEditText(EditText editText) {
+    public void registerEditText(final EditText editText) {
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

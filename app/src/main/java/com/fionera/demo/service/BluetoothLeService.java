@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 public class BluetoothLeService
         extends Service {
@@ -54,7 +55,7 @@ public class BluetoothLeService
 
     private List<Byte> list = new ArrayList<>();
 
-    private static WeakReference<Context> weakReferenceContext;
+    private static WeakReference<BluetoothLeService> weakReferenceContext;
 
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
@@ -277,7 +278,12 @@ public class BluetoothLeService
         if (mBluetoothAdapter == null || mBluetoothGatt.size() == 0) {
             return;
         }
-        mBluetoothGatt.forEach((device, bluetoothGatt) -> bluetoothGatt.close());
+        mBluetoothGatt.forEach(new BiConsumer<BluetoothDevice, BluetoothGatt>() {
+            @Override
+            public void accept(BluetoothDevice bluetoothDevice, BluetoothGatt bluetoothGatt) {
+                bluetoothGatt.close();
+            }
+        });
     }
 
     @Override

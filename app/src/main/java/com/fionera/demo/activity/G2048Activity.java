@@ -21,7 +21,7 @@ public class G2048Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_g2048);
 
-        Button button = (Button) findViewById(R.id.btn_g2048_score);
+        final Button button = (Button) findViewById(R.id.btn_g2048_score);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_image_container);
         NumberContainer numberContainer = (NumberContainer) findViewById(R.id.nc_g2048_game_board);
 
