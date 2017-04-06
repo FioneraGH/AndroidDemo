@@ -1,5 +1,7 @@
 package com.fionera.demo.util;
 
+import android.annotation.SuppressLint;
+
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
@@ -7,6 +9,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
+@SuppressLint("GetInstance")
 public class DesUtil {
 
     private final static String DES = "DES/ECB/PKCS5Padding";
@@ -15,7 +18,6 @@ public class DesUtil {
      * Description 根据键值进行加密
      *
      * @param key  加密键byte数组
-     * @throws Exception
      */
     public static byte[] encrypt(byte[] data, byte[] key) throws Exception {
         // 生成一个可信任的随机数源
@@ -42,7 +44,6 @@ public class DesUtil {
      * Description 根据键值进行解密
      *
      * @param key  加密键byte数组
-     * @throws Exception
      */
     public static byte[] decrypt(byte[] data, byte[] key) throws Exception {
         // 生成一个可信任的随机数源

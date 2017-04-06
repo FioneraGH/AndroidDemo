@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+import com.fionera.base.util.LogCat;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.base.util.LogCat;
 
 /**
  * SlidingMenu

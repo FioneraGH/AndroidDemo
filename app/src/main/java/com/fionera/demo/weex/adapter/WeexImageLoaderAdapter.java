@@ -1,4 +1,4 @@
-package com.fionera.demo.util;
+package com.fionera.demo.weex.adapter;
 
 import android.widget.ImageView;
 
@@ -18,11 +18,6 @@ public class WeexImageLoaderAdapter
     @Override
     public void setImage(final String url, final ImageView view, WXImageQuality quality,
                          WXImageStrategy strategy) {
-        WXSDKManager.getInstance().postOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ImageUtil.loadImage(url,view);
-            }
-        }, 0);
+        WXSDKManager.getInstance().postOnUiThread(() -> ImageUtil.loadImage(url, view), 0);
     }
 }

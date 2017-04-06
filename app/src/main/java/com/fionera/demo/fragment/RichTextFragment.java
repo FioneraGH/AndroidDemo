@@ -29,37 +29,27 @@ public class RichTextFragment
 
         RichText richText = (RichText) rootView.findViewById(R.id.rt_content);
 
-        richText.setOnURLClickListener(new RichText.OnURLClickListener() {
-            @Override
-            public boolean urlClicked(String url) {
-                ShowToast.show(url);
-                return true;
-            }
+        richText.setOnURLClickListener(url -> {
+            ShowToast.show(url);
+            return true;
         });
-        richText.setOnImageClickListener(new RichText.OnImageClickListener() {
-            @Override
-            public void imageClicked(List<String> imageUrls, int position) {
-                ShowToast.show(imageUrls.get(position));
-            }
-        });
-        richText.setImageFixListener(new RichText.ImageFixListener() {
-            @Override
-            public void onFix(RichText.ImageHolder holder) {
-                if (holder.getWidth() < 100 && holder.getHeight() < 100) {
-                    holder.setScaleType(RichText.ImageHolder.DEFAULT);
-                } else if (holder.getWidth() > 100 || holder.getHeight() > 100) {
-                    int width = DemoApplication.screenWidth;
-                    int height = (int) (holder.getHeight() * 1f * width / holder.getWidth()) - 300;
-                    holder.setWidth(width);
-                    holder.setHeight(height);
-                    holder.setScaleType(RichText.ImageHolder.CENTER_INSIDE);
-                } else {
-                    int width = DemoApplication.screenWidth;
-                    int height = (int) (width * 1.0f);
-                    holder.setWidth(width);
-                    holder.setHeight(height);
-                    holder.setScaleType(RichText.ImageHolder.CENTER_CROP);
-                }
+        richText.setOnImageClickListener(
+                (imageUrls, position) -> ShowToast.show(imageUrls.get(position)));
+        richText.setImageFixListener(holder -> {
+            if (holder.getWidth() < 100 && holder.getHeight() < 100) {
+                holder.setScaleType(RichText.ImageHolder.DEFAULT);
+            } else if (holder.getWidth() > 100 || holder.getHeight() > 100) {
+                int width = DemoApplication.screenWidth;
+                int height = (int) (holder.getHeight() * 1f * width / holder.getWidth()) - 300;
+                holder.setWidth(width);
+                holder.setHeight(height);
+                holder.setScaleType(RichText.ImageHolder.CENTER_INSIDE);
+            } else {
+                int width = DemoApplication.screenWidth;
+                int height = (int) (width * 1.0f);
+                holder.setWidth(width);
+                holder.setHeight(height);
+                holder.setScaleType(RichText.ImageHolder.CENTER_CROP);
             }
         });
         richText.setRichText(

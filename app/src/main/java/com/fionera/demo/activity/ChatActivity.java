@@ -12,11 +12,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ChatMsgViewAdapter;
 import com.fionera.demo.bean.ChatMsgBean;
 import com.fionera.demo.util.DBHelper;
-import com.fionera.base.util.ShowToast;
 import com.fionera.demo.view.ArcMenu;
 
 import java.io.FileOutputStream;
@@ -36,11 +36,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ChatActivity
@@ -78,50 +75,33 @@ public class ChatActivity
         findViewById(R.id.iv_toggle_menu).setOnClickListener(this);
         findViewById(R.id.tv_send_msg).setOnClickListener(this);
         findViewById(R.id.tv_extra_function).setOnClickListener(this);
-        ((ArcMenu) findViewById(R.id.arc_menu)).setOnMenuItemClickListener(
-                new ArcMenu.OnMenuItemClickListener() {
-                    @Override
-                    public void onClick(View view, int pos) {
-                        if(2 == pos){
-                            sendTestEmail();
-                        }
-                    }
-                });
+        ((ArcMenu) findViewById(R.id.arc_menu)).setOnMenuItemClickListener((view, pos) -> {
+            if(2 == pos){
+                sendTestEmail();
+            }
+        });
 
         listView = (ListView) findViewById(R.id.lv_chat_content);
         mEditTextContent = (EditText) findViewById(R.id.et_send_message);
     }
 
     private void sendTestEmail() {
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                Properties prop = new Properties();
-                prop.setProperty("mail.host", "smtp.qiye.163.com");
-                prop.setProperty("mail.transport.protocol", "smtp");
-                prop.setProperty("mail.smtp.auth", "true");
+        Observable.create((ObservableOnSubscribe<String>) e -> {
+            Properties prop = new Properties();
+            prop.setProperty("mail.host", "smtp.qiye.163.com");
+            prop.setProperty("mail.transport.protocol", "smtp");
+            prop.setProperty("mail.smtp.auth", "true");
 
-                Session session = Session.getInstance(prop);
-                session.setDebug(true);
-                Transport ts = session.getTransport();
-                ts.connect("smtp.qiye.163.com", "shell.yang@centling.com", "Fionera0");
-                Message message = createAttachMail(session);
-                ts.sendMessage(message, message.getAllRecipients());
-                ts.close();
-                e.onNext("Send Mail Success");
-            }
+            Session session = Session.getInstance(prop);
+            session.setDebug(true);
+            Transport ts = session.getTransport();
+            ts.connect("smtp.qiye.163.com", "shell.yang@centling.com", "Fionera0");
+            Message message = createAttachMail(session);
+            ts.sendMessage(message, message.getAllRecipients());
+            ts.close();
+            e.onNext("Send Mail Success");
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                new Consumer<String>() {
-                    @Override
-                    public void accept(@NonNull String s) throws Exception {
-                        ShowToast.show(s);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        ShowToast.show(throwable.getMessage());
-                    }
-                });
+                ShowToast::show, throwable -> ShowToast.show(throwable.getMessage()));
     }
 
     private static MimeMessage createAttachMail(Session session) throws Exception {
@@ -233,12 +213,7 @@ public class ChatActivity
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
             listView.setSelection(listView.getCount() - 1);
             dbHelper.insertChatEntity(entry);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    autoReply();
-                }
-            }, 1000);
+            new Handler().postDelayed(this::autoReply, 1000);
             mEditTextContent.setText("");
         }
     }
@@ -259,7 +234,7 @@ public class ChatActivity
     private static String getDate() {
         Calendar c = Calendar.getInstance();
         String year = String.valueOf(c.get(Calendar.YEAR));
-        String month = String.valueOf(c.get(Calendar.MONTH) + 1);
+        String month = String.valueOf(c.get(Calendar.MONTH));
         String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
         String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
         String min = String.valueOf(c.get(Calendar.MINUTE));

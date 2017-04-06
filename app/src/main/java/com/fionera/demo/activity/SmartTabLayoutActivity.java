@@ -10,9 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.fragment.ExtrasFragment;
-import com.fionera.base.util.ShowToast;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 public class SmartTabLayoutActivity
@@ -27,12 +27,9 @@ public class SmartTabLayoutActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_test);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                ShowToast.show(item.getTitle());
-                return true;
-            }
+        toolbar.setOnMenuItemClickListener(item -> {
+            ShowToast.show(item.getTitle());
+            return true;
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);

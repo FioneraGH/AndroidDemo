@@ -3,15 +3,17 @@ package com.fionera.demo.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.fionera.demo.R;
 
 /**
+ * DrawableTextView
  * Created by fionera on 15-12-7.
  */
-public class DrawableTextView extends TextView {
+
+public class DrawableTextView extends AppCompatTextView {
 
     public static final int DRAWABLE_LEFT = 0;
     public static final int DRAWABLE_TOP = 1;
@@ -81,8 +83,8 @@ public class DrawableTextView extends TextView {
                 }
             }
 
-            /**
-             * 取一圈修改大小，大小是读取的
+            /*
+              取一圈修改大小，大小是读取的
              */
             Drawable[] drawables = getCompoundDrawables();
             setImageSize(drawables[0], DRAWABLE_LEFT);
@@ -90,8 +92,9 @@ public class DrawableTextView extends TextView {
             setImageSize(drawables[2], DRAWABLE_RIGHT);
             setImageSize(drawables[3], DRAWABLE_BOTTOM);
             setCompoundDrawables(drawables[0], drawables[1], drawables[2], drawables[3]);
+
+            a.recycle();
         }
-        a.recycle();
     }
 
     /**

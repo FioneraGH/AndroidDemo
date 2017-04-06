@@ -15,7 +15,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
     private PagerAdapter mAdapter;
 
-    private SparseArray<ToDestroy> mToDestroy = new SparseArray<ToDestroy>();
+    private SparseArray<ToDestroy> mToDestroy = new SparseArray<>();
 
     private boolean mBoundaryCaching;
 
@@ -29,7 +29,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
     @Override
     public void notifyDataSetChanged() {
-        mToDestroy = new SparseArray<ToDestroy>();
+        mToDestroy = new SparseArray<>();
         super.notifyDataSetChanged();
     }
 

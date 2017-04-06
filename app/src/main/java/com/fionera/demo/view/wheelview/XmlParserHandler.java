@@ -36,12 +36,12 @@ public class XmlParserHandler
             case "province":
                 provinceModel = new ProvinceResultBean.ProvinceModel();
                 provinceModel.setName(attributes.getValue(0));
-                provinceModel.setCityList(new ArrayList<ProvinceResultBean.ProvinceModel.CityModel>());
+                provinceModel.setCityList(new ArrayList<>());
                 break;
             case "city":
                 cityModel = new ProvinceResultBean.ProvinceModel.CityModel();
                 cityModel.setName(attributes.getValue(0));
-                cityModel.setDistrictList(new ArrayList<ProvinceResultBean.ProvinceModel.CityModel.DistrictModel>());
+                cityModel.setDistrictList(new ArrayList<>());
                 break;
             case "district":
                 districtModel = new ProvinceResultBean.ProvinceModel.CityModel.DistrictModel();

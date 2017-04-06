@@ -44,13 +44,10 @@ public class CrashHandler
             return false;
         }
         ex.printStackTrace();
-        new Thread() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                Looper.loop();
-            }
-        }.start();
+        new Thread(() -> {
+            Looper.prepare();
+            Looper.loop();
+        }).start();
         return true;
     }
 }

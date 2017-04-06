@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -92,7 +93,7 @@ public class RichText
     public void setRichText(String text) {
         matchImages(text);
 
-        Spanned spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY, asyncImageGetter, null);
+        Spanned spanned = Html.fromHtml(text, asyncImageGetter, null);
         SpannableStringBuilder spannableStringBuilder;
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;

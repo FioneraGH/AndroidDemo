@@ -42,12 +42,8 @@ public class RecentSessionAdapter
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition());
-            }
-        });
+        holder.itemView.setOnClickListener(
+                view -> rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition()));
     }
 
     @Override

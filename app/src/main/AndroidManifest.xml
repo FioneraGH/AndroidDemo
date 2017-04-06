@@ -8,10 +8,12 @@
         android:required="false" />
 
     <application
+        android:extractNativeLibs="true"
         android:name=".DemoApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:replace="allowBackup">
 
@@ -39,9 +41,6 @@
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name=".activity.RecyclerItemDraggerActivity"
-            android:theme="@style/DividerTheme" />
         <activity android:name=".activity.XUtils3Activity" />
         <activity android:name=".activity.SmartTabLayoutActivity" />
         <activity android:name=".activity.MatrixActivity" />
@@ -57,7 +56,7 @@
         <activity android:name=".activity.ConstraintLayoutActivity" />
         <activity android:name=".activity.StickyHeaderActivity" />
         <activity android:name=".activity.SurfaceViewActivity" />
-        <activity android:name=".activity.WeexActivity" />
+        <activity android:name=".activity.WeexActivity" android:exported="true"/>
         <activity android:name=".activity.ClipBoardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

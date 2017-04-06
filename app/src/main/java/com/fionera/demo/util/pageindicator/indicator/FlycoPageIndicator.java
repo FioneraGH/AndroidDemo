@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -86,13 +87,13 @@ public class FlycoPageIndicator
         ta.recycle();
 
         if (selectRes != 0) {
-            this.selectDrawable = getResources().getDrawable(selectRes);
+            this.selectDrawable = ContextCompat.getDrawable(context, selectRes);
         } else {
             this.selectDrawable = getDrawable(selectColor, cornerRadius);
         }
 
         if (unselectRes != 0) {
-            this.unSelectDrawable = getResources().getDrawable(unselectRes);
+            this.unSelectDrawable = ContextCompat.getDrawable(context, unselectRes);
         } else {
             this.unSelectDrawable = getDrawable(unselectColor, cornerRadius);
         }
@@ -335,7 +336,7 @@ public class FlycoPageIndicator
                                                                              indicatorHeight);
             lp.leftMargin = (indicatorWidth + indicatorGap) * currentItem;
             selectView = new View(context);
-            selectView.setBackgroundDrawable(selectDrawable);
+            selectView.setBackground(selectDrawable);
             rl_parent.addView(selectView, lp);
         }
 

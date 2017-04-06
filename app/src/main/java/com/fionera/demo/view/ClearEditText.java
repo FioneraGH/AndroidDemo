@@ -11,8 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.DisplayUtils;
+import com.fionera.demo.R;
 
 /**
  * ClearEditText

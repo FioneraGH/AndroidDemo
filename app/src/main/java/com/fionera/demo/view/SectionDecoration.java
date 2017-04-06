@@ -10,10 +10,10 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.fionera.demo.R;
-import com.fionera.demo.bean.StickyHeaderBean;
 import com.fionera.base.util.DisplayUtils;
 import com.fionera.base.util.LogCat;
+import com.fionera.demo.R;
+import com.fionera.demo.bean.StickyHeaderBean;
 
 import java.util.List;
 import java.util.Locale;

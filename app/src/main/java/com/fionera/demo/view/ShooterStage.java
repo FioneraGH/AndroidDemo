@@ -97,12 +97,7 @@ public class ShooterStage {
         /**
          * 构造一个用于在主线程上运行的Runnable
          */
-        final Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                addDanmu(rlStage);
-            }
-        };
+        final Runnable run = () -> addDanmu(rlStage);
 
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -167,24 +162,18 @@ public class ShooterStage {
         LayoutParams p = (LayoutParams) textView.getLayoutParams();
         Log.d("-------",seedHeight + " " + p.topMargin);
 
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        textView.setOnClickListener(v -> {
 
-                ((TextView) v).setTextColor(0xff0000ff);
-                pauseStage();
+            ((TextView) v).setTextColor(0xff0000ff);
+            pauseStage();
 
-                final TextView nowClick = (TextView) v;
-                new AlertDialog.Builder(context).setCancelable(false).setTitle(
-                        "Test").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            final TextView nowClick = (TextView) v;
+            new AlertDialog.Builder(context).setCancelable(false).setTitle(
+                    "Test").setPositiveButton("OK", (dialog, which) -> {
                         dialog.dismiss();
                         nowClick.setTextColor(0xffffffff);
                         resumeStage(rlStage);
-                    }
-                }).show();
-            }
+                    }).show();
         });
 
 
@@ -203,8 +192,8 @@ public class ShooterStage {
             @Override
             public void onAnimationEnd(Animator animation) {
 
-                /**
-                 * 移除被移除的弹幕的动画和被占用的margin
+                /*
+                  移除被移除的弹幕的动画和被占用的margin
                  */
                 objectAnimators.remove(animation);
                 existVerticalMargins.remove(textView.getTag(R.id.danmu_vertical_margin));

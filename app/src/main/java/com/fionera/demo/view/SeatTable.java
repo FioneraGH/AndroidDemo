@@ -26,8 +26,8 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.LogCat;
+import com.fionera.demo.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -287,13 +287,13 @@ public class SeatTable extends View {
     }
 
     private void init(Context context,AttributeSet attrs){
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SeatTableView);
-        overview_checked = typedArray.getColor(R.styleable.SeatTableView_overview_checked, Color.parseColor("#5A9E64"));
-        overview_sold = typedArray.getColor(R.styleable.SeatTableView_overview_sold, Color.RED);
-        txt_color=typedArray.getColor(R.styleable.SeatTableView_txt_color,Color.WHITE);
-        seatCheckedResID = typedArray.getResourceId(R.styleable.SeatTableView_seat_checked, R.drawable.ic_seat_green);
-        seatSoldResID = typedArray.getResourceId(R.styleable.SeatTableView_overview_sold, R.drawable.ic_seat_sold);
-        seatAvailableResID = typedArray.getResourceId(R.styleable.SeatTableView_seat_available, R.drawable.ic_seat_gray);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SeatTable);
+        overview_checked = typedArray.getColor(R.styleable.SeatTable_overview_checked, Color.parseColor("#5A9E64"));
+        overview_sold = typedArray.getColor(R.styleable.SeatTable_overview_sold, Color.RED);
+        txt_color=typedArray.getColor(R.styleable.SeatTable_txt_color,Color.WHITE);
+        seatCheckedResID = typedArray.getResourceId(R.styleable.SeatTable_seat_checked, R.drawable.ic_seat_green);
+        seatSoldResID = typedArray.getResourceId(R.styleable.SeatTable_overview_sold, R.drawable.ic_seat_sold);
+        seatAvailableResID = typedArray.getResourceId(R.styleable.SeatTable_seat_available, R.drawable.ic_seat_gray);
         typedArray.recycle();
     }
 
@@ -468,12 +468,9 @@ public class SeatTable extends View {
         return true;
     }
 
-    private Runnable hideOverviewRunnable = new Runnable() {
-        @Override
-        public void run() {
-            isDrawOverview = false;
-            invalidate();
-        }
+    private Runnable hideOverviewRunnable = () -> {
+        isDrawOverview = false;
+        invalidate();
     };
 
     Bitmap drawHeadInfo() {

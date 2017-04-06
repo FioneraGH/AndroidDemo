@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.fionera.demo.R;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NotificationActivity
@@ -32,20 +31,17 @@ public class NotificationActivity
         final Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("Picture Download").setContentText("Download in progress")
                 .setSmallIcon(R.mipmap.ic_launcher);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 100; i += 20) {
-                    builder.setProgress(100, i, false);
-                    notificationManager.notify(0x123456, builder.build());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ignored) {
-                    }
+        new Thread(() -> {
+            for (int i = 0; i < 100; i += 20) {
+                builder.setProgress(100, i, false);
+                notificationManager.notify(0x123456, builder.build());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {
                 }
-                builder.setContentText("Download complete").setProgress(0, 0, false);
-                notificationManager.notify(NOTIFICATION_ID, builder.build());
             }
+            builder.setContentText("Download complete").setProgress(0, 0, false);
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
         }).start();
     }
 
@@ -54,12 +50,8 @@ public class NotificationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        findViewById(R.id.btn_notify_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendNotification(notificationManager);
-            }
-        });
+        findViewById(R.id.btn_notify_send).setOnClickListener(
+                v -> sendNotification(notificationManager));
 
         TextView tvNotifyHtml = (TextView) findViewById(R.id.tv_notify_html);
         TextView tvNotifySpannable = (TextView) findViewById(R.id.tv_notify_spannable);
@@ -78,17 +70,9 @@ public class NotificationActivity
 
         Pattern p = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
         Linkify.addLinks(tvNotifyLinkify, Linkify.WEB_URLS);
-        Linkify.addLinks(tvNotifyLinkify, p, "mxn://profile:8856?uid=user", new Linkify.MatchFilter() {
-            @Override
-            public boolean acceptMatch(CharSequence charSequence, int start, int end) {
-                return charSequence.charAt(end - 1) != '.';
-            }
-        }, new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return url.toLowerCase();
-            }
-        });
+        Linkify.addLinks(tvNotifyLinkify, p, "mxn://profile:8856?uid=user",
+                (charSequence, start, end) -> charSequence.charAt(end - 1) != '.',
+                (match, url) -> url.toLowerCase());
         stripUnderlines(tvNotifyLinkify);
     }
 

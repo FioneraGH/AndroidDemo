@@ -23,13 +23,8 @@ public final class ListenClipboardService
     private static CharSequence sLastContent = null;
     private ClipboardManager mClipboardWatcher;
     private TipViewController mTipViewController;
-    private ClipboardManager.OnPrimaryClipChangedListener mOnPrimaryClipChangedListener = new
-            ClipboardManager.OnPrimaryClipChangedListener() {
-        @Override
-        public void onPrimaryClipChanged() {
-            performClipboardCheck();
-        }
-    };
+    private ClipboardManager.OnPrimaryClipChangedListener mOnPrimaryClipChangedListener =
+            this::performClipboardCheck;
 
     public static void start(Context context) {
         Intent serviceIntent = new Intent(context, ListenClipboardService.class);
@@ -98,7 +93,8 @@ public final class ListenClipboardService
     }
 
     private void performClipboardCheck() {
-        CharSequence content = mClipboardWatcher.getText();
+        CharSequence content = mClipboardWatcher.getPrimaryClip().getItemAt(0).coerceToText(
+                ListenClipboardService.this);
         if (TextUtils.isEmpty(content)) {
             return;
         }

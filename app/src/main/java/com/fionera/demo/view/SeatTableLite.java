@@ -19,8 +19,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.fionera.base.util.DisplayUtils;
-import com.fionera.demo.R;
 import com.fionera.base.util.LogCat;
+import com.fionera.demo.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -154,14 +154,9 @@ public class SeatTableLite
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SeatTableView);
-        boxCheckedResID = typedArray.getResourceId(R.styleable.SeatTableView_seat_checked,
-                R.drawable.ic_seat_green);
-        boxInvalidResID = typedArray.getResourceId(R.styleable.SeatTableView_overview_sold,
-                R.drawable.ic_seat_sold);
-        boxAvailableResID = typedArray.getResourceId(R.styleable.SeatTableView_seat_available,
-                R.drawable.ic_seat_gray);
-        typedArray.recycle();
+        boxCheckedResID = R.drawable.ic_seat_green;
+        boxInvalidResID =  R.drawable.ic_seat_sold;
+        boxAvailableResID = R.drawable.ic_seat_gray;
 
         mFlingDetector = new GestureDetector(context, mSimpleOnGestureListener);
     }

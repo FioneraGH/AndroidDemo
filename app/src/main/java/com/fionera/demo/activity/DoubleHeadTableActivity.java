@@ -13,8 +13,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.ShowToast;
+import com.fionera.demo.R;
 import com.fionera.demo.view.ListNestedScrollView;
 
 import java.util.ArrayList;
@@ -42,12 +42,7 @@ public class DoubleHeadTableActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_double_head_table);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                init();
-            }
-        }, 3000);
+        new Handler().postDelayed(this::init, 3000);
     }
 
     private void init() {
@@ -97,12 +92,7 @@ public class DoubleHeadTableActivity
             if (!mHScrollItems.isEmpty()) {
                 final int scrollX = mHScrollItems.get(mHScrollItems.size() - 1).getScrollX();
                 if (0 != scrollX) {
-                    recyclerView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            holder.listNestedScrollView.scrollTo(scrollX, 0);
-                        }
-                    });
+                    recyclerView.post(() -> holder.listNestedScrollView.scrollTo(scrollX, 0));
                 }
             }
             mHScrollItems.add(holder.listNestedScrollView);
@@ -122,13 +112,8 @@ public class DoubleHeadTableActivity
         }
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            ShowToast
-                    .show("点击了:" + ((TextView) view).getText());
-        }
-    };
+    private View.OnClickListener clickListener = view -> ShowToast
+            .show("点击了:" + ((TextView) view).getText());
 
     private class ListHolder
             extends RecyclerView.ViewHolder {

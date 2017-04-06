@@ -15,8 +15,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.DisplayUtils;
+import com.fionera.demo.R;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -10,8 +10,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.fionera.demo.R;
 import com.fionera.base.util.LogCat;
+import com.fionera.demo.R;
 import com.fionera.demo.view.wheelview.ArrayWheelAdapter;
 import com.fionera.demo.view.wheelview.OnWheelChangedListener;
 import com.fionera.demo.view.wheelview.ProvinceResultBean;
@@ -95,22 +95,14 @@ public class ProvincePopup
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);
 
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        tv_cancel.setOnClickListener(v -> dismiss());
 
-        tv_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getValueCallback != null) {
-                    getValueCallback.getValue(mCurrentProvinceName, mCurrentCityName,
-                            mCurrentDistrictName, mCurrentZipCode);
-                }
-                dismiss();
+        tv_save.setOnClickListener(v -> {
+            if (getValueCallback != null) {
+                getValueCallback.getValue(mCurrentProvinceName, mCurrentCityName,
+                        mCurrentDistrictName, mCurrentZipCode);
             }
+            dismiss();
         });
 
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);

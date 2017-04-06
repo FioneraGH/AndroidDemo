@@ -52,22 +52,14 @@ public class HomePageFragment
 
         Toolbar toolbar = (Toolbar) titleBar.getChildAt(0);
         toolbar.setNavigationIcon(R.drawable.ic_text_close);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowToast.show("Boom");
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> ShowToast.show("Boom"));
         toolbar.inflateMenu(R.menu.menu_single);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_single) {
-                    ShowToast.show("Shakalaka");
-                    return true;
-                }
-                return false;
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_single) {
+                ShowToast.show("Shakalaka");
+                return true;
             }
+            return false;
         });
 
         sessionList = new ArrayList<>();
@@ -77,22 +69,14 @@ public class HomePageFragment
         RecentSessionAdapter recentSessionAdapter = new RecentSessionAdapter(mContext, sessionList);
         recyclerView.setAdapter(recentSessionAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
-        recentSessionAdapter.setRvItemTouchListener(new RvItemTouchListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                if (pos == sessionList.size() - 1) {
-                    startActivity(new Intent(mContext, ChatActivity.class));
-                }
-                ShowToast.show(pos);
+        recentSessionAdapter.setRvItemTouchListener((v, pos) -> {
+            if (pos == sessionList.size() - 1) {
+                startActivity(new Intent(mContext, ChatActivity.class));
             }
+            ShowToast.show(pos);
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSession();
-            }
-        });
+        floatingActionButton.setOnClickListener(v -> addSession());
         floatingActionButton.setTranslationX(DemoApplication.screenWidth / 3);
         floatingActionButton.animate().withLayer().translationX(0).setDuration(700).setInterpolator(
                 new OvershootInterpolator(1.0f)).start();

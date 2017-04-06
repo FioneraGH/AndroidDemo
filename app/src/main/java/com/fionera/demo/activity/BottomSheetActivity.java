@@ -31,13 +31,9 @@ public class BottomSheetActivity
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter().setItemClickListener(new SimpleStringRecyclerViewAdapter.ItemClickListener() {
-
-            @Override
-            public void onItemClick(int pos) {
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                BottomSheetDialogView.show(mContext);
-            }
+        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter().setItemClickListener(pos -> {
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            BottomSheetDialogView.show(mContext);
         }));
 
         behavior = BottomSheetBehavior.from(ns_view);
@@ -53,14 +49,11 @@ public class BottomSheetActivity
             }
         });
 
-        findViewById(R.id.tv_bottom_sheet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                } else {
-                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
+        findViewById(R.id.tv_bottom_sheet).setOnClickListener(view -> {
+            if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            } else {
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
     }
@@ -93,12 +86,8 @@ public class BottomSheetActivity
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mItemClickListener.onItemClick(position);
-                }
-            });
+            holder.itemView.setOnClickListener(
+                    view -> mItemClickListener.onItemClick(holder.getAdapterPosition()));
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.fionera.demo.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.view.ViewConfiguration;
@@ -13,6 +14,7 @@ public class NavigationBarUtil {
     /**
      * 获取导航栏高度
      */
+    @SuppressLint("ObsoleteSdkInt")
     public static int getNavigationBarHeight(Context context) {
 
         /*

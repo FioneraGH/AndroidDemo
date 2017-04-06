@@ -1,5 +1,6 @@
 package com.fionera.demo.view.floatview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -43,6 +44,7 @@ public final class TipViewController
         mTextView.setText(mContent);
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     public void show() {
 
         ViewContainer view = (ViewContainer) View.inflate(mContext, R.layout.layout_pop_view, null);

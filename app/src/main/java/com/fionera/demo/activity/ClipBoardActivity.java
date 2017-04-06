@@ -11,17 +11,16 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.LogCat;
 import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.service.GrabAccessibilityService;
 import com.fionera.demo.service.ListenClipboardService;
 import com.fionera.demo.util.KeyboardUtil;
-import com.fionera.base.util.LogCat;
 
 public final class ClipBoardActivity
         extends BaseActivity {
@@ -46,24 +45,17 @@ public final class ClipBoardActivity
 
         initView();
 
-        btnClipBoardTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListenClipboardService.startForTest(mContext, "test");
-            }
-        });
-        btnGrabRedStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                Notification notification = new NotificationCompat.Builder(mContext).setAutoCancel(
-                        true).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("[微信红包]")
-                        .setContentText("点击查看红包").setContentIntent(pendingIntent).build();
-                ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).notify(14726467,
-                        notification);
-            }
+        btnClipBoardTest.setOnClickListener(v -> ListenClipboardService
+                .startForTest(mContext, "test" + System.currentTimeMillis()));
+        btnGrabRedStart.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            Notification notification = new NotificationCompat.Builder(mContext).setAutoCancel(true)
+                    .setSmallIcon(R.mipmap.ic_launcher).setContentTitle("[微信红包]").setContentText(
+                            "点击查看红包").setContentIntent(pendingIntent).build();
+            ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).notify(14726467,
+                    notification);
         });
         new KeyboardUtil(mContext, kvKeyboardView, etTestKeyboard).registerEditText(etTestKeyboard);
 

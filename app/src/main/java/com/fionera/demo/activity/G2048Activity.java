@@ -58,14 +58,11 @@ public class G2048Activity
         imageView5.setBackgroundColor(Color.GREEN);
         linearLayout.addView(imageView5, params);
 
-        numberContainer.setOnScoreChangeListener(new NumberContainer.OnScoreChangeListener() {
-            @Override
-            public void onChange(int score) {
-                if (-1 == score) {
-                    button.setText("游戏结束");
-                } else {
-                    button.setText(score);
-                }
+        numberContainer.setOnScoreChangeListener(score -> {
+            if (-1 == score) {
+                button.setText("游戏结束");
+            } else {
+                button.setText(score);
             }
         });
     }

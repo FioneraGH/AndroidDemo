@@ -48,12 +48,7 @@ public class ConstraintLayoutActivity
         setContentView(R.layout.activity_constraint_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_constrant_title);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -68,95 +63,66 @@ public class ConstraintLayoutActivity
 
         final TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
         textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] addresses = textView.getText().toString().split(":");
-                if (addresses.length == 3) {
-                    provincePopup.setValue(addresses[0] + ":" + addresses[1] + ":" + addresses[2]);
-                }
-                provincePopup.setGetValueCallback(new ProvincePopup.GetValueCallback() {
-                    @Override
-                    public void getValue(String province, String city, String district,
-                                         String zipCode) {
-                        textView.setText(province + ":" + city + ":" + district);
-                    }
-                });
-                provincePopup.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,
-                        NavigationBarUtil.getNavigationBarHeight(mContext));
-                final WindowManager.LayoutParams lp = getWindow().getAttributes();
-                lp.alpha = 0.3f;
-                getWindow().setAttributes(lp);
-                provincePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        lp.alpha = 1f;
-                        getWindow().setAttributes(lp);
-                    }
-                });
+        textView.setOnClickListener(v -> {
+            String[] addresses = textView.getText().toString().split(":");
+            if (addresses.length == 3) {
+                provincePopup.setValue(addresses[0] + ":" + addresses[1] + ":" + addresses[2]);
             }
+            provincePopup.setGetValueCallback(
+                    (province, city, district, zipCode) -> textView.setText(province + ":" + city + ":" + district));
+            provincePopup.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,
+                    NavigationBarUtil.getNavigationBarHeight(mContext));
+            final WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.alpha = 0.3f;
+            getWindow().setAttributes(lp);
+            provincePopup.setOnDismissListener(() -> {
+                lp.alpha = 1f;
+                getWindow().setAttributes(lp);
+            });
         });
 
-        findViewById(R.id.btn_contrant_connect_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, BluetoothLeService.class);
-                intent.putExtra("DEVICE_ADDRESS", "88:4A:EA:30:34:FD");
-                ConstraintLayoutActivity.this.startService(intent);
-            }
+        findViewById(R.id.btn_contrant_connect_1).setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, BluetoothLeService.class);
+            intent.putExtra("DEVICE_ADDRESS", "88:4A:EA:30:34:FD");
+            ConstraintLayoutActivity.this.startService(intent);
         });
-        findViewById(R.id.btn_contrant_connect_2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, BluetoothLeService.class);
-                BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(mContext);
-                blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
-                blueToothScanUtil.startSearchBlueDevice();
-            }
+        findViewById(R.id.btn_contrant_connect_2).setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, BluetoothLeService.class);
+            BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(mContext);
+            blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
+            blueToothScanUtil.startSearchBlueDevice();
         });
-        findViewById(R.id.btn_contrant_send_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
-                String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-                byte[] byteDate = hexStr2Bytes(date);
-                byte[] cmd = new byte[8];
-                cmd[0] = 0x0e;
-                System.arraycopy(byteDate, 0, cmd, 1, 7);
-                writeValue("88:4A:EA:30:34:FD",cmd ,new ArrayList<Byte>());
-            }
+        findViewById(R.id.btn_contrant_send_1).setOnClickListener(v -> {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
+            String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+            byte[] byteDate = hexStr2Bytes(date);
+            byte[] cmd = new byte[8];
+            cmd[0] = 0x0e;
+            System.arraycopy(byteDate, 0, cmd, 1, 7);
+            writeValue("88:4A:EA:30:34:FD",cmd ,new ArrayList<Byte>());
         });
-        findViewById(R.id.btn_contrant_send_2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
-                String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-                byte[] byteDate = hexStr2Bytes(date);
-                byte[] cmd = new byte[8];
-                cmd[0] = 0x0e;
-                System.arraycopy(byteDate, 0, cmd, 1, 7);
-                writeValue("20:91:48:A2:D9:BD",cmd ,new ArrayList<Byte>());
-            }
+        findViewById(R.id.btn_contrant_send_2).setOnClickListener(v -> {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
+            String date = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+            byte[] byteDate = hexStr2Bytes(date);
+            byte[] cmd = new byte[8];
+            cmd[0] = 0x0e;
+            System.arraycopy(byteDate, 0, cmd, 1, 7);
+            writeValue("20:91:48:A2:D9:BD",cmd ,new ArrayList<Byte>());
         });
-        findViewById(R.id.btn_contrant_stamp_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                byte[] cmd = {0x07};
-                List<Byte> packet = new ArrayList<>();
-                packet.add((byte) 0x01);
-                packet.add((byte) 0x00);
-                writeValue("88:4A:EA:30:34:FD", cmd, packet);
-            }
+        findViewById(R.id.btn_contrant_stamp_1).setOnClickListener(v -> {
+            byte[] cmd = {0x07};
+            List<Byte> packet = new ArrayList<>();
+            packet.add((byte) 0x01);
+            packet.add((byte) 0x00);
+            writeValue("88:4A:EA:30:34:FD", cmd, packet);
         });
-        findViewById(R.id.btn_contrant_stamp_2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                byte[] cmd = {0x07};
-                List<Byte> packet = new ArrayList<>();
-                packet.add((byte) 0x01);
-                packet.add((byte) 0x00);
-                writeValue("20:91:48:A2:D9:BD", cmd, packet);
-            }
+        findViewById(R.id.btn_contrant_stamp_2).setOnClickListener(v -> {
+            byte[] cmd = {0x07};
+            List<Byte> packet = new ArrayList<>();
+            packet.add((byte) 0x01);
+            packet.add((byte) 0x00);
+            writeValue("20:91:48:A2:D9:BD", cmd, packet);
         });
     }
 

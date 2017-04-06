@@ -46,33 +46,30 @@ public class LoginFragment
         super.onViewCreated(view, savedInstanceState);
         initView(view);
 
-        emailSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View item) {
-                tilLoginEmail.setErrorEnabled(false);
-                tilLoginPassword.setErrorEnabled(false);
-                switch (adjustLoginInfo()) {
-                    case 0:
-                        mListener.onFragmentInteraction("登录成功");
-                        break;
-                    case 1:
-                        tilLoginEmail.setError("email too short");
-                        tilLoginEmail.setErrorEnabled(true);
-                        mListener.onFragmentInteraction("登录失败");
-                        break;
-                    case 2:
-                        tilLoginPassword.setError("password too short");
-                        tilLoginPassword.setErrorEnabled(true);
-                        mListener.onFragmentInteraction("登录失败");
-                        break;
-                    case 3:
-                        tilLoginEmail.setError("email error");
-                        tilLoginPassword.setError("password error");
-                        tilLoginEmail.setErrorEnabled(true);
-                        tilLoginPassword.setErrorEnabled(true);
-                        mListener.onFragmentInteraction("登录失败");
-                        break;
-                }
+        emailSignInButton.setOnClickListener(item -> {
+            tilLoginEmail.setErrorEnabled(false);
+            tilLoginPassword.setErrorEnabled(false);
+            switch (adjustLoginInfo()) {
+                case 0:
+                    mListener.onFragmentInteraction("登录成功");
+                    break;
+                case 1:
+                    tilLoginEmail.setError("email too short");
+                    tilLoginEmail.setErrorEnabled(true);
+                    mListener.onFragmentInteraction("登录失败");
+                    break;
+                case 2:
+                    tilLoginPassword.setError("password too short");
+                    tilLoginPassword.setErrorEnabled(true);
+                    mListener.onFragmentInteraction("登录失败");
+                    break;
+                case 3:
+                    tilLoginEmail.setError("email error");
+                    tilLoginPassword.setError("password error");
+                    tilLoginEmail.setErrorEnabled(true);
+                    tilLoginPassword.setErrorEnabled(true);
+                    mListener.onFragmentInteraction("登录失败");
+                    break;
             }
         });
     }

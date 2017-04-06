@@ -3,8 +3,8 @@ package com.fionera.demo.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.ShowToast;
+import com.fionera.demo.R;
 import com.fionera.demo.util.pageindicator.anim.select.ZoomInEnter;
 import com.fionera.demo.util.pageindicator.banner.BaseBanner;
 import com.fionera.demo.util.pageindicator.banner.SimpleImageBanner;
@@ -18,7 +18,7 @@ public class FlycoPageIndicatorActivity
     private int[] resIds = {R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R
             .mipmap.ic_launcher};
     private ArrayList<Integer> resList;
-    private BaseBanner banner;
+    private BaseBanner<Integer, SimpleImageBanner> banner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +31,7 @@ public class FlycoPageIndicatorActivity
         }
         banner = (SimpleImageBanner) findViewById(R.id.vp_flyco_indicator);
         banner.setSource(resList).startScroll();
-        banner.setOnItemClickL(new BaseBanner.OnItemClickL() {
-            @Override
-            public void onItemClick(int position) {
-                ShowToast.show("点击" + position);
-            }
-        });
+        banner.setOnItemClickL(position -> ShowToast.show("点击" + position));
 
         indicator(R.id.indicator_circle);
         indicator(R.id.indicator_square);

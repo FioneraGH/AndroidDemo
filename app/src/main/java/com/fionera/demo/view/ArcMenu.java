@@ -17,15 +17,16 @@ import android.view.animation.TranslateAnimation;
 import com.fionera.demo.R;
 
 /**
+ * ArcMenu
  * Created by fionera on 15-8-16.
  */
+
 public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
     private enum Position {
         LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
     }
 
-    private int pos;
     private Position position = Position.RIGHT_BOTTOM;
     private int radius;
     private boolean menuIsOpen;
@@ -46,7 +47,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcMenu,
                 defStyle, 0);
 
-        pos = a.getInt(R.styleable.ArcMenu_position, 3);
+        int pos = a.getInt(R.styleable.ArcMenu_position, 3);
         switch (pos) {
             case 0:
                 position = Position.LEFT_TOP;
@@ -245,17 +246,14 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
 
             child.startAnimation(animationSet);
             final int no = i;
-            child.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onMenuItemClickListener != null) {
-                        onMenuItemClickListener.onClick(child, no);
-                    } else {
-                        Log.d("ArcMenu", "listener is null");
-                    }
-                    menuIsOpen = !menuIsOpen;
-                    foldItem(no);
+            child.setOnClickListener(v -> {
+                if (onMenuItemClickListener != null) {
+                    onMenuItemClickListener.onClick(child, no);
+                } else {
+                    Log.d("ArcMenu", "listener is null");
                 }
+                menuIsOpen = !menuIsOpen;
+                foldItem(no);
             });
         }
         menuIsOpen = !menuIsOpen;

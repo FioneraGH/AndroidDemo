@@ -18,8 +18,8 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.LogCat;
+import com.fionera.demo.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -278,12 +278,7 @@ public class BluetoothLeService
         if (mBluetoothAdapter == null || mBluetoothGatt.size() == 0) {
             return;
         }
-        mBluetoothGatt.forEach(new BiConsumer<BluetoothDevice, BluetoothGatt>() {
-            @Override
-            public void accept(BluetoothDevice bluetoothDevice, BluetoothGatt bluetoothGatt) {
-                bluetoothGatt.close();
-            }
-        });
+        mBluetoothGatt.forEach((bluetoothDevice, bluetoothGatt) -> bluetoothGatt.close());
     }
 
     @Override

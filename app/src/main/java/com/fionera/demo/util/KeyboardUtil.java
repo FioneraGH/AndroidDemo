@@ -124,23 +124,15 @@ public class KeyboardUtil {
 
     //EditText的点击监听事件
     public void registerEditText(final EditText editText) {
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int visibility = keyboardView.getVisibility();
-                if (visibility == View.GONE || visibility == View.INVISIBLE) {
-                    showKeyboard();
-                } else {
-                    hideKeyboard();
-                }
+        editText.setOnClickListener(view -> {
+            int visibility = keyboardView.getVisibility();
+            if (visibility == View.GONE || visibility == View.INVISIBLE) {
+                showKeyboard();
+            } else {
+                hideKeyboard();
             }
         });
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                disableShowSoftInput(editText);
-            }
-        });
+        editText.setOnFocusChangeListener((view, b) -> disableShowSoftInput(editText));
     }
 
     //显示键盘

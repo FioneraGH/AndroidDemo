@@ -121,7 +121,7 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="SeatTableView">
+    <declare-styleable name="SeatTable">
         <attr name="seat_checked" format="reference" />
         <attr name="seat_sold" format="reference" />
         <attr name="seat_available" format="reference" />

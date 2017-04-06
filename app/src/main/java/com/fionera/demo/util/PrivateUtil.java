@@ -3,8 +3,10 @@ package com.fionera.demo.util;
 import java.lang.reflect.Method;
 
 /**
+ * PrivateUtil
  * Created by fionera on 15-12-25.
  */
+
 public class PrivateUtil {
 
     /**

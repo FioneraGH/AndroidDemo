@@ -19,7 +19,6 @@ import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.RVWithHeaderActivity;
-import com.fionera.demo.activity.RecyclerItemDraggerActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SeatTableActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
@@ -80,7 +79,6 @@ public class ExtrasFragment
                 mContext.startActivity(new Intent(mContext, NotificationActivity.class));
                 break;
             case R.id.button6:
-                mContext.startActivity(new Intent(mContext, RecyclerItemDraggerActivity.class));
                 break;
             case R.id.button7:
                 mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class));

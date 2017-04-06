@@ -17,9 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fionera.base.util.DisplayUtils;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.base.util.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -428,12 +428,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
         if (isLoopViewPager() && mIsAutoScrollEnable) {
             pauseScroll();
             scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-            scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-                @Override
-                public void run() {
-                    scrollToNextItem(mCurrentPosition);
-                }
-            }, mDelay, mPeriod, TimeUnit.SECONDS);
+            scheduledExecutorService.scheduleAtFixedRate(() -> scrollToNextItem(mCurrentPosition), mDelay, mPeriod, TimeUnit.SECONDS);
             mIsAutoScrolling = true;
         } else {
             mIsAutoScrolling = false;
@@ -498,12 +493,9 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
             View inflate = onCreateItemView(position);
-            inflate.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mOnItemClickL != null) {
-                        mOnItemClickL.onItemClick(position);
-                    }
+            inflate.setOnClickListener(view -> {
+                if (mOnItemClickL != null) {
+                    mOnItemClickL.onItemClick(position);
                 }
             });
             container.addView(inflate);

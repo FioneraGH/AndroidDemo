@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.ShowToast;
+import com.fionera.demo.R;
 
 public class RVWithHeaderActivity extends AppCompatActivity {
 
@@ -21,12 +21,7 @@ public class RVWithHeaderActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.iv_with_header);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowToast.show("shoot");
-            }
-        });
+        imageView.setOnClickListener(view -> ShowToast.show("shoot"));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_with_header);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

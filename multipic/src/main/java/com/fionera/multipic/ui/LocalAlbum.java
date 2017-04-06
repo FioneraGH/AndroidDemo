@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.ExifInterface;
+import android.support.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class LocalAlbum
@@ -199,7 +200,7 @@ public class LocalAlbum
         public void onBindViewHolder(final ViewHolder holder, int position) {
             String name = folderNames.get(position);
             List<LocalImageHelper.LocalFile> files = folders.get(name);
-            holder.textView.setText(name + "(" + files.size() + ")");
+            holder.textView.setText(String.format(Locale.CHINA, "%s(%d)", name, files.size()));
             if (files.size() > 0) {
                 holder.imageView.setVisibility(View.VISIBLE);
                 ImageUtil.loadImage(files.get(0).getThumbnailUri(), holder.imageView);

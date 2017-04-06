@@ -1,6 +1,7 @@
 package com.fionera.demo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -131,28 +132,24 @@ public class MainActivity
         });
         viewPager.setOffscreenPageLimit(3);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_home:
-                                viewPager.setCurrentItem(0);
-                                break;
-                            case R.id.menu_list:
-                                viewPager.setCurrentItem(1);
-                                break;
-                            case R.id.menu_rich:
-                                viewPager.setCurrentItem(2);
-                                switchMainComponent();
-                                break;
-                            case R.id.menu_extra:
-                                viewPager.setCurrentItem(3);
-                                break;
-                        }
-                        return false;
-                    }
-                });
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_home:
+                    viewPager.setCurrentItem(0);
+                    break;
+                case R.id.menu_list:
+                    viewPager.setCurrentItem(1);
+                    break;
+                case R.id.menu_rich:
+                    viewPager.setCurrentItem(2);
+                    switchMainComponent();
+                    break;
+                case R.id.menu_extra:
+                    viewPager.setCurrentItem(3);
+                    break;
+            }
+            return false;
+        });
     }
 
     private void switchMainComponent() {
@@ -233,6 +230,7 @@ public class MainActivity
     /**
      * 利用反射在菜单打开时显示ActionBar菜单项Icon
      */
+    @SuppressLint("PrivateApi")
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {

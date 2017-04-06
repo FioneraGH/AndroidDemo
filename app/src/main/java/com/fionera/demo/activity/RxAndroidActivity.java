@@ -62,40 +62,37 @@ public class RxAndroidActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_android);
 
-        findViewById(R.id.btn_rx_demo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(RxAndroidActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager
-                        .PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions((Activity) mContext,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                }
-                downloadProgress.distinct().observeOn(AndroidSchedulers.mainThread()).subscribe(
-                        new Observer<Integer>() {
-                            @Override
-                            public void onError(Throwable e) {
-                                e.printStackTrace();
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                ShowToast.show("Download complete");
-                            }
-
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                ShowToast.show("Download subscribe");
-                            }
-
-                            @Override
-                            public void onNext(Integer integer) {
-                                progressBar.setProgress(integer);
-                            }
-                        });
-                downloadObservable().subscribeOn(Schedulers.io()).observeOn(
-                        AndroidSchedulers.mainThread()).subscribe();
+        findViewById(R.id.btn_rx_demo).setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(RxAndroidActivity.this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager
+                    .PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity) mContext,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
+            downloadProgress.distinct().observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    new Observer<Integer>() {
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            ShowToast.show("Download complete");
+                        }
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            ShowToast.show("Download subscribe");
+                        }
+
+                        @Override
+                        public void onNext(Integer integer) {
+                            progressBar.setProgress(integer);
+                        }
+                    });
+            downloadObservable().subscribeOn(Schedulers.io()).observeOn(
+                    AndroidSchedulers.mainThread()).subscribe();
         });
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_rx_demo);
@@ -105,12 +102,7 @@ public class RxAndroidActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         rxAdapter = new RxAdapter();
         recyclerView.setAdapter(rxAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadList(outList);
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> loadList(outList));
         refreshList();
     }
 
@@ -149,18 +141,8 @@ public class RxAndroidActivity
 
         Observable.zip(Observable.merge(Observable.fromIterable(outList).take(3),
                 Observable.fromIterable(reverseList).take(3)), clock,
-                new BiFunction<AppInfo, Long, AppInfo>() {
-                    @Override
-                    public AppInfo apply(AppInfo appInfo, Long aLong) throws Exception {
-                        return new AppInfo(appInfo.icon, appInfo.name + String.valueOf(aLong));
-                    }
-                }).map(new Function<AppInfo, AppInfo>() {
-            @Override
-            public AppInfo apply(AppInfo appInfo) throws Exception {
-                return (appInfo.name.startsWith("V")) ? new AppInfo(appInfo.icon,
-                        "new " + appInfo.name) : appInfo;
-            }
-        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<AppInfo>() {
+                (appInfo, aLong) -> new AppInfo(appInfo.icon, appInfo.name + String.valueOf(aLong))).map(appInfo -> (appInfo.name.startsWith("V")) ? new AppInfo(appInfo.icon,
+                        "new " + appInfo.name) : appInfo).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<AppInfo>() {
 
             @Override
             public void onError(Throwable e) {
@@ -187,20 +169,17 @@ public class RxAndroidActivity
     }
 
     private Observable<Boolean> downloadObservable() {
-        return Observable.create(new ObservableOnSubscribe<Boolean>() {
-            @Override
-            public void subscribe(ObservableEmitter<Boolean> subscriber) {
-                boolean result = downloadFile(
-                        "http://down.gfan" + "" +
-                                ".com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk",
-                        Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/GfanMobile.apk");
-                if (result) {
-                    subscriber.onNext(true);
-                    subscriber.onComplete();
-                } else {
-                    subscriber.onError(new Throwable("Download error"));
-                }
+        return Observable.create(subscriber -> {
+            boolean result = downloadFile(
+                    "http://down.gfan" + "" +
+                            ".com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk",
+                    Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + "/GfanMobile.apk");
+            if (result) {
+                subscriber.onNext(true);
+                subscriber.onComplete();
+            } else {
+                subscriber.onError(new Throwable("Download error"));
             }
         });
     }
@@ -256,30 +235,27 @@ public class RxAndroidActivity
     }
 
     private Observable<AppInfo> getApps() {
-        return Observable.create(new ObservableOnSubscribe<AppInfo>() {
-            @Override
-            public void subscribe(ObservableEmitter<AppInfo> subscriber) {
-                List<AppInfoRich> apps = new ArrayList<>();
-                final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-                mainIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        return Observable.create(subscriber -> {
+            List<AppInfoRich> apps = new ArrayList<>();
+            final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+            mainIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
-                List<ResolveInfo> infos = getPackageManager().queryIntentActivities(mainIntent,
-                        PackageManager.MATCH_DEFAULT_ONLY);
+            List<ResolveInfo> infos = getPackageManager().queryIntentActivities(mainIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY);
 
-                for (ResolveInfo info : infos) {
-                    apps.add(new AppInfoRich(info));
-                }
-
-                for (AppInfoRich appInfo : apps) {
-                    Drawable icon = appInfo.icon;
-                    String name = appInfo.name;
-                    AppInfo info = new AppInfo(icon, name);
-                    subscriber.onNext(info);
-                    outList.add(info);
-                }
-
-                subscriber.onComplete();
+            for (ResolveInfo info : infos) {
+                apps.add(new AppInfoRich(info));
             }
+
+            for (AppInfoRich appInfo : apps) {
+                Drawable icon = appInfo.icon;
+                String name = appInfo.name;
+                AppInfo info = new AppInfo(icon, name);
+                subscriber.onNext(info);
+                outList.add(info);
+            }
+
+            subscriber.onComplete();
         });
     }
 

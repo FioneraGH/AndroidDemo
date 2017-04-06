@@ -11,7 +11,7 @@ import java.util.Locale;
  */
 
 public class LogCat {
-    private static boolean isDebug = true;
+    private final static boolean isDebug = true;
 
     private static String generateTag() {
         StackTraceElement caller = new Throwable().getStackTrace()[2];

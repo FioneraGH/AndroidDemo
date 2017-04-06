@@ -8,9 +8,9 @@ import android.util.DisplayMetrics;
 
 import com.fionera.base.BaseApplication;
 import com.fionera.demo.util.CrashHandler;
-import com.fionera.demo.util.WeexImageLoaderAdapter;
 import com.fionera.demo.weex.CustomViewComponent;
 import com.fionera.demo.weex.URLHelperModule;
+import com.fionera.demo.weex.adapter.WeexImageLoaderAdapter;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
 import com.taobao.weex.WXSDKEngine;

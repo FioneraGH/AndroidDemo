@@ -22,10 +22,14 @@
 #################### end region
 
 -dontwarn com.sun.mail.**
--dontwarn org.jetbrains.anko.**
--dontwarn com.alibaba.fastjson.**
+-dontwarn com.fionera.demo.**
+### perhaps all keep
+-keep class com.fionera.demo.** {*;}
 
+################### region for gradle_fastjson
+-dontwarn com.alibaba.fastjson.**
 -keep class com.alibaba.fastjson.** { *; }
+#################### end region
 
 ################### region for gradle_ijkplayer
 -dontwarn master.flame.danmaku.**
@@ -188,8 +192,6 @@
 -keep class com.tencent.open.PKDialog$* {*;}
 
 -keep class com.sina.** {*;}
-### perhaps all keep
--keep class com.fionera.demo.** {*;}
 #################### end region
 
 ################### region for gradle_rxjava

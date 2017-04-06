@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Matrix;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * Created by fionera on 15-12-25.

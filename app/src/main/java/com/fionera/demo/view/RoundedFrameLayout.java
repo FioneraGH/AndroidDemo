@@ -44,6 +44,7 @@ public class RoundedFrameLayout
 
     @Override
     public void draw(Canvas canvas) {
+        super.draw(canvas);
         try {
             if (canvas != null) {
                 drawShapePathCanvas(canvas);

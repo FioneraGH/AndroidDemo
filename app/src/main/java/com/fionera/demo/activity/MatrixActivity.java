@@ -9,11 +9,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.SwipeDismissBehavior;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.fionera.demo.R;
 import com.fionera.base.util.ShowToast;
+import com.fionera.demo.R;
 
 public class MatrixActivity
         extends Activity {
@@ -25,7 +27,6 @@ public class MatrixActivity
 
         ImageView imageView1 = (ImageView) findViewById(R.id.ivTest1);
         ImageView imageView2 = (ImageView) findViewById(R.id.ivTest2);
-        ImageView imageView3 = (ImageView) findViewById(R.id.ivTest3);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         imageView1.setImageBitmap(bitmap);
@@ -46,8 +47,6 @@ public class MatrixActivity
         // 绘制Bitmap
         canvas.drawBitmap(bitmap, matrix, paint);
         imageView2.setImageBitmap(newBitmap);
-
-        imageView3.setClipToOutline(true);
 
         final SwipeDismissBehavior<ImageView> swipe = new SwipeDismissBehavior<>();
         swipe.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
