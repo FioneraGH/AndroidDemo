@@ -9,22 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lc_android_chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:background="@color/blue2"
-            android:padding="16dp"
-            android:text="你好1" />
+            android:layout_height="match_parent"/>
 
-        <TextView
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bc_android_chart"
+            android:background="@color/blue2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_margin="16dp"
-            android:background="@color/blue"
-            android:padding="16dp"
-            android:text="你好2" />
+            android:layout_height="match_parent"/>
 
     </com.fionera.demo.view.ViewDragLayout>
 

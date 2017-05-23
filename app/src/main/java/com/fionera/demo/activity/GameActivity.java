@@ -13,7 +13,7 @@ import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.view.game2048.NumberContainer;
 
-public class G2048Activity
+public class GameActivity
         extends AppCompatActivity {
 
     @Override

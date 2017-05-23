@@ -264,6 +264,7 @@ public class ConstraintLayoutActivity
         }
 
         LocalImageHelper.getInstance().getCheckedItems().clear();
+        LocalImageHelper.getInstance().setCurrentSize(1);
         LocalImageHelper.getInstance().setCurrentSize(0);
         startActivityForResult(new Intent(mContext, LocalAlbum.class),
                 ImageConst.REQUEST_CODE_GET_IMAGE_BY_CROP);

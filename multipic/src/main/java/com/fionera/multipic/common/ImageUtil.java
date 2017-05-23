@@ -19,7 +19,7 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).into(imageView);
+        GlideApp.with(imageView).load(url).into(imageView);
     }
 
     public static void loadImageWithoutCache(String url, ImageView imageView) {
@@ -27,7 +27,7 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).skipMemoryCache(true).into(imageView);
+        GlideApp.with(imageView).load(url).skipMemoryCache(true).into(imageView);
     }
 
     public static void loadImage(String url, ImageView imageView, int holderResId) {
@@ -35,7 +35,7 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).placeholder(holderResId).into(imageView);
+        GlideApp.with(imageView).load(url).placeholder(holderResId).into(imageView);
     }
 
     public static void loadImageWithBitmap(String url, ImageView imageView, int holderResId) {
@@ -43,7 +43,10 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).asBitmap().placeholder(holderResId).into(imageView);
+        /*
+        bitmap request
+         */
+        GlideApp.with(imageView).asBitmap().load(url).placeholder(holderResId).into(imageView);
     }
 
     public static void loadImageWithoutCache(String url, ImageView imageView, int holderResId) {
@@ -51,7 +54,7 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).skipMemoryCache(true).placeholder(holderResId)
+        GlideApp.with(imageView).load(url).skipMemoryCache(true).placeholder(holderResId)
                 .into(imageView);
     }
 
@@ -60,7 +63,7 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).dontAnimate().thumbnail(0.3f).into(
+        GlideApp.with(imageView).load(url).dontAnimate().thumbnail(0.3f).into(
                 imageView);
     }
 
@@ -70,7 +73,7 @@ public class ImageUtil {
             return;
 
         }
-        Glide.with(imageView.getContext()).load(url).dontAnimate().placeholder(placeHolder).into(
+        GlideApp.with(imageView).load(url).dontAnimate().placeholder(placeHolder).into(
                 imageView);
     }
 
@@ -79,7 +82,7 @@ public class ImageUtil {
             imageView.setImageResource(R.drawable.iv_avatar_default);
             return;
         }
-        Glide.with(imageView.getContext()).load(url).dontAnimate().placeholder(holderResId).into(
+        GlideApp.with(imageView).load(url).dontAnimate().placeholder(holderResId).into(
                 imageView);
     }
 }

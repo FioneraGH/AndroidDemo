@@ -97,7 +97,7 @@ public class LocalImageHelper {
         return instance;
     }
 
-    public boolean isInitialized() {
+    private boolean isInitialized() {
         return paths.size() > 0;
     }
 

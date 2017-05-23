@@ -7,15 +7,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fionera.demo.DemoApplication;
-
 /**
+ * ViewDragLayout
  * Created by fionera on 16-2-14.
  */
+
 public class ViewDragLayout
         extends ViewGroup {
-
-    private static final int MIN_DRAWER_MARGIN = 64;
     private static final int MIN_FLING_VELOCITY = 400;
 
     private View mLeftMenuView;
@@ -36,12 +34,10 @@ public class ViewDragLayout
         init();
     }
 
-
     private void init() {
-        final float minVel = MIN_FLING_VELOCITY * DemoApplication.screenDensity;
+        final float minVel = MIN_FLING_VELOCITY * 2;
 
         mHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
-
             @Override
             public int getViewHorizontalDragRange(View child) {
                 return child.equals(mLeftMenuView) ? child.getWidth() : 0;
@@ -76,7 +72,6 @@ public class ViewDragLayout
             public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
 
             }
-
         });
         mHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
         mHelper.setMinVelocity(minVel);
@@ -100,7 +95,6 @@ public class ViewDragLayout
                                                                  lp.topMargin + lp.bottomMargin,
                                                          lp.height);
         leftMenuView.measure(drawerWidthSpec, drawerHeightSpec);
-
 
         View contentView = getChildAt(0);
         lp = (MarginLayoutParams) contentView.getLayoutParams();
@@ -134,13 +128,11 @@ public class ViewDragLayout
         return mHelper.shouldInterceptTouchEvent(ev);
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mHelper.processTouchEvent(event);
         return true;
     }
-
 
     @Override
     public void computeScroll() {
@@ -171,9 +163,6 @@ public class ViewDragLayout
     public void openDrawer() {
         View menuView = mLeftMenuView;
         mHelper.smoothSlideViewTo(menuView, 0, menuView.getTop());
-        /*
-          防止调用无效
-         */
         postInvalidate();
     }
 

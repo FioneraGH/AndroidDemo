@@ -11,7 +11,7 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '25.0.3'
 
     defaultConfig {
         applicationId "com.fionera.demo"
@@ -20,8 +20,6 @@ android {
         versionCode 12
         versionName "1.6.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         externalNativeBuild {
             cmake {
                 cppFlags ""
@@ -29,7 +27,7 @@ android {
         }
 
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi"
         }
     }
 
@@ -45,6 +43,8 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
+    flavorDimensions "demo"
 
     productFlavors {
         dev {
@@ -84,21 +84,20 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:design:$support_version"
-    compile "com.android.support:recyclerview-v7:$support_version"
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "com.android.support:cardview-v7:$support_version"
-    compile "com.android.support:transition:$support_version"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:cardview-v7:$support_version"
+    implementation "com.android.support:transition:$support_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile 'com.taobao.android:weex_sdk:0.10.0'
-    compile 'com.ogaclejapan.smarttablayout:library:1.6.1'
-    compile 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'com.taobao.android:weex_sdk:0.11.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'com.ogaclejapan.smarttablayout:library:1.6.1'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.1'
 
-    compile 'com.sun.mail:android-mail:1.5.6'
+    implementation 'com.sun.mail:android-mail:1.5.6'
 
-    compile project(':multipic')
+    implementation project(':multipic')
+    implementation project(':base')
 }

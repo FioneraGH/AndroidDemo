@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="xUtils3 + ViewDragHelper"/>
+            android:text="AndroidCharts"/>
 
         <Button
             android:id="@+id/button10"
@@ -144,7 +144,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="SeatTable"/>
-
     </LinearLayout>
-
 </ScrollView>

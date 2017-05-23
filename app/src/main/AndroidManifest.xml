@@ -8,9 +8,9 @@
         android:required="false" />
 
     <application
-        android:extractNativeLibs="true"
         android:name=".DemoApplication"
         android:allowBackup="false"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="false"
@@ -28,9 +28,9 @@
         </activity>
         <activity-alias
             android:name=".AnotherMainActivity"
+            android:enabled="false"
             android:icon="@mipmap/ic_launcher_another"
             android:label="@string/app_name_another"
-            android:enabled="false"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,16 +38,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
+
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.XUtils3Activity" />
+        <activity android:name=".activity.AndroidChartsActivity" />
         <activity android:name=".activity.SmartTabLayoutActivity" />
         <activity android:name=".activity.MatrixActivity" />
         <activity android:name=".activity.PullToLoadActivity" />
         <activity android:name=".activity.CaptureActivity" />
         <activity android:name=".activity.NotificationActivity" />
-        <activity android:name=".activity.G2048Activity" />
+        <activity android:name=".activity.GameActivity" />
         <activity android:name=".activity.RxAndroidActivity" />
         <activity android:name=".activity.BottomSheetActivity" />
         <activity android:name=".activity.RVWithHeaderActivity" />
@@ -56,7 +57,9 @@
         <activity android:name=".activity.ConstraintLayoutActivity" />
         <activity android:name=".activity.StickyHeaderActivity" />
         <activity android:name=".activity.SurfaceViewActivity" />
-        <activity android:name=".activity.WeexActivity" android:exported="true"/>
+        <activity
+            android:name=".activity.WeexActivity"
+            android:exported="true" />
         <activity android:name=".activity.ClipBoardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

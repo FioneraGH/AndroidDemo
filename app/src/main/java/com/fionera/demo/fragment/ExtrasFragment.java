@@ -14,7 +14,7 @@ import com.fionera.demo.activity.ClipBoardActivity;
 import com.fionera.demo.activity.ConstraintLayoutActivity;
 import com.fionera.demo.activity.DoubleHeadTableActivity;
 import com.fionera.demo.activity.FlycoPageIndicatorActivity;
-import com.fionera.demo.activity.G2048Activity;
+import com.fionera.demo.activity.GameActivity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
@@ -25,7 +25,7 @@ import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.StickyHeaderActivity;
 import com.fionera.demo.activity.SurfaceViewActivity;
 import com.fionera.demo.activity.WeexActivity;
-import com.fionera.demo.activity.XUtils3Activity;
+import com.fionera.demo.activity.AndroidChartsActivity;
 
 /**
  * ExtrasFragment
@@ -84,13 +84,13 @@ public class ExtrasFragment
                 mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class));
                 break;
             case R.id.button8:
-                Intent intent = new Intent(getActivity(), G2048Activity.class);
+                Intent intent = new Intent(getActivity(), GameActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         mActivity, view, "testTrans");
                 ActivityCompat.startActivity(mActivity, intent, options.toBundle());
                 break;
             case R.id.button9:
-                mContext.startActivity(new Intent(mContext, XUtils3Activity.class));
+                mContext.startActivity(new Intent(mContext, AndroidChartsActivity.class));
                 break;
             case R.id.button10:
                 mContext.startActivity(new Intent(mContext, RxAndroidActivity.class));

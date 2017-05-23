@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -25,10 +24,10 @@ import android.text.style.URLSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.fionera.demo.R;
+import com.fionera.multipic.common.GlideApp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -224,13 +223,12 @@ public class RichText
             if (mImageFixListener != null && holder != null) {
                 mImageFixListener.onFix(holder);
                 if (holder.width != -1 && holder.height != -1) {
-                    Glide.with(getContext()).load(source).asBitmap().override(holder.width,
+                    GlideApp.with(getContext()).asBitmap().load(source).override(holder.width,
                             holder.height).placeholder(placeHolder).error(errorImage).into(
                             new SimpleTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(Bitmap resource,
-                                                            GlideAnimation<? super Bitmap>
-                                                                    glideAnimation) {
+                                                            Transition<? super Bitmap> transition) {
                                     Drawable drawable = new BitmapDrawable(getResources(),
                                             resource);
                                     drawable.setBounds(0, 0, resource.getWidth(),

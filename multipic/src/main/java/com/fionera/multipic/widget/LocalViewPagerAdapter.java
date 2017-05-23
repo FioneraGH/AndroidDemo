@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.fionera.multipic.common.Constants;
 import com.fionera.multipic.common.LocalImageHelper;
 
 import java.util.List;
@@ -29,7 +28,6 @@ public class LocalViewPagerAdapter
     public Fragment getItem(int position) {
         ImageFragment fragment = new ImageFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Constants.ZOOM, true);
         bundle.putString("url", files.get(position).getOriginalUri());
         fragment.setArguments(bundle);
         return fragment;

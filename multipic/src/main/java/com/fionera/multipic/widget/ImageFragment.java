@@ -11,8 +11,12 @@ import android.widget.ImageView;
 import com.fionera.multipic.R;
 import com.fionera.multipic.common.ImageUtil;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 public class ImageFragment
         extends Fragment {
+
+    private PhotoViewAttacher photoViewAttacher;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,6 +30,16 @@ public class ImageFragment
         super.onViewCreated(view, savedInstanceState);
         ImageView imageView = (ImageView) view;
         ImageUtil.loadImage(getArguments().getString("url"), imageView);
-//        new PhotoViewAttacher(imageView);
+        photoViewAttacher = new PhotoViewAttacher(imageView);
+        photoViewAttacher.setRotatable(true);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (photoViewAttacher != null) {
+            photoViewAttacher.cleanup();
+            photoViewAttacher = null;
+        }
     }
 }
