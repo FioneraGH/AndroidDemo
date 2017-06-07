@@ -60,6 +60,11 @@ android {
             }
             return 0
         }
+        prod {
+            minSdkVersion 19
+            resConfigs("zh_CN", "en_US")
+            return 0
+        }
     }
 
     compileOptions {
@@ -94,7 +99,7 @@ dependencies {
     implementation 'com.taobao.android:weex_sdk:0.11.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1'
-    implementation 'me.dm7.barcodescanner:zxing:1.9.1'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.3'
 
     implementation 'com.sun.mail:android-mail:1.5.6'
 
