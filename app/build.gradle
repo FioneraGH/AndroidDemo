@@ -10,13 +10,13 @@ android {
         }
     }
 
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         applicationId "com.fionera.demo"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 12
         versionName "1.6.0"
 
@@ -47,11 +47,6 @@ android {
     flavorDimensions "demo"
 
     productFlavors {
-        dev {
-            minSdkVersion 21
-            resConfigs("zh_CN", "en_US")
-            return 0
-        }
         emu {
             minSdkVersion 25
             resConfigs("zh_CN", "en_US")
