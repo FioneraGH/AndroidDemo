@@ -16,6 +16,7 @@ import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.LogCat;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
+import com.fionera.demo.popupwindow.ProvinceJsonPopup;
 import com.fionera.demo.popupwindow.ProvincePopup;
 import com.fionera.demo.service.BluetoothLeService;
 import com.fionera.demo.util.BlueToothScanUtil;
@@ -38,7 +39,7 @@ public class ConstraintLayoutActivity
     private static final byte[] KEY = {(byte) 0xB4, 0x31, 0x5B, (byte) 0x86, (byte) 0x9D, 0x7D,
             (byte) 0xFA, (byte) 0xA2};
 
-    private ProvincePopup provincePopup;
+    private ProvinceJsonPopup provincePopup;
 
     private ImageView ivConstraintPr;
 
@@ -57,11 +58,11 @@ public class ConstraintLayoutActivity
             actionBar.setDisplayShowTitleEnabled(false);
         }
 
-        ivConstraintPr = (ImageView) findViewById(R.id.iv_constraint_pr);
+        ivConstraintPr = findViewById(R.id.iv_constraint_pr);
 
-        provincePopup = new ProvincePopup(mContext);
+        provincePopup = new ProvinceJsonPopup(mContext);
 
-        final TextView textView = (TextView) findViewById(R.id.tv_constraint_tips);
+        final TextView textView = findViewById(R.id.tv_constraint_tips);
         textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));
         textView.setOnClickListener(v -> {
             String[] addresses = textView.getText().toString().split(":");
@@ -69,7 +70,10 @@ public class ConstraintLayoutActivity
                 provincePopup.setValue(addresses[0] + ":" + addresses[1] + ":" + addresses[2]);
             }
             provincePopup.setGetValueCallback(
-                    (province, city, district, zipCode) -> textView.setText(province + ":" + city + ":" + district));
+                    (province, city, district, provinceId, cityId, districtId) -> {
+                        textView.setText(province + ":" + city + ":" + district);
+                        ShowToast.show(provinceId + ":" + cityId + ":" + districtId);
+                    });
             provincePopup.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,
                     NavigationBarUtil.getNavigationBarHeight(mContext));
             final WindowManager.LayoutParams lp = getWindow().getAttributes();
