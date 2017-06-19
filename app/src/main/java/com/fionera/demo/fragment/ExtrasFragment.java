@@ -17,6 +17,7 @@ import com.fionera.demo.activity.FlycoPageIndicatorActivity;
 import com.fionera.demo.activity.GameActivity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
+import com.fionera.demo.activity.OpenGLActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
 import com.fionera.demo.activity.RVWithHeaderActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
@@ -79,6 +80,7 @@ public class ExtrasFragment
                 mContext.startActivity(new Intent(mContext, NotificationActivity.class));
                 break;
             case R.id.button6:
+                mContext.startActivity(new Intent(mContext, OpenGLActivity.class));
                 break;
             case R.id.button7:
                 mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class));
