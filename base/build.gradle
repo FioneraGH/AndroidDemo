@@ -24,7 +24,7 @@ dependencies {
     api 'com.github.bumptech.glide:glide:4.0.0-RC0'
     api 'com.chensl.rotatephotoview:rotatephotoview:1.0.5'
     api 'com.alibaba:fastjson:1.2.32'
-    api 'com.squareup.okhttp3:okhttp:3.8.0'
+    api 'com.squareup.okhttp3:okhttp:3.8.1'
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
     api 'io.reactivex.rxjava2:rxjava:2.1.0'
 }
