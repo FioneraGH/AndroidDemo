@@ -64,7 +64,7 @@ public class LocalAlbumDetail
             }
         });
 
-        tvFinish = (TextView) findViewById(R.id.tv_local_album_detail_finish);
+        tvFinish = findViewById(R.id.tv_local_album_detail_finish);
         tvFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +72,7 @@ public class LocalAlbumDetail
                 finish();
             }
         });
-        headerFinish = (TextView) findViewById(R.id.tv_local_album_detail_header_finish);
+        headerFinish = findViewById(R.id.tv_local_album_detail_header_finish);
         headerFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,14 +81,14 @@ public class LocalAlbumDetail
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.local_album_detail);
+        recyclerView = findViewById(R.id.local_album_detail);
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
 
-        pagerContainer = (FrameLayout) findViewById(R.id.fl_local_album_detail_pager_view);
-        mCountView = (TextView) findViewById(R.id.tv_local_album_detail_header_count);
-        checkBox = (CheckBox) findViewById(R.id.cb_local_album_detail_check);
+        pagerContainer = findViewById(R.id.fl_local_album_detail_pager_view);
+        mCountView = findViewById(R.id.tv_local_album_detail_header_count);
+        checkBox = findViewById(R.id.cb_local_album_detail_check);
         checkBox.setOnCheckedChangeListener(this);
-        viewPager = (HackyViewPager) findViewById(R.id.vp_local_album_detail);
+        viewPager = findViewById(R.id.vp_local_album_detail);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset,
@@ -114,8 +114,13 @@ public class LocalAlbumDetail
 
             }
         });
-
-        final String folder = getIntent().getExtras().getString("local_folder_name");
+        String folder = "Default";
+        /*
+        none check
+         */
+        if (getIntent().hasExtra("local_folder_name")) {
+            folder = getIntent().getStringExtra("local_folder_name");
+        }
         ((TextView) findViewById(R.id.tv_local_album_detail_title)).setText(folder);
         currentFolder = LocalImageHelper.getInstance().getFolder(
                 folder);
@@ -143,7 +148,7 @@ public class LocalAlbumDetail
         pagerContainer.setVisibility(View.VISIBLE);
         viewPager.setAdapter(new LocalViewPagerAdapter(getSupportFragmentManager(), currentFolder));
         viewPager.setCurrentItem(index);
-        mCountView.setText((index + 1) + "/" + currentFolder.size());
+        mCountView.setText(String.format(Locale.CHINA, "%d/%d", index + 1, currentFolder.size()));
         if (index == 0) {
             checkBox.setTag(currentFolder.get(index));
             checkBox.setChecked(checkedItems.contains(currentFolder.get(index)));
@@ -248,8 +253,8 @@ public class LocalAlbumDetail
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
+            imageView = itemView.findViewById(R.id.imageView);
+            checkBox = itemView.findViewById(R.id.checkbox);
             checkBox.setOnCheckedChangeListener(LocalAlbumDetail.this);
         }
     }

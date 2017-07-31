@@ -16,7 +16,6 @@ import com.fionera.demo.R;
 
 public class LoginFragment
         extends Fragment {
-
     private OnFragmentInteractionListener mListener;
     private TextInputEditText actvLoginEmail;
     private TextInputEditText etLoginPassword;

@@ -233,8 +233,8 @@ public class LocalAlbum
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.iv_local_album_folder_preview);
-            textView = (TextView) itemView.findViewById(R.id.iv_local_album_folder_name);
+            imageView = itemView.findViewById(R.id.iv_local_album_folder_preview);
+            textView = itemView.findViewById(R.id.iv_local_album_folder_name);
         }
     }
 }

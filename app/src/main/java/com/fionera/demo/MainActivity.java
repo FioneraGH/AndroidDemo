@@ -55,9 +55,9 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewPager = (ViewPager) findViewById(R.id.vp_main_page);
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.ptas_main_page);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bnv_main_page);
+        viewPager = findViewById(R.id.vp_main_page);
+        PagerTabStrip pagerTabStrip = findViewById(R.id.ptas_main_page);
+        bottomNavigationView = findViewById(R.id.bnv_main_page);
 
         if (ContextCompat.checkSelfPermission(mContext,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -98,11 +98,12 @@ public class MainActivity
 
             @Override
             public CharSequence getPageTitle(int position) {
-                String title_text = "测试 ";
+                StringBuilder title_text = new StringBuilder("测试 ");
                 for (int i = 0; i < position; i++) {
-                    title_text += new DecimalFormat(" #0").format(Math.pow(position, position));
+                    title_text.append(
+                            new DecimalFormat(" #0").format(Math.pow(position, position)));
                 }
-                return title_text;
+                return title_text.toString();
             }
         });
 
@@ -174,6 +175,7 @@ public class MainActivity
         killLauncher(packageManager);
     }
 
+    @SuppressLint("MissingPermission")
     private void killLauncher(PackageManager packageManager) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
@@ -183,7 +185,9 @@ public class MainActivity
             if (res.activityInfo != null) {
                 ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                 LogCat.d("Need kill Package:" + res.activityInfo.packageName);
-                am.killBackgroundProcesses(res.activityInfo.packageName);
+                if (am != null) {
+                    am.killBackgroundProcesses(res.activityInfo.packageName);
+                }
                 break;
             }
         }

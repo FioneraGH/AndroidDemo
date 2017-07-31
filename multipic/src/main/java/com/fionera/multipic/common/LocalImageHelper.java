@@ -113,11 +113,12 @@ public class LocalImageHelper {
                 instance.initImage();
                 isRunning = false;
                 e.onNext(startTime);
+                e.onComplete();
             }
         }).filter(new Predicate<Long>() {
             @Override
             public boolean test(@NonNull Long aLong) throws Exception {
-                return !isRunning && !instance.isInitialized();
+                return /*!isRunning && !instance.isInitialized()*/true;
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Consumer<Long>() {
@@ -130,6 +131,7 @@ public class LocalImageHelper {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         ShowToast.show(throwable.getMessage());
+                        throwable.printStackTrace();
                     }
                 });
     }
