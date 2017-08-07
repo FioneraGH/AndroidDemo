@@ -81,8 +81,8 @@ public class ChatActivity
             }
         });
 
-        listView = (ListView) findViewById(R.id.lv_chat_content);
-        mEditTextContent = (EditText) findViewById(R.id.et_send_message);
+        listView = findViewById(R.id.lv_chat_content);
+        mEditTextContent = findViewById(R.id.et_send_message);
     }
 
     private void sendTestEmail() {

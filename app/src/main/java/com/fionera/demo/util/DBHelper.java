@@ -3,10 +3,10 @@ package com.fionera.demo.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.fionera.demo.bean.ChatMsgBean;
+import com.tencent.wcdb.database.SQLiteDatabase;
+import com.tencent.wcdb.database.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;

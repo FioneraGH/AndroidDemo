@@ -118,7 +118,10 @@ public class LocalImageHelper {
         }).filter(new Predicate<Long>() {
             @Override
             public boolean test(@NonNull Long aLong) throws Exception {
-                return /*!isRunning && !instance.isInitialized()*/true;
+                /*
+                perhaps build cache make it no effect
+                 */
+                return !isRunning && !instance.isInitialized();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Consumer<Long>() {

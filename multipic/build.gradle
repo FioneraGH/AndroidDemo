@@ -23,6 +23,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:exifinterface:$support_version"
+    implementation 'com.chensl.rotatephotoview:rotatephotoview:1.0.5'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     implementation project(':base')
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
 }

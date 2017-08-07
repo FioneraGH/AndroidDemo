@@ -1,6 +1,7 @@
 package com.fionera.demo;
 
 import android.app.ActivityManager;
+import android.net.TrafficStats;
 import android.os.Process;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -62,11 +63,13 @@ public class DemoApplication
 
     public boolean isMainProcess() {
         ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> processes = activityManager
-                .getRunningAppProcesses();
-        for (ActivityManager.RunningAppProcessInfo process : processes) {
-            if (TextUtils.equals(process.processName, getPackageName())) {
-                return Process.myPid() == process.pid;
+        if (activityManager != null) {
+            List<ActivityManager.RunningAppProcessInfo> processes = activityManager
+                    .getRunningAppProcesses();
+            for (ActivityManager.RunningAppProcessInfo process : processes) {
+                if (TextUtils.equals(process.processName, getPackageName())) {
+                    return Process.myPid() == process.pid;
+                }
             }
         }
         return false;

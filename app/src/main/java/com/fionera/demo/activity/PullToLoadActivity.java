@@ -39,7 +39,7 @@ public class PullToLoadActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pull_to_load);
 
-        listView = (ListView) findViewById(R.id.lv_load_data);
+        listView = findViewById(R.id.lv_load_data);
         header = View.inflate(mContext, R.layout.layout_load_more, null);
         listView.setOnScrollListener(this);
         showAllData();
