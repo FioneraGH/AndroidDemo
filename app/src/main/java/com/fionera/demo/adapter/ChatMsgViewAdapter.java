@@ -12,6 +12,9 @@ import com.fionera.demo.bean.ChatMsgBean;
 
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class ChatMsgViewAdapter extends BaseAdapter {
 
     private final int IS_COMING_MSG = 0;
@@ -26,16 +29,19 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     }
 
     // 获取ListView的项个数
+    @Override
     public int getCount() {
         return data.size();
     }
 
     // 获取项
+    @Override
     public Object getItem(int position) {
         return data.get(position);
     }
 
     // 获取项的ID
+    @Override
     public long getItemId(int position) {
         return position;
     }
@@ -56,6 +62,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     }
 
     // 获取View
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ChatMsgBean entry = (ChatMsgBean) getItem(position);
@@ -71,9 +78,9 @@ public class ChatMsgViewAdapter extends BaseAdapter {
             }
             viewHolder = new ViewHolder();
             if (convertView != null) {
-                viewHolder.tvSendTime = (TextView) convertView.findViewById(R.id.tv_sendtime);
-                viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
-                viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_chatcontent);
+                viewHolder.tvSendTime = convertView.findViewById(R.id.tv_sendtime);
+                viewHolder.tvUserName = convertView.findViewById(R.id.tv_username);
+                viewHolder.tvContent = convertView.findViewById(R.id.tv_chatcontent);
                 convertView.setTag(viewHolder);
             }
         } else {

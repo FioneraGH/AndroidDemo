@@ -1,7 +1,9 @@
 package com.fionera.demo.behavior;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -9,7 +11,9 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 
 /**
- * Created by fionera on 16-5-26.
+ *
+ * @author fionera
+ * @date 16-5-26
  */
 public class HeaderBehavior
         extends CoordinatorLayout.Behavior<View> {
@@ -20,18 +24,20 @@ public class HeaderBehavior
         super(context, attrs);
     }
 
-    //1.判断滑动的方向 我们需要垂直滑动
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child,
-                                       View directTargetChild, View target, int nestedScrollAxes) {
-        return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout,
+                                       @NonNull View child, @NonNull View directTargetChild,
+                                       @NonNull View target, int axes, int type) {
+        return (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
-    //2.根据滑动的距离显示和隐藏footer view
     @Override
-    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target,
-                                  int dx, int dy, int[] consumed) {
-        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
+    public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child,
+                                  @NonNull View target, int dx, int dy, @NonNull int[] consumed,
+                                  int type) {
+        boolean needReset = dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange
+                > 0;
+        if (needReset) {
             child.animate().cancel();
             sinceDirectionChange = 0;
         }
@@ -44,34 +50,17 @@ public class HeaderBehavior
         }
     }
 
-
     private void hide(final View view) {
         ViewPropertyAnimator animator = view.animate().translationY(-view.getHeight())
                 .setDuration(300);
-        animator.setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
+        animator.setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
                 view.setVisibility(View.GONE);
             }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-                show(view);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
         });
         animator.start();
     }
-
 
     private void show(final View view) {
         ViewPropertyAnimator animator = view.animate().translationY(0).setDuration(300);

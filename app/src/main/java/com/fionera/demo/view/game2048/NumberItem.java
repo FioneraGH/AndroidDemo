@@ -8,6 +8,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * @author fionera
+ */
 public class NumberItem
         extends View {
     /**

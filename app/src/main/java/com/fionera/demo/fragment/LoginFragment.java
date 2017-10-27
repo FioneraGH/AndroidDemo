@@ -14,6 +14,9 @@ import android.widget.Button;
 
 import com.fionera.demo.R;
 
+/**
+ * @author fionera
+ */
 public class LoginFragment
         extends Fragment {
     private OnFragmentInteractionListener mListener;
@@ -69,6 +72,8 @@ public class LoginFragment
                     tilLoginPassword.setErrorEnabled(true);
                     mListener.onFragmentInteraction("登录失败");
                     break;
+                    default:
+                        break;
             }
         });
     }
@@ -94,14 +99,18 @@ public class LoginFragment
     }
 
     private void initView(View view) {
-        actvLoginEmail = (TextInputEditText) view.findViewById(R.id.et_login_email);
-        etLoginPassword = (TextInputEditText) view.findViewById(R.id.et_login_password);
-        emailSignInButton = (Button) view.findViewById(R.id.btn_email_sign_in);
-        tilLoginEmail = (TextInputLayout) view.findViewById(R.id.til_login_email);
-        tilLoginPassword = (TextInputLayout) view.findViewById(R.id.til_login_password);
+        actvLoginEmail = view.findViewById(R.id.et_login_email);
+        etLoginPassword = view.findViewById(R.id.et_login_password);
+        emailSignInButton = view.findViewById(R.id.btn_email_sign_in);
+        tilLoginEmail = view.findViewById(R.id.til_login_email);
+        tilLoginPassword = view.findViewById(R.id.til_login_password);
     }
 
     public interface OnFragmentInteractionListener {
+        /**
+         * callback
+         * @param result result
+         */
         void onFragmentInteraction(String result);
     }
 }

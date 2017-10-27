@@ -18,6 +18,9 @@ import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.ClipBoardActivity;
 
+/**
+ * @author fionera
+ */
 public final class TipViewController
         implements View.OnClickListener, View.OnTouchListener, ViewContainer.KeyEventHandler {
 

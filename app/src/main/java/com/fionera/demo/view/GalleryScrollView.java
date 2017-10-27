@@ -12,7 +12,9 @@ import java.util.ArrayList;
 
 /**
  * GalleryScrollView
- * Created by fionera on 16-2-11.
+ *
+ * @author fionera
+ * @date 16-2-11
  */
 
 public class GalleryScrollView
@@ -73,7 +75,7 @@ public class GalleryScrollView
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL: {
+            case MotionEvent.ACTION_CANCEL:
                 if (Math.abs((ev.getX() - downX)) > getWidth() / 4) {
                     if (ev.getX() - downX > 0) {
                         smoothScrollToPrePage();
@@ -84,7 +86,8 @@ public class GalleryScrollView
                     smoothScrollToCurrent();
                 }
                 return true;
-            }
+            default:
+                break;
         }
         return super.onTouchEvent(ev);
     }

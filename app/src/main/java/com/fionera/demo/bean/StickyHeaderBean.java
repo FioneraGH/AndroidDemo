@@ -3,7 +3,8 @@ package com.fionera.demo.bean;
 import java.util.List;
 
 /**
- * Created by fionera on 17-1-9 in AndroidDemo.
+ * @author fionera
+ * @date 17-1-9 in AndroidDemo
  */
 
 public class StickyHeaderBean {

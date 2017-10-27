@@ -18,13 +18,23 @@ import com.fionera.demo.R;
 
 /**
  * ArcMenu
- * Created by fionera on 15-8-16.
+ *
+ * @author fionera
+ * @date 15-8-16
  */
 
-public class ArcMenu extends ViewGroup implements View.OnClickListener {
+public class ArcMenu
+        extends ViewGroup
+        implements View.OnClickListener {
 
     private enum Position {
-        LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
+        /**
+         * left top, left bottom, right top, right bottom
+         */
+        LEFT_TOP,
+        LEFT_BOTTOM,
+        RIGHT_TOP,
+        RIGHT_BOTTOM
     }
 
     private Position position = Position.RIGHT_BOTTOM;
@@ -61,9 +71,11 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
             case 3:
                 position = Position.RIGHT_BOTTOM;
                 break;
+            default:
+                break;
         }
-        radius = (int) a.getDimension(R.styleable.ArcMenu_radiu,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
+        radius = (int) a.getDimension(R.styleable.ArcMenu_radiu, TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
                         context.getResources().getDisplayMetrics()));
 
         a.recycle();
@@ -107,6 +119,8 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                     case RIGHT_BOTTOM:
                         cl = getMeasuredWidth() - (cl + cw);
                         ct = getMeasuredHeight() - (ct + ch);
+                        break;
+                    default:
                         break;
                 }
 
@@ -303,8 +317,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         return animationSet;
     }
 
-    public void setOnMenuItemClickListener(
-            OnMenuItemClickListener onMenuItemClickListener) {
+    public void setOnMenuItemClickListener(OnMenuItemClickListener onMenuItemClickListener) {
         this.onMenuItemClickListener = onMenuItemClickListener;
     }
 

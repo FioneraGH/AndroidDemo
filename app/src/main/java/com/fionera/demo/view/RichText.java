@@ -35,6 +35,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author fionera
+ */
 public class RichText
         extends AppCompatTextView {
 
@@ -43,13 +46,22 @@ public class RichText
     private static Pattern IMAGE_HEIGHT_PATTERN = Pattern.compile("height=\"(.*?)\"");
     private static Pattern IMAGE_SRC_PATTERN = Pattern.compile("src=\"(.*?)\"");
 
-    private Drawable placeHolder, errorImage; // 占位图，错误图
-    private OnImageClickListener onImageClickListener; // 图片点击回调
-    private OnURLClickListener onURLClickListener;// 超链接 点击回调
-    private HashMap<String, ImageHolder> mImages;
+    /**
+     * 占位图，错误图
+     */
+    private Drawable placeHolder, errorImage;
+    /**
+     * 图片点击回调
+      */
+    private OnImageClickListener onImageClickListener;
+    /**
+     * 超链接 点击回调
+      */
+    private OnUrlClickListener onUrlClickListener;
+    private HashMap<String, ImageHolder> mImages = new HashMap<>();
     private ImageFixListener mImageFixListener;
-    private int d_w = 200;
-    private int d_h = 200;
+    private int dW = 200;
+    private int dH = 200;
 
     public RichText(Context context) {
         this(context, null);
@@ -70,17 +82,17 @@ public class RichText
         placeHolder = typedArray.getDrawable(R.styleable.RichText_place_holder);
         errorImage = typedArray.getDrawable(R.styleable.RichText_error_image);
 
-        d_w = typedArray.getDimensionPixelSize(R.styleable.RichText_default_width, d_w);
-        d_h = typedArray.getDimensionPixelSize(R.styleable.RichText_default_height, d_h);
+        dW = typedArray.getDimensionPixelSize(R.styleable.RichText_default_width, dW);
+        dH = typedArray.getDimensionPixelSize(R.styleable.RichText_default_height, dH);
 
         if (placeHolder == null) {
             placeHolder = new ColorDrawable(Color.BLUE);
         }
-        placeHolder.setBounds(0, 0, d_w, d_h);
+        placeHolder.setBounds(0, 0, dW, dH);
         if (errorImage == null) {
             errorImage = new ColorDrawable(Color.BLUE);
         }
-        errorImage.setBounds(0, 0, d_w, d_h);
+        errorImage.setBounds(0, 0, dW, dH);
         typedArray.recycle();
     }
 
@@ -92,7 +104,7 @@ public class RichText
     public void setRichText(String text) {
         matchImages(text);
 
-        Spanned spanned = Html.fromHtml(text, asyncImageGetter, null);
+        Spanned spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY, asyncImageGetter, null);
         SpannableStringBuilder spannableStringBuilder;
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;
@@ -144,7 +156,7 @@ public class RichText
 
             spannableStringBuilder.removeSpan(urlSpan);
             spannableStringBuilder
-                    .setSpan(new CallableURLSpan(urlSpan.getURL(), onURLClickListener), start, end,
+                    .setSpan(new CallableUrlSpan(urlSpan.getURL(), onUrlClickListener), start, end,
                              Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
@@ -156,10 +168,9 @@ public class RichText
      * 从文本中拿到<img/>标签,并获取图片url和宽高
      */
     private void matchImages(String text) {
-        mImages = new HashMap<>();
+        mImages.clear();
         ImageHolder holder;
         Matcher imageMatcher, srcMatcher, widthMatcher, heightMatcher;
-        int position = 0;
         imageMatcher = IMAGE_TAG_PATTERN.matcher(text);
         while (imageMatcher.find()) {
             String image = imageMatcher.group().trim();
@@ -171,7 +182,7 @@ public class RichText
             if (TextUtils.isEmpty(src)) {
                 continue;
             }
-            holder = new ImageHolder(src, position);
+            holder = new ImageHolder(src);
 
             widthMatcher = IMAGE_WIDTH_PATTERN.matcher(image);
             if (widthMatcher.find()) {
@@ -186,7 +197,6 @@ public class RichText
             }
 
             mImages.put(holder.src, holder);
-            position++;
         }
     }
 
@@ -202,13 +212,14 @@ public class RichText
         return result;
     }
 
-    /**
-     * 从双引号之间取出字符串
+    private static final Pattern POINT_PATTERN = Pattern.compile("\"(.*?)\"");
+
+    /*
+      从双引号之间取出字符串
      */
     @Nullable
     private static String getTextBetweenQuotation(String text) {
-        Pattern pattern = Pattern.compile("\"(.*?)\"");
-        Matcher matcher = pattern.matcher(text);
+        Matcher matcher = POINT_PATTERN.matcher(text);
         if (matcher.find()) {
             return matcher.group(1);
         }
@@ -218,7 +229,7 @@ public class RichText
     private Html.ImageGetter asyncImageGetter = new Html.ImageGetter() {
         @Override
         public Drawable getDrawable(String source) {
-            final URLDrawable urlDrawable = new URLDrawable(getResources(), null);
+            final UrlDrawable urlDrawable = new UrlDrawable(getResources(), null);
             ImageHolder holder = mImages.get(source);
             if (mImageFixListener != null && holder != null) {
                 mImageFixListener.onFix(holder);
@@ -245,11 +256,11 @@ public class RichText
         }
     };
 
-    private static final class URLDrawable
+    private static final class UrlDrawable
             extends BitmapDrawable {
         private Drawable drawable;
 
-        URLDrawable(Resources res, Bitmap bitmap) {
+        UrlDrawable(Resources res, Bitmap bitmap) {
             super(res, bitmap);
         }
 
@@ -265,19 +276,19 @@ public class RichText
         }
     }
 
-    private static class CallableURLSpan
+    private static class CallableUrlSpan
             extends URLSpan {
 
-        private OnURLClickListener onURLClickListener;
+        private OnUrlClickListener onUrlClickListener;
 
-        CallableURLSpan(String url, OnURLClickListener onURLClickListener) {
+        CallableUrlSpan(String url, OnUrlClickListener onUrlClickListener) {
             super(url);
-            this.onURLClickListener = onURLClickListener;
+            this.onUrlClickListener = onUrlClickListener;
         }
 
         @Override
         public void onClick(View widget) {
-            if (onURLClickListener != null && onURLClickListener.urlClicked(getURL())) {
+            if (onUrlClickListener != null && onUrlClickListener.urlClicked(getURL())) {
                 return;
             }
             super.onClick(widget);
@@ -292,19 +303,19 @@ public class RichText
         public void writeToParcel(Parcel dest, int flags) {
         }
 
-        CallableURLSpan(Parcel in) {
+        CallableUrlSpan(Parcel in) {
             super(in);
         }
 
-        public static final Creator<CallableURLSpan> CREATOR = new Creator<CallableURLSpan>() {
+        public static final Creator<CallableUrlSpan> CREATOR = new Creator<CallableUrlSpan>() {
             @Override
-            public CallableURLSpan createFromParcel(Parcel source) {
-                return new CallableURLSpan(source);
+            public CallableUrlSpan createFromParcel(Parcel source) {
+                return new CallableUrlSpan(source);
             }
 
             @Override
-            public CallableURLSpan[] newArray(int size) {
-                return new CallableURLSpan[size];
+            public CallableUrlSpan[] newArray(int size) {
+                return new CallableUrlSpan[size];
             }
         };
     }
@@ -319,13 +330,11 @@ public class RichText
         }
 
         private final String src;
-        private final int position;
         private int width = -1, height = -1;
         private int scaleType = DEFAULT;
 
-        ImageHolder(String src, int position) {
+        ImageHolder(String src) {
             this.src = src;
-            this.position = position;
         }
 
         public int getHeight() {
@@ -344,6 +353,7 @@ public class RichText
             this.height = height;
         }
 
+        @SuppressWarnings("unused")
         @ScaleType
         public int getScaleType() {
             return scaleType;
@@ -362,21 +372,21 @@ public class RichText
     @SuppressWarnings("unused")
     public void setPlaceHolder(Drawable placeHolder) {
         this.placeHolder = placeHolder;
-        this.placeHolder.setBounds(0, 0, d_w, d_h);
+        this.placeHolder.setBounds(0, 0, dW, dH);
     }
 
     @SuppressWarnings("unused")
     public void setErrorImage(Drawable errorImage) {
         this.errorImage = errorImage;
-        this.errorImage.setBounds(0, 0, d_w, d_h);
+        this.errorImage.setBounds(0, 0, dW, dH);
     }
 
     public void setImageFixListener(ImageFixListener mImageFixListener) {
         this.mImageFixListener = mImageFixListener;
     }
 
-    public void setOnURLClickListener(OnURLClickListener onURLClickListener) {
-        this.onURLClickListener = onURLClickListener;
+    public void setOnUrlClickListener(OnUrlClickListener onUrlClickListener) {
+        this.onUrlClickListener = onUrlClickListener;
     }
 
     public void setOnImageClickListener(OnImageClickListener onImageClickListener) {
@@ -392,7 +402,7 @@ public class RichText
         void onFix(ImageHolder holder);
     }
 
-    public interface OnURLClickListener {
+    public interface OnUrlClickListener {
 
         /**
          * 超链接点击得回调方法

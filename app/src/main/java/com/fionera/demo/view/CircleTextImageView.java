@@ -26,6 +26,9 @@ import android.util.AttributeSet;
 
 import com.fionera.demo.R;
 
+/**
+ * @author fionera
+ */
 public class CircleTextImageView
         extends AppCompatImageView {
 
@@ -174,8 +177,8 @@ public class CircleTextImageView
         return mTextString;
     }
 
-    public void setText(@StringRes int TextResId) {
-        setText(getResources().getString(TextResId));
+    public void setText(@StringRes int textResId) {
+        setText(getResources().getString(textResId));
     }
 
     public void setText(String textString) {

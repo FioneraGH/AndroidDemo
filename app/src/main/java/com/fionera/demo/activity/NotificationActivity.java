@@ -10,8 +10,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.NotificationCompat;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -27,20 +27,34 @@ import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.LogCat;
 import com.fionera.demo.R;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+/**
+ * @author fionera
+ */
 public class NotificationActivity
         extends BaseActivity {
     public static final int NOTIFICATION_ID = 142035738;
+    private static final Pattern NUMBER_PATTERN = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
+            TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(),
+            r -> new Thread(r, "update-notify-%d"));
 
     private NotificationManager notificationManager;
 
     private void sendNotification(final NotificationManager notificationManager) {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                "DEFAULT_CHANNEL");
         builder.setContentTitle("Picture Download").setContentText("Download in progress")
                 .setSmallIcon(R.mipmap.ic_launcher).setChannelId("testChannel");
-        new Thread(() -> {
-            for (int i = 0; i < 100; i += 20) {
+        threadPoolExecutor.execute(() -> {
+            int maxValue = 100;
+            int step = 20;
+            for (int i = 0; i < maxValue; i += step) {
                 builder.setProgress(100, i, false);
                 notificationManager.notify(0x123456, builder.build());
                 try {
@@ -50,11 +64,12 @@ public class NotificationActivity
             }
             builder.setContentText("Download complete").setProgress(0, 0, false);
             notificationManager.notify(NOTIFICATION_ID, builder.build());
-        }).start();
+        });
     }
 
     private void sendOpenOneNotification(final NotificationManager notificationManager) {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                "DEFAULT_CHANNEL");
         builder.setAutoCancel(true).setContentTitle("Open One").setContentText(
                 "Click Open One Activity").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(
                 PendingIntent.getActivity(mContext, 0,
@@ -65,24 +80,26 @@ public class NotificationActivity
     }
 
     private void sendOpenMulNotification(final NotificationManager notificationManager) {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                "DEFAULT_CHANNEL");
         builder.setAutoCancel(true).setContentTitle("Open One").setContentText(
                 "Click Open Mul Activity").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(
                 PendingIntent.getActivities(mContext, 0, new Intent[]{new Intent(mContext,
                                 ConstraintLayoutActivity.class).addFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK), new Intent(mContext,
-                                GameActivity.class).addFlags(
-                        Intent.FLAG_ACTIVITY_NEW_TASK), new Intent(mContext,
-                                OpenGLActivity.class).addFlags(Intent
+                                GameActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), new
+                                Intent(
+                                mContext, OpenGlActivity.class).addFlags(Intent
                                 .FLAG_ACTIVITY_NEW_TASK)},
                         PendingIntent.FLAG_UPDATE_CURRENT)).setChannelId("testChannel");
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
     private void sendTaskBuilderNotification(final NotificationManager notificationManager) {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                "DEFAULT_CHANNEL");
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(mContext);
-        taskStackBuilder.addNextIntentWithParentStack(new Intent(mContext, OpenGLActivity.class));
+        taskStackBuilder.addNextIntentWithParentStack(new Intent(mContext, OpenGlActivity.class));
         builder.setAutoCancel(true).setContentTitle("Open One").setContentText(
                 "Click Open Task Activity").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(
                 taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT))
@@ -105,9 +122,9 @@ public class NotificationActivity
         findViewById(R.id.btn_notify_task_builder).setOnClickListener(
                 v -> sendTaskBuilderNotification(notificationManager));
 
-        TextView tvNotifyHtml = (TextView) findViewById(R.id.tv_notify_html);
-        TextView tvNotifySpannable = (TextView) findViewById(R.id.tv_notify_spannable);
-        TextView tvNotifyLinkify = (TextView) findViewById(R.id.tv_notify_linkify);
+        TextView tvNotifyHtml = findViewById(R.id.tv_notify_html);
+        TextView tvNotifySpannable = findViewById(R.id.tv_notify_spannable);
+        TextView tvNotifyLinkify = findViewById(R.id.tv_notify_linkify);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel = new NotificationChannel("testChannel", "TestChannel", NotificationManager.IMPORTANCE_DEFAULT);
@@ -127,8 +144,7 @@ public class NotificationActivity
         tvNotifySpannable.setMovementMethod(LinkMovementMethod.getInstance());
 
         Linkify.addLinks(tvNotifyLinkify, Linkify.WEB_URLS);
-        Linkify.addLinks(tvNotifyLinkify, Pattern.compile("@(\\w+?)(?=\\W|$)(.)"),
-                "mxn://profile:8856?uid=user",
+        Linkify.addLinks(tvNotifyLinkify, NUMBER_PATTERN, "mxn://profile:8856?uid=user",
                 (charSequence, start, end) -> charSequence.charAt(end - 1) != '.',
                 (match, url) -> url.toLowerCase());
         stripUnderlines(tvNotifyLinkify);

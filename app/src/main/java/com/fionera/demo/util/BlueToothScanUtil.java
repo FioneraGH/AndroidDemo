@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * 蓝牙工具类
  * 检测连接蓝牙的信息
+ * @author fionera
  */
 public class BlueToothScanUtil {
     private Context context;

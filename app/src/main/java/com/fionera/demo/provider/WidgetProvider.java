@@ -8,7 +8,8 @@ import android.content.Intent;
 import com.fionera.demo.service.WidgetService;
 
 /**
- * Created by fionera on 15-11-5.
+ * @author fionera
+ * @date 15-11-5
  */
 public class WidgetProvider extends AppWidgetProvider {
 

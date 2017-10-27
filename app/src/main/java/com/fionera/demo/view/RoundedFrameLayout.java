@@ -15,7 +15,9 @@ import com.fionera.base.util.DisplayUtils;
 
 /**
  * RoundedFrameLayout
- * Created by fionera on 16-6-26.
+ *
+ * @author fionera
+ * @date 16-6-26
  */
 public class RoundedFrameLayout
         extends FrameLayout {
@@ -61,7 +63,7 @@ public class RoundedFrameLayout
             return;
         }
         int count = shapeCanvas.save();
-        int count2 = shapeCanvas.saveLayer(0, 0, width, height, null, Canvas.ALL_SAVE_FLAG);
+        int count2 = shapeCanvas.saveLayer(0, 0, width, height, null);
         super.draw(shapeCanvas);
         shapeCanvas.drawPath(getPath(width, height, DisplayUtils.dp2px(2f)), mShapePaint);
         if (count2 > 0) {

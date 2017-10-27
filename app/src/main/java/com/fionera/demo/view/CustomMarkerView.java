@@ -11,7 +11,9 @@ import com.github.mikephil.charting.highlight.Highlight;
 
 /**
  * CustomMarkerView
- * Created by fionera on 17-6-7 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-6-7 in AndroidDemo
  */
 
 @SuppressLint("ViewConstructor")

@@ -27,6 +27,9 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+/**
+ * @author fionera
+ */
 public class ProvincePopup
         extends PopupWindow implements OnWheelChangedListener {
 
@@ -86,18 +89,18 @@ public class ProvincePopup
 
         View view = View.inflate(context, R.layout.dialog_change_province_pop, null);
         setContentView(view);
-        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_city_picker_cancel);
-        TextView tv_save = (TextView) view.findViewById(R.id.tv_city_picker_confirm);
-        mViewProvince = (WheelView) view.findViewById(R.id.wl_province_picker);
-        mViewCity = (WheelView) view.findViewById(R.id.wl_city_picker);
-        mViewDistrict = (WheelView) view.findViewById(R.id.wl_district_picker);
+        TextView tvCancel = view.findViewById(R.id.tv_city_picker_cancel);
+        TextView tvSave = view.findViewById(R.id.tv_city_picker_confirm);
+        mViewProvince = view.findViewById(R.id.wl_province_picker);
+        mViewCity = view.findViewById(R.id.wl_city_picker);
+        mViewDistrict = view.findViewById(R.id.wl_district_picker);
         mViewProvince.addChangingListener(this);
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);
 
-        tv_cancel.setOnClickListener(v -> dismiss());
+        tvCancel.setOnClickListener(v -> dismiss());
 
-        tv_save.setOnClickListener(v -> {
+        tvSave.setOnClickListener(v -> {
             if (getValueCallback != null) {
                 getValueCallback.getValue(mCurrentProvinceName, mCurrentCityName,
                         mCurrentDistrictName, mCurrentZipCode);
@@ -124,7 +127,7 @@ public class ProvincePopup
             return;
         }
         LogCat.d("Province Pop Set Address:" + address);
-        String addresses[] = address.split(":");
+        String[] addresses = address.split(":");
         LogCat.d("Province Pop Set Address List Size:" + addresses.length);
         if (addresses.length != 3) {
             return;
@@ -147,7 +150,7 @@ public class ProvincePopup
         updateCities();
 
         i = 0;
-        String cities[] = mCitiesDataMap.get(addresses[0]);
+        String[] cities = mCitiesDataMap.get(addresses[0]);
         length = cities.length;
         for (; i < length; i++) {
             if (addresses[1].equals(cities[i])) {

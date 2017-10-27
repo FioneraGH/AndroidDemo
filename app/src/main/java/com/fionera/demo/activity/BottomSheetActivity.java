@@ -14,19 +14,22 @@ import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.view.BottomSheetDialogView;
 
+/**
+ * @author fionera
+ */
 public class BottomSheetActivity
         extends BaseActivity {
 
     public BottomSheetBehavior behavior;
     public RecyclerView recyclerView;
-    public View ns_view;
+    public View nsView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_sheet);
 
-        ns_view = findViewById(R.id.ns_bottom_sheet);
+        nsView = findViewById(R.id.ns_bottom_sheet);
         recyclerView = (RecyclerView) findViewById(R.id.rv_bottom_sheet);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -36,7 +39,7 @@ public class BottomSheetActivity
             BottomSheetDialogView.show(mContext);
         }));
 
-        behavior = BottomSheetBehavior.from(ns_view);
+        behavior = BottomSheetBehavior.from(nsView);
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {

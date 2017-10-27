@@ -18,9 +18,10 @@ import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 import java.util.ArrayList;
 
 /**
- * A pratice demo use GradientDrawable to realize the effect of JakeWharton's CirclePageIndicator
+ * A practice demo use GradientDrawable to realize the effect of JakeWharton's CirclePageIndicator
+ * @author fionera
  */
-public class RoundCornerIndicaor
+public class RoundCornerIndicator
         extends View
         implements PageIndicator {
     private Context context;
@@ -42,36 +43,36 @@ public class RoundCornerIndicaor
     private int strokeColor;
     private boolean isSnap;
 
-    public RoundCornerIndicaor(Context context) {
+    public RoundCornerIndicator(Context context) {
         this(context, null);
     }
 
-    public RoundCornerIndicaor(Context context, AttributeSet attrs) {
+    public RoundCornerIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RoundCornerIndicaor(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RoundCornerIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         this.context = context;
 
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundCornerIndicaor);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundCornerIndicator);
         indicatorWidth = ta
-                .getDimensionPixelSize(R.styleable.RoundCornerIndicaor_rci_width, dp2px(6));
+                .getDimensionPixelSize(R.styleable.RoundCornerIndicator_rci_width, dp2px(6));
         indicatorHeight = ta
-                .getDimensionPixelSize(R.styleable.RoundCornerIndicaor_rci_height, dp2px(6));
-        indicatorGap = ta.getDimensionPixelSize(R.styleable.RoundCornerIndicaor_rci_gap, dp2px(8));
+                .getDimensionPixelSize(R.styleable.RoundCornerIndicator_rci_height, dp2px(6));
+        indicatorGap = ta.getDimensionPixelSize(R.styleable.RoundCornerIndicator_rci_gap, dp2px(8));
         cornerRadius = ta
-                .getDimensionPixelSize(R.styleable.RoundCornerIndicaor_rci_cornerRadius, dp2px(3));
+                .getDimensionPixelSize(R.styleable.RoundCornerIndicator_rci_cornerRadius, dp2px(3));
         strokeWidth = ta
-                .getDimensionPixelSize(R.styleable.RoundCornerIndicaor_rci_strokeWidth, dp2px(0));
-        selectColor = ta.getColor(R.styleable.RoundCornerIndicaor_rci_selectColor,
+                .getDimensionPixelSize(R.styleable.RoundCornerIndicator_rci_strokeWidth, dp2px(0));
+        selectColor = ta.getColor(R.styleable.RoundCornerIndicator_rci_selectColor,
                                   Color.parseColor("#ffffff"));
-        unselectColor = ta.getColor(R.styleable.RoundCornerIndicaor_rci_unselectColor,
+        unselectColor = ta.getColor(R.styleable.RoundCornerIndicator_rci_unselectColor,
                                     Color.parseColor("#88ffffff"));
-        strokeColor = ta.getColor(R.styleable.RoundCornerIndicaor_rci_strokeColor,
+        strokeColor = ta.getColor(R.styleable.RoundCornerIndicator_rci_strokeColor,
                                   Color.parseColor("#ffffff"));
-        isSnap = ta.getBoolean(R.styleable.RoundCornerIndicaor_rci_isSnap, false);
+        isSnap = ta.getBoolean(R.styleable.RoundCornerIndicator_rci_isSnap, false);
 
         ta.recycle();
     }
@@ -114,6 +115,7 @@ public class RoundCornerIndicaor
         }
     }
 
+    @Override
     public void setCurrentItem(int item) {
         if (isValid(vp)) {
             vp.setCurrentItem(item);
@@ -225,9 +227,9 @@ public class RoundCornerIndicaor
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
         if (!isSnap) {
-            /**
-             * position:当前View的位置
-             * positionOffset:当前View的偏移量比例.[0,1)
+            /*
+              position:当前View的位置
+              positionOffset:当前View的偏移量比例.[0,1)
              */
             currentItem = position;
             this.positionOffset = positionOffset;
@@ -238,6 +240,7 @@ public class RoundCornerIndicaor
     /**
      * 在ViewPager.OnPageChangeListener的onPageSelected方法中调用,不要同时调用onPageScrolled,会出现闪烁情况
      */
+    @Override
     public void onPageSelected(int position) {
         if (isSnap) {
             currentItem = position;

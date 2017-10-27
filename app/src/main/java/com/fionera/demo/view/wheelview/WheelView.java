@@ -21,12 +21,15 @@ import com.fionera.demo.R;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class WheelView extends View {
 
     /**
      * Top and bottom shadows colors
      */
-    private int[] SHADOWS_COLORS = new int[]{0xcfffffff, 0x3fffffff, 0x1effffff};
+    private static int[] SHADOWS_COLORS = new int[]{0xcfffffff, 0x3fffffff, 0x1effffff};
 
     /**
      * Top and bottom items offset (to hide that)
@@ -523,7 +526,9 @@ public class WheelView extends View {
             drawCenterRect(canvas);
         }
 
-        if (drawShadows) drawShadows(canvas);
+        if (drawShadows) {
+            drawShadows(canvas);
+        }
     }
 
     /**
@@ -563,11 +568,6 @@ public class WheelView extends View {
     private void drawCenterRect(Canvas canvas) {
         int center = getHeight() / 2;
         int offset = (int) (getItemHeight() / 2 * 1.2);
-        // Remarked by wulianghuan 2014-11-27  使用自己的画线，而不是描边
-        //      Rect rect = new Rect(left, top, right, bottom)
-        //		centerDrawable.setBounds(bounds)
-        //		centerDrawable.setBounds(0, center - offset, getWidth(), center + offset);
-        //		centerDrawable.draw(canvas);
         Paint paint = new Paint();
         paint.setColor(ContextCompat.getColor(getContext(), R.color.yellow1));
         // 设置线宽
@@ -593,6 +593,8 @@ public class WheelView extends View {
                 if (getParent() != null) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
+                break;
+            default:
                 break;
         }
 

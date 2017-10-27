@@ -20,7 +20,10 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class OpenGLActivity
+/**
+ * @author fionera
+ */
+public class OpenGlActivity
         extends BaseActivity {
     private GLSurfaceView glSurfaceView;
 
@@ -31,15 +34,18 @@ public class OpenGLActivity
 
         final ActivityManager activityManager = (ActivityManager) getSystemService(
                 ACTIVITY_SERVICE);
-        final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
-        final boolean supportEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
-        if (supportEs2) {
-            glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(new Renderer());
-        } else {
-            ShowToast.show("Not support OpenGL 2.0");
-            finish();
+        if (activityManager != null) {
+            final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
+            final boolean supportEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
+            if (supportEs2) {
+                glSurfaceView.setEGLContextClientVersion(2);
+                glSurfaceView.setRenderer(new Renderer());
+            } else {
+                ShowToast.show("Not support OpenGL 2.0");
+                finish();
+            }
         }
+
         setContentView(glSurfaceView);
     }
 

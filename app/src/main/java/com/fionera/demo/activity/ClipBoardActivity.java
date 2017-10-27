@@ -22,6 +22,9 @@ import com.fionera.demo.service.GrabAccessibilityService;
 import com.fionera.demo.service.ListenClipboardService;
 import com.fionera.demo.util.KeyboardUtil;
 
+/**
+ * @author fionera
+ */
 public final class ClipBoardActivity
         extends BaseActivity {
     public static final String CLIPBOARD_CONTENT = "clipboard_content";
@@ -51,11 +54,14 @@ public final class ClipBoardActivity
             Intent intent = new Intent(mContext, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-            Notification notification = new NotificationCompat.Builder(mContext).setAutoCancel(true)
-                    .setSmallIcon(R.mipmap.ic_launcher).setContentTitle("[微信红包]").setContentText(
-                            "点击查看红包").setContentIntent(pendingIntent).build();
-            ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).notify(14726467,
-                    notification);
+            Notification notification = new NotificationCompat.Builder(mContext, "DEFAULT_CHANNEL")
+                    .setAutoCancel(true).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(
+                            "[微信红包]").setContentText("点击查看红包").setContentIntent(pendingIntent)
+                    .build();
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.notify(14726467, notification);
+            }
         });
         new KeyboardUtil(mContext, kvKeyboardView, etTestKeyboard).registerEditText(etTestKeyboard);
 
@@ -121,9 +127,9 @@ public final class ClipBoardActivity
     }
 
     private void initView() {
-        btnClipBoardTest = (Button) findViewById(R.id.btn_clip_board_test);
-        btnGrabRedStart = (Button) findViewById(R.id.btn_grab_red_start);
-        etTestKeyboard = (EditText) findViewById(R.id.et_test_keyboard);
-        kvKeyboardView = (KeyboardView) findViewById(R.id.kv_keyboard_view);
+        btnClipBoardTest = findViewById(R.id.btn_clip_board_test);
+        btnGrabRedStart = findViewById(R.id.btn_grab_red_start);
+        etTestKeyboard = findViewById(R.id.et_test_keyboard);
+        kvKeyboardView = findViewById(R.id.kv_keyboard_view);
     }
 }

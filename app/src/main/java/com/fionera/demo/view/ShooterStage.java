@@ -5,10 +5,8 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -20,21 +18,23 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Created by fionera on 15-11-24.
+ *
+ * @author fionera
+ * @date 15-11-24
  */
 public class ShooterStage {
-
     /**
      * 假定一个字占用的像素
      */
-    public static final int CHAR_WIDTH = 100;
+    private static final int CHAR_WIDTH = 100;
     private Context context;
 
-    private Set<Integer> existVerticalMargins;
+    private Set<Object> existVerticalMargins;
     /**
      * 弹幕显示数量，弹幕总数量
      */
@@ -49,12 +49,11 @@ public class ShooterStage {
     private int stageWidth = 0;
     private int stageHeight = 0;
 
-    private Timer timer;
-    private ArrayList<ObjectAnimator> objectAnimators;
+    private ScheduledThreadPoolExecutor timer;
+    private ArrayList<Animator> objectAnimators;
     private ArrayList<String> danmuList;
 
     public ShooterStage(Context context, ArrayList<String> danmuList) {
-
         this.context = context;
         this.danmuList = danmuList;
         this.danmuCount = danmuList.size();
@@ -66,18 +65,15 @@ public class ShooterStage {
      * 取消弹幕的发送
      */
     public void destroyStage() {
-        timer.cancel();
+        timer.shutdown();
     }
 
     /**
      * 弹幕的发送调用，周期性
-     *
-     * @param rlStage
      */
-    public void shootItem(final RelativeLayout rlStage) {
-
-        /**
-         * 计算stage坐标尺寸
+    private void shootItem(final RelativeLayout rlStage) {
+        /*
+          计算stage坐标尺寸
          */
         rlStage.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -94,39 +90,32 @@ public class ShooterStage {
                     }
                 });
 
-        /**
-         * 构造一个用于在主线程上运行的Runnable
+        /*
+          构造一个用于在主线程上运行的Runnable
          */
         final Runnable run = () -> addDanmu(rlStage);
-
-        timer = new Timer();
+        timer = new ScheduledThreadPoolExecutor(1, r -> new Thread(r, "stage-shoot-%d"));
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 ((Activity) context).runOnUiThread(run);
             }
         };
-        timer.schedule(timerTask, 500, 1000);
+        timer.scheduleAtFixedRate(timerTask, 500, 1000, TimeUnit.MILLISECONDS);
     }
-
 
     /**
      * 实际的弹幕发送调用
-     *
-     * @param rlStage
      */
     private void addDanmu(final RelativeLayout rlStage) {
 
         String currentString = danmuList.get(count % danmuCount);
-        /**
-         * 生成随机种子
-         */
         Random random = new Random(System.currentTimeMillis());
         int seedHeight = random.nextInt(stageHeight / CHAR_WIDTH - 1);
         int seedSize = random.nextInt(5);
 
-        /**
-         * 弹幕TextView
+        /*
+          弹幕TextView
          */
         final TextView textView = new TextView(context);
         textView.setText(currentString);
@@ -135,8 +124,8 @@ public class ShooterStage {
         textView.setTextSize(22 - seedSize * 2);
         textView.setBackground(new ColorDrawable(0x66ff0000));
 
-        /**
-         * 设置弹幕距离顶部高度，可以使用setTransactionY替代
+        /*
+          设置弹幕距离顶部高度，可以使用setTransactionY替代
          */
         while (true) {
             int verticalMargin = seedHeight * CHAR_WIDTH + 10;
@@ -150,8 +139,8 @@ public class ShooterStage {
                 textView.setTag(R.id.danmu_vertical_margin, verticalMargin);
                 break;
             } else {
-                /**
-                 * 当前同屏显示的弹幕数量已经到达最大行数，则放弃此次弹幕发送
+                /*
+                  当前同屏显示的弹幕数量已经到达最大行数，则放弃此次弹幕发送
                  */
                 if (count == stageHeight / CHAR_WIDTH) {
                     return;
@@ -176,9 +165,8 @@ public class ShooterStage {
                     }).show();
         });
 
-
-        /**
-         * TextView移动动画
+        /*
+          TextView移动动画
          */
         final ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "translationX",
                 stageX + stageWidth, stageX - (currentString.length() * CHAR_WIDTH)).setDuration(
@@ -191,7 +179,6 @@ public class ShooterStage {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
                 /*
                   移除被移除的弹幕的动画和被占用的margin
                  */
@@ -217,27 +204,22 @@ public class ShooterStage {
         count++;
     }
 
-
     /**
      * 暂停所有的
      */
     private void pauseStage() {
-
-        timer.cancel();
-        for (ObjectAnimator objectAnimator : objectAnimators) {
+        timer.shutdown();
+        for (Animator objectAnimator : objectAnimators) {
             objectAnimator.pause();
         }
     }
 
     /**
      * 恢复所有的
-     *
-     * @param rlstage
      */
-    private void resumeStage(RelativeLayout rlstage) {
-
-        shootItem(rlstage);
-        for (ObjectAnimator objectAnimator : objectAnimators) {
+    private void resumeStage(RelativeLayout rlStage) {
+        shootItem(rlStage);
+        for (Animator objectAnimator : objectAnimators) {
             objectAnimator.resume();
         }
     }

@@ -12,7 +12,9 @@ import java.util.List;
 
 /**
  * GrabAccessibilityService
- * Created by fionera on 17-1-19 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-1-19 in AndroidDemo
  */
 
 public class GrabAccessibilityService

@@ -3,7 +3,9 @@ package com.fionera.demo.view.wheelview;
 import java.util.List;
 
 /**
- * Created by fionera on 17-1-16 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-1-16 in AndroidDemo
  */
 
 public class ProvinceResultBean {

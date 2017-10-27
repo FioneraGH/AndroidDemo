@@ -13,6 +13,9 @@ import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 
 import java.util.ArrayList;
 
+/**
+ * @author fionera
+ */
 public class FlycoPageIndicatorActivity
         extends AppCompatActivity {
     private int[] resIds = {R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R
@@ -54,20 +57,20 @@ public class FlycoPageIndicatorActivity
     }
 
     private void indicator(int indicatorId) {
-        final PageIndicator indicator = (PageIndicator) findViewById(indicatorId);
+        final PageIndicator indicator = findViewById(indicatorId);
         indicator.setViewPager(banner.getViewPager(), resList.size());
     }
 
     private void indicatorAnim() {
-        final FlycoPageIndicator indicator = (FlycoPageIndicator) findViewById(
+        final FlycoPageIndicator indicator = findViewById(
                 R.id.indicator_circle_anim);
         indicator.setIsSnap(true).setSelectAnimClass(ZoomInEnter.class)
                 .setViewPager(banner.getViewPager(), resList.size());
     }
 
     private void indicatorRes() {
-        final FlycoPageIndicator indicator_res = (FlycoPageIndicator) findViewById(
+        final FlycoPageIndicator indicatorRes = findViewById(
                 R.id.indicator_res);
-        indicator_res.setViewPager(banner.getViewPager(), resList.size());
+        indicatorRes.setViewPager(banner.getViewPager(), resList.size());
     }
 }

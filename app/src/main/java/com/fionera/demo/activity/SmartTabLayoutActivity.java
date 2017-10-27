@@ -15,6 +15,9 @@ import com.fionera.demo.R;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
+/**
+ * @author fionera
+ */
 public class SmartTabLayoutActivity
         extends AppCompatActivity {
 

@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
+/**
+ * @author fionera
+ */
 public class ViewContainer
         extends FrameLayout {
 

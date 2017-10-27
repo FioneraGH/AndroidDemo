@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author fionera
+ */
 public class ProvinceJsonPopup
         extends PopupWindow implements OnWheelChangedListener {
     private Context context;
@@ -79,8 +82,8 @@ public class ProvinceJsonPopup
 
         View view = View.inflate(context, R.layout.dialog_change_province_pop, null);
         setContentView(view);
-        TextView tv_cancel = view.findViewById(R.id.tv_city_picker_cancel);
-        TextView tv_save = view.findViewById(R.id.tv_city_picker_confirm);
+        TextView tvCancel = view.findViewById(R.id.tv_city_picker_cancel);
+        TextView tvSave = view.findViewById(R.id.tv_city_picker_confirm);
         mViewProvince = view.findViewById(R.id.wl_province_picker);
         mViewCity = view.findViewById(R.id.wl_city_picker);
         mViewDistrict = view.findViewById(R.id.wl_district_picker);
@@ -89,8 +92,8 @@ public class ProvinceJsonPopup
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);
 
-        tv_cancel.setOnClickListener(v -> dismiss());
-        tv_save.setOnClickListener(v -> {
+        tvCancel.setOnClickListener(v -> dismiss());
+        tvSave.setOnClickListener(v -> {
             if (getValueCallback != null) {
                 getValueCallback.getValue(mCurrentProvinceName, mCurrentCityName,
                         mCurrentDistrictName, mCurrentProvinceId, mCurrentCityId,
@@ -118,7 +121,7 @@ public class ProvinceJsonPopup
             return;
         }
         LogCat.d("Province Pop Set Address:" + address);
-        String addresses[] = address.split(":");
+        String[] addresses = address.split(":");
         LogCat.d("Province Pop Set Address List Size:" + addresses.length);
         if (addresses.length != 3) {
             return;
@@ -142,8 +145,8 @@ public class ProvinceJsonPopup
         updateCities();
 
         i = 0;
-        String cities[] = mCitiesDataMap.get(addresses[0]);
-        String citiesId[] = mCitiesDataIdMap.get(addresses[0]);
+        String[] cities = mCitiesDataMap.get(addresses[0]);
+        String[] citiesId = mCitiesDataIdMap.get(addresses[0]);
         length = cities.length;
         for (; i < length; i++) {
             if (addresses[1].equals(cities[i])) {
@@ -240,7 +243,7 @@ public class ProvinceJsonPopup
             LogCat.d("Province Pop Read String:" + in.read(buffer));
             res = new String(buffer, Charset.defaultCharset());
             in.close();
-            provinceList = JSON.parseObject(res, ProvinceDataBean.class).getProvince_list();
+            provinceList = JSON.parseObject(res, ProvinceDataBean.class).getProvinceList();
 
             parseDataList(provinceList);
         } catch (Exception e) {
@@ -250,18 +253,18 @@ public class ProvinceJsonPopup
 
     private void parseDataList(List<ProvinceDataBean.ProvinceListEntity> provinceList) {
         if (provinceList != null && !provinceList.isEmpty()) {
-            mCurrentProvinceName = provinceList.get(0).getProvince_name();
-            mCurrentProvinceId = provinceList.get(0).getProvince_id();
+            mCurrentProvinceName = provinceList.get(0).getProvinceName();
+            mCurrentProvinceId = provinceList.get(0).getProvinceId();
             List<ProvinceDataBean.ProvinceListEntity.CityListEntity> cityList = provinceList.get(0)
-                    .getCity_list();
+                    .getCityList();
             if (cityList != null && !cityList.isEmpty()) {
-                mCurrentCityName = cityList.get(0).getCity_name();
-                mCurrentCityId = cityList.get(0).getCity_id();
+                mCurrentCityName = cityList.get(0).getCityName();
+                mCurrentCityId = cityList.get(0).getCityId();
                 List<ProvinceDataBean.ProvinceListEntity.CityListEntity.AreaListEntity>
                         districtList = cityList
-                        .get(0).getArea_list();
-                mCurrentDistrictName = districtList.get(0).getArea_name();
-                mCurrentDistrictId = districtList.get(0).getArea_id();
+                        .get(0).getAreaList();
+                mCurrentDistrictName = districtList.get(0).getAreaName();
+                mCurrentDistrictId = districtList.get(0).getAreaId();
             }
         }
 
@@ -272,29 +275,29 @@ public class ProvinceJsonPopup
         mProvinceData = new String[provinceListCount];
         mProvinceDataId = new String[provinceListCount];
         for (int i = 0; i < provinceListCount; i++) {
-            mProvinceData[i] = provinceList.get(i).getProvince_name();
-            mProvinceDataId[i] = provinceList.get(i).getProvince_id();
+            mProvinceData[i] = provinceList.get(i).getProvinceName();
+            mProvinceDataId[i] = provinceList.get(i).getProvinceId();
             List<ProvinceDataBean.ProvinceListEntity.CityListEntity> cityList = provinceList.get(i)
-                    .getCity_list();
+                    .getCityList();
             String[] cityNames = new String[cityList.size()];
             String[] cityIds = new String[cityList.size()];
             for (int j = 0; j < cityList.size(); j++) {
-                cityNames[j] = cityList.get(j).getCity_name();
-                cityIds[j] = cityList.get(j).getCity_id();
+                cityNames[j] = cityList.get(j).getCityName();
+                cityIds[j] = cityList.get(j).getCityId();
                 List<ProvinceDataBean.ProvinceListEntity.CityListEntity.AreaListEntity>
                         districtList = cityList
-                        .get(j).getArea_list();
+                        .get(j).getAreaList();
                 String[] districtNameArray = new String[districtList.size()];
                 String[] districtIdArray = new String[districtList.size()];
                 for (int k = 0; k < districtList.size(); k++) {
-                    districtNameArray[k] = districtList.get(k).getArea_name();
-                    districtIdArray[k] = districtList.get(k).getArea_id();
+                    districtNameArray[k] = districtList.get(k).getAreaName();
+                    districtIdArray[k] = districtList.get(k).getAreaId();
                 }
                 mDistrictDataMap.put(cityNames[j], districtNameArray);
                 mDistrictDataIdMap.put(cityNames[j], districtIdArray);
             }
-            mCitiesDataMap.put(provinceList.get(i).getProvince_name(), cityNames);
-            mCitiesDataIdMap.put(provinceList.get(i).getProvince_name(), cityIds);
+            mCitiesDataMap.put(provinceList.get(i).getProvinceName(), cityNames);
+            mCitiesDataIdMap.put(provinceList.get(i).getProvinceName(), cityIds);
         }
     }
 }

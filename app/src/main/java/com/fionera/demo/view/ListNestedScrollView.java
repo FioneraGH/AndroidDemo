@@ -8,6 +8,9 @@ import android.widget.HorizontalScrollView;
 
 import com.fionera.demo.activity.DoubleHeadTableActivity;
 
+/**
+ * @author fionera
+ */
 public class ListNestedScrollView
 		extends HorizontalScrollView {
 	

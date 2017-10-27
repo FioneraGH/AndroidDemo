@@ -13,29 +13,32 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * DBHelper
- * Created by fionera on 15-7-23.
+ * DatabaseHelper
+ *
+ * @author fionera
+ * @date 15-7-23
  */
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DatabaseHelper
+        extends SQLiteOpenHelper {
 
     private String databaseName;
     private SQLiteDatabase db;
 
-    public DBHelper(Context context) {
+    public DatabaseHelper(Context context) {
         this(context, "Default");
     }
 
-    public DBHelper(Context context, String name) {
+    public DatabaseHelper(Context context, String name) {
         this(context, name, null);
     }
 
-    private DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
+    private DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
         this(context, name, factory, 1);
     }
 
-    private DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
-                     int version) {
+    private DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
+                           int version) {
         super(context, name, factory, version);
         this.databaseName = name;
     }

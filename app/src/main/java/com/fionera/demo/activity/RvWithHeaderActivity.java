@@ -12,25 +12,29 @@ import android.widget.ImageView;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 
-public class RVWithHeaderActivity extends AppCompatActivity {
+/**
+ * @author fionera
+ */
+public class RvWithHeaderActivity
+        extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rvwith_header);
 
-        ImageView imageView = (ImageView) findViewById(R.id.iv_with_header);
+        ImageView imageView = findViewById(R.id.iv_with_header);
 
         imageView.setOnClickListener(view -> ShowToast.show("shoot"));
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_with_header);
+        RecyclerView recyclerView = findViewById(R.id.rv_with_header);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(new RecyclerView.Adapter<MyViewHolder>() {
 
             @Override
              public MyViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
                 return new MyViewHolder(
-                        LayoutInflater.from(RVWithHeaderActivity.this).inflate(R.layout.rv_recent_session_item, parent, false));
+                        LayoutInflater.from(RvWithHeaderActivity.this).inflate(R.layout.rv_recent_session_item, parent, false));
             }
             @Override
             public void onBindViewHolder(MyViewHolder holder,int position) {

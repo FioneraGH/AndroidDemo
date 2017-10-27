@@ -15,6 +15,9 @@ import com.fionera.demo.R;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class KeyboardUtil {
     private KeyboardView keyboardView;
     private Keyboard k1;// 字母键盘
@@ -122,7 +125,6 @@ public class KeyboardUtil {
         }
     }
 
-    //EditText的点击监听事件
     public void registerEditText(final EditText editText) {
         editText.setOnClickListener(view -> {
             int visibility = keyboardView.getVisibility();
@@ -135,7 +137,6 @@ public class KeyboardUtil {
         editText.setOnFocusChangeListener((view, b) -> disableShowSoftInput(editText));
     }
 
-    //显示键盘
     private void showKeyboard() {
         int visibility = keyboardView.getVisibility();
         if (visibility == View.GONE || visibility == View.INVISIBLE) {
@@ -144,7 +145,6 @@ public class KeyboardUtil {
         }
     }
 
-    //隐藏键盘
     private void hideKeyboard() {
         int visibility = keyboardView.getVisibility();
         if (visibility == View.VISIBLE) {
@@ -155,7 +155,6 @@ public class KeyboardUtil {
     private boolean isWord(String str) {
         return "abcdefghijklmnopqrstuvwxyz".contains(str.toLowerCase());
     }
-
 
     /**
      * 禁止Edittext弹出软件盘，光标依然正常显示。

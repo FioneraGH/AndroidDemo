@@ -7,7 +7,9 @@ import android.view.ViewConfiguration;
 
 /**
  * NavigationBarUtil
- * Created by fionera on 15-10-5.
+ *
+ * @author fionera
+ * @date 15-10-5
  */
 public class NavigationBarUtil {
 

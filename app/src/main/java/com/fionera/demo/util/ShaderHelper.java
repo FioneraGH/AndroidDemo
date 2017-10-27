@@ -10,7 +10,9 @@ import static android.opengl.GLES20.GL_VERTEX_SHADER;
 
 /**
  * ShaderHelper
- * Created by fionera on 17-6-19 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-6-19 in AndroidDemo
  */
 
 public class ShaderHelper {

@@ -9,23 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by fionera on 16-5-4.
+ * @author fionera
+ * @date 16-5-4
  */
 public class LoopViewPager extends ViewPager {
 
     private static final boolean DEFAULT_BOUNDARY_CASHING = false;
 
-    //    OnPageChangeListener mOuterPageChangeListener;
     private LoopPagerAdapterWrapper mAdapter;
     private boolean mBoundaryCaching = DEFAULT_BOUNDARY_CASHING;
     private List<OnPageChangeListener> mOnPageChangeListeners;
 
     /**
      * helper function which may be used when implementing FragmentPagerAdapter
-     *
-     * @param position
-     * @param count
-     * @return (position-1)%count
      */
     public static int toRealPosition(int position, int count) {
         position = position - 1;
@@ -40,8 +36,6 @@ public class LoopViewPager extends ViewPager {
     /**
      * If set to true, the boundary views (i.e. first and last) will never be
      * destroyed This may help to prevent "blinking" of some views
-     *
-     * @param flag
      */
     public void setBoundaryCaching(boolean flag) {
         mBoundaryCaching = flag;
@@ -68,6 +62,7 @@ public class LoopViewPager extends ViewPager {
         return mAdapter != null ? mAdapter.toRealPosition(super.getCurrentItem()) : 0;
     }
 
+    @Override
     public void setCurrentItem(int item, boolean smoothScroll) {
         int realItem = mAdapter.toInnerPosition(item);
         super.setCurrentItem(realItem, smoothScroll);
@@ -129,9 +124,6 @@ public class LoopViewPager extends ViewPager {
             int realPosition = mAdapter.toRealPosition(position);
             if (mPreviousPosition != realPosition) {
                 mPreviousPosition = realPosition;
-                //                if (mOuterPageChangeListener != null) {
-                //                    mOuterPageChangeListener.onPageSelected(realPosition);
-                //                }
 
                 if (mOnPageChangeListeners != null) {
                     for (int i = 0; i < mOnPageChangeListeners.size(); i++) {
@@ -150,7 +142,10 @@ public class LoopViewPager extends ViewPager {
             if (mAdapter != null) {
                 realPosition = mAdapter.toRealPosition(position);
 
-                if (positionOffset == 0 && mPreviousOffset == 0 && (position == 0 || position == mAdapter.getCount() - 1)) {
+                boolean needSetRealPosition = positionOffset == 0 && mPreviousOffset == 0 &&
+                        (position == 0 || position == mAdapter
+                        .getCount() - 1);
+                if (needSetRealPosition) {
                     setCurrentItem(realPosition, false);
                 }
             }

@@ -9,10 +9,12 @@ import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
 
 /**
- * URLHelperModule
- * Created by fionera on 16-9-22.
+ * UrlHelperModule
+ *
+ * @author fionera
+ * @date 16-9-22
  */
-public class URLHelperModule
+public class UrlHelperModule
         extends WXModule {
     private static final String WEEX_CATEGORY = "com.taobao.android.intent.category.WEEX";
 
@@ -24,7 +26,7 @@ public class URLHelperModule
         Uri uri = Uri.parse("http://" + url);
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//        intent.addCategory(WEEX_CATEGORY);
+        intent.addCategory(WEEX_CATEGORY);
         mWXSDKInstance.getContext().startActivity(intent);
 
         jsCallback.invoke(System.currentTimeMillis());

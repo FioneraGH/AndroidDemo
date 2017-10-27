@@ -1,14 +1,13 @@
 package com.fionera.demo.bean;
 
+/**
+ * @author fionera
+ */
 public class ChatMsgBean {
 
-    //名字  
     private String name;
-    //日期  
     private String date;
-    //聊天内容  
     private String text;
-    //是否为对方发来的信息  
     private boolean isComMeg = true;
 
     public ChatMsgBean() {

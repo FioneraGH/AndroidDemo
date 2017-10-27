@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -21,10 +21,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$support_version"
-    api 'com.github.bumptech.glide:glide:4.1.1'
-    api 'com.alibaba:fastjson:1.2.35'
+    api 'com.github.bumptech.glide:glide:4.2.0'
+    api 'com.alibaba:fastjson:1.2.39'
     api 'com.squareup.okhttp3:okhttp:3.9.0'
     api 'com.tencent.wcdb:wcdb-android:1.0.4'
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    api 'io.reactivex.rxjava2:rxjava:2.1.1'
+    api 'io.reactivex.rxjava2:rxjava:2.1.5'
 }

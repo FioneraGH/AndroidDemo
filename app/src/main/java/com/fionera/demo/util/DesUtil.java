@@ -9,6 +9,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
+/**
+ * @author fionera
+ */
 @SuppressLint("GetInstance")
 public class DesUtil {
 

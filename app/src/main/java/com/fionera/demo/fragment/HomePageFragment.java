@@ -27,7 +27,9 @@ import java.util.List;
 
 /**
  * HomePageFragment
- * Created by fionera on 15-10-3.
+ *
+ * @author fionera
+ * @date 15-10-3
  */
 
 public class HomePageFragment

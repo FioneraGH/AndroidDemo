@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import com.fionera.demo.R;
 
 /**
- * Created by fionera on 16-3-1.
+ * @author fionera
+ * @date 16-3-1
  */
 public class BottomSheetDialogView {
 

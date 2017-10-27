@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.R;
+import com.fionera.demo.activity.AndroidChartsActivity;
 import com.fionera.demo.activity.BottomSheetActivity;
 import com.fionera.demo.activity.ClipBoardActivity;
 import com.fionera.demo.activity.ConstraintLayoutActivity;
@@ -17,20 +18,20 @@ import com.fionera.demo.activity.FlycoPageIndicatorActivity;
 import com.fionera.demo.activity.GameActivity;
 import com.fionera.demo.activity.MatrixActivity;
 import com.fionera.demo.activity.NotificationActivity;
-import com.fionera.demo.activity.OpenGLActivity;
+import com.fionera.demo.activity.OpenGlActivity;
 import com.fionera.demo.activity.PullToLoadActivity;
-import com.fionera.demo.activity.RVWithHeaderActivity;
+import com.fionera.demo.activity.RvWithHeaderActivity;
 import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SeatTableActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.StickyHeaderActivity;
-import com.fionera.demo.activity.SurfaceViewActivity;
 import com.fionera.demo.activity.WeexActivity;
-import com.fionera.demo.activity.AndroidChartsActivity;
 
 /**
  * ExtrasFragment
- * Created by fionera on 15-10-3.
+ *
+ * @author fionera
+ * @date 15-10-3
  */
 public class ExtrasFragment
         extends BaseFragment
@@ -80,10 +81,10 @@ public class ExtrasFragment
                 mContext.startActivity(new Intent(mContext, NotificationActivity.class));
                 break;
             case R.id.button6:
-                mContext.startActivity(new Intent(mContext, OpenGLActivity.class));
+                mContext.startActivity(new Intent(mContext, OpenGlActivity.class));
                 break;
             case R.id.button7:
-                mContext.startActivity(new Intent(mContext, RVWithHeaderActivity.class));
+                mContext.startActivity(new Intent(mContext, RvWithHeaderActivity.class));
                 break;
             case R.id.button8:
                 Intent intent = new Intent(getActivity(), GameActivity.class);
@@ -110,7 +111,6 @@ public class ExtrasFragment
                 mContext.startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class));
                 break;
             case R.id.button15:
-                mContext.startActivity(new Intent(mContext, SurfaceViewActivity.class));
                 break;
             case R.id.button16:
                 mContext.startActivity(new Intent(mContext, WeexActivity.class));
@@ -120,6 +120,8 @@ public class ExtrasFragment
                 break;
             case R.id.button18:
                 mContext.startActivity(new Intent(mContext, SeatTableActivity.class));
+                break;
+            default:
                 break;
         }
     }

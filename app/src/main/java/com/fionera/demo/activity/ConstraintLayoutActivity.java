@@ -33,6 +33,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author fionera
+ */
 public class ConstraintLayoutActivity
         extends BaseActivity {
 
@@ -280,7 +283,7 @@ public class ConstraintLayoutActivity
         if (resultCode != RESULT_OK && requestCode != ImageConst.REQUEST_CODE_GET_IMAGE_BY_CROP) {
             return;
         }
-        switch (requestCode){
+        switch (requestCode) {
             case ImageConst.REQUEST_CODE_GET_IMAGE_BY_CROP:
                 if (LocalImageHelper.getInstance().isResultOk()) {
                     LocalImageHelper.getInstance().setResultOk(false);
@@ -291,6 +294,8 @@ public class ConstraintLayoutActivity
                         ImageUtil.loadImage(files.get(0).getOriginalUri(), ivConstraintPr);
                     }
                 }
+                break;
+            default:
                 break;
         }
     }

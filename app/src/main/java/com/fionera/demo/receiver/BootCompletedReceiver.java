@@ -7,6 +7,9 @@ import android.text.TextUtils;
 
 import com.fionera.demo.service.ListenClipboardService;
 
+/**
+ * @author fionera
+ */
 public class BootCompletedReceiver
         extends WakefulBroadcastReceiver {
 

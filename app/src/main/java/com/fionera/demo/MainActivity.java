@@ -39,6 +39,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class MainActivity
         extends BaseActivity
         implements LoginFragment.OnFragmentInteractionListener {
@@ -98,12 +101,12 @@ public class MainActivity
 
             @Override
             public CharSequence getPageTitle(int position) {
-                StringBuilder title_text = new StringBuilder("测试 ");
+                StringBuilder titleText = new StringBuilder("测试 ");
                 for (int i = 0; i < position; i++) {
-                    title_text.append(
+                    titleText.append(
                             new DecimalFormat(" #0").format(Math.pow(position, position)));
                 }
-                return title_text.toString();
+                return titleText.toString();
             }
         });
 
@@ -147,6 +150,8 @@ public class MainActivity
                     break;
                 case R.id.menu_extra:
                     viewPager.setCurrentItem(3);
+                    break;
+                default:
                     break;
             }
             return false;
@@ -238,7 +243,8 @@ public class MainActivity
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+            String className = "MenuBuilder";
+            if (menu.getClass().getSimpleName().equals(className)) {
                 try {
                     Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",
                             Boolean.TYPE);

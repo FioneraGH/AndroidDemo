@@ -7,7 +7,9 @@ import android.view.View;
 
 /**
  * TadaAnimator
- * Created by fionera on 15-12-17.
+ *
+ * @author fionera
+ * @date 15-12-17
  */
 
 public class TadaAnimator {

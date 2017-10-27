@@ -16,6 +16,9 @@ import com.fionera.demo.view.SectionDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class StickyHeaderActivity
         extends BaseActivity {
 
@@ -24,7 +27,7 @@ public class StickyHeaderActivity
     private List<String> groups = new ArrayList<>();
     private List<StickyHeaderBean.DataEntity.ComingEntity> comingEntityList = new ArrayList<>();
 
-    public String URL = "http://api.meituan.com/mmdb/movie/v2/list/rt/order/coming" +
+    public String url = "http://api.meituan.com/mmdb/movie/v2/list/rt/order/coming" +
             ".json?ci=1&limit=12&token=&__vhost=api.maoyan" +
             ".com&utm_campaign=AmovieBmovieCD-1&movieBundleVersion=6801&utm_source=xiaomi" +
             "&utm_medium=android&utm_term=6.8.0&utm_content=868030022327462&net=255&dModel=MI%205" +
@@ -72,7 +75,7 @@ public class StickyHeaderActivity
     }
 
     private void fetchData() {
-        OkHttpUtil.getEnqueue(URL, new OkHttpUtil.NetCallBack() {
+        OkHttpUtil.getEnqueue(url, new OkHttpUtil.NetCallBack() {
             @Override
             public void onSucceed(String json) {
                 processData(json);

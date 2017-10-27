@@ -10,7 +10,9 @@ import com.fionera.demo.view.RichText;
 
 /**
  * RichTextFragment
- * Created by fionera on 15-10-3.
+ *
+ * @author fionera
+ * @date 15-10-3
  */
 
 public class RichTextFragment
@@ -27,7 +29,7 @@ public class RichTextFragment
 
         RichText richText = (RichText) rootView.findViewById(R.id.rt_content);
 
-        richText.setOnURLClickListener(url -> {
+        richText.setOnUrlClickListener(url -> {
             ShowToast.show(url);
             return true;
         });

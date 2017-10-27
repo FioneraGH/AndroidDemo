@@ -1,7 +1,6 @@
 package com.fionera.demo;
 
 import android.app.ActivityManager;
-import android.net.TrafficStats;
 import android.os.Process;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -10,7 +9,7 @@ import android.util.DisplayMetrics;
 import com.fionera.base.BaseApplication;
 import com.fionera.demo.util.CrashHandler;
 import com.fionera.demo.weex.CustomViewComponent;
-import com.fionera.demo.weex.URLHelperModule;
+import com.fionera.demo.weex.UrlHelperModule;
 import com.fionera.demo.weex.adapter.WeexImageLoaderAdapter;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
@@ -19,6 +18,9 @@ import com.taobao.weex.common.WXException;
 
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class DemoApplication
         extends BaseApplication {
 
@@ -35,7 +37,7 @@ public class DemoApplication
         try {
             WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
             WXSDKEngine.registerComponent("custom-view-component", CustomViewComponent.class);
-            WXSDKEngine.registerModule("URLHelper", URLHelperModule.class);
+            WXSDKEngine.registerModule("URLHelper", UrlHelperModule.class);
             WXSDKEngine.initialize(this, new InitConfig.Builder().setImgAdapter(new WeexImageLoaderAdapter()).build());
         } catch (WXException e) {
             e.printStackTrace();

@@ -10,15 +10,15 @@ android {
         }
     }
 
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
 
     defaultConfig {
         applicationId "com.fionera.demo"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 12
-        versionName "1.6.1"
+        targetSdkVersion 27
+        versionCode 15
+        versionName "1.7.0"
 
         externalNativeBuild {
             cmake {
@@ -28,7 +28,7 @@ android {
         }
 
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi"
         }
     }
 
@@ -92,7 +92,7 @@ dependencies {
     implementation "com.android.support:transition:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    implementation 'com.taobao.android:weex_sdk:0.11.0'
+    implementation 'com.taobao.android:weex_sdk:0.16.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1'
     implementation 'me.dm7.barcodescanner:zxing:1.9.5'

@@ -7,6 +7,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class XmlParserHandler
         extends DefaultHandler {
 
@@ -48,6 +51,8 @@ public class XmlParserHandler
                 districtModel.setName(attributes.getValue(0));
                 districtModel.setZipCode(attributes.getValue(1));
                 break;
+            default:
+                break;
         }
     }
 
@@ -62,6 +67,8 @@ public class XmlParserHandler
                 break;
             case "province":
                 provinceList.add(provinceModel);
+                break;
+            default:
                 break;
         }
     }

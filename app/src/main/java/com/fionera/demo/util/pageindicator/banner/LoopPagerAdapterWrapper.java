@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by fionera on 16-5-4.
+ *
+ * @author fionera
+ * @date 16-5-4
  */
 public class LoopPagerAdapterWrapper extends PagerAdapter {
 
@@ -35,11 +37,13 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
     int toRealPosition(int position) {
         int realCount = getRealCount();
-        if (realCount == 0)
+        if (realCount == 0) {
             return 0;
+        }
         int realPosition = (position - 1) % realCount;
-        if (realPosition < 0)
+        if (realPosition < 0) {
             realPosition += realCount;
+        }
 
         return realPosition;
     }
@@ -91,7 +95,8 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
         int realPosition = (mAdapter instanceof FragmentPagerAdapter || mAdapter instanceof FragmentStatePagerAdapter) ? position
                 : toRealPosition(position);
 
-        if (mBoundaryCaching && (position == realFirst || position == realLast)) {
+        boolean toDestroy = mBoundaryCaching && (position == realFirst || position == realLast);
+        if (toDestroy) {
             mToDestroy.put(position, new ToDestroy(container, realPosition, object));
         } else {
             mAdapter.destroyItem(container, realPosition, object);

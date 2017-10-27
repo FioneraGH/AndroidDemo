@@ -10,10 +10,13 @@ import com.fionera.demo.R;
 
 /**
  * DrawableTextView
- * Created by fionera on 15-12-7.
+ *
+ * @author fionera
+ * @date 15-12-7
  */
 
-public class DrawableTextView extends AppCompatTextView {
+public class DrawableTextView
+        extends AppCompatTextView {
 
     public static final int DRAWABLE_LEFT = 0;
     public static final int DRAWABLE_TOP = 1;
@@ -73,12 +76,13 @@ public class DrawableTextView extends AppCompatTextView {
                     case R.styleable.DrawableTextView_right_width:
                         rightWidth = a.getDimensionPixelSize(index, 0);
                         break;
-
                     case R.styleable.DrawableTextView_bottom_height:
                         bottomHeight = a.getDimensionPixelSize(index, 0);
                         break;
                     case R.styleable.DrawableTextView_bottom_width:
                         bottomWidth = a.getDimensionPixelSize(index, 0);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -124,6 +128,8 @@ public class DrawableTextView extends AppCompatTextView {
             case DRAWABLE_BOTTOM:
                 height = bottomHeight;
                 width = bottomWidth;
+                break;
+            default:
                 break;
         }
 

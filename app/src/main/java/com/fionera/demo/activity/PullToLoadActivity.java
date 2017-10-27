@@ -11,19 +11,22 @@ import android.widget.TextView;
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.bean.ChatMsgBean;
-import com.fionera.demo.util.DBHelper;
+import com.fionera.demo.util.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author fionera
+ */
 public class PullToLoadActivity
         extends BaseActivity
         implements AbsListView.OnScrollListener {
 
     private ListView listView;
     private View header;
-    private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
+    private DatabaseHelper databaseHelper = new DatabaseHelper(this, "ChatEntity");
 
     private static final int PAGE_SIZE = 20;
     private int allRecorders = 0;  // 全部记录数
@@ -48,27 +51,27 @@ public class PullToLoadActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbHelper.close();
+        databaseHelper.close();
     }
 
     /**
      * 读取显示数据
      */
     public void showAllData() {
-        allRecorders = dbHelper.getCount();
+        allRecorders = databaseHelper.getCount();
         if (allRecorders > PAGE_SIZE) {
             listView.addHeaderView(header);
         }
 
         pageSize = (allRecorders + PAGE_SIZE - 1) / PAGE_SIZE;
-        items.addAll(dbHelper.getSomeItems(currentPage, PAGE_SIZE));
+        items.addAll(databaseHelper.getSomeItems(currentPage, PAGE_SIZE));
 
         Collections.reverse(items);
 
         baseAdapter = new TestAdapter();
         listView.setAdapter(baseAdapter);
         listView.setSelection(items.size() - 1);
-        dbHelper.closeDb();
+        databaseHelper.closeDb();
     }
 
     int firstItem = -1;
@@ -92,7 +95,7 @@ public class PullToLoadActivity
      * 增加数据
      */
     private void appendDate() {
-        List<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, PAGE_SIZE);
+        List<ChatMsgBean> addItems = databaseHelper.getSomeItems(currentPage, PAGE_SIZE);
         items.addAll(0, addItems);
         if (allRecorders == items.size()) {
             listView.removeHeaderView(header);
@@ -105,18 +108,22 @@ public class PullToLoadActivity
     private class TestAdapter
             extends BaseAdapter {
 
+        @Override
         public int getCount() {
             return items.size();
         }
 
+        @Override
         public Object getItem(int pos) {
             return items.get(pos);
         }
 
+        @Override
         public long getItemId(int pos) {
             return pos;
         }
 
+        @Override
         public View getView(int pos, View v, ViewGroup p) {
 
             TextView view = new TextView(PullToLoadActivity.this);

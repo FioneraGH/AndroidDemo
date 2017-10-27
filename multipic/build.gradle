@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -23,7 +23,9 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:exifinterface:$support_version"
-    implementation 'com.chensl.rotatephotoview:rotatephotoview:1.0.5'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+    implementation('com.chensl.rotatephotoview:rotatephotoview:1.0.5') {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     implementation project(':base')
 }

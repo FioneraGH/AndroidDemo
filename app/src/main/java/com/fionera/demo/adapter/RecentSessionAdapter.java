@@ -13,7 +13,9 @@ import java.util.List;
 
 /**
  * RecentSessionAdapter
- * Created by fionera on 16-1-12.
+ *
+ * @author fionera
+ * @date 16-1-12
  */
 
 public class RecentSessionAdapter

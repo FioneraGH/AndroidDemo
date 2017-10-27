@@ -8,7 +8,8 @@ import android.widget.Scroller;
 import java.lang.reflect.Field;
 
 /**
- * Created by fionera on 15-12-19.
+ * @author fionera
+ * @date 15-12-19
  */
 public class ViewPagerScrollUtil {
 

@@ -18,17 +18,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.fionera.demo.R;
-import com.fionera.demo.util.pageindicator.anim.base.IndicatorBaseAnimator;
+import com.fionera.demo.util.pageindicator.anim.base.BaseIndicatorAnimator;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 
 import java.util.ArrayList;
 
+/**
+ * @author fionera
+ */
 public class FlycoPageIndicator
         extends LinearLayout
         implements PageIndicator {
     private Context context;
     private ViewPager vp;
-    private RelativeLayout rl_parent;
+    private RelativeLayout rlParent;
     private View selectView;
     private ArrayList<ImageView> indicatorViews = new ArrayList<>();
     private int count;
@@ -45,8 +48,8 @@ public class FlycoPageIndicator
     private int strokeColor;
     private boolean isSnap;
 
-    private Class<? extends IndicatorBaseAnimator> selectAnimClass;
-    private Class<? extends IndicatorBaseAnimator> unselectAnimClass;
+    private Class<? extends BaseIndicatorAnimator> selectAnimClass;
+    private Class<? extends BaseIndicatorAnimator> unselectAnimClass;
 
     public FlycoPageIndicator(Context context) {
         this(context, null);
@@ -58,10 +61,10 @@ public class FlycoPageIndicator
         setClipChildren(false);
         setClipToPadding(false);
 
-        rl_parent = new RelativeLayout(context);
-        rl_parent.setClipChildren(false);
-        rl_parent.setClipToPadding(false);
-        addView(rl_parent);
+        rlParent = new RelativeLayout(context);
+        rlParent.setClipChildren(false);
+        rlParent.setClipToPadding(false);
+        addView(rlParent);
 
         setGravity(Gravity.CENTER);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FlycoPageIndicator);
@@ -171,7 +174,7 @@ public class FlycoPageIndicator
      * call before setViewPager. set indicator select anim. only valid when isSnap is true
      */
     public FlycoPageIndicator setSelectAnimClass(
-            Class<? extends IndicatorBaseAnimator> selectAnimClass) {
+            Class<? extends BaseIndicatorAnimator> selectAnimClass) {
         this.selectAnimClass = selectAnimClass;
         return this;
     }
@@ -180,7 +183,7 @@ public class FlycoPageIndicator
      * call before setViewPager. set indicator unselect anim. only valid when isSnap is true
      */
     public FlycoPageIndicator setUnselectAnimClass(
-            Class<? extends IndicatorBaseAnimator> unselectAnimClass) {
+            Class<? extends BaseIndicatorAnimator> unselectAnimClass) {
         this.unselectAnimClass = unselectAnimClass;
         return this;
     }
@@ -284,8 +287,6 @@ public class FlycoPageIndicator
 
     private void animSwitch(int position) {
         try {
-            //            Log.d(TAG, "position--->" + position);
-            //            Log.d(TAG, "lastPositon--->" + lastPositon);
             if (selectAnimClass != null) {
                 if (position == lastItem) {
                     selectAnimClass.newInstance().playOn(indicatorViews.get(position));
@@ -315,10 +316,10 @@ public class FlycoPageIndicator
         }
 
         indicatorViews.clear();
-        rl_parent.removeAllViews();
+        rlParent.removeAllViews();
 
-        LinearLayout ll_unselect_views = new LinearLayout(context);
-        rl_parent.addView(ll_unselect_views);
+        LinearLayout llUnSelectViews = new LinearLayout(context);
+        rlParent.addView(llUnSelectViews);
 
         for (int i = 0; i < count; i++) {
             ImageView iv = new ImageView(context);
@@ -327,7 +328,7 @@ public class FlycoPageIndicator
                             unSelectDrawable));
             LayoutParams lp = new LayoutParams(indicatorWidth, indicatorHeight);
             lp.leftMargin = i == 0 ? 0 : indicatorGap;
-            ll_unselect_views.addView(iv, lp);
+            llUnSelectViews.addView(iv, lp);
             indicatorViews.add(iv);
         }
 
@@ -337,7 +338,7 @@ public class FlycoPageIndicator
             lp.leftMargin = (indicatorWidth + indicatorGap) * currentItem;
             selectView = new View(context);
             selectView.setBackground(selectDrawable);
-            rl_parent.addView(selectView, lp);
+            rlParent.addView(selectView, lp);
         }
 
         animSwitch(currentItem);

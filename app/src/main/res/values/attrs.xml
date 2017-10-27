@@ -51,7 +51,7 @@
         <attr name="default_height" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="RoundCornerIndicaor">
+    <declare-styleable name="RoundCornerIndicator">
         <!-- width of indicators -->
         <attr name="rci_width" format="dimension"/>
         <!-- height of indicators -->

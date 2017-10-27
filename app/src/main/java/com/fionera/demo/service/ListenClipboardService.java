@@ -12,8 +12,12 @@ import com.fionera.demo.activity.ClipBoardActivity;
 import com.fionera.demo.receiver.BootCompletedReceiver;
 import com.fionera.demo.view.floatview.TipViewController;
 
+/**
+ * @author fionera
+ */
 public final class ListenClipboardService
-        extends Service implements TipViewController.ViewDismissHandler {
+        extends Service
+        implements TipViewController.ViewDismissHandler {
 
     public static final String CLIPBOARD_WAKELOCK = "clipboard_wakelock";
 
@@ -55,7 +59,9 @@ public final class ListenClipboardService
     @Override
     public void onCreate() {
         mClipboardWatcher = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        mClipboardWatcher.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+        if (mClipboardWatcher != null) {
+            mClipboardWatcher.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener);
+        }
     }
 
     @Override
@@ -102,7 +108,9 @@ public final class ListenClipboardService
     }
 
     private void showContent(CharSequence content) {
-        if (sLastContent != null && sLastContent.equals(content) || content == null) {
+        boolean noNeedShow = sLastContent != null && sLastContent.equals(
+                content) || content == null;
+        if (noNeedShow) {
             return;
         }
         sLastContent = content;

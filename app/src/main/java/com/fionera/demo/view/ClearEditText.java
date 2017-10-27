@@ -16,7 +16,9 @@ import com.fionera.demo.R;
 
 /**
  * ClearEditText
- * Created by fionera on 16-2-12.
+ *
+ * @author fionera
+ * @date 16-2-12
  */
 
 public class ClearEditText

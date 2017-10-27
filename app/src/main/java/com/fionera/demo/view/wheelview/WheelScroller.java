@@ -68,11 +68,13 @@ class WheelScroller {
      */
     WheelScroller(Context context, ScrollingListener listener) {
         gestureDetector = new GestureDetector(context, new SimpleOnGestureListener() {
+            @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
                                     float distanceY) {
                 return true;
             }
 
+            @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
                 lastScrollY = 0;
@@ -137,7 +139,6 @@ class WheelScroller {
                 scroller.forceFinished(true);
                 clearMessages();
                 break;
-
             case MotionEvent.ACTION_MOVE:
                 // perform scrolling
                 int distanceY = (int) (event.getY() - lastTouchedY);
@@ -146,6 +147,8 @@ class WheelScroller {
                     listener.onScroll(distanceY);
                     lastTouchedY = event.getY();
                 }
+                break;
+            default:
                 break;
         }
 
@@ -156,7 +159,6 @@ class WheelScroller {
         return true;
     }
 
-    // Messages
     private final int MESSAGE_SCROLL = 0;
     private final int MESSAGE_JUSTIFY = 1;
 
@@ -179,6 +181,7 @@ class WheelScroller {
     }
 
     private Handler animationHandler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             scroller.computeScrollOffset();
             int currY = scroller.getCurrY();

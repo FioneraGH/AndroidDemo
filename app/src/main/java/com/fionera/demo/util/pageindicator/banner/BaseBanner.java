@@ -23,13 +23,15 @@ import com.fionera.demo.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
  * BaseBanner
- * Created by fionera on 16-5-4.
+ *
+ * @author fionera
+ * @date 16-5-4
  */
 
 public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
@@ -427,7 +429,8 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
         }
         if (isLoopViewPager() && mIsAutoScrollEnable) {
             pauseScroll();
-            scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+            scheduledExecutorService = new ScheduledThreadPoolExecutor(1,
+                    r -> new Thread(r, "banner-slide-%d"));
             scheduledExecutorService.scheduleAtFixedRate(() -> scrollToNextItem(mCurrentPosition), mDelay, mPeriod, TimeUnit.SECONDS);
             mIsAutoScrolling = true;
         } else {
@@ -466,22 +469,11 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
             case MotionEvent.ACTION_CANCEL:
                 goOnScroll();
                 break;
-
+            default:
+                break;
         }
         return super.dispatchTouchEvent(ev);
     }
-
-    //    @Override
-    //    protected void onWindowVisibilityChanged(int visibility) {
-    //        super.onWindowVisibilityChanged(visibility);
-    //        if (mIsSmart) {
-    //            if (visibility != VISIBLE) {
-    //                pauseScroll();
-    //            } else {
-    //                goOnScroll();
-    //            }
-    //        }
-    //    }
 
     private class InnerBannerAdapter
             extends PagerAdapter {
@@ -513,6 +505,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
             return view == object;
         }
 
+        @Override
         public int getItemPosition(Object object) {
             return POSITION_NONE;
         }

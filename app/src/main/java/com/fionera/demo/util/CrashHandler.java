@@ -4,11 +4,20 @@ import android.content.Context;
 import android.os.Looper;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * @author fionera
+ */
 public class CrashHandler
         implements UncaughtExceptionHandler {
     private Context context;
     private UncaughtExceptionHandler mDefaultHandler;
+
+    private ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>(), r -> new Thread(r, "crash-handler-%d"));
 
     private CrashHandler() {
     }
@@ -44,10 +53,12 @@ public class CrashHandler
             return false;
         }
         ex.printStackTrace();
-        new Thread(() -> {
-            Looper.prepare();
-            Looper.loop();
-        }).start();
+        executor.execute(() -> {
+            if (context != null) {
+                Looper.prepare();
+                Looper.loop();
+            }
+        });
         return true;
     }
 }

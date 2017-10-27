@@ -10,7 +10,9 @@ import com.taobao.weex.dom.WXImageQuality;
 
 /**
  * WeexImageLoaderAdapter
- * Created by fionera on 16-7-11.
+ *
+ * @author fionera
+ * @date 16-7-11
  */
 
 public class WeexImageLoaderAdapter

@@ -18,7 +18,9 @@ import com.fionera.demo.R;
 
 /**
  * ChangeableTabView
- * Created by fionera on 15-10-22.
+ *
+ * @author fionera
+ * @date 15-10-22
  */
 
 public class ChangeableTabView
@@ -66,6 +68,8 @@ public class ChangeableTabView
                     size = (int) attr.getDimension(a,
                             (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12,
                                     getResources().getDisplayMetrics()));
+                    break;
+                default:
                     break;
             }
         }

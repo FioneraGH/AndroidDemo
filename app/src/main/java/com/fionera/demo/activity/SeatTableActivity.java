@@ -9,7 +9,9 @@ import com.fionera.demo.view.SeatTableLite;
 
 /**
  * SeatTableActivity
- * Created by fionera on 17-2-13 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-2-13 in AndroidDemo
  */
 
 public class SeatTableActivity

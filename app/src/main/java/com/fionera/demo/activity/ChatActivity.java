@@ -16,7 +16,7 @@ import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.adapter.ChatMsgViewAdapter;
 import com.fionera.demo.bean.ChatMsgBean;
-import com.fionera.demo.util.DBHelper;
+import com.fionera.demo.util.DatabaseHelper;
 import com.fionera.demo.view.ArcMenu;
 
 import java.io.FileOutputStream;
@@ -40,6 +40,9 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author fionera
+ */
 public class ChatActivity
         extends BaseActivity
         implements OnClickListener, AbsListView.OnScrollListener {
@@ -47,7 +50,7 @@ public class ChatActivity
     private ListView listView;
     private View footer;
     private EditText mEditTextContent;
-    private DBHelper dbHelper = new DBHelper(this, "ChatEntity");
+    private DatabaseHelper databaseHelper = new DatabaseHelper(this, "ChatEntity");
 
     private static final int PAGE_SIZE = 20; // 每次显示数
     private int currentPage = 1; // 默认在第一页
@@ -68,7 +71,7 @@ public class ChatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbHelper.closeDb();
+        databaseHelper.closeDb();
     }
 
     private void initView() {
@@ -144,19 +147,20 @@ public class ChatActivity
      * 读取显示数据
      */
     private void showAllData() {
-        allRecorders = dbHelper.getCount();
+        allRecorders = databaseHelper.getCount();
         if (allRecorders > PAGE_SIZE) {
             listView.addFooterView(footer);
         }
 
         pageCount = (allRecorders + PAGE_SIZE - 1) / PAGE_SIZE;
-        dataList.addAll(dbHelper.getSomeItems(currentPage, PAGE_SIZE));
+        dataList.addAll(databaseHelper.getSomeItems(currentPage, PAGE_SIZE));
 
         listView.setAdapter(new ChatMsgViewAdapter(mContext, dataList));
         listView.setSelection(dataList.size() - 1);
-        dbHelper.closeDb();
+        databaseHelper.closeDb();
     }
 
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_send_msg:
@@ -164,6 +168,8 @@ public class ChatActivity
                 break;
             case R.id.tv_extra_function:
                 startActivity(new Intent(mContext, CaptureActivity.class));
+                break;
+            default:
                 break;
         }
     }
@@ -189,7 +195,7 @@ public class ChatActivity
      * 增加数据
      */
     private void appendDate() {
-        List<ChatMsgBean> addItems = dbHelper.getSomeItems(currentPage, PAGE_SIZE);
+        List<ChatMsgBean> addItems = databaseHelper.getSomeItems(currentPage, PAGE_SIZE);
 
         dataList.addAll(0, addItems);
         if (allRecorders == dataList.size()) {
@@ -198,7 +204,7 @@ public class ChatActivity
 
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
         listView.setSelection(addItems.size());
-        dbHelper.closeDb();
+        databaseHelper.closeDb();
     }
 
     private void sendMsg() {
@@ -212,7 +218,7 @@ public class ChatActivity
             dataList.add(entry);
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
             listView.setSelection(listView.getCount() - 1);
-            dbHelper.insertChatEntity(entry);
+            databaseHelper.insertChatEntity(entry);
             new Handler().postDelayed(this::autoReply, 1000);
             mEditTextContent.setText("");
         }
@@ -228,7 +234,7 @@ public class ChatActivity
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
         mEditTextContent.setText("");
         listView.setSelection(listView.getCount() - 1);
-        dbHelper.insertChatEntity(entry);
+        databaseHelper.insertChatEntity(entry);
     }
 
     private static String getDate() {

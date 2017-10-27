@@ -14,15 +14,17 @@ import com.fionera.demo.provider.WidgetProvider;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Created by fionera on 15-11-5.
+ *
+ * @author fionera
+ * @date 15-11-5
  */
 public class WidgetService extends Service{
 
-    private Timer timer;
+    private ScheduledThreadPoolExecutor timer;
     private SimpleDateFormat simpleDateFormat;
 
     @Nullable
@@ -34,22 +36,21 @@ public class WidgetService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
-        timer = new Timer();
+        timer = new ScheduledThreadPoolExecutor(1, r -> new Thread(r,"widget-update-%d"));
         simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd-hh:mm:ss", Locale.CHINA);
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                String time = simpleDateFormat.format(new Date());
+        timer.scheduleAtFixedRate(() -> {
+            String time = simpleDateFormat.format(new Date());
 
-                RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.layout_timer_widget);
-                remoteViews.setTextViewText(R.id.tv_widget_clock, time);
+            RemoteViews remoteViews = new RemoteViews(getPackageName(),
+                    R.layout.layout_timer_widget);
+            remoteViews.setTextViewText(R.id.tv_widget_clock, time);
 
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-                ComponentName componentName = new ComponentName(getApplicationContext(),
-                        WidgetProvider.class);
-                appWidgetManager.updateAppWidget(componentName,remoteViews);
-            }
-        }, 0, 1000);
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(
+                    getApplicationContext());
+            ComponentName componentName = new ComponentName(getApplicationContext(),
+                    WidgetProvider.class);
+            appWidgetManager.updateAppWidget(componentName, remoteViews);
+        }, 100, 1000, TimeUnit.MILLISECONDS);
     }
 
     @Override

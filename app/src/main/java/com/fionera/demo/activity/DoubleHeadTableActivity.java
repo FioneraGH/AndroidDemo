@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author fionera
+ */
 public class DoubleHeadTableActivity
         extends Activity {
     private RecyclerView recyclerView;
@@ -47,8 +50,8 @@ public class DoubleHeadTableActivity
 
     private void init() {
         List<Map<String, String>> datas = new ArrayList<>();
-        mHScrollItems.add((ListNestedScrollView) findViewById(R.id.item_scroll_title));
-        recyclerView = (RecyclerView) findViewById(R.id.rv_scroll_list);
+        mHScrollItems.add(findViewById(R.id.item_scroll_title));
+        recyclerView = findViewById(R.id.rv_scroll_list);
         for (int i = 0; i < 20; i++) {
             Map<String, String> data = new HashMap<>();
             data.put("title", "区_" + i);
@@ -122,7 +125,7 @@ public class DoubleHeadTableActivity
 
         public ListHolder(View itemView) {
             super(itemView);
-            listNestedScrollView = (ListNestedScrollView) itemView
+            listNestedScrollView = itemView
                     .findViewById(R.id.item_chscroll_scroll);
         }
     }

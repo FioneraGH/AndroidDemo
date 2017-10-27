@@ -27,8 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.BiConsumer;
 
+/**
+ * @author fionera
+ */
 public class BluetoothLeService
         extends Service {
     public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le" + "" + "" + ""
@@ -295,7 +297,8 @@ public class BluetoothLeService
             /*
               开启前台服务，保证蓝牙服务一直处于运行状态
              */
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                    "DEFAULT_CHANNEL");
             Notification notification = builder.setSmallIcon(R.mipmap.ic_launcher).setTicker(
                     "蓝牙通信服务已启动").setContentTitle("\"信印\"蓝牙通信服务").setContentText("\"信印\"蓝牙通信服务")
                     .build();

@@ -36,17 +36,16 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
+/**
+ * @author fionera
+ */
 public class RxAndroidActivity
         extends BaseActivity {
 
@@ -95,9 +94,9 @@ public class RxAndroidActivity
                     AndroidSchedulers.mainThread()).subscribe();
         });
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_rx_demo);
-        progressBar = (ProgressBar) findViewById(R.id.pb_rx_demo);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_rx_demo);
+        swipeRefreshLayout = findViewById(R.id.srl_rx_demo);
+        progressBar = findViewById(R.id.pb_rx_demo);
+        RecyclerView recyclerView = findViewById(R.id.rv_rx_demo);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         rxAdapter = new RxAdapter();
@@ -133,9 +132,6 @@ public class RxAndroidActivity
         List<AppInfo> reverseList = new ArrayList<>(Arrays.asList(new AppInfo[outList.size()]));
         Collections.copy(reverseList, outList);
         Collections.reverse(reverseList);
-        for (AppInfo info : reverseList) {
-            info.name = "r " + info.name;
-        }
 
         Observable<Long> clock = Observable.interval(1, TimeUnit.SECONDS);
 

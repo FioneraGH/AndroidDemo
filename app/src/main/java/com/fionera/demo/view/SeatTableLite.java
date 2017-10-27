@@ -27,7 +27,9 @@ import java.util.Collections;
 
 /**
  * SeatTableLite
- * Created by fionera on 17-2-13 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-2-13 in AndroidDemo
  */
 @SuppressWarnings("unused")
 public class SeatTableLite
@@ -252,6 +254,8 @@ public class SeatTableLite
                     case SEAT_TYPE_INVALID:
                         canvas.drawBitmap(boxInvalidBitmap, tempMatrix, paint);
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -366,7 +370,8 @@ public class SeatTableLite
             case MotionEvent.ACTION_MOVE:
                 int downDX = Math.abs(x - downX);
                 int downDY = Math.abs(y - downY);
-                if ((downDX > 10 || downDY > 10) && !pointer) {
+                boolean needInvalidate = (downDX > 10 || downDY > 10) && !pointer;
+                if (needInvalidate) {
                     int dx = x - lastX;
                     int dy = y - lastY;
                     matrix.postTranslate(dx, dy);
@@ -375,6 +380,8 @@ public class SeatTableLite
                 break;
             case MotionEvent.ACTION_UP:
                 autoScroll(velocityX / 10, velocityY / 10);
+                break;
+            default:
                 break;
         }
         lastX = x;

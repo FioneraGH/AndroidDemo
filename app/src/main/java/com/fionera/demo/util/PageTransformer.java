@@ -3,6 +3,9 @@ package com.fionera.demo.util;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+/**
+ * @author fionera
+ */
 public class PageTransformer
         implements ViewPager.PageTransformer {
 

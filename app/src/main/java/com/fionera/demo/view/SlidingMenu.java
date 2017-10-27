@@ -15,7 +15,9 @@ import com.fionera.demo.R;
 
 /**
  * SlidingMenu
- * Created by fionera on 15-8-14.
+ *
+ * @author fionera
+ * @date 15-8-14
  */
 
 public class SlidingMenu
@@ -52,6 +54,8 @@ public class SlidingMenu
                     mMenuRightPadding = a.getDimensionPixelSize(attr, (int) TypedValue
                             .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150,
                                     context.getResources().getDisplayMetrics()));
+                    break;
+                default:
                     break;
             }
         }

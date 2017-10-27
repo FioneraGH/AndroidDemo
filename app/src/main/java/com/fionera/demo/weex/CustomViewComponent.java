@@ -12,7 +12,8 @@ import com.taobao.weex.ui.component.WXComponentProp;
 import com.taobao.weex.ui.component.WXVContainer;
 
 /**
- * Created by fionera on 16-9-3.
+ * @author fionera
+ * @date 16-9-3
  */
 public class CustomViewComponent
         extends WXComponent<TextView> {

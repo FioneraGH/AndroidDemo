@@ -2,12 +2,15 @@ package com.fionera.demo.view.wheelview;
 
 import android.content.Context;
 
+/**
+ * @author fionera
+ */
 public class ArrayWheelAdapter<T>
         extends AbstractWheelTextAdapter {
 
-    private T items[];
+    private T[] items;
 
-    public ArrayWheelAdapter(Context context, T items[]) {
+    public ArrayWheelAdapter(Context context, T[] items) {
         super(context);
         this.items = items;
     }

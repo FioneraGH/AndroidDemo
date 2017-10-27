@@ -14,6 +14,9 @@ import com.taobao.weex.utils.WXFileUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author fionera
+ */
 public class WeexActivity
         extends AppCompatActivity
         implements IWXRenderListener {

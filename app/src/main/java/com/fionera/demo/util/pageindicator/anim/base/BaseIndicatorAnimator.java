@@ -5,7 +5,10 @@ import android.animation.AnimatorSet;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-public abstract class IndicatorBaseAnimator {
+/**
+ * @author fionera
+ */
+public abstract class BaseIndicatorAnimator {
     protected long duration = 200;
     protected AnimatorSet animatorSet = new AnimatorSet();
     private Interpolator interpolator;
@@ -66,22 +69,22 @@ public abstract class IndicatorBaseAnimator {
         view.setRotationX(0);
     }
 
-    public IndicatorBaseAnimator duration(long duration) {
+    public BaseIndicatorAnimator duration(long duration) {
         this.duration = duration;
         return this;
     }
 
-    public IndicatorBaseAnimator delay(long delay) {
+    public BaseIndicatorAnimator delay(long delay) {
         this.delay = delay;
         return this;
     }
 
-    public IndicatorBaseAnimator interpolator(Interpolator interpolator) {
+    public BaseIndicatorAnimator interpolator(Interpolator interpolator) {
         this.interpolator = interpolator;
         return this;
     }
 
-    public IndicatorBaseAnimator listener(AnimatorListener listener) {
+    public BaseIndicatorAnimator listener(AnimatorListener listener) {
         this.listener = listener;
         return this;
     }

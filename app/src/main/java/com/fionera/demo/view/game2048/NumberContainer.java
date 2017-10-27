@@ -1,5 +1,6 @@
 package com.fionera.demo.view.game2048;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -14,7 +15,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by fionera on 16-2-10.
+ *
+ * @author fionera
+ * @date 16-2-10
  * Modified by fionera on 17-1-9.
  */
 public class NumberContainer
@@ -64,6 +67,9 @@ public class NumberContainer
      * 方向
      */
     private enum ACTION {
+        /**
+         * left, right, up, down
+         */
         LEFT,
         RIGHT,
         UP,
@@ -192,6 +198,8 @@ public class NumberContainer
                 break;
             case DOWN:
                 index = i + (mColumn - 1 - j) * mColumn;
+                break;
+            default:
                 break;
         }
         return index;
@@ -361,9 +369,9 @@ public class NumberContainer
         setMeasuredDimension(length, length);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return true;
+        return mGestureDetector.onTouchEvent(event);
     }
 }

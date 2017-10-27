@@ -9,7 +9,8 @@ import android.provider.ContactsContract;
 import com.fionera.demo.DemoApplication;
 
 /**
- * Created by fionera on 16-1-12.
+ * @author fionera
+ * @date 16-1-12
  */
 public class ContactUtil {
 

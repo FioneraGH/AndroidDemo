@@ -176,7 +176,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="15dp">
 
-                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator
                     android:id="@+id/indicator_circle_r"
                     xmlns:rci="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -187,7 +187,7 @@
                     rci:rci_height="10dp"
                     rci:rci_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator
                     android:id="@+id/indicator_square_r"
                     xmlns:rci="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                     rci:rci_height="10dp"
                     rci:rci_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator
                     android:id="@+id/indicator_round_rectangle_r"
                     xmlns:rci="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -209,7 +209,7 @@
                     rci:rci_height="4dp"
                     rci:rci_width="15dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator
                     android:id="@+id/indicator_circle_stroke_r"
                     xmlns:rci="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                     rci:rci_unselectColor="#00000000"
                     rci:rci_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator
                     android:id="@+id/indicator_square_stroke_r"
                     xmlns:rci="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
@@ -239,7 +239,7 @@
                     rci:rci_unselectColor="#00000000"
                     rci:rci_width="10dp"/>
 
-                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor
+                <com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator
                     android:id="@+id/indicator_round_rectangle_stroke_r"
                     xmlns:rci="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"

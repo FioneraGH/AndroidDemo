@@ -9,8 +9,11 @@ import android.widget.TextView;
 
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
-import com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicaor;
+import com.fionera.demo.util.pageindicator.indicator.RoundCornerIndicator;
 
+/**
+ * @author fionera
+ */
 public class SimpleImageBanner
         extends BaseBanner<Integer, SimpleImageBanner> {
 
@@ -43,11 +46,11 @@ public class SimpleImageBanner
         return iv;
     }
 
-    private RoundCornerIndicaor indicator;
+    private RoundCornerIndicator indicator;
 
     @Override
     public View onCreateIndicator() {
-        indicator = new RoundCornerIndicaor(getContext());
+        indicator = new RoundCornerIndicator(getContext());
         indicator.setViewPager(getViewPager());
         return indicator;
     }

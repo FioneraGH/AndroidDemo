@@ -107,7 +107,8 @@ class WheelRecycle {
     private void recycleView(View view, int index) {
         int count = wheel.getViewAdapter().getItemsCount();
 
-        if ((index < 0 || index >= count) && !wheel.isCyclic()) {
+        boolean checkEmpty = (index < 0 || index >= count) && !wheel.isCyclic();
+        if (checkEmpty) {
             emptyItems = addView(view, emptyItems);
         } else {
             while (index < 0) {

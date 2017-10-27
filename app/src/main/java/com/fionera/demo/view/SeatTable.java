@@ -34,7 +34,9 @@ import java.util.Collections;
 
 /**
  * SeatTable
- * Created by fionera on 17-2-13 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-2-13 in AndroidDemo
  */
 
 public class SeatTable extends View {
@@ -211,9 +213,9 @@ public class SeatTable extends View {
      */
     boolean isDrawOverviewBitmap = true;
 
-    int overview_checked;
-    int overview_sold;
-    int txt_color;
+    int overviewChecked;
+    int overviewSold;
+    int txtColor;
     int seatCheckedResID;
     int seatSoldResID;
     int seatAvailableResID;
@@ -288,9 +290,9 @@ public class SeatTable extends View {
 
     private void init(Context context,AttributeSet attrs){
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SeatTable);
-        overview_checked = typedArray.getColor(R.styleable.SeatTable_overview_checked, Color.parseColor("#5A9E64"));
-        overview_sold = typedArray.getColor(R.styleable.SeatTable_overview_sold, Color.RED);
-        txt_color=typedArray.getColor(R.styleable.SeatTable_txt_color,Color.WHITE);
+        overviewChecked = typedArray.getColor(R.styleable.SeatTable_overview_checked, Color.parseColor("#5A9E64"));
+        overviewSold = typedArray.getColor(R.styleable.SeatTable_overview_sold, Color.RED);
+        txtColor =typedArray.getColor(R.styleable.SeatTable_txt_color,Color.WHITE);
         seatCheckedResID = typedArray.getResourceId(R.styleable.SeatTable_seat_checked, R.drawable.ic_seat_green);
         seatSoldResID = typedArray.getResourceId(R.styleable.SeatTable_overview_sold, R.drawable.ic_seat_sold);
         seatAvailableResID = typedArray.getResourceId(R.styleable.SeatTable_seat_available, R.drawable.ic_seat_gray);
@@ -441,7 +443,8 @@ public class SeatTable extends View {
                 if (!isScaling && !isOnClick) {
                     int downDX = Math.abs(x - downX);
                     int downDY = Math.abs(y - downY);
-                    if ((downDX > 10 || downDY > 10) && !pointer) {
+                    boolean needInvalidate = (downDX > 10 || downDY > 10) && !pointer;
+                    if (needInvalidate) {
                         int dx = x - lastX;
                         int dy = y - lastY;
                         matrix.postTranslate(dx, dy);
@@ -451,14 +454,15 @@ public class SeatTable extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 handler.postDelayed(hideOverviewRunnable, 1500);
-
                 autoScale();
                 int downDX = Math.abs(x - downX);
                 int downDY = Math.abs(y - downY);
-                if ((downDX > 10 || downDY > 10) && !pointer) {
+                boolean needInvalidate = (downDX > 10 || downDY > 10) && !pointer;
+                if (needInvalidate) {
                     autoScroll();
                 }
-
+                break;
+            default:
                 break;
         }
         isOnClick = false;
@@ -644,7 +648,7 @@ public class SeatTable extends View {
         }
 
         TextPaint txtPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        txtPaint.setColor(txt_color);
+        txtPaint.setColor(txtColor);
         txtPaint.setTypeface(Typeface.DEFAULT_BOLD);
         float seatHeight = this.seatHeight * getMatrixScaleX();
         float seatWidth = this.seatWidth * getMatrixScaleX();
@@ -765,10 +769,12 @@ public class SeatTable extends View {
                     case SEAT_TYPE_NOT_AVAILABLE:
                         continue;
                     case SEAT_TYPE_SELECTED:
-                        overviewPaint.setColor(overview_checked);
+                        overviewPaint.setColor(overviewChecked);
                         break;
                     case SEAT_TYPE_SOLD:
-                        overviewPaint.setColor(overview_sold);
+                        overviewPaint.setColor(overviewSold);
+                        break;
+                    default:
                         break;
                 }
 
