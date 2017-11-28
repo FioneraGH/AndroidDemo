@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:background="#0099aa"
         android:padding="16dp"
-        android:text="谷歌母公司Alphabet市值超苹果：全球第一，据外媒报道，@谷歌 母公司 @Alphabet 通过公司分拆以及搜索广告业务的持续强势，股价继续攀升。美国时间周一，Alphabet的公司市值已超过了 @苹果 ，成为全世界市值最大的公司. www.baidu.com"
+        android:text="Test, @Google Test @Alphabet Test @Apple Test. www.baidu.com"
         android:textSize="18sp"/>
 
 </LinearLayout>

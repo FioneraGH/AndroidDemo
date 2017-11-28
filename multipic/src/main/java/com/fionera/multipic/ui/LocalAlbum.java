@@ -102,29 +102,25 @@ public class LocalAlbum
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case ImageConst.REQUEST_CODE_GET_IMAGE_BY_CAMERA:
-                    String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
-                    if (TextUtils.isEmpty(cameraPath)) {
-                        ShowToast.show("图片获取失败");
-                        return;
-                    }
-                    File file = new File(cameraPath);
-                    if (file.exists()) {
-                        Uri uri = Uri.fromFile(file);
-                        LocalImageHelper.LocalFile localFile = new LocalImageHelper.LocalFile();
-                        localFile.setPath(cameraPath);
-                        localFile.setThumbnailUri(uri.toString());
-                        localFile.setOriginalUri(uri.toString());
-                        localFile.setOrientation(getBitmapDegree(cameraPath));
-                        LocalImageHelper.getInstance().getCheckedItems().add(localFile);
-                        LocalImageHelper.getInstance().setResultOk(true);
-                        finish();
-                    } else {
-                        ShowToast.show("图片获取失败");
-                    }
-                    break;
+        if (resultCode == RESULT_OK && requestCode == ImageConst.REQUEST_CODE_GET_IMAGE_BY_CAMERA) {
+            String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
+            if (TextUtils.isEmpty(cameraPath)) {
+                ShowToast.show("图片获取失败");
+                return;
+            }
+            File file = new File(cameraPath);
+            if (file.exists()) {
+                Uri uri = Uri.fromFile(file);
+                LocalImageHelper.LocalFile localFile = new LocalImageHelper.LocalFile();
+                localFile.setPath(cameraPath);
+                localFile.setThumbnailUri(uri.toString());
+                localFile.setOriginalUri(uri.toString());
+                localFile.setOrientation(getBitmapDegree(cameraPath));
+                LocalImageHelper.getInstance().getCheckedItems().add(localFile);
+                LocalImageHelper.getInstance().setResultOk(true);
+                finish();
+            } else {
+                ShowToast.show("图片获取失败");
             }
         }
     }
@@ -158,6 +154,8 @@ public class LocalAlbum
                 case ExifInterface.ORIENTATION_ROTATE_270:
                     degree = 270;
                     break;
+                default:
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,6 +179,7 @@ public class LocalAlbum
             }
 
             Collections.sort(folderNames, new Comparator<String>() {
+                @Override
                 public int compare(String arg0, String arg1) {
                     Integer num1 = LocalImageHelper.getInstance().getFolder(arg0).size();
                     Integer num2 = LocalImageHelper.getInstance().getFolder(arg1).size();

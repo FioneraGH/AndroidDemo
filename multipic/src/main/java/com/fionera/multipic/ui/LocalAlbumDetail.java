@@ -191,7 +191,7 @@ public class LocalAlbumDetail
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-        if(compoundButton.getTag() instanceof LocalImageHelper.LocalFile){
+        if (compoundButton.getTag() instanceof LocalImageHelper.LocalFile) {
             if (checked) {
                 if (checkedItems.size() + LocalImageHelper.getInstance()
                         .getCurrentSize() >= LocalImageHelper.getInstance().getTotalSize()) {

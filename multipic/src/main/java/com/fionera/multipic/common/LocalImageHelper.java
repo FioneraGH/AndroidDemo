@@ -141,18 +141,19 @@ public class LocalImageHelper {
 
     private synchronized void initImage() {
         // 获取大图的游标
+        // 大图URI
+        // 根据时间升序
         Cursor cursor = BaseApplication.getInstance().getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, // 大图URI
-                STORE_IMAGES, // 字段
-                null,
-                null,
-                MediaStore.Images.Media.DATE_TAKEN + " DESC"); // 根据时间升序
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, STORE_IMAGES, null, null,
+                MediaStore.Images.Media.DATE_TAKEN + " DESC");
         if (cursor == null) {
             return;
         }
         while (cursor.moveToNext()) {
-            int id = cursor.getInt(0); // 大图ID
-            String path = cursor.getString(1); // 大图路径
+            // 大图ID
+            int id = cursor.getInt(0);
+            // 大图路径
+            String path = cursor.getString(1);
             File file = new File(path);
             // 判断大图是否存在
             if (file.exists()) {
@@ -173,6 +174,8 @@ public class LocalImageHelper {
                 localFile.setPath(path);
                 localFile.setOriginalUri(uri);
                 localFile.setThumbnailUri(thumbUri);
+                // thumbnail lose
+                localFile.setThumbnailUri(uri);
                 int degree = cursor.getInt(2);
                 if (degree != 0) {
                     degree = degree + 180;

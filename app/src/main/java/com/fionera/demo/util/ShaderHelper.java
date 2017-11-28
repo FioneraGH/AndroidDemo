@@ -64,11 +64,11 @@ public class ShaderHelper {
         return programObjectId;
     }
 
-    public static boolean validateProgram(int programObjectId) {
+    public static void validateProgram(int programObjectId) {
         GLES20.glValidateProgram(programObjectId);
 
         final int[] validateStatus = new int[1];
         GLES20.glGetProgramiv(programObjectId, GL_VALIDATE_STATUS, validateStatus, 0);
-        return 0 != validateStatus[0];
+//        return 0 != validateStatus[0];
     }
 }

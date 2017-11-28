@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.fionera.base.util.LogCat;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.taobao.weex.IWXRenderListener;
@@ -64,6 +65,7 @@ public class WeexActivity
     @Override
     public void onException(WXSDKInstance instance, String errCode, String msg) {
         ShowToast.show("render failed");
+        LogCat.d(msg);
     }
 
     @Override
@@ -72,7 +74,6 @@ public class WeexActivity
         if (mInstance != null) {
             mInstance.onActivityStart();
         }
-
     }
 
     @Override
@@ -110,7 +111,9 @@ public class WeexActivity
     @Override
     public void onBackPressed() {
         if (mInstance != null) {
-            mInstance.onBackPressed();
+            if (!mInstance.onBackPressed()) {
+                finish();
+            }
         }
     }
 }

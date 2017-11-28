@@ -104,7 +104,7 @@ public class RichText
     public void setRichText(String text) {
         matchImages(text);
 
-        Spanned spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY, asyncImageGetter, null);
+        Spanned spanned = Html.fromHtml(text, asyncImageGetter, null);
         SpannableStringBuilder spannableStringBuilder;
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
+import com.fionera.base.util.GeneralUtil;
 import com.fionera.demo.util.ShaderHelper;
 import com.fionera.demo.util.TextResourceReader;
 
@@ -37,7 +38,7 @@ public class OpenGlActivity
         if (activityManager != null) {
             final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
             final boolean supportEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
-            if (supportEs2) {
+            if (supportEs2 || !GeneralUtil.checkArchSupported()) {
                 glSurfaceView.setEGLContextClientVersion(2);
                 glSurfaceView.setRenderer(new Renderer());
             } else {
@@ -69,9 +70,11 @@ public class OpenGlActivity
             implements GLSurfaceView.Renderer {
         private static final int BYTES_PER_FLOAT = 4;
         private static final int POSITION_COMPONENT_COUNT = 2;
+
         private float[] tableVertices = {-0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f,
                 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0f, 0.5f, 0f, 0f, -0.25f, 0f, 0.25f, -0.6f,
                 -0.6f, 0.6f, 0.6f, -0.6f, 0.6f, -0.6f, -0.6f, 0.6f, -0.6f, 0.6f, 0.6f,};
+
         private FloatBuffer vertexData;
         private int program;
 
@@ -81,7 +84,7 @@ public class OpenGlActivity
         private static final String A_POSITION = "a_Position";
         private int aPositionLocation;
 
-        public Renderer() {
+        Renderer() {
             vertexData = ByteBuffer.allocateDirect(tableVertices.length * BYTES_PER_FLOAT).order(
                     ByteOrder.nativeOrder()).asFloatBuffer();
             vertexData.put(tableVertices);
@@ -114,7 +117,7 @@ public class OpenGlActivity
 
         @Override
         public void onSurfaceChanged(GL10 gl10, int i, int i1) {
-            GLES20.glViewport(0, 0, i, i1);
+            
         }
 
         @Override
