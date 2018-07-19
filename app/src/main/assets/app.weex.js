@@ -1,7 +1,5 @@
-/*!
- * // { "framework": "Vue" }
- * 
- */
+// { "framework": "Vue" }
+
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,99 +62,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __vue_exports__, __vue_options__
-var __vue_styles__ = []
-
-/* styles */
-__vue_styles__.push(__webpack_require__(4)
-)
-
-/* script */
-__vue_exports__ = __webpack_require__(5)
-
-/* template */
-var __vue_template__ = __webpack_require__(13)
-__vue_options__ = __vue_exports__ = __vue_exports__ || {}
-if (
-  typeof __vue_exports__.default === "object" ||
-  typeof __vue_exports__.default === "function"
-) {
-if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
-__vue_options__ = __vue_exports__ = __vue_exports__.default
-}
-if (typeof __vue_options__ === "function") {
-  __vue_options__ = __vue_options__.options
-}
-__vue_options__.__file = "/home/fionera/weex_sample/src/pages/home/Home.vue"
-__vue_options__.render = __vue_template__.render
-__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-72435a96"
-__vue_options__.style = __vue_options__.style || {}
-__vue_styles__.forEach(function (module) {
-  for (var name in module) {
-    __vue_options__.style[name] = module[name]
-  }
-})
-if (typeof __register_static_styles__ === "function") {
-  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
-}
-
-module.exports = __vue_exports__
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __vue_exports__, __vue_options__
-var __vue_styles__ = []
-
-/* styles */
-__vue_styles__.push(__webpack_require__(6)
-)
-
-/* script */
-__vue_exports__ = __webpack_require__(7)
-
-/* template */
-var __vue_template__ = __webpack_require__(8)
-__vue_options__ = __vue_exports__ = __vue_exports__ || {}
-if (
-  typeof __vue_exports__.default === "object" ||
-  typeof __vue_exports__.default === "function"
-) {
-if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
-__vue_options__ = __vue_exports__ = __vue_exports__.default
-}
-if (typeof __vue_options__ === "function") {
-  __vue_options__ = __vue_options__.options
-}
-__vue_options__.__file = "/home/fionera/weex_sample/src/components/app-header.vue"
-__vue_options__.render = __vue_template__.render
-__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-ef5c3e78"
-__vue_options__.style = __vue_options__.style || {}
-__vue_styles__.forEach(function (module) {
-  for (var name in module) {
-    __vue_options__.style[name] = module[name]
-  }
-})
-if (typeof __register_static_styles__ === "function") {
-  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
-}
-
-module.exports = __vue_exports__
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -346,29 +256,73 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 3 */
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(11)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(12)
+
+/* template */
+var __vue_template__ = __webpack_require__(13)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Users/fionera/weex-vue-todos/src/components/app-header.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-41e9b56e"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Home = __webpack_require__(0);
+var _App = __webpack_require__(3);
 
-var _Home2 = _interopRequireDefault(_Home);
+var _App2 = _interopRequireDefault(_App);
 
-var _router = __webpack_require__(14);
+var _router = __webpack_require__(6);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _store = __webpack_require__(20);
+var _store = __webpack_require__(23);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _filters = __webpack_require__(28);
+var _filters = __webpack_require__(30);
 
 var filters = _interopRequireWildcard(_filters);
 
-var _mixins = __webpack_require__(29);
+var _mixins = __webpack_require__(31);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -384,299 +338,22 @@ Object.keys(filters).forEach(function (key) {
 Vue.mixin(_mixins2.default);
 
 /* eslint-disable no-new */
-new Vue(Vue.util.extend({ el: '#root', router: _router2.default, store: _store2.default }, _Home2.default));
+new Vue(Vue.util.extend({ el: '#root', router: _router2.default, store: _store2.default }, _App2.default));
 
-// router.push('/')
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = {
-  "container": {
-    "height": 100
-  },
-  "todos-list": {
-    "overflow": "hidden"
-  },
-  "todo-cell": {
-    "marginBottom": 3,
-    "borderBottomWidth": 2,
-    "borderBottomStyle": "solid",
-    "borderBottomColor": "#dddddd",
-    "backgroundColor": "#ffffff"
-  }
-}
+_router2.default.push('/');
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _appHeader = __webpack_require__(1);
-
-var _appHeader2 = _interopRequireDefault(_appHeader);
-
-var _todo = __webpack_require__(9);
-
-var _todo2 = _interopRequireDefault(_todo);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-  components: { AppHeader: _appHeader2.default, Todo: _todo2.default },
-  computed: {
-    todos: function todos() {
-      var todos = this.$store.getters.allTodos;
-      return todos.sort(function (a, b) {
-        return a.done - b.done;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.$store.dispatch('LOAD_TODOS');
-  }
-};
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = {
-  "header": {
-    "position": "relative",
-    "height": 120,
-    "backgroundColor": "#42b983"
-  },
-  "title-menu": {
-    "position": "relative",
-    "width": 150,
-    "height": 50,
-    "top": 35,
-    "left": 35
-  },
-  "title": {
-    "height": 50,
-    "width": 150,
-    "color": "#FFFFFF",
-    "textAlign": "center",
-    "lineHeight": 60,
-    "fontSize": 40
-  },
-  "nav": {
-    "position": "absolute",
-    "right": 35,
-    "top": 20,
-    "height": 80,
-    "flexDirection": "row",
-    "flexWrap": "nowrap",
-    "justifyContent": "flex-start",
-    "alignItems": "center"
-  },
-  "button": {
-    "borderWidth": 2,
-    "borderStyle": "solid",
-    "borderColor": "#2c3e50",
-    "backgroundColor": "#35495e",
-    "height": 80,
-    "width": 120,
-    "lineHeight": 80,
-    "borderRadius": 8,
-    "color": "#FFFFFF",
-    "textAlign": "center",
-    "fontSize": 32
-  }
-}
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* eslint-disable no-undef */
-var modal = weex.requireModule('modal');
-
-exports.default = {
-  computed: {
-    count: function count() {
-      var todos = this.$store.getters.allTodos;
-      return todos.filter(function (todo) {
-        return !todo.done;
-      }).length;
-    }
-  },
-  methods: {
-    openAddTodo: function openAddTodo(event) {
-      var _this = this;
-
-      modal.prompt({
-        message: 'Add New:'
-      }, function (value) {
-        if (value.result === 'OK' && value.data.length > 0) {
-          _this.$store.dispatch('ADD_TODO', {
-            name: value.data
-          });
-        }
-      });
-    }
-  }
-};
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: ["header"]
-  }, [_c('div', {
-    staticClass: ["title-menu"],
-    on: {
-      "click": function($event) {
-        _vm.jump('/')
-      }
-    }
-  }, [_c('text', {
-    staticClass: ["title"]
-  }, [_vm._v("TODO " + _vm._s(_vm.count))])]), _c('div', {
-    staticClass: ["nav"]
-  }, [_c('text', {
-    staticClass: ["button"],
-    on: {
-      "click": function($event) {
-        _vm.openAddTodo()
-      }
-    }
-  }, [_vm._v("ADD")])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-
-/***/ }),
-/* 9 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
-/* styles */
-__vue_styles__.push(__webpack_require__(10)
-)
-
 /* script */
-__vue_exports__ = __webpack_require__(11)
+__vue_exports__ = __webpack_require__(4)
 
 /* template */
-var __vue_template__ = __webpack_require__(12)
+var __vue_template__ = __webpack_require__(5)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -688,10 +365,9 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/home/fionera/weex_sample/src/components/todo.vue"
+__vue_options__.__file = "/Users/fionera/weex-vue-todos/src/App.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-2a265dde"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -706,47 +382,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = {
-  "cell-item": {
-    "flexDirection": "row",
-    "flexWrap": "nowrap",
-    "justifyContent": "space-between",
-    "alignItems": "center",
-    "paddingTop": 25,
-    "paddingRight": 25,
-    "paddingBottom": 25,
-    "paddingLeft": 25
-  },
-  "todo-name": {
-    "fontSize": 33,
-    "color": "#404040",
-    "lineHeight": 62,
-    "whiteSpace": "nowrap",
-    "textOverflow": "ellipsis",
-    "overflow": "hidden",
-    "marginRight": 20
-  },
-  "toggle": {
-    "borderWidth": 2,
-    "borderStyle": "solid",
-    "borderColor": "#2c3e50",
-    "backgroundColor": "#35495e",
-    "height": 70,
-    "width": 170,
-    "borderRadius": 8,
-    "lineHeight": 70,
-    "color": "#FFFFFF",
-    "textAlign": "center",
-    "right": 0,
-    "fontSize": 32
-  }
-}
-
-/***/ }),
-/* 11 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -755,46 +391,6 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -803,121 +399,32 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 exports.default = {
-  props: {
-    todo: {
-      type: Object,
-      required: true
-    },
-    todoId: {
-      type: String,
-      required: true
-    }
-  },
   methods: {
-    toggleDone: function toggleDone() {
-      this.$store.dispatch('DONE_TODO', {
-        key: this.todoId,
-        done: !this.todo.done
-      });
-    }
-  },
-  computed: {
-    isDone: function isDone() {
-      return this.todo.done ? 'undo' : 'done';
-    },
-    textStyle: function textStyle() {
-      if (this.todo.done) {
-        return {
-          'textDecoration': 'line-through',
-          'fontStyle': 'italic',
-          'color': '#a0a0a0'
-        };
-      } else {
-        return {
-          'textDecoration': 'none',
-          'fontStyle': 'normal',
-          'color': '#404040'
-        };
-      }
-    },
-    buttonStyle: function buttonStyle() {
-      if (this.todo.done) {
-        return {
-          'color': '#a0a0a0',
-          'backgroundColor': 'white',
-          'borderColor': 'white',
-          'textDecoration': 'underline'
-        };
-      } else {
-        return {
-          'color': 'white',
-          'backgroundColor': '#35495e',
-          'borderColor': '#2c3e50',
-          'textDecoration': 'none'
-        };
-      }
+    back: function back() {
+      this.$router.back();
     }
   }
 };
 
 /***/ }),
-/* 12 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: ["cell-item"]
-  }, [_c('text', {
-    staticClass: ["todo-name"],
-    style: _vm.textStyle,
     on: {
-      "click": function($event) {
-        _vm.jump('/TodoDetail/' + _vm.todoId)
-      }
+      "clickbackitem": _vm.back
     }
-  }, [_vm._v(_vm._s(_vm.todo.name))]), _c('text', {
-    staticClass: ["toggle"],
-    style: _vm.buttonStyle,
-    on: {
-      "click": _vm.toggleDone
+  }, [_c('router-view', {
+    staticStyle: {
+      flex: "1"
     }
-  }, [_vm._v(_vm._s(_vm.isDone))])])
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: ["container"],
-    appendAsTree: true,
-    attrs: {
-      "append": "tree"
-    }
-  }, [_c('app-header'), _c('list', {
-    staticClass: ["todos-list"]
-  }, _vm._l((_vm.todos), function(todo) {
-    return _c('cell', {
-      key: todo.todoId,
-      staticClass: ["todos-cell"],
-      appendAsTree: true,
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('todo', {
-      attrs: {
-        "todo": todo,
-        "todoId": todo.todoId
-      }
-    })], 1)
-  }))], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-
-/***/ }),
-/* 14 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -927,15 +434,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vueRouter = __webpack_require__(15);
+var _vueRouter = __webpack_require__(7);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _Home = __webpack_require__(0);
+var _Home = __webpack_require__(8);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _TodoDetail = __webpack_require__(16);
+var _TodoDetail = __webpack_require__(19);
 
 var _TodoDetail2 = _interopRequireDefault(_TodoDetail);
 
@@ -960,7 +467,7 @@ exports.default = new _vueRouter2.default({
 });
 
 /***/ }),
-/* 15 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3589,24 +3096,24 @@ if (inBrowser && window.Vue) {
 
 /* harmony default export */ __webpack_exports__["default"] = (VueRouter);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
-/* 16 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
 /* styles */
-__vue_styles__.push(__webpack_require__(17)
+__vue_styles__.push(__webpack_require__(9)
 )
 
 /* script */
-__vue_exports__ = __webpack_require__(18)
+__vue_exports__ = __webpack_require__(10)
 
 /* template */
-var __vue_template__ = __webpack_require__(19)
+var __vue_template__ = __webpack_require__(18)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3618,10 +3125,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/home/fionera/weex_sample/src/pages/home/TodoDetail.vue"
+__vue_options__.__file = "/Users/fionera/weex-vue-todos/src/pages/home/Home.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-2953e6ae"
+__vue_options__._scopeId = "data-v-0c57a6db"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -3636,7 +3143,579 @@ module.exports = __vue_exports__
 
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "container": {
+    "height": 100
+  },
+  "todos-list": {
+    "overflow": "hidden"
+  },
+  "todo-cell": {
+    "marginBottom": "3",
+    "borderBottomWidth": "2",
+    "borderBottomStyle": "solid",
+    "borderBottomColor": "#dddddd",
+    "backgroundColor": "#ffffff"
+  }
+}
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _appHeader = __webpack_require__(1);
+
+var _appHeader2 = _interopRequireDefault(_appHeader);
+
+var _todo = __webpack_require__(14);
+
+var _todo2 = _interopRequireDefault(_todo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  components: { AppHeader: _appHeader2.default, Todo: _todo2.default },
+  computed: {
+    todos: function todos() {
+      var todos = this.$store.getters.allTodos;
+      return todos.sort(function (a, b) {
+        return a.done - b.done;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('LOAD_TODOS');
+  }
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "header": {
+    "position": "relative",
+    "height": "120",
+    "backgroundColor": "#42b983"
+  },
+  "title-menu": {
+    "position": "relative",
+    "width": "150",
+    "height": "50",
+    "top": "35",
+    "left": "35"
+  },
+  "title": {
+    "height": "50",
+    "width": "150",
+    "color": "#FFFFFF",
+    "textAlign": "center",
+    "lineHeight": "60",
+    "fontSize": "40"
+  },
+  "nav": {
+    "position": "absolute",
+    "right": "35",
+    "top": "20",
+    "height": "80",
+    "flexDirection": "row",
+    "flexWrap": "nowrap",
+    "justifyContent": "flex-start",
+    "alignItems": "center"
+  },
+  "button": {
+    "borderWidth": "2",
+    "borderStyle": "solid",
+    "borderColor": "#2c3e50",
+    "backgroundColor": "#35495e",
+    "height": "80",
+    "width": "120",
+    "lineHeight": "80",
+    "borderRadius": "8",
+    "color": "#FFFFFF",
+    "textAlign": "center",
+    "fontSize": "32"
+  }
+}
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* eslint-disable no-undef */
+var modal = weex.requireModule('modal');
+
+exports.default = {
+  computed: {
+    count: function count() {
+      var todos = this.$store.getters.allTodos;
+      return todos.filter(function (todo) {
+        return !todo.done;
+      }).length;
+    }
+  },
+  methods: {
+    openAddTodo: function openAddTodo(event) {
+      var _this = this;
+
+      modal.prompt({
+        message: 'Add New:'
+      }, function (value) {
+        if (value.result === 'OK' && value.data.length > 0) {
+          _this.$store.dispatch('ADD_TODO', {
+            name: value.data
+          });
+        }
+      });
+    }
+  }
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["header"]
+  }, [_c('div', {
+    staticClass: ["title-menu"],
+    on: {
+      "click": function($event) {
+        _vm.jump('/')
+      }
+    }
+  }, [_c('text', {
+    staticClass: ["title"]
+  }, [_vm._v("TODO " + _vm._s(_vm.count))])]), _c('div', {
+    staticClass: ["nav"]
+  }, [_c('text', {
+    staticClass: ["button"],
+    on: {
+      "click": function($event) {
+        _vm.openAddTodo()
+      }
+    }
+  }, [_vm._v("ADD")])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(15)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(16)
+
+/* template */
+var __vue_template__ = __webpack_require__(17)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Users/fionera/weex-vue-todos/src/components/todo.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-f5fdc554"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "cell-item": {
+    "flexDirection": "row",
+    "flexWrap": "nowrap",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "paddingTop": "25",
+    "paddingRight": "25",
+    "paddingBottom": "25",
+    "paddingLeft": "25"
+  },
+  "todo-name": {
+    "fontSize": "33",
+    "color": "#404040",
+    "lineHeight": "62",
+    "whiteSpace": "nowrap",
+    "textOverflow": "ellipsis",
+    "overflow": "hidden",
+    "marginRight": "20"
+  },
+  "toggle": {
+    "borderWidth": "2",
+    "borderStyle": "solid",
+    "borderColor": "#2c3e50",
+    "backgroundColor": "#35495e",
+    "height": "70",
+    "width": "170",
+    "borderRadius": "8",
+    "lineHeight": "70",
+    "color": "#FFFFFF",
+    "textAlign": "center",
+    "right": "0",
+    "fontSize": "32"
+  }
+}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  props: {
+    todo: {
+      type: Object,
+      required: true
+    },
+    todoId: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    toggleDone: function toggleDone() {
+      this.$store.dispatch('DONE_TODO', {
+        key: this.todoId,
+        done: !this.todo.done
+      });
+    }
+  },
+  computed: {
+    isDone: function isDone() {
+      return this.todo.done ? 'undo' : 'done';
+    },
+    textStyle: function textStyle() {
+      if (this.todo.done) {
+        return {
+          'textDecoration': 'line-through',
+          'fontStyle': 'italic',
+          'color': '#a0a0a0'
+        };
+      } else {
+        return {
+          'textDecoration': 'none',
+          'fontStyle': 'normal',
+          'color': '#404040'
+        };
+      }
+    },
+    buttonStyle: function buttonStyle() {
+      if (this.todo.done) {
+        return {
+          'color': '#a0a0a0',
+          'backgroundColor': 'white',
+          'borderColor': 'white',
+          'textDecoration': 'underline'
+        };
+      } else {
+        return {
+          'color': 'white',
+          'backgroundColor': '#35495e',
+          'borderColor': '#2c3e50',
+          'textDecoration': 'none'
+        };
+      }
+    }
+  }
+};
+
+/***/ }),
 /* 17 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["cell-item"]
+  }, [_c('text', {
+    staticClass: ["todo-name"],
+    style: _vm.textStyle,
+    on: {
+      "click": function($event) {
+        _vm.jump('/TodoDetail/' + _vm.todoId)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.todo.name))]), _c('text', {
+    staticClass: ["toggle"],
+    style: _vm.buttonStyle,
+    on: {
+      "click": _vm.toggleDone
+    }
+  }, [_vm._v(_vm._s(_vm.isDone))])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["container"],
+    appendAsTree: true,
+    attrs: {
+      "append": "tree"
+    }
+  }, [_c('app-header'), _c('list', {
+    staticClass: ["todos-list"]
+  }, _vm._l((_vm.todos), function(todo) {
+    return _c('cell', {
+      key: todo.todoId,
+      staticClass: ["todos-cell"],
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('todo', {
+      attrs: {
+        "todo": todo,
+        "todoId": todo.todoId
+      }
+    })], 1)
+  }))], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(20)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(21)
+
+/* template */
+var __vue_template__ = __webpack_require__(22)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Users/fionera/weex-vue-todos/src/pages/home/TodoDetail.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-ffe5a99a"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -3647,46 +3726,46 @@ module.exports = {
     "flexDirection": "column",
     "justifyContent": "space-between",
     "alignItems": "center",
-    "paddingTop": 50,
-    "paddingRight": 50,
-    "paddingBottom": 50,
-    "paddingLeft": 50
+    "paddingTop": "50",
+    "paddingRight": "50",
+    "paddingBottom": "50",
+    "paddingLeft": "50"
   },
   "detail-info": {
-    "fontSize": 33,
+    "fontSize": "33",
     "color": "#404040",
-    "lineHeight": 62,
+    "lineHeight": "62",
     "whiteSpace": "nowrap",
     "textOverflow": "ellipsis",
     "overflow": "hidden"
   },
   "detail-operation": {
-    "marginTop": 500,
+    "marginTop": "500",
     "flexDirection": "row",
     "justifyContent": "space-between"
   },
   "button": {
-    "borderWidth": 2,
+    "borderWidth": "2",
     "borderStyle": "solid",
     "borderColor": "#2c3e50",
     "backgroundColor": "#35495e",
-    "marginTop": 20,
-    "marginRight": 20,
-    "marginBottom": 20,
-    "marginLeft": 20,
-    "height": 70,
-    "width": 140,
-    "borderRadius": 8,
-    "lineHeight": 70,
+    "marginTop": "20",
+    "marginRight": "20",
+    "marginBottom": "20",
+    "marginLeft": "20",
+    "height": "70",
+    "width": "140",
+    "borderRadius": "8",
+    "lineHeight": "70",
     "color": "#FFFFFF",
     "textAlign": "center",
-    "right": 0,
-    "fontSize": 32
+    "right": "0",
+    "fontSize": "32"
   }
 }
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3803,7 +3882,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3834,7 +3913,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 module.exports.render._withStripped = true
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3846,15 +3925,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _vuex = __webpack_require__(21);
+var _vuex = __webpack_require__(24);
 
 var _vuex2 = _interopRequireDefault(_vuex);
 
-var _actions = __webpack_require__(22);
+var _actions = __webpack_require__(25);
 
 var actions = _interopRequireWildcard(_actions);
 
-var _mutations = __webpack_require__(23);
+var _mutations = __webpack_require__(26);
 
 var mutations = _interopRequireWildcard(_mutations);
 
@@ -3898,7 +3977,7 @@ var store = new _vuex2.default.Store({
 exports.default = store;
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4842,10 +4921,10 @@ var index_esm = {
 
 /* harmony default export */ __webpack_exports__["default"] = (index_esm);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4919,7 +4998,7 @@ function DONE_TODO(_ref8, _ref9) {
 }
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4936,7 +5015,7 @@ exports.ADD_TODO = ADD_TODO;
 exports.DELETE_TODO = DELETE_TODO;
 exports.MODIFY_TODO = MODIFY_TODO;
 exports.DONE_TODO = DONE_TODO;
-var uuidV4 = __webpack_require__(24);
+var uuidV4 = __webpack_require__(27);
 
 function SET_TODOS(state, _ref) {
   var todos = _ref.todos;
@@ -4971,17 +5050,17 @@ function DONE_TODO(state, _ref5) {
 }
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(25);
-var bytesToUuid = __webpack_require__(27);
+var rng = __webpack_require__(28);
+var bytesToUuid = __webpack_require__(29);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
 
   if (typeof(options) == 'string') {
-    buf = options == 'binary' ? new Array(16) : null;
+    buf = options === 'binary' ? new Array(16) : null;
     options = null;
   }
   options = options || {};
@@ -5006,32 +5085,35 @@ module.exports = v4;
 
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 28 */
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
+// Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
 // and inconsistent support for the `crypto` API.  We do the best we can via
 // feature-detection
-var rng;
 
-var crypto = global.crypto || global.msCrypto; // for IE 11
-if (crypto && crypto.getRandomValues) {
+// getRandomValues needs to be invoked in a context where "this" is a Crypto
+// implementation. Also, find the complete implementation of crypto on IE11.
+var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
+                      (typeof(msCrypto) != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto));
+
+if (getRandomValues) {
   // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
   var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
-  rng = function whatwgRNG() {
-    crypto.getRandomValues(rnds8);
+
+  module.exports = function whatwgRNG() {
+    getRandomValues(rnds8);
     return rnds8;
   };
-}
-
-if (!rng) {
+} else {
   // Math.random()-based (RNG)
   //
   // If all else fails, use Math.random().  It's fast, but is of unspecified
   // quality.
   var rnds = new Array(16);
-  rng = function() {
+
+  module.exports = function mathRNG() {
     for (var i = 0, r; i < 16; i++) {
       if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
       rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
@@ -5041,39 +5123,9 @@ if (!rng) {
   };
 }
 
-module.exports = rng;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /**
@@ -5088,21 +5140,22 @@ for (var i = 0; i < 256; ++i) {
 function bytesToUuid(buf, offset) {
   var i = offset || 0;
   var bth = byteToHex;
-  return bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] + '-' +
-          bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]] +
-          bth[buf[i++]] + bth[buf[i++]];
+  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
+  return ([bth[buf[i++]], bth[buf[i++]], 
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]], '-',
+	bth[buf[i++]], bth[buf[i++]],
+	bth[buf[i++]], bth[buf[i++]],
+	bth[buf[i++]], bth[buf[i++]]]).join('');
 }
 
 module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5159,7 +5212,7 @@ function unescape(text) {
 }
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
