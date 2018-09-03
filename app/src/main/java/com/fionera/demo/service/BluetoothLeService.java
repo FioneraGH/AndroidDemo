@@ -1,6 +1,8 @@
 package com.fionera.demo.service;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,6 +16,7 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -56,6 +59,7 @@ public class BluetoothLeService
     private BluetoothManager mBluetoothManager;
 
     private List<Byte> list = new ArrayList<>();
+    private List<Byte> storeList = new ArrayList<>();
 
     private static WeakReference<BluetoothLeService> weakReferenceContext;
 
@@ -139,36 +143,13 @@ public class BluetoothLeService
                 BluetoothGatt bluetoothGatt = mBluetoothGatt.get(bluetoothDevice);
                 BluetoothGattCharacteristic bluetoothGattCharacteristic = mNotifyCharacteristic.get(
                         bluetoothGatt);
-                bluetoothGattCharacteristic.setValue(cmd);
-                bluetoothGatt.writeCharacteristic(bluetoothGattCharacteristic);
+                if (bluetoothGattCharacteristic != null && bluetoothGatt != null) {
+                    bluetoothGattCharacteristic.setValue(cmd);
+                    bluetoothGatt.writeCharacteristic(bluetoothGattCharacteristic);
+                }
                 break;
             }
         }
-    }
-
-    public static String bytesToHexString(byte[] src) {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (src == null || src.length <= 0) {
-            return null;
-        }
-        for (byte aSrc : src) {
-            int v = aSrc & 0xFF;
-            String hv = Integer.toHexString(v);
-            if (hv.length() < 2) {
-                stringBuilder.append(0);
-            }
-            stringBuilder.append(hv);
-        }
-        return stringBuilder.toString();
-    }
-
-    public static void disconnect(BluetoothDevice device) {
-        if (mBluetoothAdapter == null || mBluetoothGatt.size() == 0) {
-            LogCat.d("Bluetooth State:BluetoothAdapter not initialized");
-            return;
-        }
-        BluetoothGatt bluetoothGatt = mBluetoothGatt.get(device);
-        bluetoothGatt.disconnect();
     }
 
     public void findService(BluetoothGatt bluetoothGatt) {
@@ -210,30 +191,53 @@ public class BluetoothLeService
         byte[] data = characteristic.getValue();
 
         if (data != null && data.length > 0) {
-            int i = 0;
-            while (i < data.length) {
-                if (data[i] == 0x10) {
-                    list.add(data[i + 1]);
-                    i += 2;
-                } else {
-                    list.add(data[i]);
-                    i++;
-                }
+            for (byte aData : data) {
+                storeList.add(aData);
             }
             LogCat.e("Bluetooth Receive Data:" + bytesToHexString(data));
-            if (list.get(0) == 0x02 && list.get(list.size() - 1) == 0x03) {
-                byte[] bData = new byte[list.size()];
-                for (int j = 0; j < list.size(); j++) {
-                    bData[j] = list.get(j);
-                }
-                LogCat.e("Bluetooth Receive Final Data:" + bytesToHexString(bData));
-                intent.putExtra("BLUETOOTH_DEVICE", bluetoothDevice);
-                intent.putExtra(EXTRA_DATA, bData);
-                list.clear();
+            if (storeList.get(0) == 0x02 && storeList.get(storeList.size() - 1) == 0x03) {
+                if (isLast03(storeList)) {
+                    int i = 0;
+                    while (i < storeList.size()) {
+                        if (storeList.get(i) == 0x10) {
+                            list.add(storeList.get(i+1));
+                            i += 2;
+                        } else {
+                            list.add(storeList.get(i));
+                            i++;
+                        }
+                    }
+                    byte[] bData = new byte[list.size()];
+                    for (int j = 0; j < list.size(); j++) {
+                        bData[j] = list.get(j);
+                    }
+                    LogCat.e("Bluetooth Receive Final Data:" + bytesToHexString(bData));
+                    intent.putExtra("BLUETOOTH_DEVICE", bluetoothDevice);
+                    intent.putExtra(EXTRA_DATA, bData);
+                    list.clear();
 
-                LocalBroadcastManager.getInstance(weakReferenceContext.get()).sendBroadcast(intent);
+                    LocalBroadcastManager.getInstance(weakReferenceContext.get()).sendBroadcast(
+                            intent);
+                }
             }
         }
+    }
+
+    /**
+     * 判断字节03是否为包结尾
+     * @param list list
+     * @return boolean
+     */
+    private boolean isLast03(List<Byte> list) {
+        int i = list.size() - 2;
+        int count = 0;
+        while (list.get(i) == 0x10) {
+            count++;
+            i--;
+        }
+        // 成对10存在，表示校验和或者包括校验和在内之前数据为10，03位结尾
+        // 奇数10存在，表示03为数据非结尾
+        return count % 2 == 0;
     }
 
     public boolean initialize() {
@@ -273,6 +277,17 @@ public class BluetoothLeService
         return true;
     }
 
+    public static void disconnect(BluetoothDevice device) {
+        if (mBluetoothAdapter == null || mBluetoothGatt.size() == 0) {
+            LogCat.d("Bluetooth State:BluetoothAdapter not initialized");
+            return;
+        }
+        BluetoothGatt bluetoothGatt = mBluetoothGatt.get(device);
+        if (bluetoothGatt != null) {
+            bluetoothGatt.disconnect();
+        }
+    }
+
     /**
      * 使用给定的BLE设备后,应用程序必须调用这个方法,以确保正确地释放资源。
      */
@@ -280,7 +295,30 @@ public class BluetoothLeService
         if (mBluetoothAdapter == null || mBluetoothGatt.size() == 0) {
             return;
         }
-        mBluetoothGatt.forEach((bluetoothDevice, bluetoothGatt) -> bluetoothGatt.close());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mBluetoothGatt.forEach((bluetoothDevice, bluetoothGatt) -> bluetoothGatt.close());
+        } else {
+            for (BluetoothDevice bluetoothDevice : mBluetoothGatt.keySet()) {
+                BluetoothGatt bluetoothGatt = mBluetoothGatt.get(bluetoothDevice);
+                bluetoothGatt.close();
+            }
+        }
+    }
+
+    public static String bytesToHexString(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (byte aSrc : src) {
+            int v = aSrc & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
     }
 
     @Override
@@ -292,19 +330,40 @@ public class BluetoothLeService
                 return super.onStartCommand(intent, flags, startId);
             }
             String deviceAddress = intent.getStringExtra("DEVICE_ADDRESS");
-            LogCat.e("Bluetooth Address:" + deviceAddress);
+            LogCat.e("Bluetooth Address:" + deviceAddress + " [Result]:" + connect(deviceAddress));
             connect(deviceAddress);
             /*
               开启前台服务，保证蓝牙服务一直处于运行状态
              */
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
                     "DEFAULT_CHANNEL");
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel;
+                notificationChannel = new NotificationChannel("DEFAULT_CHANNEL",
+                        "DEFAULT", NotificationManager.IMPORTANCE_HIGH);
+                notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                if (manager != null) {
+                    manager.createNotificationChannel(notificationChannel);
+                }
+            }
             Notification notification = builder.setSmallIcon(R.mipmap.ic_launcher).setTicker(
                     "蓝牙通信服务已启动").setContentTitle("\"信印\"蓝牙通信服务").setContentText("\"信印\"蓝牙通信服务")
                     .build();
             startForeground(1, notification);
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        close();
+        return super.onUnbind(intent);
     }
 
     @Override
@@ -318,17 +377,6 @@ public class BluetoothLeService
     public void onDestroy() {
         super.onDestroy();
         close();
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return mBinder;
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        close();
-        return super.onUnbind(intent);
     }
 
     private class LocalBinder

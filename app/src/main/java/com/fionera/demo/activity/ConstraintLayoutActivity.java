@@ -51,7 +51,7 @@ public class ConstraintLayoutActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_constrant_title);
+        Toolbar toolbar = findViewById(R.id.tb_constrant_title);
         toolbar.setNavigationOnClickListener(v -> finish());
         setSupportActionBar(toolbar);
 
@@ -66,7 +66,8 @@ public class ConstraintLayoutActivity
         provincePopup = new ProvinceJsonPopup(mContext);
 
         final TextView textView = findViewById(R.id.tv_constraint_tips);
-        textView.setText(stringFromJNI() + " " + addNumberUsingJNI(1, 10));
+        textView.setText(
+                String.format(Locale.CHINA, "%s %d", stringFromJNI(), addNumberUsingJNI(1, 10)));
         textView.setOnClickListener(v -> {
             String[] addresses = textView.getText().toString().split(":");
             if (addresses.length == 3) {
@@ -74,7 +75,8 @@ public class ConstraintLayoutActivity
             }
             provincePopup.setGetValueCallback(
                     (province, city, district, provinceId, cityId, districtId) -> {
-                        textView.setText(province + ":" + city + ":" + district);
+                        textView.setText(
+                                String.format(Locale.CHINA, "%s:%s:%s", province, city, district));
                         ShowToast.show(provinceId + ":" + cityId + ":" + districtId);
                     });
             provincePopup.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,
@@ -90,13 +92,12 @@ public class ConstraintLayoutActivity
 
         findViewById(R.id.btn_contrant_connect_1).setOnClickListener(v -> {
             Intent intent = new Intent(mContext, BluetoothLeService.class);
-            intent.putExtra("DEVICE_ADDRESS", "88:4A:EA:30:34:FD");
-            ConstraintLayoutActivity.this.startService(intent);
+            intent.putExtra("DEVICE_ADDRESS", "50:F1:4A:5D:64:F9");
+            startService(intent);
         });
         findViewById(R.id.btn_contrant_connect_2).setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, BluetoothLeService.class);
             BlueToothScanUtil blueToothScanUtil = new BlueToothScanUtil(mContext);
-            blueToothScanUtil.setMacAddress("20:91:48:A2:D9:BD");
+            blueToothScanUtil.setMacAddress("50:F1:4A:5D:64:F9");
             blueToothScanUtil.startSearchBlueDevice();
         });
         findViewById(R.id.btn_contrant_send_1).setOnClickListener(v -> {
@@ -186,9 +187,12 @@ public class ConstraintLayoutActivity
     private List<Byte> makeDataPacket(List<Byte> packet, List<Byte> extraData) {
         byte[] length = intToByteArray(packet.size() + 2 + extraData.size());
         byte packetHead = 0x02;
-        packet.add(0, packetHead); // 添加包头
-        packet.add(1, length[1]); // 添加长度字低位
-        packet.add(2, length[0]); // 添加长度字高位
+        // 添加包头
+        packet.add(0, packetHead);
+        // 添加长度字低位
+        packet.add(1, length[1]);
+        // 添加长度字高位
+        packet.add(2, length[0]);
         for (int i = 0; i < extraData.size(); i++) {
             packet.add(i + 4, extraData.get(i));
         }

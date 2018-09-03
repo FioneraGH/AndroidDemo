@@ -41,7 +41,6 @@ public class BlueToothScanUtil {
             addDeviceToList(result.getDevice());
         }
     };
-
     private Runnable dismissRunnable = new Runnable() {
         @Override
         public void run() {
@@ -56,7 +55,9 @@ public class BlueToothScanUtil {
         this.context = context;
         BluetoothManager manager = (BluetoothManager) DemoApplication.getInstance().getSystemService(
                 Context.BLUETOOTH_SERVICE);
-        bluetoothAdapter = manager.getAdapter();
+        if (manager != null) {
+            bluetoothAdapter = manager.getAdapter();
+        }
     }
 
     public void setMacAddress(String macAddress) {
@@ -76,8 +77,8 @@ public class BlueToothScanUtil {
         if (!devices.contains(device)) {
             if ("HMSoft".equals(device.getName())) {
                 devices.add(device);
+                checkDevicesList(devices);
             }
-            checkDevicesList(devices);
         }
     }
 
@@ -135,6 +136,9 @@ public class BlueToothScanUtil {
     }
 
     public interface StopSearchListener{
+        /**
+         * @param timeout 超时
+         */
         void onStopped(boolean timeout);
     }
 }
