@@ -2,7 +2,6 @@ package com.fionera.demo.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -12,6 +11,8 @@ import com.fionera.base.util.DisplayUtils;
 import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.view.game2048.NumberContainer;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @author fionera
@@ -24,9 +25,9 @@ public class GameActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_g2048);
 
-        final Button button = (Button) findViewById(R.id.btn_g2048_score);
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_image_container);
-        NumberContainer numberContainer = (NumberContainer) findViewById(R.id.nc_g2048_game_board);
+        final Button button = findViewById(R.id.btn_g2048_score);
+        LinearLayout linearLayout = findViewById(R.id.ll_image_container);
+        NumberContainer numberContainer = findViewById(R.id.nc_g2048_game_board);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 DemoApplication.screenWidth - 2 * DisplayUtils.dp2px(60), DisplayUtils.dp2px(200));

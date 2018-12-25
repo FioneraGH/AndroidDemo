@@ -3,12 +3,6 @@ package com.fionera.base.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +11,14 @@ import android.widget.LinearLayout;
 import com.fionera.base.R;
 import com.fionera.base.util.DisplayUtils;
 import com.fionera.base.widget.TitleBar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 
 public abstract class BaseFragment
         extends Fragment {
@@ -27,7 +29,7 @@ public abstract class BaseFragment
     protected TitleBar titleBar;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = (LinearLayout) inflater.inflate(R.layout.layout_title_bar_content, container,
@@ -50,7 +52,7 @@ public abstract class BaseFragment
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         initViews(view);

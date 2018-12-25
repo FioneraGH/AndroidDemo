@@ -1,9 +1,6 @@
 package com.fionera.multipic.widget;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +9,12 @@ import com.fionera.multipic.R;
 import com.fionera.multipic.common.ImageUtil;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 public class ImageFragment
         extends Fragment {
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

@@ -3,7 +3,6 @@ package com.fionera.demo.view;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

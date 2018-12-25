@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.fionera.demo.activity.StickyHeaderActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sticky_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

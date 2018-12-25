@@ -1,11 +1,13 @@
 package com.fionera.demo.view;
 
 import android.content.Context;
-import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.customview.widget.ViewDragHelper;
 
 /**
  * ViewDragLayout
@@ -41,17 +43,17 @@ public class ViewDragLayout
 
         mHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
             @Override
-            public int getViewHorizontalDragRange(View child) {
+            public int getViewHorizontalDragRange(@NonNull View child) {
                 return child.equals(mLeftMenuView) ? child.getWidth() : 0;
             }
 
             @Override
-            public int clampViewPositionHorizontal(View child, int left, int dx) {
+            public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
                 return Math.max(-child.getWidth(), Math.min(left, 0));
             }
 
             @Override
-            public boolean tryCaptureView(View child, int pointerId) {
+            public boolean tryCaptureView(@NonNull View child, int pointerId) {
                 return child.equals(mLeftMenuView);
             }
 
@@ -61,7 +63,7 @@ public class ViewDragLayout
             }
 
             @Override
-            public void onViewReleased(View releasedChild, float xvel, float yvel) {
+            public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
                 final int childWidth = releasedChild.getWidth();
                 float offset = (childWidth + releasedChild.getLeft()) * 1.0f / childWidth;
                 mHelper.settleCapturedViewAt(
@@ -71,7 +73,7 @@ public class ViewDragLayout
             }
 
             @Override
-            public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+            public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
 
             }
         });

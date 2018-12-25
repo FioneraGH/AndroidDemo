@@ -15,16 +15,17 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.fionera.demo.R;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author fionera
@@ -35,7 +36,7 @@ public class CircleTextImageView
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
     private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;
-    private static final int COLORDRAWABLE_DIMENSION = 2;
+    private static final int COLOR_DRAWABLE_DIMENSION = 2;
 
     private static final int DEFAULT_BORDER_WIDTH = 0;
     private static final int DEFAULT_BORDER_COLOR = Color.BLACK;
@@ -162,8 +163,8 @@ public class CircleTextImageView
 
         if (!TextUtils.isEmpty(mTextString)) {
             Paint.FontMetricsInt fm = mTextPaint.getFontMetricsInt();
-            canvas.drawText(mTextString, getWidth() / 2 - mTextPaint.measureText(mTextString) / 2,
-                            getHeight() / 2 - fm.descent + (fm.bottom - fm.top) / 2, mTextPaint);
+            canvas.drawText(mTextString, (getWidth() >> 1) - mTextPaint.measureText(mTextString) / 2,
+                    (getHeight() >> 1) - fm.descent + ((fm.bottom - fm.top) >> 1), mTextPaint);
         }
     }
 
@@ -333,7 +334,7 @@ public class CircleTextImageView
             Bitmap bitmap;
 
             if (drawable instanceof ColorDrawable) {
-                bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION,
+                bitmap = Bitmap.createBitmap(COLOR_DRAWABLE_DIMENSION, COLOR_DRAWABLE_DIMENSION,
                                              BITMAP_CONFIG);
             } else {
                 bitmap = Bitmap
@@ -439,6 +440,5 @@ public class CircleTextImageView
                 }
             }
         }
-
     }
 }

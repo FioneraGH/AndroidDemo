@@ -8,12 +8,6 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +29,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
@@ -137,7 +137,7 @@ public class RxAndroidActivity
 
         Observable.zip(Observable.merge(Observable.fromIterable(outList).take(3),
                 Observable.fromIterable(reverseList).take(3)), clock,
-                (appInfo, aLong) -> new AppInfo(appInfo.icon, appInfo.name + String.valueOf(aLong))).map(appInfo -> (appInfo.name.startsWith("V")) ? new AppInfo(appInfo.icon,
+                (appInfo, aLong) -> new AppInfo(appInfo.icon, appInfo.name + aLong)).map(appInfo -> (appInfo.name.startsWith("V")) ? new AppInfo(appInfo.icon,
                         "new " + appInfo.name) : appInfo).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<AppInfo>() {
 
             @Override
@@ -260,15 +260,16 @@ public class RxAndroidActivity
 
         private List<AppInfo> appInfos = new ArrayList<>();
 
+        @NonNull
         @Override
-        public RxHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RxHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(RxAndroidActivity.this).inflate(
                     android.R.layout.simple_list_item_1, parent, false);
             return new RxHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(RxHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RxHolder holder, int position) {
             ((TextView) holder.itemView).setText(appInfos.get(position).name);
         }
 

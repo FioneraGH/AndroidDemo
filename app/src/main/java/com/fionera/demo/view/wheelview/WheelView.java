@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +19,8 @@ import com.fionera.demo.R;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * @author fionera

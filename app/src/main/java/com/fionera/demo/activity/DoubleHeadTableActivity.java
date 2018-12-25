@@ -1,11 +1,8 @@
 package com.fionera.demo.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +19,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * @author fionera
  */
 public class DoubleHeadTableActivity
-        extends Activity {
+        extends AppCompatActivity {
     private RecyclerView recyclerView;
     private HorizontalScrollView touchView;
     private List<ListNestedScrollView> mHScrollItems = new ArrayList<>();
@@ -78,20 +80,21 @@ public class DoubleHeadTableActivity
         private Context context;
         private List<? extends Map<String, ?>> datas;
 
-        public ScrollAdapter(Context context, List<? extends Map<String, ?>> data) {
+        ScrollAdapter(Context context, List<? extends Map<String, ?>> data) {
             this.context = context;
             this.datas = data;
         }
 
 
+        @NonNull
         @Override
-        public ListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new ListHolder(LayoutInflater.from(context)
                                           .inflate(R.layout.rv_hscroll_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(final ListHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ListHolder holder, int position) {
             if (!mHScrollItems.isEmpty()) {
                 final int scrollX = mHScrollItems.get(mHScrollItems.size() - 1).getScrollX();
                 if (0 != scrollX) {
@@ -123,7 +126,7 @@ public class DoubleHeadTableActivity
 
         ListNestedScrollView listNestedScrollView;
 
-        public ListHolder(View itemView) {
+        ListHolder(View itemView) {
             super(itemView);
             listNestedScrollView = itemView
                     .findViewById(R.id.item_chscroll_scroll);

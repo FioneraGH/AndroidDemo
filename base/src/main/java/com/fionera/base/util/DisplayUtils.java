@@ -1,7 +1,6 @@
 package com.fionera.base.util;
 
 import android.graphics.Paint;
-import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
@@ -10,6 +9,8 @@ import android.text.style.StyleSpan;
 import android.widget.TextView;
 
 import com.fionera.base.BaseApplication;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * DisplayUtils

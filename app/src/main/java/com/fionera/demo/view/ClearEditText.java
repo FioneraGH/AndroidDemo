@@ -2,9 +2,6 @@ package com.fionera.demo.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -13,6 +10,10 @@ import android.view.View;
 
 import com.fionera.base.util.DisplayUtils;
 import com.fionera.demo.R;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * ClearEditText
@@ -32,7 +33,7 @@ public class ClearEditText
     }
 
     public ClearEditText(Context context, AttributeSet attrs) {
-        this(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
+        this(context, attrs, androidx.appcompat.R.attr.editTextStyle);
     }
 
     public ClearEditText(Context context, AttributeSet attrs, int defStyleAttr) {

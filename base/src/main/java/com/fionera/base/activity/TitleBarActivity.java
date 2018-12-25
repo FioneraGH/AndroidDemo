@@ -1,7 +1,6 @@
 package com.fionera.base.activity;
 
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -10,6 +9,8 @@ import com.fionera.base.widget.TitleBar;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 public class TitleBarActivity
         extends BaseActivity {

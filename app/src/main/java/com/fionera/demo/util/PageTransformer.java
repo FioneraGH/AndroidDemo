@@ -1,7 +1,9 @@
 package com.fionera.demo.util;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @author fionera
@@ -13,7 +15,7 @@ public class PageTransformer
     private static final float MIN_SIZE = 0.8f;
 
     @Override
-    public void transformPage(View page, float position) {
+    public void transformPage(@NonNull View page, float position) {
         if (position < -1) {
             position = -1;
         } else if (position > 1) {

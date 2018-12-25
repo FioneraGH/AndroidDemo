@@ -1,11 +1,12 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.view.SeatTableLite;
+
+import androidx.annotation.Nullable;
 
 /**
  * SeatTableActivity
@@ -57,6 +58,6 @@ public class SeatTableActivity
     }
 
     private void initView() {
-        stTest = (SeatTableLite) findViewById(R.id.st_test);
+        stTest = findViewById(R.id.st_test);
     }
 }

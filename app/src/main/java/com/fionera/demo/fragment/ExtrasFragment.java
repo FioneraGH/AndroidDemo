@@ -1,10 +1,6 @@
 package com.fionera.demo.fragment;
 
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.fionera.base.fragment.BaseFragment;
@@ -26,6 +22,11 @@ import com.fionera.demo.activity.SeatTableActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.StickyHeaderActivity;
 import com.fionera.demo.activity.WeexActivity;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 /**
  * ExtrasFragment

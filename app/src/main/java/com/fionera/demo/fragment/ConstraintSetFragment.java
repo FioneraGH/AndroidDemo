@@ -1,14 +1,15 @@
 package com.fionera.demo.fragment;
 
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.constraint.solver.widgets.ConstraintWidget;
-import android.support.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
 
 import com.fionera.base.fragment.BaseFragment;
 import com.fionera.demo.R;
+
+import androidx.constraintlayout.solver.widgets.ConstraintWidget;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.transition.TransitionManager;
 
 /**
  * ConstraintSetFragment
@@ -41,8 +42,8 @@ public class ConstraintSetFragment
     }
 
     private void initView(View rootView) {
-        clContact = (ConstraintLayout) rootView.findViewById(R.id.cl_contact);
-        Button btnContactApply = (Button) rootView.findViewById(R.id.btn_contact_apply);
+        clContact = rootView.findViewById(R.id.cl_contact);
+        Button btnContactApply = rootView.findViewById(R.id.btn_contact_apply);
         btnContactApply.setOnClickListener(v -> {
             TransitionManager.beginDelayedTransition(clContact);
 
@@ -74,7 +75,7 @@ public class ConstraintSetFragment
 
             applyConstraintSet.applyTo(clContact);
         });
-        Button btnContactChain = (Button) rootView.findViewById(R.id.btn_contact_chain);
+        Button btnContactChain = rootView.findViewById(R.id.btn_contact_chain);
         btnContactChain.setOnClickListener(v -> {
             TransitionManager.beginDelayedTransition(clContact);
 
@@ -120,7 +121,7 @@ public class ConstraintSetFragment
 
             chainConstraintSet.applyTo(clContact);
         });
-        Button btnContactReset = (Button) rootView.findViewById(R.id.btn_contact_reset);
+        Button btnContactReset = rootView.findViewById(R.id.btn_contact_reset);
         btnContactReset.setOnClickListener(v -> {
             TransitionManager.beginDelayedTransition(clContact);
 

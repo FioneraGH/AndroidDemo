@@ -5,17 +5,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +31,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.exifinterface.media.ExifInterface;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class LocalAlbum
         extends TitleBarActivity {
@@ -188,15 +189,15 @@ public class LocalAlbum
             });
         }
 
-
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new ViewHolder(LayoutInflater.from(context)
                     .inflate(R.layout.rv_local_album_foler_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             String name = folderNames.get(position);
             List<LocalImageHelper.LocalFile> files = folders.get(name);
             holder.textView.setText(String.format(Locale.CHINA, "%s(%d)", name, files.size()));
@@ -230,7 +231,7 @@ public class LocalAlbum
         ImageView imageView;
         TextView textView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_local_album_folder_preview);
             textView = itemView.findViewById(R.id.iv_local_album_folder_name);

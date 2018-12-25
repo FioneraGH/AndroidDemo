@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_contact"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -90,4 +90,4 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toRightOf="@+id/btn_contact3" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

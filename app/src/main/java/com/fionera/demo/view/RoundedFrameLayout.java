@@ -7,11 +7,12 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.fionera.base.util.DisplayUtils;
+
+import androidx.annotation.NonNull;
 
 /**
  * RoundedFrameLayout

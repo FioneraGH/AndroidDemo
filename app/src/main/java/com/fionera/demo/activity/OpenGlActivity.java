@@ -7,9 +7,9 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
 import com.fionera.base.activity.BaseActivity;
+import com.fionera.base.util.GeneralUtil;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
-import com.fionera.base.util.GeneralUtil;
 import com.fionera.demo.util.ShaderHelper;
 import com.fionera.demo.util.TextResourceReader;
 

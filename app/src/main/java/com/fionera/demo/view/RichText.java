@@ -10,9 +10,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
-import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -34,6 +31,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * @author fionera
@@ -127,7 +129,7 @@ public class RichText
             final int finalI = i;
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
-                public void onClick(View widget) {
+                public void onClick(@NonNull View widget) {
                     if (onImageClickListener != null) {
                         onImageClickListener.imageClicked(imageUrls, finalI);
                     }
@@ -214,8 +216,8 @@ public class RichText
 
     private static final Pattern POINT_PATTERN = Pattern.compile("\"(.*?)\"");
 
-    /*
-      从双引号之间取出字符串
+    /**
+     *  从双引号之间取出字符串
      */
     @Nullable
     private static String getTextBetweenQuotation(String text) {
@@ -238,7 +240,7 @@ public class RichText
                             holder.height).placeholder(placeHolder).error(errorImage).into(
                             new SimpleTarget<Bitmap>() {
                                 @Override
-                                public void onResourceReady(Bitmap resource,
+                                public void onResourceReady(@NonNull Bitmap resource,
                                                             Transition<? super Bitmap> transition) {
                                     Drawable drawable = new BitmapDrawable(getResources(),
                                             resource);
@@ -300,7 +302,7 @@ public class RichText
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
         }
 
         CallableUrlSpan(Parcel in) {

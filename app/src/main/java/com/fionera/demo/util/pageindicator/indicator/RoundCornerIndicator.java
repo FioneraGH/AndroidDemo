@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -16,6 +15,8 @@ import com.fionera.demo.R;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 
 import java.util.ArrayList;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * A practice demo use GradientDrawable to realize the effect of JakeWharton's CirclePageIndicator

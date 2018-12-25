@@ -1,9 +1,6 @@
 package com.fionera.multipic.ui;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -25,6 +22,11 @@ import com.fionera.multipic.widget.LocalViewPagerAdapter;
 
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * 相册详情页
@@ -115,9 +117,6 @@ public class LocalAlbumDetail
             }
         });
         String folder = "Default";
-        /*
-        none check
-         */
         if (getIntent().hasExtra("local_folder_name")) {
             folder = getIntent().getStringExtra("local_folder_name");
         }
@@ -155,7 +154,7 @@ public class LocalAlbumDetail
         }
         AnimationSet animationSet = new AnimationSet(true);
         ScaleAnimation scaleAnimation = new ScaleAnimation((float) 0.9, 1, (float) 0.9, 1,
-                pagerContainer.getWidth() / 2, pagerContainer.getHeight() / 2);
+                pagerContainer.getWidth() >> 1, pagerContainer.getHeight() >> 1);
         scaleAnimation.setDuration(300);
         animationSet.addAnimation(scaleAnimation);
         AlphaAnimation alphaAnimation = new AlphaAnimation((float) 0.1, 1);
@@ -170,7 +169,7 @@ public class LocalAlbumDetail
         pagerContainer.setVisibility(View.GONE);
         AnimationSet animationSet = new AnimationSet(true);
         ScaleAnimation scaleAnimation = new ScaleAnimation(1, (float) 0.9, 1, (float) 0.9,
-                pagerContainer.getWidth() / 2, pagerContainer.getHeight() / 2);
+                pagerContainer.getWidth() >> 1, pagerContainer.getHeight() >> 1);
         scaleAnimation.setDuration(200);
         animationSet.addAnimation(scaleAnimation);
         AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
@@ -222,13 +221,14 @@ public class LocalAlbumDetail
             this.files = files;
         }
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new ViewHolder(getLayoutInflater().inflate(R.layout.rv_local_album_detail_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             LocalImageHelper.LocalFile localFile = files.get(position);
             ImageUtil.loadImage(localFile.getThumbnailUri(), holder.imageView);
             holder.checkBox.setTag(localFile);
@@ -251,7 +251,7 @@ public class LocalAlbumDetail
         ImageView imageView;
         CheckBox checkBox;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             checkBox = itemView.findViewById(R.id.checkbox);

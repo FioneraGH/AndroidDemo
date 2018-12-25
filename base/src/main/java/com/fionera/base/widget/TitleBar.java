@@ -1,13 +1,14 @@
 package com.fionera.base.widget;
 
 import android.content.Context;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fionera.base.R;
+
+import androidx.appcompat.widget.Toolbar;
 
 @SuppressWarnings("unused")
 public class TitleBar
@@ -27,7 +28,7 @@ public class TitleBar
         Toolbar titleBar = (Toolbar) View.inflate(context, R.layout.layout_title_bar, null);
         addView(titleBar, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-        mTvTitle = (TextView) titleBar.findViewById(R.id.title_bar_title);
+        mTvTitle = titleBar.findViewById(R.id.title_bar_title);
     }
 
     public void setTitleBarText(String title) {

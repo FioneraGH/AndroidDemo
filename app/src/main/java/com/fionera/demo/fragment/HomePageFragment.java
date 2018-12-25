@@ -5,11 +5,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
@@ -19,11 +14,15 @@ import com.fionera.demo.DemoApplication;
 import com.fionera.demo.R;
 import com.fionera.demo.activity.ChatActivity;
 import com.fionera.demo.adapter.RecentSessionAdapter;
-import com.fionera.demo.util.RvItemTouchListener;
 import com.fionera.demo.util.TadaAnimator;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * HomePageFragment
@@ -49,8 +48,8 @@ public class HomePageFragment
     public void initViews(View rootView) {
         setTitleBarText("最近");
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_recent_session);
-        floatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.fab_home_add);
+        recyclerView = rootView.findViewById(R.id.rv_recent_session);
+        floatingActionButton = rootView.findViewById(R.id.fab_home_add);
 
         Toolbar toolbar = (Toolbar) titleBar.getChildAt(0);
         toolbar.setNavigationIcon(R.drawable.ic_text_close);
@@ -79,7 +78,7 @@ public class HomePageFragment
         });
 
         floatingActionButton.setOnClickListener(v -> addSession());
-        floatingActionButton.setTranslationX(DemoApplication.screenWidth / 3);
+        floatingActionButton.setTranslationX(DemoApplication.screenWidth >> 2);
         floatingActionButton.animate().withLayer().translationX(0).setDuration(700).setInterpolator(
                 new OvershootInterpolator(1.0f)).start();
 

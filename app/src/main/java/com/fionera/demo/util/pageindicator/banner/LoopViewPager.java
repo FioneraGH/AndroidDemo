@@ -1,12 +1,14 @@
 package com.fionera.demo.util.pageindicator.banner;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @author fionera
@@ -76,7 +78,7 @@ public class LoopViewPager extends ViewPager {
     }
 
     @Override
-    public void addOnPageChangeListener(OnPageChangeListener listener) {
+    public void addOnPageChangeListener(@NonNull OnPageChangeListener listener) {
         if (mOnPageChangeListeners == null) {
             mOnPageChangeListeners = new ArrayList<>();
         }
@@ -84,7 +86,7 @@ public class LoopViewPager extends ViewPager {
     }
 
     @Override
-    public void removeOnPageChangeListener(OnPageChangeListener listener) {
+    public void removeOnPageChangeListener(@NonNull OnPageChangeListener listener) {
         if (mOnPageChangeListeners != null) {
             mOnPageChangeListeners.remove(listener);
         }
@@ -99,15 +101,15 @@ public class LoopViewPager extends ViewPager {
 
     public LoopViewPager(Context context) {
         super(context);
-        init(context);
+        init();
     }
 
     public LoopViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init();
     }
 
-    private void init(Context context) {
+    private void init() {
         if (onPageChangeListener != null) {
             super.removeOnPageChangeListener(onPageChangeListener);
         }
@@ -168,18 +170,6 @@ public class LoopViewPager extends ViewPager {
                     }
                 }
             }
-/*
-            if (mOuterPageChangeListener != null) {
-                if (realPosition != mAdapter.getRealCount() - 1) {
-                    mOuterPageChangeListener.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
-                } else {
-                    if (positionOffset > .5) {
-                        mOuterPageChangeListener.onPageScrolled(0, 0, 0);
-                    } else {
-                        mOuterPageChangeListener.onPageScrolled(realPosition, 0, 0);
-                    }
-                }
-            }*/
         }
 
         @Override
@@ -191,9 +181,6 @@ public class LoopViewPager extends ViewPager {
                     setCurrentItem(realPosition, false);
                 }
             }
-            //            if (mOuterPageChangeListener != null) {
-            //                mOuterPageChangeListener.onPageScrollStateChanged(state);
-            //            }
 
             if (mOnPageChangeListeners != null) {
                 for (int i = 0; i < mOnPageChangeListeners.size(); i++) {

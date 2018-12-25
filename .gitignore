@@ -25,7 +25,8 @@ local.properties
 proguard/
  
 # Log Files
-*.log 
+*.log
 
+.cxx
 .DS_Store
 

@@ -3,8 +3,6 @@ package com.fionera.demo.util.pageindicator.banner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,6 +24,10 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * BaseBanner
@@ -482,8 +484,9 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
             return mDatas.size();
         }
 
+        @NonNull
         @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
+        public Object instantiateItem(@NonNull ViewGroup container, final int position) {
             View inflate = onCreateItemView(position);
             inflate.setOnClickListener(view -> {
                 if (mOnItemClickL != null) {
@@ -496,17 +499,17 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>>
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((View) object);
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
 
         @Override
-        public int getItemPosition(Object object) {
+        public int getItemPosition(@NonNull Object object) {
             return POSITION_NONE;
         }
     }

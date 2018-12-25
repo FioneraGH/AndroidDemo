@@ -1,15 +1,16 @@
 package com.fionera.demo.weex;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.common.Constants;
-import com.taobao.weex.dom.WXDomObject;
+import com.taobao.weex.ui.action.BasicComponentData;
 import com.taobao.weex.ui.component.WXComponent;
 import com.taobao.weex.ui.component.WXComponentProp;
 import com.taobao.weex.ui.component.WXVContainer;
+
+import androidx.annotation.NonNull;
 
 /**
  * @author fionera
@@ -18,8 +19,9 @@ import com.taobao.weex.ui.component.WXVContainer;
 public class CustomViewComponent
         extends WXComponent<TextView> {
 
-    public CustomViewComponent(WXSDKInstance instance, WXDomObject dom, WXVContainer parent) {
-        super(instance, dom, parent);
+    public CustomViewComponent(WXSDKInstance instance, WXVContainer parent,
+                               BasicComponentData basicComponentData) {
+        super(instance, parent, basicComponentData);
     }
 
     @Override

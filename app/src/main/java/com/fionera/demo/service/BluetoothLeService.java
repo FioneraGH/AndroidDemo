@@ -1,5 +1,6 @@
 package com.fionera.demo.service;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -18,8 +19,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.fionera.base.util.LogCat;
 import com.fionera.demo.R;
@@ -31,19 +30,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 /**
  * @author fionera
  */
 public class BluetoothLeService
         extends Service {
-    public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le" + "" + "" + ""
-            + ".ACTION_GATT_CONNECTED";
-    public final static String ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le" + "" + "" +
+    public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le" +
+            ".ACTION_GATT_CONNECTED";
+    public final static String ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le" +
             ".ACTION_GATT_DISCONNECTED";
-    public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le" + ""
-            + ".ACTION_GATT_SERVICES_DISCOVERED";
-    public final static String ACTION_DATA_AVAILABLE = "com.example.bluetooth.le" + "" + "" + ""
-            + ".ACTION_DATA_AVAILABLE";
+    public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le" +
+            ".ACTION_GATT_SERVICES_DISCOVERED";
+    public final static String ACTION_DATA_AVAILABLE = "com.example.bluetooth.le" +
+            ".ACTION_DATA_AVAILABLE";
 
     public final static String EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA";
 
@@ -291,6 +293,7 @@ public class BluetoothLeService
     /**
      * 使用给定的BLE设备后,应用程序必须调用这个方法,以确保正确地释放资源。
      */
+    @TargetApi(Build.VERSION_CODES.N)
     public void close() {
         if (mBluetoothAdapter == null || mBluetoothGatt.size() == 0) {
             return;
@@ -300,7 +303,9 @@ public class BluetoothLeService
         } else {
             for (BluetoothDevice bluetoothDevice : mBluetoothGatt.keySet()) {
                 BluetoothGatt bluetoothGatt = mBluetoothGatt.get(bluetoothDevice);
-                bluetoothGatt.close();
+                if (bluetoothGatt != null) {
+                    bluetoothGatt.close();
+                }
             }
         }
     }

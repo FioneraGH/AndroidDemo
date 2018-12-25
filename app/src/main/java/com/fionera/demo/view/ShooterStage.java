@@ -3,7 +3,6 @@ package com.fionera.demo.view;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -21,6 +20,8 @@ import java.util.Set;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  *

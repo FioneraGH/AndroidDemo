@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
 import com.fionera.demo.R;
@@ -17,12 +16,15 @@ import java.util.Locale;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
+
 /**
  *
  * @author fionera
  * @date 15-11-5
  */
-public class WidgetService extends Service{
+public class WidgetService
+        extends Service {
 
     private ScheduledThreadPoolExecutor timer;
     private SimpleDateFormat simpleDateFormat;

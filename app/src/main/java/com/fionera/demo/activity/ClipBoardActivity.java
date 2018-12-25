@@ -9,7 +9,6 @@ import android.inputmethodservice.KeyboardView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +20,8 @@ import com.fionera.demo.R;
 import com.fionera.demo.service.GrabAccessibilityService;
 import com.fionera.demo.service.ListenClipboardService;
 import com.fionera.demo.util.KeyboardUtil;
+
+import androidx.core.app.NotificationCompat;
 
 /**
  * @author fionera

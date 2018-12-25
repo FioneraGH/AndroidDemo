@@ -1,12 +1,14 @@
 package com.fionera.demo.util.pageindicator.banner;
 
 import android.os.Parcelable;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 
 /**
  *
@@ -73,8 +75,9 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
         return mAdapter;
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
         int realPosition = (mAdapter instanceof FragmentPagerAdapter || mAdapter instanceof FragmentStatePagerAdapter) ? position
                 : toRealPosition(position);
 
@@ -89,7 +92,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         int realFirst = getRealFirstPosition();
         int realLast = getRealLastPosition();
         int realPosition = (mAdapter instanceof FragmentPagerAdapter || mAdapter instanceof FragmentStatePagerAdapter) ? position
@@ -108,12 +111,12 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 	 */
 
     @Override
-    public void finishUpdate(ViewGroup container) {
+    public void finishUpdate(@NonNull ViewGroup container) {
         mAdapter.finishUpdate(container);
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return mAdapter.isViewFromObject(view, object);
     }
 
@@ -128,12 +131,12 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
     }
 
     @Override
-    public void startUpdate(ViewGroup container) {
+    public void startUpdate(@NonNull ViewGroup container) {
         mAdapter.startUpdate(container);
     }
 
     @Override
-    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         mAdapter.setPrimaryItem(container, position, object);
     }
 
@@ -149,7 +152,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
         int position;
         Object object;
 
-        public ToDestroy(ViewGroup container, int position, Object object) {
+        ToDestroy(ViewGroup container, int position, Object object) {
             this.container = container;
             this.position = position;
             this.object = object;

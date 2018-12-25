@@ -3,7 +3,6 @@ package com.fionera.multipic.common;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.fionera.multipic.R;
 
 /**

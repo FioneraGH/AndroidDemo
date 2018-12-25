@@ -1,7 +1,6 @@
 package com.fionera.demo.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,9 @@ import com.fionera.demo.R;
 import com.fionera.demo.util.RvItemTouchListener;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * RecentSessionAdapter
@@ -35,15 +37,16 @@ public class RecentSessionAdapter
         this.data = data;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.rv_recent_session_item, parent,
                 false);
         return new RecentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(
                 view -> rvItemTouchListener.onItemClick(holder.itemView, holder.getAdapterPosition()));
     }

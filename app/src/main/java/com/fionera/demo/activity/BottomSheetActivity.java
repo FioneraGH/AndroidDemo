@@ -1,11 +1,6 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +8,12 @@ import android.view.ViewGroup;
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.view.BottomSheetDialogView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author fionera
@@ -30,7 +31,7 @@ public class BottomSheetActivity
         setContentView(R.layout.activity_bottom_sheet);
 
         nsView = findViewById(R.id.ns_bottom_sheet);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_bottom_sheet);
+        recyclerView = findViewById(R.id.rv_bottom_sheet);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -79,15 +80,16 @@ public class BottomSheetActivity
             super();
         }
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.rv_recent_session_item, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
             holder.itemView.setOnClickListener(
                     view -> mItemClickListener.onItemClick(holder.getAdapterPosition()));
@@ -101,7 +103,7 @@ public class BottomSheetActivity
         public static class ViewHolder
                 extends RecyclerView.ViewHolder {
 
-            public ViewHolder(View view) {
+            ViewHolder(View view) {
                 super(view);
             }
         }

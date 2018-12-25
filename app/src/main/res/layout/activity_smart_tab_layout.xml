@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -22,9 +22,9 @@
             android:text="你好"
             android:textColor="@color/white"
             android:textSize="18sp"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +46,7 @@
                 app:stl_indicatorThickness="2dp"
                 app:stl_underlineThickness="1px"/>
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -61,7 +61,7 @@
             android:tag="login"
             tools:layout="@layout/fragment_login"/>
 
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </RelativeLayout>
 

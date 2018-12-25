@@ -3,15 +3,15 @@ package com.fionera.demo.activity;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.LogCat;
 import com.fionera.base.util.ShowToast;
 import com.google.zxing.Result;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**

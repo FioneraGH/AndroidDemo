@@ -5,12 +5,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.text.TextUtils;
 
 import com.fionera.demo.activity.ClipBoardActivity;
 import com.fionera.demo.receiver.BootCompletedReceiver;
 import com.fionera.demo.view.floatview.TipViewController;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 /**
  * @author fionera

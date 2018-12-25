@@ -2,7 +2,6 @@ package com.fionera.demo.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.ShowToast;
@@ -28,6 +27,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * @author fionera

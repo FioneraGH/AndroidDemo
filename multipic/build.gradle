@@ -20,12 +20,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "com.android.support:recyclerview-v7:$support_version"
-    implementation "com.android.support:exifinterface:$support_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    annotationProcessor 'androidx.annotation:annotation:1.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
     implementation('com.github.chrisbanes:PhotoView:2.1.4') {
         exclude group: "com.android.support"
     }
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation project(':base')
 }

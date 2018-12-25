@@ -1,13 +1,14 @@
 package com.fionera.multipic.widget;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.fionera.multipic.common.LocalImageHelper;
 
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class LocalViewPagerAdapter
         extends FragmentStatePagerAdapter {

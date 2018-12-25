@@ -1,19 +1,19 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.fragment.ExtrasFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @author fionera
@@ -28,20 +28,20 @@ public class SmartTabLayoutActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smart_tab_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_test);
         toolbar.setOnMenuItemClickListener(item -> {
             ShowToast.show(item.getTitle());
             return true;
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        DrawerLayout drawer = findViewById(R.id.drawer);
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.vp_tab_layout);
+        ViewPager viewPager = findViewById(R.id.vp_tab_layout);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -59,7 +59,7 @@ public class SmartTabLayoutActivity
             }
         });
 
-        SmartTabLayout tabLayout = (SmartTabLayout) findViewById(R.id.tl_tab_layout);
+        SmartTabLayout tabLayout = findViewById(R.id.tl_tab_layout);
         tabLayout.setViewPager(viewPager);
     }
 }

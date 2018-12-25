@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -31,6 +28,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
 
 /**
  * @author fionera
@@ -173,7 +175,7 @@ public class NotificationActivity
         }
 
         @Override
-        public void updateDrawState(TextPaint ds) {
+        public void updateDrawState(@NonNull TextPaint ds) {
             super.updateDrawState(ds);
             ds.setUnderlineText(false);
         }

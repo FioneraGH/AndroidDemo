@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +15,10 @@ import com.fionera.demo.bean.StickyHeaderBean;
 
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Sticker Header Decoration
@@ -64,8 +66,8 @@ public class SectionDecoration
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                               RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
+                               @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int position = parent.getChildAdapterPosition(view);
         String groupId = callback.getGroupId(position);
@@ -90,7 +92,7 @@ public class SectionDecoration
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDraw(c, parent, state);
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
@@ -103,7 +105,7 @@ public class SectionDecoration
             }
             String textLine = callback.getGroupFirstLine(position).toUpperCase();
             if (TextUtils.isEmpty(textLine)) {
-                c.drawRect(left, view.getTop() - topGap / 2, right, view.getTop(), paint);
+                c.drawRect(left, view.getTop() - (topGap >> 1), right, view.getTop(), paint);
             } else {
                 if (0 == position || isFirstInGroup(position)) {
                     c.drawRect(left, view.getTop() - topGap, right, view.getTop(), paint);
@@ -114,7 +116,7 @@ public class SectionDecoration
     }
 
     @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
         int itemCount = state.getItemCount();
         int left = parent.getPaddingLeft();

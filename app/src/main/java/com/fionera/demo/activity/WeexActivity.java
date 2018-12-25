@@ -1,7 +1,6 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.fionera.base.util.LogCat;
@@ -14,6 +13,8 @@ import com.taobao.weex.utils.WXFileUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @author fionera
@@ -35,14 +36,12 @@ public class WeexActivity
 
         mInstance = new WXSDKInstance(this);
         mInstance.registerRenderListener(this);
-        renderPage(mInstance, getPackageName(), WXFileUtils.loadAsset("app.weex.js", this),
-                WEEX_INDEX_URL);
+        renderPage(mInstance, getPackageName(), WXFileUtils.loadAsset("app.weex.js", this));
     }
 
-    private void renderPage(WXSDKInstance mInstance, String packageName, String template,
-                            String source) {
+    private void renderPage(WXSDKInstance mInstance, String packageName, String template) {
         Map<String, Object> options = new HashMap<>();
-        options.put(WXSDKInstance.BUNDLE_URL, source);
+        options.put(WXSDKInstance.BUNDLE_URL, WeexActivity.WEEX_INDEX_URL);
         mInstance.render(packageName, template, options, "{\"os\":\"android\"}",
                 WXRenderStrategy.APPEND_ASYNC);
     }

@@ -2,12 +2,15 @@ package com.fionera.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * BaseActivity
- * Created by fionera on 17-1-9 in AndroidDemo.
+ *
+ * @author fionera
+ * @date 17-1-9 in AndroidDemo
  */
 
 public class BaseActivity

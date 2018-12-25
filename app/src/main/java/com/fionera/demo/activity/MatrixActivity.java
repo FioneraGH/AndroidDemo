@@ -1,6 +1,5 @@
 package com.fionera.demo.activity;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,28 +7,28 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.design.widget.SwipeDismissBehavior;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
+import com.google.android.material.behavior.SwipeDismissBehavior;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @author fionera
  */
 public class MatrixActivity
-        extends Activity {
+        extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix);
 
-        ImageView imageView1 = (ImageView) findViewById(R.id.ivTest1);
-        ImageView imageView2 = (ImageView) findViewById(R.id.ivTest2);
+        ImageView imageView1 = findViewById(R.id.ivTest1);
+        ImageView imageView2 = findViewById(R.id.ivTest2);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         imageView1.setImageBitmap(bitmap);

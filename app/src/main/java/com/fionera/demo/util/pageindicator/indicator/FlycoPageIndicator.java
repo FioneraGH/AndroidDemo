@@ -7,8 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -22,6 +20,9 @@ import com.fionera.demo.util.pageindicator.anim.base.BaseIndicatorAnimator;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 
 import java.util.ArrayList;
+
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @author fionera

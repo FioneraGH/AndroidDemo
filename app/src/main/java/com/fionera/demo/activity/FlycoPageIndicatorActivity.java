@@ -1,7 +1,6 @@
 package com.fionera.demo.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
@@ -12,6 +11,8 @@ import com.fionera.demo.util.pageindicator.indicator.FlycoPageIndicator;
 import com.fionera.demo.util.pageindicator.indicator.base.PageIndicator;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @author fionera

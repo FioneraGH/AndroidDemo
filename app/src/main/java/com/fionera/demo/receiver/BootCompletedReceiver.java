@@ -2,10 +2,11 @@ package com.fionera.demo.receiver;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.text.TextUtils;
 
 import com.fionera.demo.service.ListenClipboardService;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 /**
  * @author fionera
