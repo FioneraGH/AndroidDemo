@@ -58,7 +58,7 @@ android {
             return 0
         }
         prod {
-            minSdkVersion 19
+            minSdkVersion 21
             resConfigs("zh_CN", "en_US")
             return 0
         }
