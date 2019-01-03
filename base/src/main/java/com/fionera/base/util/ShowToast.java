@@ -3,11 +3,13 @@ package com.fionera.base.util;
 import android.annotation.SuppressLint;
 import android.widget.Toast;
 
-import com.fionera.base.BaseApplication;
+import com.fionera.base.AppContextHolder;
 
 /**
  * ShowToast
- * Created by fionera on 15-12-6.
+ *
+ * @author fionera
+ * @date 15-12-6
  */
 public class ShowToast {
     private static Toast toast;
@@ -28,7 +30,7 @@ public class ShowToast {
         }
 
         if (toast == null) {
-            toast = Toast.makeText(BaseApplication.getInstance(), info.toString(),
+            toast = Toast.makeText(AppContextHolder.getAppContext(), info.toString(),
                     Toast.LENGTH_SHORT);
         } else {
             toast.setText(info.toString());

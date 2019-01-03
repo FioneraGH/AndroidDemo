@@ -20,5 +20,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-    <application/>
+    <application>
+        <provider
+            android:name="com.fionera.base.AppContextHolder"
+            android:authorities="${applicationId}.AppContextHolder"
+            android:exported="false" />
+    </application>
 </manifest>

@@ -32,8 +32,6 @@ public class DemoApplication
             return;
         }
 
-        instance = this;
-
         try {
             WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
             WXSDKEngine.registerComponent("custom-view-component", CustomViewComponent.class);
@@ -55,12 +53,6 @@ public class DemoApplication
             CrashHandler crashHandler = CrashHandler.getInstance();
             crashHandler.init(getApplicationContext());
         }
-    }
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        instance = null;
     }
 
     public boolean isMainProcess() {

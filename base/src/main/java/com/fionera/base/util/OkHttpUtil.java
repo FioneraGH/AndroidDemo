@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.fionera.base.BaseApplication;
+import com.fionera.base.AppContextHolder;
 
 import org.json.JSONObject;
 
@@ -25,21 +25,22 @@ import okhttp3.Response;
 
 /**
  * OkHttpUtil
- * Created by fionera on 16-4-25.
+ *
+ * @author fionera
+ * @date 16-4-25
  */
-
 public class OkHttpUtil {
-    private static final OkHttpClient mOkHttpClient = new OkHttpClient.Builder().readTimeout(25,
+    private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder().readTimeout(25,
             TimeUnit.SECONDS).addInterceptor(new LogInterceptor()).build();
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
-    private static final Handler handler = new Handler(Looper.getMainLooper());
+    private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
     public static void getEnqueue(String url, final NetCallBack responseCallback, Object tag) {
         try {
             getInnerEnqueue(url, responseCallback, tag);
         } catch (Exception e) {
-            handler.post(new Runnable() {
+            HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
                     responseCallback.onFailed("网络错误");
@@ -53,19 +54,19 @@ public class OkHttpUtil {
      */
     private static void getInnerEnqueue(String url, final NetCallBack responseCallback,
                                         final Object tag) throws Exception {
-        if (!isNetworkConnected(BaseApplication.getInstance())) {
+        if (isNetworkNotConnected(AppContextHolder.getAppContext())) {
             onNoNetwork(responseCallback);
             return;
         }
         Request request = new Request.Builder().url(url).tag(tag).build();
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
+        OK_HTTP_CLIENT.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (TextUtils.equals(e.getMessage(), "Canceled") || TextUtils.equals(e.getMessage(),
                         "Socket closed")) {
                     return;
                 }
-                handler.post(new Runnable() {
+                HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
                         responseCallback.onFailed("网络超时");
@@ -76,7 +77,7 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String result = response.body().string();
-                handler.post(new Runnable() {
+                HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
                         responseCallback.onSucceed(result);
@@ -91,7 +92,7 @@ public class OkHttpUtil {
         try {
             postInnerEnqueue(url, params, responseCallback, tag);
         } catch (Exception e) {
-            handler.post(new Runnable() {
+            HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
                     responseCallback.onFailed("网络错误");
@@ -106,7 +107,7 @@ public class OkHttpUtil {
     private static void postInnerEnqueue(String url, final Map<String, String> params,
                                          final NetCallBack responseCallback,
                                          Object tag) throws Exception {
-        if (!isNetworkConnected(BaseApplication.getInstance())) {
+        if (isNetworkNotConnected(AppContextHolder.getAppContext())) {
             onNoNetwork(responseCallback);
             return;
         }
@@ -116,10 +117,10 @@ public class OkHttpUtil {
         }
         FormBody formBody = formBuilder.build();
         Request request = new Request.Builder().url(url).tag(tag).post(formBody).build();
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
+        OK_HTTP_CLIENT.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                handler.post(new Runnable() {
+                HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
                         responseCallback.onFailed("网络超时");
@@ -130,7 +131,7 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String result = response.body().string();
-                handler.post(new Runnable() {
+                HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
                         responseCallback.onSucceed(result);
@@ -153,14 +154,14 @@ public class OkHttpUtil {
         }
         final String finalMsg = returnMsg;
         if ("200".equals(returnCode)) {
-            handler.post(new Runnable() {
+            HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
                     responseCallback.onSucceed(result);
                 }
             });
         } else {
-            handler.post(new Runnable() {
+            HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
                     responseCallback.onFailed(finalMsg);
@@ -170,12 +171,12 @@ public class OkHttpUtil {
     }
 
     public static void cancelCallWithTag(Object tag) {
-        for (Call call : mOkHttpClient.dispatcher().queuedCalls()) {
+        for (Call call : OK_HTTP_CLIENT.dispatcher().queuedCalls()) {
             if (tag.equals(call.request().tag())) {
                 call.cancel();
             }
         }
-        for (Call call : mOkHttpClient.dispatcher().runningCalls()) {
+        for (Call call : OK_HTTP_CLIENT.dispatcher().runningCalls()) {
             if (tag.equals(call.request().tag())) {
                 call.cancel();
             }
@@ -190,16 +191,17 @@ public class OkHttpUtil {
         }
     }
 
-    private static boolean isNetworkConnected(Context context) {
+    private static boolean isNetworkNotConnected(Context context) {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
             if (mNetworkInfo != null) {
-                return mNetworkInfo.isAvailable();
+                // TODO: L+ is always true
+                return !mNetworkInfo.isAvailable();
             }
         }
-        return false;
+        return true;
     }
 
     public interface NetCallBack {

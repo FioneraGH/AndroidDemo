@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
 
+import com.fionera.base.AppContextHolder;
 import com.fionera.base.BaseApplication;
 
 import androidx.core.content.ContextCompat;
@@ -72,7 +73,7 @@ public class DisplayUtils {
     public static SpannableString changeTextColor(String text, int colorId, int start, int end) {
         SpannableString sp = new SpannableString(text);
         sp.setSpan(new ForegroundColorSpan(
-                           ContextCompat.getColor(BaseApplication.getInstance(), colorId)),
+                           ContextCompat.getColor(AppContextHolder.getAppContext(), colorId)),
                    start, end,
                    Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 

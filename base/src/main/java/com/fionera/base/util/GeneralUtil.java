@@ -2,14 +2,12 @@ package com.fionera.base.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.fionera.base.BaseApplication;
+import com.fionera.base.AppContextHolder;
 
 /**
  * @author fionera
@@ -20,7 +18,7 @@ public class GeneralUtil {
 
     public static boolean isNetworkAvailable() {
         try {
-            ConnectivityManager connectivity = (ConnectivityManager) BaseApplication.getInstance()
+            ConnectivityManager connectivity = (ConnectivityManager) AppContextHolder.getAppContext()
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivity != null) {
                 NetworkInfo info = connectivity.getActiveNetworkInfo();
@@ -58,38 +56,5 @@ public class GeneralUtil {
             }
         }
         return isSupported;
-    }
-
-    /**
-     * 获取当前应用的版本名称
-      */
-    public static String getVersionName() {
-        try {
-            PackageManager packageManager = BaseApplication.getInstance().getPackageManager();
-            PackageInfo packInfo = packageManager.getPackageInfo(
-                    BaseApplication.getInstance().getPackageName(), 0);
-            String version = packInfo.versionName;
-            if (!TextUtils.isEmpty(version)) {
-                return version;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "1.0.0";
-    }
-
-    /**
-     * 获取当前应用的版本序号
-      */
-    public static int getVersionCode() {
-        try {
-            PackageManager packageManager = BaseApplication.getInstance().getPackageManager();
-            PackageInfo packInfo = packageManager.getPackageInfo(
-                    BaseApplication.getInstance().getPackageName(), 0);
-            return packInfo.versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 1;
     }
 }

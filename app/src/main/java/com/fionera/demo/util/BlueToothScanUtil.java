@@ -12,8 +12,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.fionera.base.AppContextHolder;
 import com.fionera.base.util.LogCat;
-import com.fionera.demo.DemoApplication;
 import com.fionera.demo.service.BluetoothLeService;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class BlueToothScanUtil {
 
     public BlueToothScanUtil(Context context) {
         this.context = context;
-        BluetoothManager manager = (BluetoothManager) DemoApplication.getInstance().getSystemService(
+        BluetoothManager manager = (BluetoothManager) AppContextHolder.getAppContext().getSystemService(
                 Context.BLUETOOTH_SERVICE);
         if (manager != null) {
             bluetoothAdapter = manager.getAdapter();
@@ -65,7 +65,7 @@ public class BlueToothScanUtil {
     }
 
     public static boolean checkBLEAvailable() {
-        return DemoApplication.getInstance().getPackageManager().hasSystemFeature(
+        return AppContextHolder.getAppContext().getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_BLUETOOTH_LE) && bluetoothAdapter != null;
     }
 

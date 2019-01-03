@@ -17,8 +17,8 @@ android {
         applicationId "com.fionera.demo"
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode 20
-        versionName "2.0.0"
+        versionCode 21
+        versionName "2.0.1"
 
         externalNativeBuild {
             cmake {

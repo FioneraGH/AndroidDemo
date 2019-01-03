@@ -1,5 +1,6 @@
 package com.fionera.multipic.common;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Environment;
 import android.os.Parcel;
@@ -7,7 +8,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
-import com.fionera.base.BaseApplication;
+import com.fionera.base.AppContextHolder;
 import com.fionera.base.util.ShowToast;
 
 import java.io.File;
@@ -101,6 +102,7 @@ public class LocalImageHelper {
         return paths.size() > 0;
     }
 
+    @SuppressLint("CheckResult")
     public static void init() {
         if (instance == null) {
             instance = new LocalImageHelper();
@@ -143,7 +145,7 @@ public class LocalImageHelper {
         // 获取大图的游标
         // 大图URI
         // 根据时间升序
-        Cursor cursor = BaseApplication.getInstance().getContentResolver().query(
+        Cursor cursor = AppContextHolder.getAppContext().getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, STORE_IMAGES, null, null,
                 MediaStore.Images.Media.DATE_TAKEN + " DESC");
         if (cursor == null) {
@@ -199,7 +201,7 @@ public class LocalImageHelper {
 
     private String getThumbnail(int id) {
         // 获取大图的缩略图
-        Cursor cursor = BaseApplication.getInstance().getContentResolver().query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI,
+        Cursor cursor = AppContextHolder.getAppContext().getContentResolver().query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI,
                 THUMBNAIL_STORE_IMAGE,
                 MediaStore.Images.Thumbnails.IMAGE_ID + " = ?",
                 new String[]{id + ""},
@@ -238,11 +240,11 @@ public class LocalImageHelper {
     private static String getFilePath() {
         File cacheDir;
         if (android.os.Environment.getExternalStorageState().equals(
-                android.os.Environment.MEDIA_MOUNTED) && (cacheDir = BaseApplication.getInstance()
+                android.os.Environment.MEDIA_MOUNTED) && (cacheDir = AppContextHolder.getAppContext()
                 .getExternalFilesDir(Environment.DIRECTORY_PICTURES)) != null) {
             return cacheDir.getAbsolutePath();
         } else {
-            cacheDir = BaseApplication.getInstance().getFilesDir();
+            cacheDir = AppContextHolder.getAppContext().getFilesDir();
             return cacheDir.getAbsolutePath() + "/Pictures";
         }
     }
