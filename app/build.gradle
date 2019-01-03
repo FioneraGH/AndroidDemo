@@ -20,14 +20,6 @@ android {
         versionCode 21
         versionName "2.0.1"
 
-        externalNativeBuild {
-            cmake {
-                arguments "-DANDROID_TOOLCHAIN=clang"
-                cppFlags ""
-                version "3.10.2"
-            }
-        }
-
         ndk {
             abiFilters "armeabi-v7a"
         }
@@ -50,7 +42,7 @@ android {
 
     productFlavors {
         emu {
-            minSdkVersion 22
+            minSdkVersion 23
             resConfigs("zh_CN", "en_US")
             ndk {
                 abiFilters "x86"
@@ -80,7 +72,7 @@ android {
 
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            version "3.10.2"
         }
     }
 

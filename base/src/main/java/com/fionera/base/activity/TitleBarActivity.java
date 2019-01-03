@@ -31,8 +31,8 @@ public class TitleBarActivity
     }
 
     @Override
-    public View findViewById(int id) {
-        View view = mLayoutContent.findViewById(id);
+    public <T extends View> T findViewById(int id) {
+        T view = mLayoutContent.findViewById(id);
         if (view == null) {
             return super.findViewById(id);
         }
