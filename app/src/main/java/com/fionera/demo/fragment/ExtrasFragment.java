@@ -21,7 +21,6 @@ import com.fionera.demo.activity.RxAndroidActivity;
 import com.fionera.demo.activity.SeatTableActivity;
 import com.fionera.demo.activity.SmartTabLayoutActivity;
 import com.fionera.demo.activity.StickyHeaderActivity;
-import com.fionera.demo.activity.WeexActivity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -112,9 +111,6 @@ public class ExtrasFragment
                 mContext.startActivity(new Intent(mContext, FlycoPageIndicatorActivity.class));
                 break;
             case R.id.button15:
-                break;
-            case R.id.button16:
-                mContext.startActivity(new Intent(mContext, WeexActivity.class));
                 break;
             case R.id.button17:
                 mContext.startActivity(new Intent(mContext, ClipBoardActivity.class));

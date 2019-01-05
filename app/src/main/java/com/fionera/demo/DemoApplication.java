@@ -8,13 +8,6 @@ import android.util.DisplayMetrics;
 
 import com.fionera.base.BaseApplication;
 import com.fionera.demo.util.CrashHandler;
-import com.fionera.demo.weex.CustomViewComponent;
-import com.fionera.demo.weex.UrlHelperModule;
-import com.fionera.demo.weex.adapter.WeexImageLoaderAdapter;
-import com.taobao.weex.InitConfig;
-import com.taobao.weex.WXEnvironment;
-import com.taobao.weex.WXSDKEngine;
-import com.taobao.weex.common.WXException;
 
 import java.util.List;
 
@@ -30,15 +23,6 @@ public class DemoApplication
 
         if (!isMainProcess()) {
             return;
-        }
-
-        try {
-            WXEnvironment.addCustomOptions("appName", getString(R.string.app_name));
-            WXSDKEngine.registerComponent("custom-view-component", CustomViewComponent.class);
-            WXSDKEngine.registerModule("URLHelper", UrlHelperModule.class);
-            WXSDKEngine.initialize(this, new InitConfig.Builder().setImgAdapter(new WeexImageLoaderAdapter()).build());
-        } catch (WXException e) {
-            e.printStackTrace();
         }
 
         getDisplayMetrics();

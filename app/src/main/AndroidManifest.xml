@@ -59,9 +59,6 @@
         <activity android:name=".activity.StickyHeaderActivity" />
         <activity android:name=".activity.OpenGlActivity"
             android:parentActivityName=".activity.ConstraintLayoutActivity"/>
-        <activity
-            android:name=".activity.WeexActivity"
-            android:exported="true" />
         <activity android:name=".activity.ClipBoardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
