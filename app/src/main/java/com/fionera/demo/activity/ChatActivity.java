@@ -38,6 +38,7 @@ import javax.mail.internet.MimeMultipart;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -52,13 +53,14 @@ public class ChatActivity
     private EditText mEditTextContent;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this, "ChatEntity");
 
-    private static final int PAGE_SIZE = 20; // 每次显示数
-    private int currentPage = 1; // 默认在第一页
-    private int allRecorders = 0;  // 全部记录数
-    private int pageCount = 1;  // 默认共一页
+    private static final int PAGE_SIZE = 20;
+    private int currentPage = 1;
+    private int allRecorders = 0;
+    private int pageCount = 1;
 
     private List<ChatMsgBean> dataList = new ArrayList<>();
 
+    private Disposable disposable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,9 @@ public class ChatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
         databaseHelper.closeDb();
     }
 
@@ -79,7 +84,8 @@ public class ChatActivity
         findViewById(R.id.tv_send_msg).setOnClickListener(this);
         findViewById(R.id.tv_extra_function).setOnClickListener(this);
         ((ArcMenu) findViewById(R.id.arc_menu)).setOnMenuItemClickListener((view, pos) -> {
-            if(2 == pos){
+            int sendPos = 2;
+            if(sendPos == pos){
                 sendTestEmail();
             }
         });
@@ -89,7 +95,7 @@ public class ChatActivity
     }
 
     private void sendTestEmail() {
-        Observable.create((ObservableOnSubscribe<String>) e -> {
+        disposable = Observable.create((ObservableOnSubscribe<String>) e -> {
             Properties prop = new Properties();
             prop.setProperty("mail.host", "smtp.qiye.163.com");
             prop.setProperty("mail.transport.protocol", "smtp");
@@ -103,6 +109,7 @@ public class ChatActivity
             ts.sendMessage(message, message.getAllRecipients());
             ts.close();
             e.onNext("Send Mail Success");
+            e.onComplete();
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 ShowToast::show, throwable -> ShowToast.show(throwable.getMessage()));
     }

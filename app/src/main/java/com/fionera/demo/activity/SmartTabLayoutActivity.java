@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.fionera.base.util.ShowToast;
 import com.fionera.demo.R;
 import com.fionera.demo.fragment.ExtrasFragment;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,7 +59,7 @@ public class SmartTabLayoutActivity
             }
         });
 
-        SmartTabLayout tabLayout = findViewById(R.id.tl_tab_layout);
-        tabLayout.setViewPager(viewPager);
+        TabLayout tabLayout = findViewById(R.id.tl_tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

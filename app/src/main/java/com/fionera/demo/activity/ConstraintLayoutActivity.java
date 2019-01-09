@@ -257,7 +257,7 @@ public class ConstraintLayoutActivity
     public native int addNumberUsingJNI(int a, int b);
 
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("sec-lib");
     }
 
     public void turnOnNight(View view) {

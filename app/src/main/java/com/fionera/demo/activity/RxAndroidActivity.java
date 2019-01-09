@@ -106,7 +106,8 @@ public class RxAndroidActivity
     }
 
     private void refreshList() {
-        getApps().toSortedList().subscribe(new SingleObserver<List<AppInfo>>() {
+        getApps().toSortedList().subscribeOn(Schedulers.computation()).observeOn(
+                AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<AppInfo>>() {
             @Override
             public void onError(Throwable e) {
                 ShowToast.show("Something error");
@@ -166,10 +167,7 @@ public class RxAndroidActivity
 
     private Observable<Boolean> downloadObservable() {
         return Observable.create(subscriber -> {
-            boolean result = downloadFile(
-                    "http://down.gfan" + "" +
-                            ".com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk",
-                    Environment.getExternalStorageDirectory()
+            boolean result = downloadFile(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/GfanMobile.apk");
             if (result) {
                 subscriber.onNext(true);
@@ -180,14 +178,15 @@ public class RxAndroidActivity
         });
     }
 
-    private boolean downloadFile(String src, String dest) {
+    private boolean downloadFile(String dest) {
         boolean result = false;
         InputStream in = null;
         OutputStream out = null;
         HttpURLConnection connection = null;
 
         try {
-            URL url = new URL(src);
+            URL url = new URL(
+                    "http://down.gfan.com/gfan/product/a/gfanmobile/beta/GfanMobile_2015092316.apk");
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {

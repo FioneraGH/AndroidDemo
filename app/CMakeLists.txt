@@ -1,24 +1,35 @@
-# Sets the minimum version of CMake required to build the native
-# library. You should either keep the default value or only pass a
-# value of 3.4.0 or lower.
+# Sets the minimum version of CMake required to build your native library.
+# This ensures that a certain set of CMake features is available to
+# your build.
 
 cmake_minimum_required(VERSION 3.6.1)
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative files to its source code.
-# You can define multiple libraries, and CMake builds it for you.
-# Gradle automatically packages shared libraries with your APK.
+# Specifies a library name, specifies whether the library is STATIC or
+# SHARED, and provides relative paths to the source code. You can
+# define multiple libraries by adding multiple add_library() commands,
+# and CMake builds them for you. When you build your app, Gradle
+# automatically packages shared libraries with your APK.
 
-add_library( # Sets the name of the library.
-             native-lib
+add_library( # Specifies the name of the library.
+             sec-lib
 
              # Sets the library as a shared library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             # Associated headers in the same location as their source
-             # file are automatically included.
-             src/main/jni/native-lib.cpp)
+             src/main/cpp/sec-lib.cpp)
+add_library( # Specifies the name of the library.
+             common
+
+             # Sets the library as a shared library.
+             STATIC
+
+             # Provides a relative path to your source file(s).
+        src/main/cpp/common/common.c)
+
+# Specifies a path to native header files.
+
+include_directories(src/main/cpp/common/include/)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because system libraries are included in the search path by
@@ -26,7 +37,8 @@ add_library( # Sets the name of the library.
 # you want to add. CMake verifies that the library exists before
 # completing its build.
 
-find_library( # Sets the name of the path variable.
+find_library( # Defines the name of the path variable that stores the
+              # location of the NDK library.
               log-lib
 
               # Specifies the name of the NDK library that
@@ -38,8 +50,8 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       native-lib
+                       sec-lib
 
                        # Links the target library to the log library
                        # included in the NDK.
-                       ${log-lib} )
+                       ${log-lib} common)
