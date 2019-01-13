@@ -71,8 +71,6 @@ public class MainActivity
             LocalImageHelper.init();
         }
 
-        setNeverHasMenuKey();
-
         viewPager.setPageTransformer(true, new PageTransformer());
         pagerTabStrip.setTabIndicatorColor(ContextCompat.getColor(mContext, R.color.blue2));
 
@@ -219,21 +217,6 @@ public class MainActivity
                 ShowToast.show("该应用需要外部存储权限");
                 finish();
             }
-        }
-    }
-
-    /**
-     * 设置菜单项在有键盘的手机可见
-     */
-    private void setNeverHasMenuKey() {
-        try {
-            ViewConfiguration vc = ViewConfiguration.get(mContext);
-
-            Field menuKey = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-            menuKey.setAccessible(true);
-            menuKey.setBoolean(vc, false);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
