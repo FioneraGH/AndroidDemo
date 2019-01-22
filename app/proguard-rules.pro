@@ -19,6 +19,4 @@
 -optimizationpasses 5
 -optimizations !code/allocation/variable
 
--keepattributes *Annotation*,InnerClasses
--keepattributes Signature
 -keepattributes SourceFile,LineNumberTable

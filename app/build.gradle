@@ -36,7 +36,9 @@ android {
     buildTypes {
         debug {
             zipAlignEnabled false
-            minifyEnabled false
+            minifyEnabled true
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             zipAlignEnabled true
