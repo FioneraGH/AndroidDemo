@@ -32,20 +32,20 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class ProvincePopup
         extends PopupWindow implements OnWheelChangedListener {
-
     private Context context;
+
     private WheelView mViewProvince;
     private WheelView mViewCity;
     private WheelView mViewDistrict;
 
     private GetValueCallback getValueCallback;
 
-    public interface GetValueCallback {
-        void getValue(String province, String city, String district, String zipCode);
-    }
-
     public void setGetValueCallback(GetValueCallback getValueCallback) {
         this.getValueCallback = getValueCallback;
+    }
+
+    public interface GetValueCallback {
+        void getValue(String province, String city, String district, String zipCode);
     }
 
     /**
@@ -94,12 +94,12 @@ public class ProvincePopup
         mViewProvince = view.findViewById(R.id.wl_province_picker);
         mViewCity = view.findViewById(R.id.wl_city_picker);
         mViewDistrict = view.findViewById(R.id.wl_district_picker);
+
         mViewProvince.addChangingListener(this);
         mViewCity.addChangingListener(this);
         mViewDistrict.addChangingListener(this);
 
         tvCancel.setOnClickListener(v -> dismiss());
-
         tvSave.setOnClickListener(v -> {
             if (getValueCallback != null) {
                 getValueCallback.getValue(mCurrentProvinceName, mCurrentCityName,
@@ -151,6 +151,9 @@ public class ProvincePopup
 
         i = 0;
         String[] cities = mCitiesDataMap.get(addresses[0]);
+        if (cities == null) {
+            return;
+        }
         length = cities.length;
         for (; i < length; i++) {
             if (addresses[1].equals(cities[i])) {
@@ -167,6 +170,9 @@ public class ProvincePopup
 
         i = 0;
         String[] areas = mDistrictDataMap.get(addresses[1]);
+        if (areas == null) {
+            return;
+        }
         length = areas.length;
         for (; i < length; i++) {
             if (addresses[2].equals(areas[i])) {
@@ -188,7 +194,9 @@ public class ProvincePopup
         } else if (wheel == mViewCity) {
             updateAreas();
         } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDataMap.get(mCurrentCityName)[newValue];
+            String[] data;
+            mCurrentDistrictName = (data = mDistrictDataMap.get(
+                    mCurrentCityName)) == null || 0 == data.length ? "" : data[newValue];
             mCurrentZipCode = mZipCodeDataMap.get(mCurrentDistrictName);
         }
     }
@@ -205,9 +213,12 @@ public class ProvincePopup
 
     private void updateCities() {
         int pCurrent = mViewProvince.getCurrentItem();
+        if (mProvinceData == null || 0 == mProvinceData.length) {
+            return;
+        }
         mCurrentProvinceName = mProvinceData[pCurrent];
         String[] cities = mCitiesDataMap.get(mCurrentProvinceName);
-        if (cities == null) {
+        if (cities == null || 0 == cities.length) {
             cities = new String[]{""};
         }
         mViewCity.setViewAdapter(new ArrayWheelAdapter<>(context, cities));
@@ -218,15 +229,18 @@ public class ProvincePopup
 
     private void updateAreas() {
         int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitiesDataMap.get(mCurrentProvinceName)[pCurrent];
+        String[] cities = mCitiesDataMap.get(mCurrentProvinceName);
+        if (cities == null || 0 == cities.length) {
+            return;
+        }
+        mCurrentCityName = cities[pCurrent];
         String[] areas = mDistrictDataMap.get(mCurrentCityName);
-
         if (areas == null) {
             areas = new String[]{""};
         }
         mViewDistrict.setViewAdapter(new ArrayWheelAdapter<>(context, areas));
         mViewDistrict.setCurrentItem(0);
-        mCurrentDistrictName = mDistrictDataMap.get(mCurrentCityName)[0];
+        mCurrentDistrictName = areas[0];
         mCurrentZipCode = mZipCodeDataMap.get(mCurrentDistrictName);
     }
 

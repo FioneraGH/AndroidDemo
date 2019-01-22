@@ -147,6 +147,9 @@ public class ProvinceJsonPopup
         i = 0;
         String[] cities = mCitiesDataMap.get(addresses[0]);
         String[] citiesId = mCitiesDataIdMap.get(addresses[0]);
+        if (cities == null || citiesId == null) {
+            return;
+        }
         length = cities.length;
         for (; i < length; i++) {
             if (addresses[1].equals(cities[i])) {
@@ -165,6 +168,9 @@ public class ProvinceJsonPopup
         i = 0;
         String[] areas = mDistrictDataMap.get(addresses[1]);
         String[] areasId = mDistrictDataMap.get(addresses[1]);
+        if (areas == null || areasId == null) {
+            return;
+        }
         length = areas.length;
         for (; i < length; i++) {
             if (addresses[2].equals(areas[i])) {
@@ -186,7 +192,9 @@ public class ProvinceJsonPopup
         } else if (wheel == mViewCity) {
             updateAreas();
         } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDataMap.get(mCurrentCityName)[newValue];
+            String[] data;
+            mCurrentDistrictName = (data = mDistrictDataMap.get(
+                    mCurrentCityName)) == null || 0 == data.length ? "" : data[newValue];
         }
     }
 
@@ -201,11 +209,16 @@ public class ProvinceJsonPopup
 
     private void updateCities() {
         int pCurrent = mViewProvince.getCurrentItem();
+        if (mProvinceData == null || mProvinceDataId == null || 0 == mProvinceData.length || 0 == mProvinceDataId.length) {
+            return;
+        }
         mCurrentProvinceName = mProvinceData[pCurrent];
         mCurrentProvinceId = mProvinceDataId[pCurrent];
         String[] cities = mCitiesDataMap.get(mCurrentProvinceName);
-        if (cities == null || 0 == cities.length) {
+        String[] cityIds = mCitiesDataIdMap.get(mCurrentProvinceName);
+        if (cities == null || cityIds == null || 0 == cities.length || 0 == cityIds.length) {
             cities = new String[]{""};
+            cityIds = new String[]{""};
         }
         mViewCity.setViewAdapter(new ArrayWheelAdapter<>(context, cities));
         mViewCity.setCurrentItem(0);
@@ -215,21 +228,23 @@ public class ProvinceJsonPopup
 
     private void updateAreas() {
         int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitiesDataMap.get(mCurrentProvinceName)[pCurrent];
-        mCurrentCityId = mCitiesDataIdMap.get(mCurrentProvinceName)[pCurrent];
+        String[] cities = mCitiesDataMap.get(mCurrentProvinceName);
+        String[] cityIds = mCitiesDataIdMap.get(mCurrentProvinceName);
+        if (cities == null || cityIds == null || 0 == cities.length || 0 == cityIds.length) {
+            return;
+        }
+        mCurrentCityName = cities[pCurrent];
+        mCurrentCityId = cityIds[pCurrent];
         String[] areas = mDistrictDataMap.get(mCurrentCityName);
-        if (areas == null || 0 == areas.length) {
+        String[] areaIds = mDistrictDataIdMap.get(mCurrentCityName);
+        if (areas == null || areaIds == null || 0 == areas.length || 0 == areaIds.length) {
             areas = new String[]{""};
+            areaIds = new String[]{""};
         }
         mViewDistrict.setViewAdapter(new ArrayWheelAdapter<>(context, areas));
         mViewDistrict.setCurrentItem(0);
-        if (0 != areas.length) {
-            mCurrentDistrictName = mDistrictDataMap.get(mCurrentCityName)[0];
-            mCurrentDistrictId = mDistrictDataIdMap.get(mCurrentCityName)[0];
-        } else {
-            mCurrentDistrictName = "";
-            mCurrentDistrictId = "";
-        }
+        mCurrentDistrictName = areas[0];
+        mCurrentDistrictId = areaIds[0];
     }
 
     private void initProvinceDataByJson(){
