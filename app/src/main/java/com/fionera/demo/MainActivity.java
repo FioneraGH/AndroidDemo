@@ -8,10 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewConfiguration;
-import android.view.Window;
 
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.LogCat;
@@ -26,8 +23,6 @@ import com.fionera.demo.util.PageTransformer;
 import com.fionera.multipic.common.LocalImageHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -218,28 +213,6 @@ public class MainActivity
                 finish();
             }
         }
-    }
-
-    /**
-     * 利用反射在菜单打开时显示ActionBar菜单项Icon
-     */
-    @SuppressLint("PrivateApi")
-    @Override
-    public boolean onMenuOpened(int featureId, Menu menu) {
-        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
-            String className = "MenuBuilder";
-            if (menu.getClass().getSimpleName().equals(className)) {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",
-                            Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return super.onMenuOpened(featureId, menu);
     }
 
     @Override
