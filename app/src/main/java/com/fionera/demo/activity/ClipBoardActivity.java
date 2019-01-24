@@ -5,13 +5,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.KeyboardView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.fionera.base.activity.BaseActivity;
 import com.fionera.base.util.LogCat;
@@ -19,7 +17,6 @@ import com.fionera.demo.MainActivity;
 import com.fionera.demo.R;
 import com.fionera.demo.service.GrabAccessibilityService;
 import com.fionera.demo.service.ListenClipboardService;
-import com.fionera.demo.util.KeyboardUtil;
 
 import androidx.core.app.NotificationCompat;
 
@@ -32,8 +29,6 @@ public final class ClipBoardActivity
 
     private Button btnClipBoardTest;
     private Button btnGrabRedStart;
-    private EditText etTestKeyboard;
-    private KeyboardView kvKeyboardView;
 
     public static void startForContent(Context context, String content) {
         Intent intent = new Intent(context, ClipBoardActivity.class);
@@ -64,7 +59,6 @@ public final class ClipBoardActivity
                 notificationManager.notify(14726467, notification);
             }
         });
-        new KeyboardUtil(mContext, kvKeyboardView, etTestKeyboard).registerEditText(etTestKeyboard);
 
         Intent intent = getIntent();
         Uri uri = intent.getData();
@@ -130,7 +124,5 @@ public final class ClipBoardActivity
     private void initView() {
         btnClipBoardTest = findViewById(R.id.btn_clip_board_test);
         btnGrabRedStart = findViewById(R.id.btn_grab_red_start);
-        etTestKeyboard = findViewById(R.id.et_test_keyboard);
-        kvKeyboardView = findViewById(R.id.kv_keyboard_view);
     }
 }

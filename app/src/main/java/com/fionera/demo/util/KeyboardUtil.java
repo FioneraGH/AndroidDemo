@@ -20,11 +20,10 @@ import java.util.List;
  */
 public class KeyboardUtil {
     private KeyboardView keyboardView;
-    private Keyboard k1;// 字母键盘
-    private Keyboard k2;// 数字键盘
-    private boolean isNum = false;// 是否数据键盘
-    private boolean isUpper = false;// 是否大写
-
+    private Keyboard k1;
+    private Keyboard k2;
+    private boolean isNum = false;
+    private boolean isUpper = false;
 
     public KeyboardUtil(Context ctx, KeyboardView view, final EditText edit) {
         k1 = new Keyboard(ctx, R.xml.char_keyboard);
@@ -66,18 +65,18 @@ public class KeyboardUtil {
             public void onKey(int primaryCode, int[] keyCodes) {
                 Editable editable = edit.getText();
                 int start = edit.getSelectionStart();
-                if (primaryCode == Keyboard.KEYCODE_CANCEL) {// 完成
+                if (primaryCode == Keyboard.KEYCODE_CANCEL) {
                     hideKeyboard();
-                } else if (primaryCode == Keyboard.KEYCODE_DELETE) {// 回退
+                } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
                     if (editable != null && editable.length() > 0) {
                         if (start > 0) {
                             editable.delete(start - 1, start);
                         }
                     }
-                } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {// 大小写切换
+                } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
                     changeKey();
                     keyboardView.setKeyboard(k1);
-                } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE) {// 数字键盘切换
+                } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE) {
                     if (isNum) {
                         isNum = false;
                         keyboardView.setKeyboard(k1);
@@ -85,11 +84,11 @@ public class KeyboardUtil {
                         isNum = true;
                         keyboardView.setKeyboard(k2);
                     }
-                } else if (primaryCode == 57419) { // go left
+                } else if (primaryCode == 57419) {
                     if (start > 0) {
                         edit.setSelection(start - 1);
                     }
-                } else if (primaryCode == 57421) { // go right
+                } else if (primaryCode == 57421) {
                     if (start < edit.length()) {
                         edit.setSelection(start + 1);
                     }
@@ -106,7 +105,7 @@ public class KeyboardUtil {
      */
     private void changeKey() {
         List<Key> keyList = k1.getKeys();
-        if (isUpper) {//大写切换小写
+        if (isUpper) {
             isUpper = false;
             for (Key key : keyList) {
                 if (key.label != null && isWord(key.label.toString())) {
@@ -114,7 +113,7 @@ public class KeyboardUtil {
                     key.codes[0] = key.codes[0] + 32;
                 }
             }
-        } else {//小写切换大写
+        } else {
             isUpper = true;
             for (Key key : keyList) {
                 if (key.label != null && isWord(key.label.toString())) {
@@ -134,7 +133,6 @@ public class KeyboardUtil {
                 hideKeyboard();
             }
         });
-        editText.setOnFocusChangeListener((view, b) -> disableShowSoftInput(editText));
     }
 
     private void showKeyboard() {
@@ -154,28 +152,5 @@ public class KeyboardUtil {
 
     private boolean isWord(String str) {
         return "abcdefghijklmnopqrstuvwxyz".contains(str.toLowerCase());
-    }
-
-    /**
-     * 禁止Edittext弹出软件盘，光标依然正常显示。
-     */
-    private void disableShowSoftInput(EditText editText) {
-        Class<EditText> cls = EditText.class;
-        Method method;
-        try {
-            method = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
-            method.setAccessible(true);
-            method.invoke(editText, false);
-        } catch (Exception e) {
-            Log.e("setShowSoftInputOnFocus", e.toString());
-        }
-
-        try {
-            method = cls.getMethod("setSoftInputShownOnFocus", boolean.class);
-            method.setAccessible(true);
-            method.invoke(editText, false);
-        } catch (Exception e) {
-            Log.e("SoftInputShownOnFocus", e.toString());
-        }
     }
 }
